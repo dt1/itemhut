@@ -1,0 +1,9 @@
+*.yaml
+*.py~
+*.yaml~
+*.sql#
+*.sql~
+.#*
+__pycache__
+omark
+*~
