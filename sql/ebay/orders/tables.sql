@@ -66,9 +66,61 @@ create table ebay_orders.timestamps (
 ); 
 
 
--- -- create table ebay_orders.transaction_details (
-       
--- create trigger process_json_orders
--- after insert on ebay_orders.json_insert
--- for each row
--- execute procedure ebay_orders.process_orders();
+create table ebay_orders.transaction_shipping_details (
+       transaction_array_id varchar,
+       actual_shipping_cost numeric,
+       actual_shipping_cost_currency_id varchar,
+       actual_handling_cost numeric,
+       actual_handling_cost_currency_id varchar,
+       shipping_carrier_used varchar,
+       shipment_tracking_number varchar,
+       foreign key (transaction_array_id)
+       ebay_orders.order_id_transaction_array_id_lut (transaction_array_id)
+);
+
+-- -- shipping currency 
+-- -- varchar
+-- select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, ActualShippingCost, _currencyID}'
+-- from ebay_orders.json_insert;
+
+-- -- shipping cost to buyer 
+-- -- numeric
+-- select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, ActualShippingCost, value}'
+-- from ebay_orders.json_insert;
+
+
+-- -- handling currency
+-- -- varchar
+-- select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, ActualHandlingCost, _currencyID}'
+-- from ebay_orders.json_insert;
+
+-- -- handling value
+-- -- numeric
+-- select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, ActualHandlingCost, value}'
+-- from ebay_orders.json_insert;
+
+-- -- Shipping Carrier
+-- -- varchar
+-- select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, ShippingDetails, ShipmentTrackingDetails, ShippingCarrierUsed}'
+-- from ebay_orders.json_insert;
+
+-- -- Shipping Tracking
+-- -- varchar
+-- select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, ShippingDetails, ShipmentTrackingDetails, ShipmentTrackingNumber}'
+-- from ebay_orders.json_insert;
+
+create table ebay_orders.transaction_taxe_details (
+       transaction_array_id varchar,
+       tax_amount numeric,
+       tax_amount_currency_id varchar,
+       total_tax_amount numeric,
+       total_tax_amount_currency_id varchar,
+       tax_on_shipping_amount numeric,
+       tax_on_shipping_amount_currency_id varchar,
+       tax_on_handling_amount numeric,
+       tax_on_handling_amount_currency_id varchar,
+       imposition varchar,
+       tax_description v
+       foreign key (transaction_array_id)
+       ebay_orders.order_id_transaction_array_id_lut (transaction_array_id)
+);

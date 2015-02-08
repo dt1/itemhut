@@ -27,9 +27,11 @@ rebuild('/omark/sql/ebay/category_features/triggers.sql')
 
 rebuild('/omark/sql/ebay/categories/insertions.sql')
 
-rebuild('/omark/sql/ebay/orders/tables.sql')
-rebuild('/omark/sql/ebay/orders/functions.sql')
-rebuild('/omark/sql/ebay/orders/triggers.sql')
+# rebuild('/omark/sql/ebay/orders/tables.sql')
+# rebuild('/omark/sql/ebay/orders/functions.sql')
+# rebuild('/omark/sql/ebay/orders/triggers.sql')
+
+rebuild('/omark/sql/global/products/products.sql')
 
 dbconn.cur.close()
 
