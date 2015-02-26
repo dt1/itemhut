@@ -7,7 +7,7 @@ create schema amazon_clothing;
 create schema amazon_coins;
 create schema amazon_computers;
 create schema amazon_consumer_electronics;
-create schema amazon_entertainment_collectibles;
+create schema amazon_entertainment_collectibles; -- 0 bytes
 create schema amazon_food_beverages;
 create schema amazon_food_service_jansan;
 create schema amazon_gift_cards;
@@ -27,7 +27,7 @@ create schema amazon_raw_materials;
 create schema amazon_swvg;
 create schema amazon_shoes;
 create schema amazon_sports;
-create schema amazon_sport_smemorabilia;
+create schema amazon_sports_memorabilia; -- 0 bytes
 create schema amazon_toys;
 create schema amazon_video;
 create schema amazon_watches;
