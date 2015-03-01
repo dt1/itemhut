@@ -5,52 +5,11 @@ insert into amazon_office.valid_related_product_id_type values
 ('UPC'),
 ('GTIN');
 
-insert into amazon_office.valid_mfg_minimum_unit_of_measure values
-('Months'),
-('Years');
-
-insert into amazon_office.valid_assembly_time_unit_of_measure values
-('months'),
-('days'),
-('years'),
-('hours'),
-('weeks'),
-('minutes');
-
-insert into amazon_office.valid_maximum_range_unit_of_measure values
-('feet'),
-('miles'),
-('meters'),
-('kilometers');
-
-insert into amazon_office.valid_fuel_capacity_unit_of_measure values
-('fluid-oz'),
-('liter'),
-('imperial_gallons'),
-('pints'),
-('quarts'),
-('cubic_centimeters'),
-('milliliter'),
-('cubic_meters'),
-('cubic_inches'),
-('cubic_feet'),
-('gallon'),
-('cubic_yards');
+insert into amazon_office.valid_included_features values
+('Clock');
 
 insert into amazon_office.valid_currency values
 ('USD');
-
-insert into amazon_office.valid_toy_award values
-('toy_wishes'),
-('parents_magazine'),
-('parents_choice_portfolio'),
-('national_parenting_approval_award'),
-('oppenheim_toys'),
-('family_fun_toy_of_the_year_seal'),
-('games_magazine'),
-('child_magazine'),
-('dr_toys_100_best_child_products'),
-('lion_mark');
 
 insert into amazon_office.valid_cpsia_cautionary_statement values
 ('no_warning_applicable'),
@@ -62,276 +21,23 @@ insert into amazon_office.valid_cpsia_cautionary_statement values
 ('choking_hazard_contains_small_ball'),
 ('choking_hazard_is_a_small_ball');
 
+insert into amazon_office.valid_caller_identification values
+('True'),
+('False');
+
+insert into amazon_office.valid_relationship_type values
+('Variation'),
+('Accessory');
+
 insert into amazon_office.valid_website_shipping_weight_unit_of_measure values
 ('LB'),
 ('KG'),
 ('GR'),
 ('OZ');
 
-insert into amazon_office.valid_wheel_diameter_unit_of_measure values
-('FT'),
-('CM'),
-('MM'),
-('M'),
-('IN');
-
-insert into amazon_office.valid_country_of_origin values
-('Canada'),
-('Guinea-Bissau'),
-('Saint Helena'),
-('Unknown'),
-('Lithuania'),
-('Cambodia'),
-('Switzerland'),
-('Ethiopia'),
-('Aruba'),
-('Swaziland'),
-('Argentina'),
-('Bolivia'),
-('Cameroon'),
-('Burkina Faso'),
-('Turkmenistan'),
-('Ghana'),
-('Saudi Arabia'),
-('Togo'),
-('Japan'),
-('Cape Verde'),
-('Cocos (Keeling) Islands'),
-('Slovenia'),
-('Guatemala'),
-('Bosnia and Herzegovina'),
-('Kuwait'),
-('Burma (Myanmar)'),
-('Jordan'),
-('Dominica'),
-('Liberia'),
-('Maldives'),
-('Jamaica'),
-('Oman'),
-('Tanzania'),
-('Martinique'),
-('Saint Kitts And Nevis'),
-('Ivory Coast'),
-('Albania'),
-('Gabon'),
-('Niue'),
-('Monaco'),
-('Wallis and Futuna'),
-('New Zealand'),
-('Yemen'),
-('Jersey'),
-('Andorra'),
-('Greenland'),
-('Samoa'),
-('Macau'),
-('S. Georgia and S. Sandwich Isls.'),
-('Norfolk Island'),
-('United Arab Emirates'),
-('Guam'),
-('India'),
-('Azerbaijan'),
-('Lesotho'),
-('Saint Vincent And The Grenadines'),
-('Kenya'),
-('South Korea'),
-('Tajikistan'),
-('Turkey'),
-('Afghanistan'),
-('Bangladesh'),
-('Mauritania'),
-('Solomon Islands'),
-('Saint Lucia'),
-('Hungary'),
-('San Marino'),
-('French Polynesia'),
-('France'),
-('Bermuda'),
-('Slovakia'),
-('Somalia'),
-('Peru'),
-('Laos'),
-('Nauru'),
-('Seychelles'),
-('Norway'),
-('Malawi'),
-('Cook Islands'),
-('Benin'),
-('Western Sahara'),
-('Cuba'),
-('Republic of the Congo'),
-('Mayotte'),
-('China'),
-('Armenia'),
-('Dominican Republic'),
-('Mongolia'),
-('Ukraine'),
-('Bahrain'),
-('Tonga'),
-('Finland'),
-('Libya'),
-('New Caledonia'),
-('Cayman Islands'),
-('Central African Republic'),
-('Heard and McDonald Islands'),
-('Mauritius'),
-('Liechtenstein'),
-('Australia'),
-('Antigua And Barbuda'),
-('Mali'),
-('Russia'),
-('Bulgaria'),
-('United States'),
-('Romania'),
-('Angola'),
-('French Southern Territories'),
-('Chad'),
-('South Africa'),
-('Tokelau'),
-('Cyprus'),
-('Sweden'),
-('Qatar'),
-('Malaysia'),
-('Austria'),
-('Vietnam'),
-('Mozambique'),
-('Uganda'),
-('Canary Islands'),
-('British Virgin Islands'),
-('Niger'),
-('Isle of Man'),
-('Brazil'),
-('Turks And Caicos Islands'),
-('Falkland Islands'),
-('Faroe Islands'),
-('Guinea'),
-('Panama'),
-('Costa Rica'),
-('Luxembourg'),
-('American Samoa'),
-('Bahamas'),
-('Gibraltar'),
-('Ireland'),
-('Pakistan'),
-('Palau'),
-('Nigeria'),
-('Ecuador'),
-('Czech Republic'),
-('US Virgin Islands'),
-('Brunei'),
-('Belarus'),
-('Iran'),
-('Algeria'),
-('Svalbard'),
-('El Salvador'),
-('Tuvalu'),
-('Zaire'),
-('Pitcairn Islands'),
-('Saint Pierre and Miquelon'),
-('Marshall Islands'),
-('Chile'),
-('Puerto Rico'),
-('Belgium'),
-('Kiribati'),
-('Haiti'),
-('Belize'),
-('Hong Kong'),
-('Sierra Leone'),
-('Georgia'),
-('Gambia'),
-('Philippines'),
-('Sao Tome And Principe'),
-('Moldova'),
-('Holy See (Vatican City)'),
-('Croatia'),
-('Micronesia'),
-('Guernsey'),
-('Thailand'),
-('Namibia'),
-('Grenada'),
-('Iraq'),
-('Portugal'),
-('Estonia'),
-('Uruguay'),
-('Equatorial Guinea'),
-('Lebanon'),
-('Uzbekistan'),
-('Tunisia'),
-('Djibouti'),
-('Rwanda'),
-('Timor-Leste'),
-('Spain'),
-('Colombia'),
-('Reunion'),
-('Burundi'),
-('Taiwan'),
-('Fiji'),
-('Barbados'),
-('Madagascar'),
-('Italy'),
-('Bhutan'),
-('Sudan'),
-('Nepal'),
-('Malta'),
-('Democratic Republic of the Congo'),
-('Netherlands'),
-('Northern Mariana Islands'),
-('Suriname'),
-('Anguilla'),
-('Venezuela'),
-('Netherlands Antilles'),
-('Aland Islands'),
-('Israel'),
-('Indonesia'),
-('Iceland'),
-('Zambia'),
-('Senegal'),
-('Papua New Guinea'),
-('Zimbabwe'),
-('Germany'),
-('Vanuatu'),
-('Denmark'),
-('Saint-Martin'),
-('Kazakhstan'),
-('Poland'),
-('Eritrea'),
-('Kyrgyzstan'),
-('Palestinian Territory'),
-('British Indian Ocean Territory'),
-('Montserrat'),
-('Mexico'),
-('Macedonia'),
-('North Korea'),
-('Sri Lanka'),
-('Latvia'),
-('Guyana'),
-('Syria'),
-('Guadeloupe'),
-('Morocco'),
-('Honduras'),
-('Bouvet Island'),
-('Egypt'),
-('Nicaragua'),
-('Singapore'),
-('Serbia'),
-('Botswana'),
-('United Kingdom'),
-('Trinidad And Tobago'),
-('Antarctica'),
-('Christmas Island'),
-('Greece'),
-('Paraguay'),
-('French Guiana'),
-('Comoros'),
-('US Minor Outlying Islands');
-
-insert into amazon_office.valid_batteries_required values
+insert into amazon_office.valid_includes_rechargable_battery values
 ('True'),
 ('False');
-
-insert into amazon_office.valid_maximum_speed_unit_of_measure values
-('kilometers_per_hour'),
-('feet_per_minute'),
-('miles_per_hour');
 
 insert into amazon_office.valid_external_product_id_type values
 ('GCID'),
@@ -356,29 +62,37 @@ insert into amazon_office.valid_battery_type values
 ('battery_type_cr5'),
 ('battery_type_cr2');
 
-insert into amazon_office.valid_active_surface_area_unit_of_measure values
-('square-in'),
-('square-ft');
+insert into amazon_office.valid_color_map values
+('blue'),
+('brown'),
+('gold'),
+('gray'),
+('purple'),
+('yellow'),
+('off-white'),
+('metallic'),
+('pink'),
+('black'),
+('red'),
+('orange'),
+('green'),
+('white'),
+('multicolored'),
+('silver'),
+('bronze');
 
-insert into amazon_office.valid_condition_type values
-('CollectibleGood'),
-('CollectibleAcceptable'),
-('New'),
-('CollectibleLikeNew'),
-('CollectibleVeryGood');
+insert into amazon_office.valid_hardware_platform values
+('PC'),
+('Mac'),
+('Unix'),
+('Linux');
 
 insert into amazon_office.valid_product_tax_code values
 ('A_GEN_NOTAX');
 
-insert into amazon_office.valid_minimum_weight_recommendation_unit_of_measure values
-('LB'),
-('KG'),
-('GR'),
-('OZ');
-
-insert into amazon_office.valid_is_recalled values
-('True'),
-('False');
+insert into amazon_office.valid_parent_child values
+('parent'),
+('child');
 
 insert into amazon_office.valid_gtin_exemption_reason values
 ('ReplacementPart'),
@@ -395,91 +109,141 @@ insert into amazon_office.valid_update_delete values
 ('PartialUpdate'),
 ('Delete');
 
-insert into amazon_office.valid_style_keywords values
-('Paper doll'),
-('Bisque doll'),
-('Peg wooden doll'),
-('African dolls'),
-('Raggedy Ann doll'),
-('China doll'),
-('Celebrity doll'),
-('Reborn doll'),
-('Ball-jointed doll'),
-('Inuit/Eskimo dolls'),
-('Fashion doll'),
-('Bobblehead doll'),
-('Hopi Kachina dolls'),
-('Black dolls'),
-('Parian doll'),
-('Voodoo doll'),
-('Matryoshka doll'),
-('Other'),
-('Japanese traditional dolls');
+insert into amazon_office.valid_maximum_size_unit_of_measure values
+('FT'),
+('CM'),
+('MM'),
+('M'),
+('IN');
 
-insert into amazon_office.valid_maximum_weight_recommendation_unit_of_measure values
-('LB'),
-('KG'),
-('GR'),
-('OZ');
+insert into amazon_office.valid_feed_product_type values
+('OfficeElectronics'),
+('VoiceRecorder'),
+('Printer'),
+('InkOrToner'),
+('WritingInstruments'),
+('Calculator'),
+('MultiFunctionDevice'),
+('Scanner'),
+('Phone'),
+('OfficeProducts'),
+('BarCodeReader'),
+('ArtSupplies'),
+('PaperProducts'),
+('EducationalSupplies');
 
-insert into amazon_office.valid_are_batteries_included values
-('True'),
-('False');
+insert into amazon_office.valid_resolution_base values
+('1080i'),
+('720p'),
+('760p'),
+('720i'),
+('480i'),
+('1080p');
 
-insert into amazon_office.valid_is_assembly_required values
-('True'),
-('False');
+insert into amazon_office.valid_display_type values
+('LED-backlit'),
+('AMOLED'),
+('CRT'),
+('Plasma'),
+('VFD'),
+('LED full-array'),
+('OLED'),
+('TFT LCD'),
+('LCD'),
+('LED-sidelit'),
+('Passive matrix'),
+('Organic EL');
 
-insert into amazon_office.valid_genre values
-('Educational'),
-('Sport'),
-('Word'),
-('Role Playing'),
-('Entertainment'),
-('Creative'),
-('Other'),
-('Strategy'),
-('Action'),
-('Party'),
-('Reality'),
-('War'),
-('Math'),
-('Luck');
+insert into amazon_office.valid_special_features values
+('noise-canceling');
 
 insert into amazon_office.valid_is_discontinued_by_manufacturer values
 ('True'),
 ('False');
 
-insert into amazon_office.valid_size_map values
-('Medium'),
-('XXXXX-Large'),
-('XXXX-Small'),
-('X-Large'),
-('XX-Large'),
-('Large'),
-('XXXXX-Small'),
-('XXX-Small'),
-('XXX-Large'),
-('Small'),
-('XX-Small'),
-('XXXX-Large'),
-('X-Small');
+insert into amazon_office.valid_variation_theme values
+('Color'),
+('LineSize'),
+('SizeName-ColorName'),
+('SizeName');
 
-insert into amazon_office.valid_is_adult_product values
-('True'),
-('False');
+insert into amazon_office.valid_operating_system values
+('CPM'),
+('Sun Solaris'),
+('Windows Server Enterprise Edition 2003'),
+('Microsoft Windows Mobile 2003'),
+('Mac OS 9.X'),
+('DOS'),
+('Android'),
+('Mac OS X 10.4 Tiger'),
+('Windows 95'),
+('Windows Phone 7'),
+('Windows 98'),
+('Mac OS X'),
+('Windows Server 2003'),
+('Windows XP Home Edition'),
+('Symbian'),
+('Windows ME'),
+('Windows 98Se'),
+('Windows Server Data Center Edition 2003'),
+('None'),
+('Windows XP Professional Edition'),
+('LindowsOS'),
+('All Windows Server Versions 2000'),
+('Palm OS'),
+('OS2'),
+('iOS'),
+('Windows Server Web Edition 2003'),
+('Windows XP Media Center Edition'),
+('Microsoft Pocket PC 2002'),
+('Windows XP Media Center 2004 Edition'),
+('Mac OS X 10.3 Panther'),
+('Windows NT'),
+('Windows 3x and below'),
+('BeOS'),
+('Windows XP Professional Tablet PC Edition'),
+('Chrome OS'),
+('Windows 2000'),
+('Tapwave Zodiac'),
+('Windows Advanced Server 2003'),
+('Unix'),
+('Mac OS X 10.2 Jaguar'),
+('Linux'),
+('Windows Small Business server 2003'),
+('Pre Mac OS 9'),
+('Windows Mobile 6.5'),
+('Sun Java Desktop System');
 
-insert into amazon_office.valid_mfg_maximum_unit_of_measure values
-('Months'),
-('Years');
-
-insert into amazon_office.valid_is_electric values
-('True'),
-('False');
+insert into amazon_office.valid_input_device_interface values
+('Bluetooth included'),
+('Bluetooth optional'),
+('iPod cable optional'),
+('HD Radio Built-in'),
+('Satellite Radio optional'),
+('iPod cable included'),
+('iPod Built-in Dock'),
+('HD Radio optional'),
+('Bluetooth Built-in');
 
 insert into amazon_office.valid_offering_can_be_giftwrapped values
 ('True'),
 ('False');
+
+insert into amazon_office.valid_power_source_type values
+('AC'),
+('Battery'),
+('Fuel Cell'),
+('DC'),
+('Solar'),
+('AC & Battery'),
+('Kinetic');
+
+insert into amazon_office.valid_line_size_unit_of_measure values
+('FT'),
+('CM'),
+('MM'),
+('M'),
+('IN');
 
 insert into amazon_office.valid_item_length_unit_of_measure values
 ('FT'),
@@ -488,28 +252,54 @@ insert into amazon_office.valid_item_length_unit_of_measure values
 ('M'),
 ('IN');
 
+insert into amazon_office.valid_paper_size values
+('17-x-22-inch'),
+('34-x-44-inch'),
+('A7'),
+('2-x-2.875-inch'),
+('11.75-x-16.5-inch'),
+('5.875-x-8.25-inch'),
+('A10'),
+('1.5-x-2-inch'),
+('33.125-x-46.25-inch'),
+('1-x-1.5-inch'),
+('A0'),
+('A3'),
+('A2'),
+('A5'),
+('A4'),
+('4.125-x-5.875-inch'),
+('A6'),
+('A9'),
+('A8'),
+('16.5-x-23.375-inch'),
+('8.5-x-11-inch'),
+('22-x-34-inch'),
+('2.875-x-4.125-inch'),
+('23.375-x-33.125-inch'),
+('4.125-x-5.83-inch'),
+('A1'),
+('5-x-8-inch'),
+('3-x-5-inch'),
+('2-x-3-inch'),
+('11-x-17-inch'),
+('8.5-x-14-inch'),
+('8.25-x-11.75-inch');
+
 insert into amazon_office.valid_missing_keyset_reason values
 ('NonConsumer'),
 ('Specialized'),
 ('PrivateLabel'),
 ('PreConfigured');
 
-insert into amazon_office.valid_package_length_unit_of_measure values
-('FT'),
-('CM'),
-('MM'),
-('M'),
-('IN');
-
 insert into amazon_office.valid_prop_65 values
 ('True'),
 ('False');
 
-insert into amazon_office.valid_package_weight_unit_of_measure values
-('LB'),
-('KG'),
-('GR'),
-('OZ');
+insert into amazon_office.valid_connectivity_technology values
+('Powerline'),
+('Ethernet'),
+('Wireless');
 
 insert into amazon_office.valid_offering_can_be_gift_messaged values
 ('True'),
@@ -518,4 +308,32 @@ insert into amazon_office.valid_offering_can_be_gift_messaged values
 insert into amazon_office.valid_fulfillment_center_id values
 ('DEFAULT'),
 ('AMAZON_NA');
+
+insert into amazon_office.valid_paper_finish values
+('uncoated'),
+('coated'),
+('specially_coated'),
+('tracing'),
+('smooth'),
+('metallic'),
+('watercolor'),
+('matte'),
+('ultra_smooth'),
+('glossy'),
+('texture_laid'),
+('wove'),
+('embossed'),
+('semi_gloss'),
+('satin'),
+('translucent'),
+('high_gloss');
+
+insert into amazon_office.valid_mfg_warranty_description_type values
+('Labor+Parts'),
+('Parts'),
+('Labor');
+
+insert into amazon_office.valid_are_batteries_included values
+('True'),
+('False');
 

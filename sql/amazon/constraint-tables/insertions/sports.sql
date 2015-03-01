@@ -1,66 +1,141 @@
-insert into amazon_sports.valid_related_product_id_type values
-('GCID'),
-('ASIN'),
-('EAN'),
-('UPC'),
-('GTIN');
+insert into amazon_sports.valid_fit_type values
+('semi-fitted'),
+('medium-regular'),
+('relaxed'),
+('large-tall'),
+('baggy'),
+('extra-small'),
+('small'),
+('fitted');
 
-insert into amazon_sports.valid_mfg_minimum_unit_of_measure values
-('Months'),
-('Years');
+insert into amazon_sports.valid_maximum_stride_length_unit_of_measure values
+('FT'),
+('CM'),
+('MM'),
+('M'),
+('IN');
 
-insert into amazon_sports.valid_assembly_time_unit_of_measure values
-('months'),
-('days'),
-('years'),
-('hours'),
-('weeks'),
-('minutes');
+insert into amazon_sports.valid_pattern_type values
+('Patterned'),
+('Paisley'),
+('Checkered'),
+('String'),
+('Solid'),
+('Stripes'),
+('Pique'),
+('Plaid'),
+('Polka Dots'),
+('Eyelet'),
+('Weave');
 
-insert into amazon_sports.valid_maximum_range_unit_of_measure values
-('feet'),
-('miles'),
-('meters'),
-('kilometers');
+insert into amazon_sports.valid_lash_length_unit_of_measure values
+('FT'),
+('CM'),
+('MM'),
+('M'),
+('IN');
+
+insert into amazon_sports.valid_item_display_width_unit_of_measure values
+('FT'),
+('CM'),
+('MM'),
+('M'),
+('IN');
 
 insert into amazon_sports.valid_fuel_capacity_unit_of_measure values
-('fluid-oz'),
-('liter'),
-('imperial_gallons'),
-('pints'),
-('quarts'),
-('cubic_centimeters'),
-('milliliter'),
-('cubic_meters'),
-('cubic_inches'),
-('cubic_feet'),
-('gallon'),
-('cubic_yards');
+('cup'),
+('cc'),
+('CID'),
+('l'),
+('ounce'),
+('gallon');
 
-insert into amazon_sports.valid_currency values
-('USD');
+insert into amazon_sports.valid_top_style values
+('Strapless/Tube'),
+('Tank'),
+('Halter'),
+('Triangle Tops'),
+('One Shoulder'),
+('Cami'),
+('Button Down'),
+('Bandeaux'),
+('Racerback');
 
-insert into amazon_sports.valid_toy_award values
-('toy_wishes'),
-('parents_magazine'),
-('parents_choice_portfolio'),
-('national_parenting_approval_award'),
-('oppenheim_toys'),
-('family_fun_toy_of_the_year_seal'),
-('games_magazine'),
-('child_magazine'),
-('dr_toys_100_best_child_products'),
-('lion_mark');
+insert into amazon_sports.valid_memory_storage_capacity_unit_of_measure values
+('KB'),
+('TB'),
+('GB'),
+('MB');
 
-insert into amazon_sports.valid_cpsia_cautionary_statement values
-('no_warning_applicable'),
-('choking_hazard_contains_a_marble'),
-('contains_small_magnets'),
-('choking_hazard_is_a_marble'),
-('choking_hazard_balloon'),
-('choking_hazard_small_parts'),
-('choking_hazard_contains_small_ball'),
-('choking_hazard_is_a_small_ball');
+insert into amazon_sports.valid_specific_uses_for_product values
+('dry-environment'),
+('Cargo'),
+('freeride'),
+('Taekwondo'),
+('cross country'),
+('Kung Fu'),
+('saltwater'),
+('alpine touring'),
+('Permanent below deck'),
+('Outfield'),
+('horse'),
+('Aikido'),
+('Kempo Capoeira'),
+('carve'),
+('filet'),
+('telemark'),
+('warm-temperatures'),
+('Tandem'),
+('Softball'),
+('Ninjutsu'),
+('performance'),
+('salmon-fishing'),
+('cabin'),
+('stock'),
+('Catcher'),
+('pike-fishing'),
+('boning'),
+('First base'),
+('freestyle'),
+('Child'),
+('camper'),
+('all mountain'),
+('Karate'),
+('bass-fishing'),
+('all-temperatures'),
+('Wet-or-dry-environment'),
+('Wet-environment'),
+('alpine'),
+('moderate-temperatures'),
+('Ju Jitsu'),
+('Portable'),
+('technical'),
+('Infield'),
+('cold-temperatures'),
+('Permanent above deck'),
+('tent');
+
+insert into amazon_sports.valid_item_display_weight_unit_of_measure values
+('LB'),
+('KG'),
+('GR'),
+('OZ');
+
+insert into amazon_sports.valid_handle_material values
+('Ivory'),
+('Shell'),
+('micarta'),
+('aluminum'),
+('titanium'),
+('anodized'),
+('zytel'),
+('Horn'),
+('stag'),
+('bead-blasted'),
+('EVAFoamslidering'),
+('carbon-fiber'),
+('Bone'),
+('g-10');
 
 insert into amazon_sports.valid_website_shipping_weight_unit_of_measure values
 ('LB'),
@@ -68,14 +143,170 @@ insert into amazon_sports.valid_website_shipping_weight_unit_of_measure values
 ('GR'),
 ('OZ');
 
-insert into amazon_sports.valid_wheel_diameter_unit_of_measure values
+insert into amazon_sports.valid_lithium_battery_packaging values
+('batteries_contained_in_equipment'),
+('batteries_only'),
+('batteries_packed_with_equipment');
+
+insert into amazon_sports.valid_shaft_style_type values
+('goalie-shafts'),
+('midfielder-shafts'),
+('defender-shafts'),
+('attacker-shafts');
+
+insert into amazon_sports.valid_fabric_type values
+('Canvas'),
+('viscose'),
+('lycraspandex'),
+('straw'),
+('velcro'),
+('ploypropylene'),
+('double-knit-fabric'),
+('oxford'),
+('Elasticized Fabric'),
+('Acrylic'),
+('thermolite'),
+('satin'),
+('rayon'),
+('cotton'),
+('cotton-poly-rib-knit'),
+('carinessa'),
+('tulle'),
+('velvet'),
+('poplin'),
+('fiberglass'),
+('tackle-twill'),
+('Felt'),
+('goose-down'),
+('DriSilque'),
+('plastic'),
+('other'),
+('olefin'),
+('microfiber'),
+('net'),
+('organza'),
+('virgin-wool'),
+('Corduroy'),
+('foam'),
+('cotton-poly-jersey'),
+('Fleece'),
+('100-percent-cotton-rib-knit'),
+('worsted'),
+('latex'),
+('taffeta'),
+('tricot'),
+('rock-wool'),
+('cellulose'),
+('sateen'),
+('nylon-mesh'),
+('dri-lux'),
+('100-percent-cotton-jersey'),
+('mesh'),
+('terry'),
+('Cashmere'),
+('rip-stop'),
+('silk'),
+('Blend'),
+('tweed'),
+('Jersey'),
+('velour'),
+('PolarGuard'),
+('polyester'),
+('nylon'),
+('Chiffon'),
+('Denim'),
+('flat-knit'),
+('plush'),
+('metallic-fiber'),
+('linen'),
+('nonwoven-fabric'),
+('suede'),
+('double-weave'),
+('wool'),
+('Flannel'),
+('quallofil'),
+('neoprene'),
+('thermax');
+
+insert into amazon_sports.valid_battery_type values
+('battery_type_d'),
+('battery_type_a'),
+('battery_type_c'),
+('battery_type_lithium_ion'),
+('battery_type_aaa'),
+('battery_type_lithium_metal'),
+('battery_type_9v'),
+('battery_type_aa'),
+('battery_type_12v'),
+('battery_type_product_specific'),
+('battery_type_p76'),
+('battery_type_cr123a'),
+('battery_type_aaaa'),
+('battery_type_cr5'),
+('battery_type_cr2');
+
+insert into amazon_sports.valid_theme values
+('Famous People'),
+('Superhero'),
+('Animal'),
+('Occupational-Professional'),
+('Humorous'),
+('Fairytale'),
+('Classic Monster'),
+('Historical & Period'),
+('Insects'),
+('Western'),
+('Science Fiction'),
+('TV-Movies'),
+('Food & Beverage'),
+('Horror'),
+('Sexy'),
+('Scary'),
+('Sports'),
+('Religious'),
+('Cartoon'),
+('Mascots');
+
+insert into amazon_sports.valid_condition_type values
+('UsedGood'),
+('CollectibleGood'),
+('Club'),
+('UsedLikeNew'),
+('UsedVeryGood'),
+('CollectibleAcceptable'),
+('Refurbished'),
+('New'),
+('CollectibleLikeNew'),
+('CollectibleVeryGood'),
+('UsedAcceptable');
+
+insert into amazon_sports.valid_resistance_mechanism values
+('eddy-current-resistance-system'),
+('ECB'),
+('particle-brake-system'),
+('manually-adjustable-magnetic-resistance'),
+('pilates-flexbands'),
+('electromagnetic'),
+('pilates-fitness-circles'),
+('exercise-straps'),
+('resistance-bike-trainers');
+
+insert into amazon_sports.valid_parent_child values
+('parent'),
+('child');
+
+insert into amazon_sports.valid_gtin_exemption_reason values
+('ReplacementPart'),
+('CustomProductBundle');
+
+insert into amazon_sports.valid_blade_length_unit_of_measure values
 ('FT'),
 ('CM'),
 ('MM'),
 ('M'),
 ('IN');
 
-insert into amazon_sports.valid_country_of_origin values
+insert into amazon_sports.valid_country_as_labeled values
 ('Canada'),
 ('Guinea-Bissau'),
 ('Saint Helena'),
@@ -324,198 +555,31 @@ insert into amazon_sports.valid_country_of_origin values
 ('Comoros'),
 ('US Minor Outlying Islands');
 
-insert into amazon_sports.valid_batteries_required values
-('True'),
-('False');
-
-insert into amazon_sports.valid_maximum_speed_unit_of_measure values
-('kilometers_per_hour'),
-('feet_per_minute'),
-('miles_per_hour');
-
-insert into amazon_sports.valid_external_product_id_type values
-('GCID'),
-('GTIN'),
-('UPC'),
-('EAN');
-
-insert into amazon_sports.valid_battery_type values
-('battery_type_d'),
-('battery_type_a'),
-('battery_type_c'),
-('battery_type_lithium_ion'),
-('battery_type_aaa'),
-('battery_type_lithium_metal'),
-('battery_type_9v'),
-('battery_type_aa'),
-('battery_type_12v'),
-('battery_type_product_specific'),
-('battery_type_p76'),
-('battery_type_cr123a'),
-('battery_type_aaaa'),
-('battery_type_cr5'),
-('battery_type_cr2');
-
-insert into amazon_sports.valid_active_surface_area_unit_of_measure values
-('square-in'),
-('square-ft');
-
-insert into amazon_sports.valid_condition_type values
-('CollectibleGood'),
-('CollectibleAcceptable'),
-('New'),
-('CollectibleLikeNew'),
-('CollectibleVeryGood');
-
-insert into amazon_sports.valid_product_tax_code values
-('A_GEN_NOTAX');
-
-insert into amazon_sports.valid_minimum_weight_recommendation_unit_of_measure values
-('LB'),
-('KG'),
-('GR'),
-('OZ');
-
-insert into amazon_sports.valid_is_recalled values
-('True'),
-('False');
-
-insert into amazon_sports.valid_gtin_exemption_reason values
-('ReplacementPart'),
-('CustomProductBundle');
-
-insert into amazon_sports.valid_item_weight_unit_of_measure values
-('LB'),
-('KG'),
-('GR'),
-('OZ');
-
-insert into amazon_sports.valid_update_delete values
-('Update'),
-('PartialUpdate'),
-('Delete');
-
-insert into amazon_sports.valid_style_keywords values
-('Paper doll'),
-('Bisque doll'),
-('Peg wooden doll'),
-('African dolls'),
-('Raggedy Ann doll'),
-('China doll'),
-('Celebrity doll'),
-('Reborn doll'),
-('Ball-jointed doll'),
-('Inuit/Eskimo dolls'),
-('Fashion doll'),
-('Bobblehead doll'),
-('Hopi Kachina dolls'),
-('Black dolls'),
-('Parian doll'),
-('Voodoo doll'),
-('Matryoshka doll'),
-('Other'),
-('Japanese traditional dolls');
-
-insert into amazon_sports.valid_maximum_weight_recommendation_unit_of_measure values
-('LB'),
-('KG'),
-('GR'),
-('OZ');
-
-insert into amazon_sports.valid_are_batteries_included values
-('True'),
-('False');
-
-insert into amazon_sports.valid_is_assembly_required values
-('True'),
-('False');
-
-insert into amazon_sports.valid_genre values
-('Educational'),
-('Sport'),
-('Word'),
-('Role Playing'),
-('Entertainment'),
-('Creative'),
-('Other'),
-('Strategy'),
-('Action'),
-('Party'),
-('Reality'),
-('War'),
-('Math'),
-('Luck');
-
-insert into amazon_sports.valid_is_discontinued_by_manufacturer values
-('True'),
-('False');
-
-insert into amazon_sports.valid_size_map values
-('Medium'),
-('XXXXX-Large'),
-('XXXX-Small'),
-('X-Large'),
-('XX-Large'),
-('Large'),
-('XXXXX-Small'),
-('XXX-Small'),
-('XXX-Large'),
-('Small'),
-('XX-Small'),
-('XXXX-Large'),
-('X-Small');
-
-insert into amazon_sports.valid_is_adult_product values
-('True'),
-('False');
-
-insert into amazon_sports.valid_mfg_maximum_unit_of_measure values
-('Months'),
-('Years');
-
-insert into amazon_sports.valid_is_electric values
-('True'),
-('False');
-
-insert into amazon_sports.valid_offering_can_be_giftwrapped values
-('True'),
-('False');
-
-insert into amazon_sports.valid_item_length_unit_of_measure values
+insert into amazon_sports.valid_item_display_length_unit_of_measure values
 ('FT'),
 ('CM'),
 ('MM'),
 ('M'),
 ('IN');
 
-insert into amazon_sports.valid_missing_keyset_reason values
-('NonConsumer'),
-('Specialized'),
-('PrivateLabel'),
-('PreConfigured');
+insert into amazon_sports.valid_pad_type values
+('self-inflating'),
+('air-pump'),
+('air'),
+('ultralight'),
+('foam');
 
-insert into amazon_sports.valid_package_length_unit_of_measure values
-('FT'),
-('CM'),
-('MM'),
-('M'),
-('IN');
+insert into amazon_sports.valid_rise_style values
+('Mid-Calf'),
+('Knee High'),
+('Socks'),
+('Ankle'),
+('No Show'),
+('Thigh High');
 
-insert into amazon_sports.valid_prop_65 values
-('True'),
-('False');
-
-insert into amazon_sports.valid_package_weight_unit_of_measure values
-('LB'),
-('KG'),
-('GR'),
-('OZ');
-
-insert into amazon_sports.valid_offering_can_be_gift_messaged values
-('True'),
-('False');
-
-insert into amazon_sports.valid_fulfillment_center_id values
-('DEFAULT'),
-('AMAZON_NA');
+insert into amazon_sports.valid_import_designation values
+('Made in USA'),
+('Made in USA or Imported'),
+('Imported'),
+('Made in USA and Imported');
 

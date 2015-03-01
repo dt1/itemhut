@@ -1,56 +1,36 @@
-insert into amazon_watches.valid_related_product_id_type values
-('GCID'),
-('ASIN'),
-('EAN'),
-('UPC'),
-('GTIN');
+insert into amazon_watches.valid_water_resistance_depth_unit_of_measure values
+('DM'),
+('FT'),
+('CM'),
+('MM'),
+('M'),
+('IN');
 
-insert into amazon_watches.valid_mfg_minimum_unit_of_measure values
-('Months'),
-('Years');
+insert into amazon_watches.valid_package_dimensions_unit_of_measure values
+('FT'),
+('CM'),
+('MM'),
+('M'),
+('IN');
 
-insert into amazon_watches.valid_assembly_time_unit_of_measure values
-('months'),
-('days'),
-('years'),
-('hours'),
-('weeks'),
-('minutes');
+insert into amazon_watches.valid_dial_window_material_type values
+('mineral'),
+('synthetic-sapphire'),
+('hardlex'),
+('plastic'),
+('glass'),
+('acrylic'),
+('antireflective-sapphire');
 
-insert into amazon_watches.valid_maximum_range_unit_of_measure values
-('feet'),
-('miles'),
-('meters'),
-('kilometers');
-
-insert into amazon_watches.valid_fuel_capacity_unit_of_measure values
-('fluid-oz'),
-('liter'),
-('imperial_gallons'),
-('pints'),
-('quarts'),
-('cubic_centimeters'),
-('milliliter'),
-('cubic_meters'),
-('cubic_inches'),
-('cubic_feet'),
-('gallon'),
-('cubic_yards');
+insert into amazon_watches.valid_band_width_unit_of_measure values
+('FT'),
+('CM'),
+('MM'),
+('M'),
+('IN');
 
 insert into amazon_watches.valid_currency values
 ('USD');
-
-insert into amazon_watches.valid_toy_award values
-('toy_wishes'),
-('parents_magazine'),
-('parents_choice_portfolio'),
-('national_parenting_approval_award'),
-('oppenheim_toys'),
-('family_fun_toy_of_the_year_seal'),
-('games_magazine'),
-('child_magazine'),
-('dr_toys_100_best_child_products'),
-('lion_mark');
 
 insert into amazon_watches.valid_cpsia_cautionary_statement values
 ('no_warning_applicable'),
@@ -63,430 +43,19 @@ insert into amazon_watches.valid_cpsia_cautionary_statement values
 ('choking_hazard_is_a_small_ball');
 
 insert into amazon_watches.valid_website_shipping_weight_unit_of_measure values
+('MG'),
 ('LB'),
-('KG'),
 ('GR'),
-('OZ');
+('OZ'),
+('KG');
 
-insert into amazon_watches.valid_wheel_diameter_unit_of_measure values
-('FT'),
-('CM'),
-('MM'),
-('M'),
-('IN');
-
-insert into amazon_watches.valid_country_of_origin values
-('Canada'),
-('Guinea-Bissau'),
-('Saint Helena'),
-('Unknown'),
-('Lithuania'),
-('Cambodia'),
-('Switzerland'),
-('Ethiopia'),
-('Aruba'),
-('Swaziland'),
-('Argentina'),
-('Bolivia'),
-('Cameroon'),
-('Burkina Faso'),
-('Turkmenistan'),
-('Ghana'),
-('Saudi Arabia'),
-('Togo'),
-('Japan'),
-('Cape Verde'),
-('Cocos (Keeling) Islands'),
-('Slovenia'),
-('Guatemala'),
-('Bosnia and Herzegovina'),
-('Kuwait'),
-('Burma (Myanmar)'),
-('Jordan'),
-('Dominica'),
-('Liberia'),
-('Maldives'),
-('Jamaica'),
-('Oman'),
-('Tanzania'),
-('Martinique'),
-('Saint Kitts And Nevis'),
-('Ivory Coast'),
-('Albania'),
-('Gabon'),
-('Niue'),
-('Monaco'),
-('Wallis and Futuna'),
-('New Zealand'),
-('Yemen'),
-('Jersey'),
-('Andorra'),
-('Greenland'),
-('Samoa'),
-('Macau'),
-('S. Georgia and S. Sandwich Isls.'),
-('Norfolk Island'),
-('United Arab Emirates'),
-('Guam'),
-('India'),
-('Azerbaijan'),
-('Lesotho'),
-('Saint Vincent And The Grenadines'),
-('Kenya'),
-('South Korea'),
-('Tajikistan'),
-('Turkey'),
-('Afghanistan'),
-('Bangladesh'),
-('Mauritania'),
-('Solomon Islands'),
-('Saint Lucia'),
-('Hungary'),
-('San Marino'),
-('French Polynesia'),
-('France'),
-('Bermuda'),
-('Slovakia'),
-('Somalia'),
-('Peru'),
-('Laos'),
-('Nauru'),
-('Seychelles'),
-('Norway'),
-('Malawi'),
-('Cook Islands'),
-('Benin'),
-('Western Sahara'),
-('Cuba'),
-('Republic of the Congo'),
-('Mayotte'),
-('China'),
-('Armenia'),
-('Dominican Republic'),
-('Mongolia'),
-('Ukraine'),
-('Bahrain'),
-('Tonga'),
-('Finland'),
-('Libya'),
-('New Caledonia'),
-('Cayman Islands'),
-('Central African Republic'),
-('Heard and McDonald Islands'),
-('Mauritius'),
-('Liechtenstein'),
-('Australia'),
-('Antigua And Barbuda'),
-('Mali'),
-('Russia'),
-('Bulgaria'),
-('United States'),
-('Romania'),
-('Angola'),
-('French Southern Territories'),
-('Chad'),
-('South Africa'),
-('Tokelau'),
-('Cyprus'),
-('Sweden'),
-('Qatar'),
-('Malaysia'),
-('Austria'),
-('Vietnam'),
-('Mozambique'),
-('Uganda'),
-('Canary Islands'),
-('British Virgin Islands'),
-('Niger'),
-('Isle of Man'),
-('Brazil'),
-('Turks And Caicos Islands'),
-('Falkland Islands'),
-('Faroe Islands'),
-('Guinea'),
-('Panama'),
-('Costa Rica'),
-('Luxembourg'),
-('American Samoa'),
-('Bahamas'),
-('Gibraltar'),
-('Ireland'),
-('Pakistan'),
-('Palau'),
-('Nigeria'),
-('Ecuador'),
-('Czech Republic'),
-('US Virgin Islands'),
-('Brunei'),
-('Belarus'),
-('Iran'),
-('Algeria'),
-('Svalbard'),
-('El Salvador'),
-('Tuvalu'),
-('Zaire'),
-('Pitcairn Islands'),
-('Saint Pierre and Miquelon'),
-('Marshall Islands'),
-('Chile'),
-('Puerto Rico'),
-('Belgium'),
-('Kiribati'),
-('Haiti'),
-('Belize'),
-('Hong Kong'),
-('Sierra Leone'),
-('Georgia'),
-('Gambia'),
-('Philippines'),
-('Sao Tome And Principe'),
-('Moldova'),
-('Holy See (Vatican City)'),
-('Croatia'),
-('Micronesia'),
-('Guernsey'),
-('Thailand'),
-('Namibia'),
-('Grenada'),
-('Iraq'),
-('Portugal'),
-('Estonia'),
-('Uruguay'),
-('Equatorial Guinea'),
-('Lebanon'),
-('Uzbekistan'),
-('Tunisia'),
-('Djibouti'),
-('Rwanda'),
-('Timor-Leste'),
-('Spain'),
-('Colombia'),
-('Reunion'),
-('Burundi'),
-('Taiwan'),
-('Fiji'),
-('Barbados'),
-('Madagascar'),
-('Italy'),
-('Bhutan'),
-('Sudan'),
-('Nepal'),
-('Malta'),
-('Democratic Republic of the Congo'),
-('Netherlands'),
-('Northern Mariana Islands'),
-('Suriname'),
-('Anguilla'),
-('Venezuela'),
-('Netherlands Antilles'),
-('Aland Islands'),
-('Israel'),
-('Indonesia'),
-('Iceland'),
-('Zambia'),
-('Senegal'),
-('Papua New Guinea'),
-('Zimbabwe'),
-('Germany'),
-('Vanuatu'),
-('Denmark'),
-('Saint-Martin'),
-('Kazakhstan'),
-('Poland'),
-('Eritrea'),
-('Kyrgyzstan'),
-('Palestinian Territory'),
-('British Indian Ocean Territory'),
-('Montserrat'),
-('Mexico'),
-('Macedonia'),
-('North Korea'),
-('Sri Lanka'),
-('Latvia'),
-('Guyana'),
-('Syria'),
-('Guadeloupe'),
-('Morocco'),
-('Honduras'),
-('Bouvet Island'),
-('Egypt'),
-('Nicaragua'),
-('Singapore'),
-('Serbia'),
-('Botswana'),
-('United Kingdom'),
-('Trinidad And Tobago'),
-('Antarctica'),
-('Christmas Island'),
-('Greece'),
-('Paraguay'),
-('French Guiana'),
-('Comoros'),
-('US Minor Outlying Islands');
-
-insert into amazon_watches.valid_batteries_required values
-('True'),
-('False');
-
-insert into amazon_watches.valid_maximum_speed_unit_of_measure values
-('kilometers_per_hour'),
-('feet_per_minute'),
-('miles_per_hour');
-
-insert into amazon_watches.valid_external_product_id_type values
-('GCID'),
-('GTIN'),
-('UPC'),
-('EAN');
-
-insert into amazon_watches.valid_battery_type values
-('battery_type_d'),
-('battery_type_a'),
-('battery_type_c'),
-('battery_type_lithium_ion'),
-('battery_type_aaa'),
-('battery_type_lithium_metal'),
-('battery_type_9v'),
-('battery_type_aa'),
-('battery_type_12v'),
-('battery_type_product_specific'),
-('battery_type_p76'),
-('battery_type_cr123a'),
-('battery_type_aaaa'),
-('battery_type_cr5'),
-('battery_type_cr2');
-
-insert into amazon_watches.valid_active_surface_area_unit_of_measure values
-('square-in'),
-('square-ft');
-
-insert into amazon_watches.valid_condition_type values
-('CollectibleGood'),
-('CollectibleAcceptable'),
-('New'),
-('CollectibleLikeNew'),
-('CollectibleVeryGood');
-
-insert into amazon_watches.valid_product_tax_code values
-('A_GEN_NOTAX');
-
-insert into amazon_watches.valid_minimum_weight_recommendation_unit_of_measure values
-('LB'),
-('KG'),
-('GR'),
-('OZ');
-
-insert into amazon_watches.valid_is_recalled values
-('True'),
-('False');
-
-insert into amazon_watches.valid_gtin_exemption_reason values
-('ReplacementPart'),
-('CustomProductBundle');
-
-insert into amazon_watches.valid_item_weight_unit_of_measure values
-('LB'),
-('KG'),
-('GR'),
-('OZ');
-
-insert into amazon_watches.valid_update_delete values
-('Update'),
-('PartialUpdate'),
-('Delete');
-
-insert into amazon_watches.valid_style_keywords values
-('Paper doll'),
-('Bisque doll'),
-('Peg wooden doll'),
-('African dolls'),
-('Raggedy Ann doll'),
-('China doll'),
-('Celebrity doll'),
-('Reborn doll'),
-('Ball-jointed doll'),
-('Inuit/Eskimo dolls'),
-('Fashion doll'),
-('Bobblehead doll'),
-('Hopi Kachina dolls'),
-('Black dolls'),
-('Parian doll'),
-('Voodoo doll'),
-('Matryoshka doll'),
-('Other'),
-('Japanese traditional dolls');
-
-insert into amazon_watches.valid_maximum_weight_recommendation_unit_of_measure values
-('LB'),
-('KG'),
-('GR'),
-('OZ');
-
-insert into amazon_watches.valid_are_batteries_included values
-('True'),
-('False');
-
-insert into amazon_watches.valid_is_assembly_required values
-('True'),
-('False');
-
-insert into amazon_watches.valid_genre values
-('Educational'),
-('Sport'),
-('Word'),
-('Role Playing'),
-('Entertainment'),
-('Creative'),
-('Other'),
-('Strategy'),
-('Action'),
-('Party'),
-('Reality'),
-('War'),
-('Math'),
-('Luck');
-
-insert into amazon_watches.valid_is_discontinued_by_manufacturer values
-('True'),
-('False');
-
-insert into amazon_watches.valid_size_map values
-('Medium'),
-('XXXXX-Large'),
-('XXXX-Small'),
-('X-Large'),
-('XX-Large'),
-('Large'),
-('XXXXX-Small'),
-('XXX-Small'),
-('XXX-Large'),
-('Small'),
-('XX-Small'),
-('XXXX-Large'),
-('X-Small');
-
-insert into amazon_watches.valid_is_adult_product values
-('True'),
-('False');
-
-insert into amazon_watches.valid_mfg_maximum_unit_of_measure values
-('Months'),
-('Years');
-
-insert into amazon_watches.valid_is_electric values
-('True'),
-('False');
-
-insert into amazon_watches.valid_offering_can_be_giftwrapped values
-('True'),
-('False');
-
-insert into amazon_watches.valid_item_length_unit_of_measure values
-('FT'),
-('CM'),
-('MM'),
-('M'),
-('IN');
+insert into amazon_watches.valid_target_audience_keywords values
+('unisex-adult'),
+('men'),
+('girls'),
+('boys'),
+('unisex-children'),
+('women');
 
 insert into amazon_watches.valid_missing_keyset_reason values
 ('NonConsumer'),
@@ -494,22 +63,357 @@ insert into amazon_watches.valid_missing_keyset_reason values
 ('PrivateLabel'),
 ('PreConfigured');
 
-insert into amazon_watches.valid_package_length_unit_of_measure values
-('FT'),
-('CM'),
-('MM'),
-('M'),
-('IN');
+insert into amazon_watches.valid_band_material_type values
+('silver-plated-stainless-steel'),
+('copper'),
+('platinum-plated-stainless-steel'),
+('stainless-steel-plated'),
+('gold'),
+('leather-ostrich'),
+('snakeskin'),
+('ceramic'),
+('titanium-two-tone'),
+('titanium'),
+('resin'),
+('white-gold'),
+('yellow-gold'),
+('leather-lizard'),
+('patent leather'),
+('satin'),
+('platinum'),
+('canvas'),
+('leather-crocodile'),
+('plastic'),
+('rubber'),
+('calfskin'),
+('gold-and-platinum'),
+('python-snakeskin'),
+('leather-stingray'),
+('titanium-plated-stainless-steel'),
+('silver-and-gold'),
+('polyurethane'),
+('silicone'),
+('sharkskin'),
+('gold-plated-stainless-steel'),
+('chrome-plated-stainless-steel'),
+('leather-alligator'),
+('cloth'),
+('leather-synthetic'),
+('brass'),
+('two-tone-stainless-steel'),
+('rhodium-plated-stainless-steel'),
+('rose-gold'),
+('leather-pig-skin'),
+('sterling-silver'),
+('gold-tone-stainless-steel'),
+('suede'),
+('tungsten'),
+('nylon'),
+('brass-plated-stainless-steel'),
+('stainless-steel');
+
+insert into amazon_watches.valid_dial_color values
+('blue'),
+('brown'),
+('gold'),
+('purple'),
+('white'),
+('grey'),
+('yellow'),
+('silver'),
+('pink'),
+('black'),
+('beige'),
+('orange'),
+('green'),
+('carbon-fiber'),
+('mother-of-pearl'),
+('red');
+
+insert into amazon_watches.valid_condition_type values
+('UsedGood'),
+('CollectibleGood'),
+('Club'),
+('UsedLikeNew'),
+('UsedVeryGood'),
+('CollectibleAcceptable'),
+('Refurbished'),
+('New'),
+('CollectibleLikeNew'),
+('CollectibleVeryGood'),
+('UsedAcceptable');
+
+insert into amazon_watches.valid_watch_movement_type values
+('quartz'),
+('automatic-self-wind'),
+('swiss-quartz'),
+('mechanical-hand-wind'),
+('japanese-quartz'),
+('japanese-automatic'),
+('swiss-automatic'),
+('analog-quartz');
+
+insert into amazon_watches.valid_bezel_material_type values
+('copper'),
+('silver-tone'),
+('ceramic'),
+('titanium-two-tone'),
+('titanium'),
+('stainless-steel'),
+('gold-tone'),
+('white-gold'),
+('platinum'),
+('vermeil'),
+('plastic'),
+('rubber'),
+('gold-and-platinum'),
+('steel-and-14k-gold'),
+('steel-and-18k-gold'),
+('yellow-gold'),
+('silver-and-gold'),
+('fine-silver'),
+('brass'),
+('metal'),
+('rose-gold'),
+('resin'),
+('steel-two-tone'),
+('sapphire'),
+('yellow-and-white-gold'),
+('sterling-silver');
+
+insert into amazon_watches.valid_case_material_type values
+('copper'),
+('silver-tone'),
+('ceramic'),
+('titanium-two-tone'),
+('titanium'),
+('stainless-steel'),
+('gold-tone'),
+('white-gold'),
+('platinum'),
+('vermeil'),
+('plastic'),
+('rubber'),
+('gold-and-platinum'),
+('steel-and-14k-gold'),
+('steel-and-18k-gold'),
+('yellow-gold'),
+('silver-and-gold'),
+('fine-silver'),
+('brass'),
+('metal'),
+('rose-gold'),
+('resin'),
+('brass-plated-stainless-steel'),
+('steel-two-tone'),
+('yellow-and-white-gold'),
+('sterling-silver');
+
+insert into amazon_watches.valid_external_product_id_type values
+('GCID'),
+('GTIN'),
+('UPC'),
+('EAN');
+
+insert into amazon_watches.valid_update_delete values
+('Update'),
+('PartialUpdate'),
+('Delete');
+
+insert into amazon_watches.valid_resale_type values
+('authorized'),
+('nonauthorized');
+
+insert into amazon_watches.valid_metal_stamp values
+('10k'),
+('925-sterling-and-18k'),
+('585'),
+('22k'),
+('925-sterling-and-14k'),
+('18k'),
+('plat-900'),
+('24k'),
+('750'),
+('plat-950'),
+('.999-silver'),
+('20k'),
+('14k'),
+('925-sterling');
+
+insert into amazon_watches.valid_display_type values
+('analog-digital'),
+('analog'),
+('digital');
+
+insert into amazon_watches.valid_calendar_type values
+('perpetual-calendar'),
+('month'),
+('date-and-moon-phase'),
+('day-date-month-and-year'),
+('day-date-and-month'),
+('day-and-date'),
+('date'),
+('day-date-month-year-and-moon-phase'),
+('date-and-month'),
+('day'),
+('day-date-and-moon-phase');
+
+insert into amazon_watches.valid_product_tax_code values
+('A_GEN_NOTAX');
+
+insert into amazon_watches.valid_special_features values
+('chronograph'),
+('calculator'),
+('luminous'),
+('dual-Time-display'),
+('outdoor-computer'),
+('bike-computer'),
+('tachometer'),
+('lap-timer'),
+('stop-watch'),
+('back-up-battery'),
+('world-time'),
+('gps'),
+('screw-down-crown'),
+('slide-rule'),
+('radio-controlled'),
+('second-hand'),
+('compass'),
+('light'),
+('timer'),
+('shock-resistant'),
+('heart-rate-monitor'),
+('depth-measurement');
+
+insert into amazon_watches.valid_item_shape values
+('square'),
+('tonneau'),
+('oval'),
+('round'),
+('rectangle');
+
+insert into amazon_watches.valid_is_discontinued_by_manufacturer values
+('True'),
+('False');
+
+insert into amazon_watches.valid_clasp_type values
+('deployment-clasp-with-push-button'),
+('expansion-band'),
+('invisible-double-locking-clasp'),
+('fold-over-push-button-clasp-with-safety'),
+('jewelry-clasp-with-push-button'),
+('fold-over-clasp-with-safety'),
+('double-locking-fold-over-clasp'),
+('bangle'),
+('buckle'),
+('fold-over-clasp'),
+('box-with-tongue-clasp'),
+('fold-over-clasp-with-single-push-button-safety'),
+('jewelry-clasp'),
+('toggle-clasp'),
+('leather-deployment-buckle-with-safety'),
+('hook-buckle'),
+('deployment-buckle'),
+('single-locking-fold-over-clasp'),
+('spring-ring-clasp'),
+('deployment-push-button-clasp-with-buckle'),
+('fold-over-clasp-with-double-push-button-safety'),
+('push-and-slide-clasp'),
+('velcro'),
+('pearl-clasp'),
+('box-safety-clasp'),
+('push-button-clasp'),
+('leather-deployment-buckle'),
+('multi-strand-box-clasp'),
+('fold-over-clasp-with-hidden-double-push-button'),
+('box-with-tongue-and-safety-clasp'),
+('lobster-claw-clasp'),
+('deployment-clasp'),
+('fancy-clasp');
+
+insert into amazon_watches.valid_band_color values
+('blue'),
+('brown'),
+('gold'),
+('purple'),
+('grey'),
+('yellow'),
+('pink'),
+('green'),
+('beige'),
+('orange'),
+('black'),
+('white'),
+('silver'),
+('red');
+
+insert into amazon_watches.valid_offering_can_be_giftwrapped values
+('True'),
+('False');
+
+insert into amazon_watches.valid_warranty_type values
+('seller'),
+('manufacturer-and-seller-combination'),
+('manufacturer');
+
+insert into amazon_watches.valid_department_name values
+('Unisex-adult'),
+('Girls'),
+('Mens'),
+('Boys'),
+('Unisex-child'),
+('Womens');
+
+insert into amazon_watches.valid_case_diameter_unit_of_measure values
+('decimeters'),
+('centimeters'),
+('millimeters'),
+('inches');
+
+insert into amazon_watches.valid_band_size values
+('mens-short'),
+('childrens'),
+('womens-standard'),
+('unisex'),
+('mens-extralong'),
+('mens-long'),
+('womens-long'),
+('womens-short'),
+('childrens-short'),
+('childrens-long'),
+('womens-extralong'),
+('mens-standard');
 
 insert into amazon_watches.valid_prop_65 values
 ('True'),
 ('False');
 
 insert into amazon_watches.valid_package_weight_unit_of_measure values
+('MG'),
 ('LB'),
-('KG'),
 ('GR'),
-('OZ');
+('OZ'),
+('KG');
+
+insert into amazon_watches.valid_specific_uses_keywords values
+('bar-mitzvah'),
+('holiday'),
+('hanukkah'),
+('occasions'),
+('mothers-day'),
+('engagement'),
+('anniversary'),
+('graduation'),
+('christening'),
+('business-gifts'),
+('birthday'),
+('valentines-day'),
+('wedding'),
+('bat-mitzvah'),
+('baptism'),
+('christmas'),
+('kwanzaa'),
+('fathers-day');
 
 insert into amazon_watches.valid_offering_can_be_gift_messaged values
 ('True'),
@@ -518,4 +422,13 @@ insert into amazon_watches.valid_offering_can_be_gift_messaged values
 insert into amazon_watches.valid_fulfillment_center_id values
 ('DEFAULT'),
 ('AMAZON_NA');
+
+insert into amazon_watches.valid_bezel_function values
+('24-hour-time-display'),
+('slide-rule'),
+('tachometer'),
+('unidirectional'),
+('bidirectional'),
+('diving'),
+('calendar');
 

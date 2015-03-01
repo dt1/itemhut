@@ -6,7 +6,7 @@ import sys
 pfile = str(sys.argv[1])
 sname = str(sys.argv[2])
 
-x2 = pd.ExcelFile('Flat.File.Toys.xls')
+x2 = pd.ExcelFile(pfile)
 x2 = x2.parse('Valid Values')
 
 aa = []

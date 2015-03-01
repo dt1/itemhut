@@ -1,56 +1,46 @@
-insert into amazon_jewelry.valid_related_product_id_type values
-('GCID'),
-('ASIN'),
-('EAN'),
-('UPC'),
-('GTIN');
+insert into amazon_jewelry.valid_inscription values
+('girdle'),
+('setting'),
+('NO');
 
-insert into amazon_jewelry.valid_mfg_minimum_unit_of_measure values
-('Months'),
-('Years');
+insert into amazon_jewelry.valid_item_dimensions_unit_of_measure values
+('FT'),
+('CM'),
+('MM'),
+('M'),
+('IN');
 
-insert into amazon_jewelry.valid_assembly_time_unit_of_measure values
-('months'),
-('days'),
-('years'),
-('hours'),
-('weeks'),
-('minutes');
+insert into amazon_jewelry.valid_package_dimensions_unit_of_measure values
+('FT'),
+('CM'),
+('MM'),
+('M'),
+('IN');
 
-insert into amazon_jewelry.valid_maximum_range_unit_of_measure values
-('feet'),
-('miles'),
-('meters'),
-('kilometers');
+insert into amazon_jewelry.valid_is_resizable values
+('True'),
+('False');
 
-insert into amazon_jewelry.valid_fuel_capacity_unit_of_measure values
-('fluid-oz'),
-('liter'),
-('imperial_gallons'),
-('pints'),
-('quarts'),
-('cubic_centimeters'),
-('milliliter'),
-('cubic_meters'),
-('cubic_inches'),
-('cubic_feet'),
-('gallon'),
-('cubic_yards');
+insert into amazon_jewelry.valid_material_type values
+('shell'),
+('synthetic-resin'),
+('enamel'),
+('glass'),
+('leather'),
+('coral'),
+('ceramic'),
+('pearl'),
+('resin'),
+('rhinestone'),
+('rubber'),
+('crystal'),
+('wood'),
+('epoxy'),
+('bamboo'),
+('mother-of-pearl');
 
 insert into amazon_jewelry.valid_currency values
 ('USD');
-
-insert into amazon_jewelry.valid_toy_award values
-('toy_wishes'),
-('parents_magazine'),
-('parents_choice_portfolio'),
-('national_parenting_approval_award'),
-('oppenheim_toys'),
-('family_fun_toy_of_the_year_seal'),
-('games_magazine'),
-('child_magazine'),
-('dr_toys_100_best_child_products'),
-('lion_mark');
 
 insert into amazon_jewelry.valid_cpsia_cautionary_statement values
 ('no_warning_applicable'),
@@ -62,18 +52,360 @@ insert into amazon_jewelry.valid_cpsia_cautionary_statement values
 ('choking_hazard_contains_small_ball'),
 ('choking_hazard_is_a_small_ball');
 
+insert into amazon_jewelry.valid_relationship_type values
+('Variation'),
+('Accessory');
+
 insert into amazon_jewelry.valid_website_shipping_weight_unit_of_measure values
 ('LB'),
 ('KG'),
 ('GR'),
 ('OZ');
 
-insert into amazon_jewelry.valid_wheel_diameter_unit_of_measure values
+insert into amazon_jewelry.valid_is_lab_created values
+('True'),
+('False');
+
+insert into amazon_jewelry.valid_total_diamond_weight_unit_of_measure values
+('MG'),
+('LB'),
+('GR'),
+('DWT'),
+('CARATS'),
+('OZ'),
+('KG');
+
+insert into amazon_jewelry.valid_pearl_type values
+('chinese-freshwater-cultured'),
+('multiple'),
+('mabe-cultured'),
+('akoya-cultured'),
+('majorca-cultured'),
+('biwa-cultured'),
+('natural-pearl'),
+('hybrid-cultured'),
+('south-sea-baroque-cultured'),
+('tahitian-cultured'),
+('keshi-cultured'),
+('south-sea-cultured'),
+('freshwater-cultured'),
+('simulated-pearl');
+
+insert into amazon_jewelry.valid_display_dimensions_unit_of_measure values
 ('FT'),
 ('CM'),
 ('MM'),
 ('M'),
 ('IN');
+
+insert into amazon_jewelry.valid_external_product_id_type values
+('GCID'),
+('GTIN'),
+('UPC'),
+('EAN');
+
+insert into amazon_jewelry.valid_certificate_type values
+('AGS'),
+('IGI'),
+('GIA');
+
+insert into amazon_jewelry.valid_gem_type values
+('created-ruby'),
+('black-diamond'),
+('padparadscha'),
+('brown-diamond'),
+('tiger-eye'),
+('fire-opal'),
+('green-amber'),
+('rhodonite'),
+('pyrope-garnet'),
+('fire-citrine'),
+('tourmaline'),
+('larimar'),
+('demantoid-garnet'),
+('caribbean-amber'),
+('iron-pyrite'),
+('created-blue-sapphire'),
+('malachite'),
+('sodalite'),
+('green-sapphire'),
+('garnet'),
+('alexandrite'),
+('dyed-howlite'),
+('quartzite'),
+('turquoise'),
+('created-alexandrite'),
+('ammolite'),
+('boulder-opal'),
+('madeira-citrine'),
+('green-tourmaline'),
+('tashmarine-diopside'),
+('hickoryite'),
+('tanzanite'),
+('jadeite'),
+('emerald'),
+('medusa-quartz'),
+('peridot'),
+('paraiba-tourmaline'),
+('serpentine'),
+('diopside'),
+('pink-diamond'),
+('cherry-amber'),
+('zandrite'),
+('topaz'),
+('london-blue-topaz'),
+('created-amethyst'),
+('yellow-diamond'),
+('goldstone'),
+('swedish-slag'),
+('jade'),
+('rhodochrosite'),
+('prasiolite-quartz'),
+('moldovite'),
+('lemon-quartz'),
+('yellow-topaz'),
+('hermatine'),
+('smoky-topaz'),
+('swiss-blue-topaz'),
+('rubellite-tourmaline'),
+('created-garnet'),
+('rutilated-quartz'),
+('zoisite'),
+('amethyst'),
+('created-peridot'),
+('blue-chalcedony'),
+('calcite'),
+('created-emerald'),
+('black-opal'),
+('apatite'),
+('hiddenite'),
+('andradite-garnet'),
+('grossular-garnet'),
+('red-diamond'),
+('blue-opal'),
+('carnelian'),
+('ametrine'),
+('green-chalcedony'),
+('hematite'),
+('charoite'),
+('rhodolite-garnet'),
+('brazanite'),
+('chrysoberyl'),
+('amblygonite'),
+('spessartite-garnet'),
+('spinel'),
+('scapolite'),
+('cinnabar'),
+('blue-topaz'),
+('moonstone'),
+('labradorite'),
+('diaspore'),
+('gaspeite'),
+('danburite'),
+('magnasite'),
+('green-quartz'),
+('amber'),
+('paraiba'),
+('green-garnet'),
+('white-agate'),
+('celestite'),
+('watermelon-tourmaline'),
+('amazonite'),
+('cubic-zirconia'),
+('golden-topaz'),
+('pink-amethyst'),
+('jasper'),
+('hauyne'),
+('mint-tourmaline'),
+('purple-jade'),
+('moissanite'),
+('green-gold'),
+('pink-topaz'),
+('jet'),
+('multi-color-amber'),
+('mandarin-garnet'),
+('citrine'),
+('aquamarine'),
+('kunzite'),
+('blue-amber'),
+('howlite'),
+('copper-sunstone'),
+('sphalerite'),
+('pezzottaite'),
+('hessonite'),
+('prehnite'),
+('onyx'),
+('sphene'),
+('yttrium-aluminium-garnet'),
+('white-topaz'),
+('petalite'),
+('ouro-verde-quartz'),
+('red-agate'),
+('indicolite-tourmaline'),
+('sea-blue-chalcedony'),
+('created-yellow-sapphire'),
+('ruby'),
+('created-quartz'),
+('champagne-diamond'),
+('multi'),
+('orange-agate'),
+('blue-diamond'),
+('aventurine'),
+('heliodor'),
+('lapis-lazuli'),
+('sapphire'),
+('smoky-quartz'),
+('honey-amber'),
+('agate'),
+('star-sapphire'),
+('opal'),
+('paraiba-topaz'),
+('created-white-sapphire'),
+('created-sapphire'),
+('botswana-agate'),
+('fluorite'),
+('almandite-garnet'),
+('blue-zircon'),
+('azurite'),
+('blue-agate'),
+('tsavorite'),
+('yellow-scapolite'),
+('bloodstone'),
+('indicolite'),
+('orange-chalcedony'),
+('morganite'),
+('sunstone-feldspar'),
+('created-padparadscha'),
+('created-opal'),
+('zircon-gemstone'),
+('beryl'),
+('imperial-topaz'),
+('rose-de-france'),
+('stabilized-turquoise'),
+('pink-chalcedony'),
+('sardonyx'),
+('rose-quartz'),
+('quartzofe'),
+('drusy-quartz'),
+('white-sapphire'),
+('rubelite'),
+('quartz'),
+('chrysoprase'),
+('cats-eye'),
+('marcasite'),
+('created-aquamarine'),
+('dumortierite'),
+('strontium-titanate'),
+('inclusion-citrine'),
+('created-topaz'),
+('lavender-chalcedony'),
+('white-diamond'),
+('mystic-topaz'),
+('chalcedony'),
+('created-pink-sapphire'),
+('iolite'),
+('kyanite'),
+('pink-sapphire'),
+('goshenite'),
+('purple-spinel'),
+('chrome-diopside'),
+('pink-tourmaline'),
+('pink-quartz'),
+('green-amethyst'),
+('synthetic-turquoise'),
+('whiskey-diamond'),
+('corundum'),
+('obsidian'),
+('butterscotch-amber'),
+('fuschite'),
+('andalusite'),
+('shanseres'),
+('blue-sapphire');
+
+insert into amazon_jewelry.valid_product_tax_code values
+('A_GEN_NOTAX');
+
+insert into amazon_jewelry.valid_parent_child values
+('parent'),
+('child');
+
+insert into amazon_jewelry.valid_stone_creation_method values
+('synthetic'),
+('natural'),
+('simulated');
+
+insert into amazon_jewelry.valid_metal_type values
+('copper'),
+('black-rhodium-plated-silver'),
+('chocolate-gold'),
+('rose-gold-flashed-silver'),
+('yellow-gold-plated-bronze'),
+('platinum-and-sterling-silver'),
+('cobalt'),
+('titanium'),
+('platinum-plated'),
+('gold-filled'),
+('stainless-steel'),
+('titanium-and-platinum'),
+('platinum-and-white-gold'),
+('yellow-gold'),
+('platinum'),
+('vermeil'),
+('green-gold'),
+('gold-foiled'),
+('rose-and-yellow-gold'),
+('titanium-and-stainless-steel'),
+('titanium-and-gold'),
+('rhodium-plated-base-metal'),
+('white-and-yellow-gold'),
+('rhodium-plated-brass'),
+('bonded-gold-and-silver'),
+('rhodium-plated-silver'),
+('tri-color-gold'),
+('white-gold-plated-silver'),
+('silver-and-stainless-steel'),
+('tungsten'),
+('rose-gold'),
+('rhodium-flashed-silver'),
+('two-tone-silver-and-gold-plated'),
+('yellow-gold-plated-silver'),
+('nickel'),
+('rhodium-plated-yellow-gold'),
+('silver-plated-bronze'),
+('yellow-gold-flashed-silver'),
+('white-gold'),
+('rhodium-plated-white-gold'),
+('gold-plated-copper'),
+('base'),
+('rhodium-plated-gold'),
+('rose-gold-and-sterling-silver'),
+('brass'),
+('platinum-plated-silver'),
+('palladium'),
+('no-metal-type'),
+('bronze'),
+('rhodium-plated-bronze'),
+('rose-and-white-gold'),
+('rose-gold-plated-base'),
+('stainless-steel-and-gold'),
+('platinum-and-yellow-gold'),
+('rhodium-plated-gold-and-silver'),
+('gold-plated-base'),
+('gold-plated-silver'),
+('brass-plated-gold'),
+('silver-plated-base'),
+('platinum-flashed-silver'),
+('titanium-and-silver'),
+('pewter'),
+('alloy'),
+('yellow-gold-and-sterling-silver'),
+('sterling-silver'),
+('white-gold-and-sterling-silver');
+
+insert into amazon_jewelry.valid_update_delete values
+('Update'),
+('PartialUpdate'),
+('Delete');
 
 insert into amazon_jewelry.valid_country_of_origin values
 ('Canada'),
@@ -324,169 +656,68 @@ insert into amazon_jewelry.valid_country_of_origin values
 ('Comoros'),
 ('US Minor Outlying Islands');
 
-insert into amazon_jewelry.valid_batteries_required values
-('True'),
-('False');
+insert into amazon_jewelry.valid_feed_product_type values
+('FashionNecklaceBraceletAnklet'),
+('FineNecklaceBraceletAnklet'),
+('FashionRing'),
+('FashionEarring'),
+('FineEarring'),
+('FashionOther'),
+('FineOther'),
+('FineRing');
 
-insert into amazon_jewelry.valid_maximum_speed_unit_of_measure values
-('kilometers_per_hour'),
-('feet_per_minute'),
-('miles_per_hour');
-
-insert into amazon_jewelry.valid_external_product_id_type values
-('GCID'),
-('GTIN'),
-('UPC'),
-('EAN');
-
-insert into amazon_jewelry.valid_battery_type values
-('battery_type_d'),
-('battery_type_a'),
-('battery_type_c'),
-('battery_type_lithium_ion'),
-('battery_type_aaa'),
-('battery_type_lithium_metal'),
-('battery_type_9v'),
-('battery_type_aa'),
-('battery_type_12v'),
-('battery_type_product_specific'),
-('battery_type_p76'),
-('battery_type_cr123a'),
-('battery_type_aaaa'),
-('battery_type_cr5'),
-('battery_type_cr2');
-
-insert into amazon_jewelry.valid_active_surface_area_unit_of_measure values
-('square-in'),
-('square-ft');
-
-insert into amazon_jewelry.valid_condition_type values
-('CollectibleGood'),
-('CollectibleAcceptable'),
-('New'),
-('CollectibleLikeNew'),
-('CollectibleVeryGood');
-
-insert into amazon_jewelry.valid_product_tax_code values
-('A_GEN_NOTAX');
-
-insert into amazon_jewelry.valid_minimum_weight_recommendation_unit_of_measure values
+insert into amazon_jewelry.valid_total_gem_weight_unit_of_measure values
+('MG'),
 ('LB'),
-('KG'),
 ('GR'),
-('OZ');
-
-insert into amazon_jewelry.valid_is_recalled values
-('True'),
-('False');
-
-insert into amazon_jewelry.valid_gtin_exemption_reason values
-('ReplacementPart'),
-('CustomProductBundle');
-
-insert into amazon_jewelry.valid_item_weight_unit_of_measure values
-('LB'),
-('KG'),
-('GR'),
-('OZ');
-
-insert into amazon_jewelry.valid_update_delete values
-('Update'),
-('PartialUpdate'),
-('Delete');
-
-insert into amazon_jewelry.valid_style_keywords values
-('Paper doll'),
-('Bisque doll'),
-('Peg wooden doll'),
-('African dolls'),
-('Raggedy Ann doll'),
-('China doll'),
-('Celebrity doll'),
-('Reborn doll'),
-('Ball-jointed doll'),
-('Inuit/Eskimo dolls'),
-('Fashion doll'),
-('Bobblehead doll'),
-('Hopi Kachina dolls'),
-('Black dolls'),
-('Parian doll'),
-('Voodoo doll'),
-('Matryoshka doll'),
-('Other'),
-('Japanese traditional dolls');
-
-insert into amazon_jewelry.valid_maximum_weight_recommendation_unit_of_measure values
-('LB'),
-('KG'),
-('GR'),
-('OZ');
-
-insert into amazon_jewelry.valid_are_batteries_included values
-('True'),
-('False');
-
-insert into amazon_jewelry.valid_is_assembly_required values
-('True'),
-('False');
-
-insert into amazon_jewelry.valid_genre values
-('Educational'),
-('Sport'),
-('Word'),
-('Role Playing'),
-('Entertainment'),
-('Creative'),
-('Other'),
-('Strategy'),
-('Action'),
-('Party'),
-('Reality'),
-('War'),
-('Math'),
-('Luck');
+('DWT'),
+('CARATS'),
+('OZ'),
+('KG');
 
 insert into amazon_jewelry.valid_is_discontinued_by_manufacturer values
 ('True'),
 ('False');
 
-insert into amazon_jewelry.valid_size_map values
-('Medium'),
-('XXXXX-Large'),
-('XXXX-Small'),
-('X-Large'),
-('XX-Large'),
-('Large'),
-('XXXXX-Small'),
-('XXX-Small'),
-('XXX-Large'),
-('Small'),
-('XX-Small'),
-('XXXX-Large'),
-('X-Small');
+insert into amazon_jewelry.valid_variation_theme values
+('RingSize-TotalDiamondWeight'),
+('ColorName'),
+('MetalType'),
+('MetalType-RingSize'),
+('RingSize-SizePerPearl'),
+('MetalType-TotalDiamondWeight'),
+('MetalType-SizePerPearl'),
+('RingSize'),
+('SizePerPearl'),
+('TotalDiamondWeight'),
+('StyleName'),
+('Length-SizePerPearl');
 
-insert into amazon_jewelry.valid_is_adult_product values
-('True'),
-('False');
-
-insert into amazon_jewelry.valid_mfg_maximum_unit_of_measure values
-('Months'),
-('Years');
-
-insert into amazon_jewelry.valid_is_electric values
-('True'),
-('False');
+insert into amazon_jewelry.valid_stone_dimensions_unit_of_measure values
+('MM'),
+('CM'),
+('IN');
 
 insert into amazon_jewelry.valid_offering_can_be_giftwrapped values
 ('True'),
 ('False');
 
-insert into amazon_jewelry.valid_item_length_unit_of_measure values
-('FT'),
-('CM'),
-('MM'),
-('M'),
-('IN');
+insert into amazon_jewelry.valid_total_metal_weight_unit_of_measure values
+('MG'),
+('LB'),
+('GR'),
+('DWT'),
+('CARATS'),
+('OZ'),
+('KG');
+
+insert into amazon_jewelry.valid_department_name values
+('unisex-adult'),
+('girls'),
+('mens'),
+('boys'),
+('unisex-child'),
+('womens');
 
 insert into amazon_jewelry.valid_missing_keyset_reason values
 ('NonConsumer'),
@@ -494,12 +725,18 @@ insert into amazon_jewelry.valid_missing_keyset_reason values
 ('PrivateLabel'),
 ('PreConfigured');
 
-insert into amazon_jewelry.valid_package_length_unit_of_measure values
-('FT'),
-('CM'),
-('MM'),
-('M'),
-('IN');
+insert into amazon_jewelry.valid_color_name values
+('Blue'),
+('Brown'),
+('Purple'),
+('Grey'),
+('Yellow'),
+('Green'),
+('Pink'),
+('Orange'),
+('Black'),
+('White'),
+('Red');
 
 insert into amazon_jewelry.valid_prop_65 values
 ('True'),

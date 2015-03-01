@@ -1,66 +1,178 @@
-insert into amazon_shoes.valid_related_product_id_type values
-('GCID'),
-('ASIN'),
-('EAN'),
-('UPC'),
-('GTIN');
+insert into amazon_shoes.valid_pattern_type values
+('turn-lock'),
+('embroidered'),
+('polka-dots'),
+('checkered'),
+('animal-print'),
+('no-closure'),
+('Paisley'),
+('Checkered'),
+('Stripes'),
+('Floral'),
+('studded'),
+('paisley'),
+('Plaid'),
+('Solid'),
+('herringbone'),
+('stripes'),
+('snap'),
+('self-tie'),
+('floral'),
+('zipper'),
+('hounds-tooth'),
+('plaid'),
+('fringed'),
+('quilted'),
+('solid'),
+('magnet'),
+('Toggle'),
+('ruched'),
+('woven');
 
-insert into amazon_shoes.valid_mfg_minimum_unit_of_measure values
-('Months'),
-('Years');
+insert into amazon_shoes.valid_sole_material values
+('Latex'),
+('crepe'),
+('fabric'),
+('leather'),
+('Felt'),
+('manmade'),
+('lug-sole'),
+('cork'),
+('rubber'),
+('wood'),
+('suede'),
+('leather-and-rubber'),
+('vibram');
 
-insert into amazon_shoes.valid_assembly_time_unit_of_measure values
-('months'),
-('days'),
-('years'),
-('hours'),
-('weeks'),
-('minutes');
+insert into amazon_shoes.valid_lining_description values
+('leather-and-synthetic'),
+('synthetic'),
+('polyester'),
+('faux-shearling-or-fur'),
+('fabric'),
+('leather'),
+('unknown'),
+('no-lining'),
+('mesh'),
+('vinyl'),
+('shearling-or-fur'),
+('Nylon'),
+('gore-tex'),
+('cotton');
 
-insert into amazon_shoes.valid_maximum_range_unit_of_measure values
-('feet'),
-('miles'),
-('meters'),
-('kilometers');
+insert into amazon_shoes.valid_material_type values
+('polypropylene'),
+('silk-blend'),
+('pony'),
+('lambskin'),
+('straw'),
+('tencel'),
+('polartec-fleece'),
+('poly-cotton'),
+('faux-fur'),
+('lycra'),
+('watersnake'),
+('down'),
+('crocodile'),
+('ultrasuede'),
+('viscose'),
+('egyptian-cotton'),
+('Microfiber'),
+('spandex'),
+('Mohair'),
+('ostrich'),
+('satin'),
+('rayon'),
+('cotton'),
+('synthetic'),
+('rubber'),
+('sheepskin'),
+('fabric'),
+('mercerized-cotton'),
+('cotton-rich'),
+('fabric-and-synthetic'),
+('lurex'),
+('kidskin'),
+('sequin'),
+('pleather'),
+('worsted-wool'),
+('wool'),
+('nubuck'),
+('snakeskin'),
+('rayon-blend'),
+('nappa-leather'),
+('shetland'),
+('poly-rayon'),
+('velcro'),
+('polyester'),
+('polyester-blend'),
+('pima-cotton'),
+('dacron'),
+('thinsulate'),
+('Nylon'),
+('linen-blend'),
+('Neoprene'),
+('cotton-blend'),
+('plastic'),
+('kevlar'),
+('fleece'),
+('wool-blend'),
+('fur'),
+('urethane'),
+('microsuede'),
+('leather'),
+('patent-leather'),
+('viscose-rayon'),
+('shearling'),
+('fabric-and-leather'),
+('merino-wool'),
+('silk'),
+('linen'),
+('lizard'),
+('plainweave'),
+('suede'),
+('lycra-blend'),
+('gore-tex'),
+('vinyl');
 
-insert into amazon_shoes.valid_fuel_capacity_unit_of_measure values
-('fluid-oz'),
-('liter'),
-('imperial_gallons'),
-('pints'),
-('quarts'),
-('cubic_centimeters'),
-('milliliter'),
-('cubic_meters'),
-('cubic_inches'),
-('cubic_feet'),
-('gallon'),
-('cubic_yards');
+insert into amazon_shoes.valid_heel_type values
+('no-heel'),
+('heeled'),
+('high-heels'),
+('low-heels'),
+('high-heel'),
+('kitten-heel'),
+('low-heel'),
+('kitten-heels'),
+('mid-heel'),
+('spikes-stilettos');
 
 insert into amazon_shoes.valid_currency values
 ('USD');
 
-insert into amazon_shoes.valid_toy_award values
-('toy_wishes'),
-('parents_magazine'),
-('parents_choice_portfolio'),
-('national_parenting_approval_award'),
-('oppenheim_toys'),
-('family_fun_toy_of_the_year_seal'),
-('games_magazine'),
-('child_magazine'),
-('dr_toys_100_best_child_products'),
-('lion_mark');
+insert into amazon_shoes.valid_cleat_description values
+('outdoor'),
+('detachable-cleats'),
+('indoor'),
+('interchangable-cleats'),
+('turf');
 
 insert into amazon_shoes.valid_cpsia_cautionary_statement values
-('no_warning_applicable'),
-('choking_hazard_contains_a_marble'),
-('contains_small_magnets'),
-('choking_hazard_is_a_marble'),
-('choking_hazard_balloon'),
-('choking_hazard_small_parts'),
-('choking_hazard_contains_small_ball'),
-('choking_hazard_is_a_small_ball');
+('NoWarningApplicable'),
+('ChokingHazardContainsAMarble'),
+('ChokingHazardBalloon'),
+('ChokingHazardSmallParts'),
+('ChokingHazardIsASmallBall'),
+('ContainsSmallMagnets'),
+('ChokingHazardContainsSmallBall'),
+('ChokingHazardIsAMarble');
+
+insert into amazon_shoes.valid_relationship_type values
+('Variation');
+
+insert into amazon_shoes.valid_cleat_material_type values
+('molded-cleats'),
+('metal-cleats');
 
 insert into amazon_shoes.valid_website_shipping_weight_unit_of_measure values
 ('LB'),
@@ -68,454 +180,155 @@ insert into amazon_shoes.valid_website_shipping_weight_unit_of_measure values
 ('GR'),
 ('OZ');
 
-insert into amazon_shoes.valid_wheel_diameter_unit_of_measure values
+insert into amazon_shoes.valid_toe_style values
+('square-toe'),
+('soft-toe'),
+('cap-toe'),
+('composite-toe'),
+('closed-toe'),
+('steel-toe'),
+('round-toe'),
+('open-toe'),
+('peep-toe'),
+('pointed-toe'),
+('split-toe');
+
+insert into amazon_shoes.valid_platform_height values
+('.50"'),
+('6.00"'),
+('1.50"'),
+('4.50"'),
+('3.00"'),
+('2.50"'),
+('2.25"'),
+('3.50"'),
+('5.00"'),
+('.25"'),
+('3.25"'),
+('2.75"'),
+('4.00"'),
+('1.00"'),
+('1.25"'),
+('2.00"'),
+('5.25"'),
+('.75"'),
+('5.50"'),
+('4.75"'),
+('4.25"'),
+('3.75"'),
+('1.75"'),
+('5.75"');
+
+insert into amazon_shoes.valid_is_stain_resistant values
+('True'),
+('False');
+
+insert into amazon_shoes.valid_water_resistance_level values
+('not_water_resistant'),
+('water_resistant'),
+('Waterproof');
+
+insert into amazon_shoes.valid_closure_type values
+('turn-lock'),
+('Zip'),
+('lace-up'),
+('toggle'),
+('slip-on'),
+('hook-and-eye'),
+('no-closure'),
+('d-ring'),
+('kiss-lock'),
+('clip'),
+('elastic'),
+('hook-and-loop'),
+('buckle'),
+('lobster-claw'),
+('drawstring'),
+('snap'),
+('flap'),
+('pull-on'),
+('self-tie'),
+('zipper'),
+('clasp'),
+('button'),
+('magnet'),
+('bungee');
+
+insert into amazon_shoes.valid_lens_color_map values
+('Blue'),
+('Brown'),
+('Turquoise'),
+('Gold'),
+('Purple'),
+('Grey'),
+('Red'),
+('metallic'),
+('Multicoloured'),
+('off-white'),
+('Yellow'),
+('Black'),
+('Beige'),
+('Pink'),
+('silver'),
+('Orange'),
+('Green'),
+('White'),
+('Transparent'),
+('Bronze');
+
+insert into amazon_shoes.valid_external_product_id_type values
+('GCID'),
+('UPC'),
+('EAN');
+
+insert into amazon_shoes.valid_shoulder_strap_drop_unit_of_measure values
 ('FT'),
 ('CM'),
 ('MM'),
 ('M'),
 ('IN');
 
-insert into amazon_shoes.valid_country_of_origin values
-('Canada'),
-('Guinea-Bissau'),
-('Saint Helena'),
-('Unknown'),
-('Lithuania'),
-('Cambodia'),
-('Switzerland'),
-('Ethiopia'),
-('Aruba'),
-('Swaziland'),
-('Argentina'),
-('Bolivia'),
-('Cameroon'),
-('Burkina Faso'),
-('Turkmenistan'),
-('Ghana'),
-('Saudi Arabia'),
-('Togo'),
-('Japan'),
-('Cape Verde'),
-('Cocos (Keeling) Islands'),
-('Slovenia'),
-('Guatemala'),
-('Bosnia and Herzegovina'),
-('Kuwait'),
-('Burma (Myanmar)'),
-('Jordan'),
-('Dominica'),
-('Liberia'),
-('Maldives'),
-('Jamaica'),
-('Oman'),
-('Tanzania'),
-('Martinique'),
-('Saint Kitts And Nevis'),
-('Ivory Coast'),
-('Albania'),
-('Gabon'),
-('Niue'),
-('Monaco'),
-('Wallis and Futuna'),
-('New Zealand'),
-('Yemen'),
-('Jersey'),
-('Andorra'),
-('Greenland'),
-('Samoa'),
-('Macau'),
-('S. Georgia and S. Sandwich Isls.'),
-('Norfolk Island'),
-('United Arab Emirates'),
-('Guam'),
-('India'),
-('Azerbaijan'),
-('Lesotho'),
-('Saint Vincent And The Grenadines'),
-('Kenya'),
-('South Korea'),
-('Tajikistan'),
-('Turkey'),
-('Afghanistan'),
-('Bangladesh'),
-('Mauritania'),
-('Solomon Islands'),
-('Saint Lucia'),
-('Hungary'),
-('San Marino'),
-('French Polynesia'),
-('France'),
-('Bermuda'),
-('Slovakia'),
-('Somalia'),
-('Peru'),
-('Laos'),
-('Nauru'),
-('Seychelles'),
-('Norway'),
-('Malawi'),
-('Cook Islands'),
-('Benin'),
-('Western Sahara'),
-('Cuba'),
-('Republic of the Congo'),
-('Mayotte'),
-('China'),
-('Armenia'),
-('Dominican Republic'),
-('Mongolia'),
-('Ukraine'),
-('Bahrain'),
-('Tonga'),
-('Finland'),
-('Libya'),
-('New Caledonia'),
-('Cayman Islands'),
-('Central African Republic'),
-('Heard and McDonald Islands'),
-('Mauritius'),
-('Liechtenstein'),
-('Australia'),
-('Antigua And Barbuda'),
-('Mali'),
-('Russia'),
-('Bulgaria'),
-('United States'),
-('Romania'),
-('Angola'),
-('French Southern Territories'),
-('Chad'),
-('South Africa'),
-('Tokelau'),
-('Cyprus'),
-('Sweden'),
-('Qatar'),
-('Malaysia'),
-('Austria'),
-('Vietnam'),
-('Mozambique'),
-('Uganda'),
-('Canary Islands'),
-('British Virgin Islands'),
-('Niger'),
-('Isle of Man'),
-('Brazil'),
-('Turks And Caicos Islands'),
-('Falkland Islands'),
-('Faroe Islands'),
-('Guinea'),
-('Panama'),
-('Costa Rica'),
-('Luxembourg'),
-('American Samoa'),
-('Bahamas'),
-('Gibraltar'),
-('Ireland'),
-('Pakistan'),
-('Palau'),
-('Nigeria'),
-('Ecuador'),
-('Czech Republic'),
-('US Virgin Islands'),
-('Brunei'),
-('Belarus'),
-('Iran'),
-('Algeria'),
-('Svalbard'),
-('El Salvador'),
-('Tuvalu'),
-('Zaire'),
-('Pitcairn Islands'),
-('Saint Pierre and Miquelon'),
-('Marshall Islands'),
-('Chile'),
-('Puerto Rico'),
-('Belgium'),
-('Kiribati'),
-('Haiti'),
-('Belize'),
-('Hong Kong'),
-('Sierra Leone'),
-('Georgia'),
-('Gambia'),
-('Philippines'),
-('Sao Tome And Principe'),
-('Moldova'),
-('Holy See (Vatican City)'),
-('Croatia'),
-('Micronesia'),
-('Guernsey'),
-('Thailand'),
-('Namibia'),
-('Grenada'),
-('Iraq'),
-('Portugal'),
-('Estonia'),
-('Uruguay'),
-('Equatorial Guinea'),
-('Lebanon'),
-('Uzbekistan'),
-('Tunisia'),
-('Djibouti'),
-('Rwanda'),
-('Timor-Leste'),
-('Spain'),
-('Colombia'),
-('Reunion'),
-('Burundi'),
-('Taiwan'),
-('Fiji'),
-('Barbados'),
-('Madagascar'),
-('Italy'),
-('Bhutan'),
-('Sudan'),
-('Nepal'),
-('Malta'),
-('Democratic Republic of the Congo'),
-('Netherlands'),
-('Northern Mariana Islands'),
-('Suriname'),
-('Anguilla'),
-('Venezuela'),
-('Netherlands Antilles'),
-('Aland Islands'),
-('Israel'),
-('Indonesia'),
-('Iceland'),
-('Zambia'),
-('Senegal'),
-('Papua New Guinea'),
-('Zimbabwe'),
-('Germany'),
-('Vanuatu'),
-('Denmark'),
-('Saint-Martin'),
-('Kazakhstan'),
-('Poland'),
-('Eritrea'),
-('Kyrgyzstan'),
-('Palestinian Territory'),
-('British Indian Ocean Territory'),
-('Montserrat'),
-('Mexico'),
-('Macedonia'),
-('North Korea'),
-('Sri Lanka'),
-('Latvia'),
-('Guyana'),
-('Syria'),
-('Guadeloupe'),
-('Morocco'),
-('Honduras'),
-('Bouvet Island'),
-('Egypt'),
-('Nicaragua'),
-('Singapore'),
-('Serbia'),
-('Botswana'),
-('United Kingdom'),
-('Trinidad And Tobago'),
-('Antarctica'),
-('Christmas Island'),
-('Greece'),
-('Paraguay'),
-('French Guiana'),
-('Comoros'),
-('US Minor Outlying Islands');
+insert into amazon_shoes.valid_polarization_type values
+('iridium'),
+('polarized'),
+('non-polarized');
 
-insert into amazon_shoes.valid_batteries_required values
-('True'),
-('False');
-
-insert into amazon_shoes.valid_maximum_speed_unit_of_measure values
-('kilometers_per_hour'),
-('feet_per_minute'),
-('miles_per_hour');
-
-insert into amazon_shoes.valid_external_product_id_type values
-('GCID'),
-('GTIN'),
-('UPC'),
-('EAN');
-
-insert into amazon_shoes.valid_battery_type values
-('battery_type_d'),
-('battery_type_a'),
-('battery_type_c'),
-('battery_type_lithium_ion'),
-('battery_type_aaa'),
-('battery_type_lithium_metal'),
-('battery_type_9v'),
-('battery_type_aa'),
-('battery_type_12v'),
-('battery_type_product_specific'),
-('battery_type_p76'),
-('battery_type_cr123a'),
-('battery_type_aaaa'),
-('battery_type_cr5'),
-('battery_type_cr2');
-
-insert into amazon_shoes.valid_active_surface_area_unit_of_measure values
-('square-in'),
-('square-ft');
-
-insert into amazon_shoes.valid_condition_type values
-('CollectibleGood'),
-('CollectibleAcceptable'),
-('New'),
-('CollectibleLikeNew'),
-('CollectibleVeryGood');
+insert into amazon_shoes.valid_eyewear_unit_of_measure values
+('FT'),
+('CM'),
+('MM'),
+('M'),
+('IN');
 
 insert into amazon_shoes.valid_product_tax_code values
 ('A_GEN_NOTAX');
 
-insert into amazon_shoes.valid_minimum_weight_recommendation_unit_of_measure values
-('LB'),
-('KG'),
-('GR'),
-('OZ');
+insert into amazon_shoes.valid_parent_child values
+('Parent'),
+('Child');
 
-insert into amazon_shoes.valid_is_recalled values
-('True'),
-('False');
+insert into amazon_shoes.valid_strap_type values
+('toe-strap'),
+('cross-body-strap'),
+('removable-strap'),
+('handle(s)'),
+('ankle-wrap'),
+('waist-strap'),
+('monk-strap'),
+('padded-strap'),
+('ankle-strap'),
+('thong'),
+('double-handle'),
+('backstrap'),
+('chain-strap'),
+('t-strap'),
+('slingback'),
+('adjustable-strap'),
+('single-strap'),
+('convertible-strap');
 
-insert into amazon_shoes.valid_gtin_exemption_reason values
-('ReplacementPart'),
-('CustomProductBundle');
-
-insert into amazon_shoes.valid_item_weight_unit_of_measure values
-('LB'),
-('KG'),
-('GR'),
-('OZ');
-
-insert into amazon_shoes.valid_update_delete values
-('Update'),
-('PartialUpdate'),
-('Delete');
-
-insert into amazon_shoes.valid_style_keywords values
-('Paper doll'),
-('Bisque doll'),
-('Peg wooden doll'),
-('African dolls'),
-('Raggedy Ann doll'),
-('China doll'),
-('Celebrity doll'),
-('Reborn doll'),
-('Ball-jointed doll'),
-('Inuit/Eskimo dolls'),
-('Fashion doll'),
-('Bobblehead doll'),
-('Hopi Kachina dolls'),
-('Black dolls'),
-('Parian doll'),
-('Voodoo doll'),
-('Matryoshka doll'),
-('Other'),
-('Japanese traditional dolls');
-
-insert into amazon_shoes.valid_maximum_weight_recommendation_unit_of_measure values
-('LB'),
-('KG'),
-('GR'),
-('OZ');
-
-insert into amazon_shoes.valid_are_batteries_included values
-('True'),
-('False');
-
-insert into amazon_shoes.valid_is_assembly_required values
-('True'),
-('False');
-
-insert into amazon_shoes.valid_genre values
-('Educational'),
-('Sport'),
-('Word'),
-('Role Playing'),
-('Entertainment'),
-('Creative'),
-('Other'),
-('Strategy'),
-('Action'),
-('Party'),
-('Reality'),
-('War'),
-('Math'),
-('Luck');
-
-insert into amazon_shoes.valid_is_discontinued_by_manufacturer values
-('True'),
-('False');
-
-insert into amazon_shoes.valid_size_map values
-('Medium'),
-('XXXXX-Large'),
-('XXXX-Small'),
-('X-Large'),
-('XX-Large'),
-('Large'),
-('XXXXX-Small'),
-('XXX-Small'),
-('XXX-Large'),
-('Small'),
-('XX-Small'),
-('XXXX-Large'),
-('X-Small');
-
-insert into amazon_shoes.valid_is_adult_product values
-('True'),
-('False');
-
-insert into amazon_shoes.valid_mfg_maximum_unit_of_measure values
-('Months'),
-('Years');
-
-insert into amazon_shoes.valid_is_electric values
-('True'),
-('False');
-
-insert into amazon_shoes.valid_offering_can_be_giftwrapped values
-('True'),
-('False');
-
-insert into amazon_shoes.valid_item_length_unit_of_measure values
-('FT'),
-('CM'),
-('MM'),
-('M'),
-('IN');
-
-insert into amazon_shoes.valid_missing_keyset_reason values
-('NonConsumer'),
-('Specialized'),
-('PrivateLabel'),
-('PreConfigured');
-
-insert into amazon_shoes.valid_package_length_unit_of_measure values
-('FT'),
-('CM'),
-('MM'),
-('M'),
-('IN');
-
-insert into amazon_shoes.valid_prop_65 values
-('True'),
-('False');
-
-insert into amazon_shoes.valid_package_weight_unit_of_measure values
-('LB'),
-('KG'),
-('GR'),
-('OZ');
-
-insert into amazon_shoes.valid_offering_can_be_gift_messaged values
-('True'),
-('False');
-
-insert into amazon_shoes.valid_fulfillment_center_id values
-('DEFAULT'),
-('AMAZON_NA');
+insert into amazon_shoes.valid_arch_type values
+('stability'),
+('neutral'),
+('motion-control');
 
