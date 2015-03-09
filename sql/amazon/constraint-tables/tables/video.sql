@@ -1,4 +1,8 @@
-﻿create table amazon_video.valid_external_product_id_type (
+﻿-- create table amazon_video.valid_external_product_id_type (
+--      external_product_id_type varchar primary key
+-- );
+
+create table amazon_video.valid_external_product_id_type (
      external_product_id_type varchar primary key
 );
 
@@ -64,6 +68,10 @@ create table amazon_video.valid_format (
 
 create table amazon_video.valid_mpaa_rating (
      mpaa_rating varchar primary key
+);
+
+create table amazon_video.valid_audio_encoding (
+     audio_encoding varchar primary key
 );
 
 create table amazon_video.valid_audio_encoding_language (

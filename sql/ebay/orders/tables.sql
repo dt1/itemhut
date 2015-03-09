@@ -120,7 +120,59 @@ create table ebay_orders.transaction_taxe_details (
        tax_on_handling_amount numeric,
        tax_on_handling_amount_currency_id varchar,
        imposition varchar,
-       tax_description v
+       tax_description varchar,
        foreign key (transaction_array_id)
        ebay_orders.order_id_transaction_array_id_lut (transaction_array_id)
 );
+
+-- -- Total Taxes Currency
+-- -- varchar
+-- select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, Taxes, TotalTaxAmount, _currencyID}'
+-- from ebay_orders.json_insert;
+
+-- -- Total Taxes Amount
+-- -- numeric
+-- select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, Taxes, TotalTaxAmount, value}'
+-- from ebay_orders.json_insert;
+
+-- -- Sales (?) Tax Currency Type
+-- -- varchar
+-- select v#>'{OrderArray, Order}'->1#>'{TransactionArray, Transaction, Taxes, TaxDetails}'->1#>>'{TaxAmount, _currencyID}'
+-- from ebay_orders.json_insert;
+
+-- -- Sales (?) Tax Currency Amount
+-- -- numeric
+-- select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, Taxes, TaxDetails, 1, TaxAmount, value}'
+-- from ebay_orders.json_insert;
+
+-- -- Handling Tax Currency Type
+-- -- varchar
+-- select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, Taxes, TaxDetails, 0, TaxOnHandlingAmount, _currencyID}'
+-- from ebay_orders.json_insert;
+
+-- -- Handling Tax Currency Amount
+-- -- numeric
+-- select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, Taxes, TaxDetails, 0, TaxOnHandlingAmount, value}'
+-- from ebay_orders.json_insert;
+
+-- -- Sales (?) Tax Imposition
+-- -- varchar
+-- select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, Taxes, TaxDetails'->(1)->>'{Imposition}'
+-- from ebay_orders.json_insert;
+
+-- -- Shipping Tax Currency Type
+-- -- varchar
+-- select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, Taxes, TaxDetails, 0, TaxOnShippingAmount, _currencyID}'
+-- from ebay_orders.json_insert;
+
+-- -- Shipping Tax Currency Amount
+-- -- numeric
+-- select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, Taxes, TaxDetails, 0, TaxOnShippingAmount, value}'
+-- from ebay_orders.json_insert;
+
+-- -- Sales (?) Tax Description
+-- -- varchar
+-- select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, Taxes, TaxDetails, 1, TaxDescription}'
+-- from ebay_orders.json_insert;
+
+

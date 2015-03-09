@@ -18,9 +18,6 @@ sys.path.append("/omark/pyebay/common/")
 sys.path.append("/omark/pydb/")
 import common
 import dbconn
-from psycopg2.extras import Json
-## import simplejson
-from pprint import pprint
 
 api = Connection(config_file = '/omark/pyebay/ebay.yaml')
 
@@ -73,10 +70,12 @@ def get_orders(query):
 
 get_orders(QUERY)
 
+print(QUERY)
+
 dbconn.conn.commit()
 dbconn.cur.close()
 
 print("success")
 
 
-print(zz)
+# print(zz)

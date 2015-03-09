@@ -227,7 +227,7 @@ $$ language plpgsql;
 -- declare 
 -- json_length int;
 
--- t_seller_email varchar;
+p-- t_seller_email varchar;
 -- t_integrated_credit_card_enabled bool;
 -- t_payment_hold_status varchar;
 
