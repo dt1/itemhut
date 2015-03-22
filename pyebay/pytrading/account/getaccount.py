@@ -116,9 +116,9 @@ def create_map(*args):
     for i in args:
         QUERY.update(i)
 
-# acs = account_history_selection ('SpecifiedInvoice')
-# id = invoice_date('2014-09-01')
-# create_map(acs,id)
+acs = account_history_selection ('SpecifiedInvoice')
+id = invoice_date('2014-09-01')
+create_map(acs,id)
         
 def get_account (QUERY):
     zz = api.execute('GetAccount', QUERY)    
@@ -132,3 +132,4 @@ dbconn.conn.commit()
 dbconn.cur.close()
 
 print("success")
+
