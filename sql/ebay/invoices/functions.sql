@@ -95,14 +95,37 @@ end loop;
 end;
 $$ LANGUAGE plpgsql;
 
+------------
+
+create or replace function ebay_invoices.insert_ack (jid int, v jsonb)
+returns table (r_jid int, r_ack varchar)
+as
+$$
+
+declare
+t_jid int := jid;
+t_ack varchar := v#>>'{Ack}';
+
+begin
+	return query values (t_jid, t_ack);
+
+end;
+$$ language plpgsql;
+
+--------------------
+
 create or replace function ebay_invoices.process_json ()
 returns trigger
 as
 $$
 declare
+n_jid int := new.jid;
 n_v jsonb := new.v;
 
 begin
+	insert into ebay_invoices.ack (jid, ack)
+	select r_jid, r_ack
+	from ebay_invoices.insert_ack (n_jid, n_v);
 
 	insert into  ebay_invoices.invoices (
 	account_details_entry_type,
@@ -143,4 +166,3 @@ begin
 return new;
 end;
 $$ language plpgsql;
-

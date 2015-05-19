@@ -92,7 +92,7 @@ from ebay_invoices.json_insert;
 
 ------------------------
 
-drop table inv_test;
+drop table ebay_invoices.invoices;
 
 
 create table ebay_invoices.invoices (
@@ -102,13 +102,13 @@ memo varchar,
 vat_percent numeric,
 net_detail_amount_currency varchar,
 net_detail_amount_value numeric,
-item_id varchar,
+item_id bigint,
 gross_detail_amount_currency varchar,
 gross_detail_amount_value numeric,
 order_line_item_id varchar,
 description varchar,
-ref_number int,
-transaction_id int,
+ref_number bigint,
+transaction_id bigint,
 title varchar,
 received_top_rated_discount varchar);
 
