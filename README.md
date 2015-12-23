@@ -40,10 +40,23 @@ Instead of requiring virtualenv or other tools to keep Python 2 and 3 separate, 
 
 ######Components
 
-* PostgreSQL 9.3
+* PostgreSQL 9.4 (Will upgrade to 9.5 when it released)
 * PL/pgSQL
 * C
 * Python 2.7
+
+######Setup
+
+*BeautifulSoup*
+$ pip install beautifulsoup4
+
+*psycopg2*
+Per the [documentation](http://initd.org/psycopg/docs/install.html), please install it via your package manager of choice. For Fedora:
+$ dnf install python-psycopg2
+
+*create the database*
+$ su - postgres
+$ createdb omark
 
 ######Where is the GUI?
 There are no plans to create a GUI component.
