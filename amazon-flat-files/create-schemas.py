@@ -41,7 +41,6 @@ def create_schemas():
                            create schema if not exists {0};
                            """.format(schema_name))
 
-
 ## create tables
 def generate_table_names(pg):
     a = []
@@ -65,25 +64,34 @@ def create_valid_tables(schema_name, table_name):
         except:
             print("error", " ", schema_name, " ", table_name)
 
+# def insert_valid_values(schema_name, table_name, value_list):
+#     pass
+            
 def create_tables():
     for xfile in read_excel_files():
-        print(xfile)
         schema_name = generate_schema_name(xfile)
         xpath_file = pd.ExcelFile(os.path.join("us/", xfile))
-        ## must fix this. 
+
         if schema_name in ["amazon_food_service_and_jan_san",
                            "amazon_food_service_and_jan_san_lite"]:
             pg = pd.read_excel(xpath_file,
                                sheetname = "Valid Values")
+            pg = list(pg.columns)
+            for i in pg:
+                i = re.sub('-', '_', i)
+                create_valid_tables(schema_name, i)
+
         else:
             try:
                 pg = pd.read_excel(xpath_file,
                                sheetname = "Valid Values")
             except:
                 pass
-        table_generator = generate_table_names(pg)
-        for table_name in table_generator:
-            create_valid_tables(schema_name, table_name)
+            table_generator = generate_table_names(pg)
+            for table_name in table_generator:
+                create_valid_tables(schema_name, table_name)
+
+
             
 create_schemas()
 create_tables()
