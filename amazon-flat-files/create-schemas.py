@@ -5,9 +5,12 @@ import os.path
 import sys
 import glob
 import pandas as pd
+import json
+from type_dict import type_dict
 
 sys.path.append("/omark/pydb")
 import dbconn
+
 
 ## some auxilary functions
 def read_excel_files():
@@ -42,16 +45,6 @@ def create_schemas():
                            create schema if not exists {0};
                            """.format(schema_name))
 
-## create tables
-def generate_table_names(pg):
-    a = []
-    for i in pg.itertuples():
-        a.append(i)
-
-    for tbl in a[0]:
-        if tbl != 0 and tbl != 'nan':
-            yield tbl
-
 def create_table_name(s):
     return camel_to_underscore(s)
 
@@ -64,6 +57,26 @@ def create_valid_tables(schema_name, table_name):
         );
         commit;
         """.format(schema_name, table_name))
+
+def create_template_table(schema_name):
+    if schema_name:
+        dbconn.cur.execute(
+            """
+            begin;
+            create table if not exists {0}.template ();
+            commit;
+            """.format(schema_name))
+        
+def update_template_table(schema_name, column_name, data_type, optional):
+    print(schema_name)
+    if optional == "Required":
+        dbconn.cur.execute(
+            """
+            begin;
+            alter table {0}.template
+            add column {1} {2} not null;
+            commit;
+            """.format(schema_name, column_name, data_type))
 
 def insert_valid_values(schema_name, table_name, value_list):
     for v in value_list:
@@ -83,6 +96,18 @@ def insert_valid_values(schema_name, table_name, value_list):
             except:
                 pass
 
+def pg_to_tables(schema_name, pg_df):
+    pg_cols = list(pg_df.columns)
+    for tbl in pg_cols:
+        tbl = re.sub('-', '_', tbl)
+        if " " not in tbl:
+            create_valid_tables(schema_name, tbl)
+
+def insert_pg_vals(schema_name, pg_df):
+    pg_vals = pg_df.to_dict('list')
+    for col, val in pg_vals.items():
+        col = create_table_name(col)
+        insert_valid_values(schema_name, col, val)
         
 def create_tables():
     for xfile in read_excel_files():
@@ -90,41 +115,64 @@ def create_tables():
         xpath_file = pd.ExcelFile(os.path.join("us/", xfile))
 
         try:
+            #pg meaning "excel_page"
+            #df meaning "DataFrame"
             pg = pd.read_excel(xpath_file,
                                sheetname = "Valid Values")
-            pgd = pd.DataFrame(pg)
-            pgg = pgd.to_dict('list')
+            pg_df = pd.DataFrame(pg)
         except:
             pass
 
         if schema_name in ["amazon_food_service_and_jan_san",
                            "amazon_food_service_and_jan_san_lite"]:
-            pg_cols = list(pg.columns)
-            for tbl in pg_cols:
-                tbl = re.sub('-', '_', tbl)
-                if " " not in tbl:
-                    create_valid_tables(schema_name, tbl)
- 
-            for k, v in pgg.items():
-                k = create_table_name(k)
-                insert_valid_values(schema_name, k, v)
-            else:
-                pg2 = pg
-                pg2.columns = pg.iloc[0]
-                pg2 = pg2.reindex(pg2.index.drop(0))
-                pg2_cols = list(pg2.columns)
-                pg2 = pg2.to_dict('list')
-                for tbl in pg2_cols:
-                    tbl = re.sub('-', '_', tbl)
-                    if " " not in tbl:
-                        create_valid_tables(schema_name, tbl)
-                    
-                for k, v in pg2.items():
-                    k = create_table_name(k)
-                    insert_valid_values(schema_name, k, v)    
+
+            pg_to_tables(schema_name, pg_df)
+            insert_pg_vals(schema_name, pg_df)
+
+        elif schema_name:
+            pg_df.columns = pg_df.iloc[0]
+            pg_df = pg_df.reindex(pg_df.index.drop(0))
+
+            pg_to_tables(schema_name, pg_df)
+            insert_pg_vals(schema_name, pg_df)
+
+
+
+def get_stuff():
+    s = set()
+    for xfile in read_excel_files():
+        schema_name = generate_schema_name(xfile)
+        create_template_table(schema_name)
+        xpath_file = pd.ExcelFile(os.path.join("us/", xfile))
+        data_defs = pd.read_excel(xpath_file,
+                                  sheetname = "Data Definitions")
+
+        pg_df = pd.DataFrame(data_defs)
+        pg_df.columns = pg_df.iloc[0]
+        pg_df = pg_df.reindex(pg_df.index.drop(0))
+        pg_json = (pg_df.to_json(orient = 'records'))
+        js = json.loads(pg_json)
+        if schema_name:
+            for i in js:
+                if i["Field Name"]:
+                    fn = i["Field Name"]
+                    ff = i["Accepted Values"]
+                    if ff:
+                        data_type = type_dict[ff]
+                    r = i["Required?"]
+                    update_template_table(schema_name, fn, data_type, r)
+                            
+            # # print("")
+            # # print(schema_name)
+            # # print(pg_df.columns[2])
+            #     print(type(js))
             
-create_schemas()
-create_tables()
+
+# create_schemas()
+# create_tables()
+get_stuff()
+
+#print(type_dict)
 
 dbconn.conn.commit()
 dbconn.cur.close()
