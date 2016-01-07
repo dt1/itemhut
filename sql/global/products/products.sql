@@ -11,7 +11,8 @@ create table product.sku_types (
 insert into product.sku_types (sku_type) values
 ('regular'),
 ('piece'),
-('master');
+('master')
+('replacement-part');
 
 create table product.sku_upc (
        sku varchar primary key,
@@ -55,11 +56,5 @@ create table product.pictures (
        picture_eleven varchar,
        picture_twelve varchar,
        swatch_picture varchar,
-       foreign key (sku) references product.sku_upc (sku)
-);
-
-create table product.costs (
-       sku varchar primary key,
-       cost numeric check (cost > 0),
        foreign key (sku) references product.sku_upc (sku)
 );

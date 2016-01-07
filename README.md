@@ -43,7 +43,7 @@ Instead of requiring virtualenv or other tools to keep Python 2 and 3 separate, 
 * PostgreSQL 9.4 (Will upgrade to 9.5 when it released)
 * PL/pgSQL
 * C
-* Python 2.7
+* Python 3.4
 
 ######Setup
 
