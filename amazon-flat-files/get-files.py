@@ -11,10 +11,6 @@ import glob
 sys.path.append("/omark/pydb/")
 import dbconn
 
-# flat_file_page = requests.get("http://www.amazon.com/gp/help/customer/display.html?nodeId=200186090")
-
-# file_soup = BeautifulSoup(flat_file_page.text, "lxml")
-
 def find_links(sfile):
     for link in sfile.find_all("a"):
         candidate_link = link.get("href")
@@ -32,6 +28,10 @@ def save_excel_files(sfile):
                 ofolder.write(xfile.content)
                 ofolder.close()
 
-# save_excel_files(file_soup)
+def start_excel_saves():
+    flat_file_page = requests.get("http://www.amazon.com/gp/help/customer/display.html?nodeId=200186090")
+    file_soup = BeautifulSoup(flat_file_page.text, "lxml")
+    save_excel_files(file_soup)
+    print("success")
 
-print("success")
+start_excel_saves()
