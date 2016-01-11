@@ -1,12 +1,19 @@
 -- the base company skus.
--- ideally, we'd want UPC to be gtin-12, but some custom UPCs may be created for pieces or replacements, and "master" SKUs for product variations.
-drop schema product cascade;
+-- ideally, we'd want UPC to be gtin-12, but some custom UPCs may be created
+-- for pieces or replacements, and "master" SKUs for product variations.
+-- drop schema if exists product cascade; -- for my testing
 
 create schema product;
 
 create table product.sku_types (
        sku_type varchar primary key
 );
+
+-- regular: all single-item SKUs. shoud have a gtin-12
+-- master: for collections of products as packages; ie. shirt and tie
+-- piece: for products that are pieces of a main item: ie. shoe laces
+-- replacement part, such as a screw
+
 
 insert into product.sku_types (sku_type) values
 ('regular'),
@@ -21,12 +28,30 @@ create table product.sku_upc (
        foreign key (sku_type) references product.sku_types (sku_type)
 );
 
-create table product.variations (
+create table product.kits (
        master_sku varchar,
        child_sku varchar,
        foreign key (master_sku) references product.sku_upc (sku),
        foreign key (child_sku) references product.sku_upc (sku)
 );
+
+create table product.pieces (
+       sku varchar primary key,
+       foreign key (sku)
+               references product.sku_upc (sku)
+);
+
+create table product.replacement_parts (
+       sku varchar primary key,
+       foreign key (sku)
+               references product.sku_upc (sku)
+);
+
+-- the descriptions and pictures tables
+-- are for "universal" view of all products
+-- that aren't specific to each marketplace.
+-- omark does not express an opinion on what is
+-- correct here, but allows either instance.
 
 create table product.descriptions (
        sku varchar primary key,
