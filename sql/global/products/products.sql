@@ -10,10 +10,9 @@ create table product.sku_types (
 );
 
 -- regular: all single-item SKUs. shoud have a gtin-12
--- master: for collections of products as packages; ie. shirt and tie
+-- master: for kits of products as packages; ie. shirt and tie
 -- piece: for products that are pieces of a main item: ie. shoe laces
 -- replacement part, such as a screw
-
 
 insert into product.sku_types (sku_type) values
 ('regular'),
@@ -21,30 +20,32 @@ insert into product.sku_types (sku_type) values
 ('master')
 ('replacement-part');
 
+-- in general, a kit or replacement part should not have a upc, but for listing purposes.
+
 create table product.sku_upc (
        sku varchar primary key,
        upc bigint unique,
-       sku_type varchar default 'regular',
+       sku_type varchar,
        foreign key (sku_type) references product.sku_types (sku_type)
 );
 
 create table product.kits (
        master_sku varchar,
        child_sku varchar,
+       primary key(master_sku, child_sku),
        foreign key (master_sku) references product.sku_upc (sku),
        foreign key (child_sku) references product.sku_upc (sku)
 );
 
-create table product.pieces (
-       sku varchar primary key,
-       foreign key (sku)
-               references product.sku_upc (sku)
-);
+-- these are for replacement skus that are the same as the original sku.
 
-create table product.replacement_parts (
-       sku varchar primary key,
-       foreign key (sku)
-               references product.sku_upc (sku)
+create table product.alternate_skus (
+       original_sku varchar,
+       alternate_sku varchar primary key,
+       foreign key (internal_sku)
+               references product.sku_upc (sku),
+       foreign key (internal_sku)
+               references product.sku_upc (sku)	    
 );
 
 -- the descriptions and pictures tables
@@ -65,21 +66,21 @@ create table product.descriptions (
        foreign key (sku) references product.sku_upc (sku)
 );
 
-create table product.pictures (
+create table product.images (
        sku varchar primary key,
-       main_picture varchar,
-       picture_one varchar,
-       picture_two varchar,
-       picture_three varchar,
-       picture_four varchar,
-       picture_five varchar,
-       picture_six varchar,
-       picture_seven varchar,
-       picture_eight varchar,
-       picture_nine varchar,
-       picture_ten varchar,
-       picture_eleven varchar,
-       picture_twelve varchar,
-       swatch_picture varchar,
+       main_image varchar,
+       image_one varchar,
+       image_two varchar,
+       image_three varchar,
+       image_four varchar,
+       image_five varchar,
+       image_six varchar,
+       image_seven varchar,
+       image_eight varchar,
+       image_nine varchar,
+       image_ten varchar,
+       image_eleven varchar,
+       image_twelve varchar,
+       swatch_image varchar,
        foreign key (sku) references product.sku_upc (sku)
 );
