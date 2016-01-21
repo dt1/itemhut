@@ -1,8 +1,10 @@
-create schema warehouse;
+drop schema if exists warehouse cascade;
+
+create schema if not exists warehouse;
 
 create table warehouse.warehouses (
        warehouse_id serial primary key,
-       warehouse_name varchar unique,
+       warehouse_name varchar unique not null,
        warehouse_street_address varchar,
        warehouse_state varchar,
        warehouse_zip varchar,
@@ -28,7 +30,7 @@ create table warehouse.warehouse_pallet_loc (
        foreign key (warehouse_id)
                references warehouse.warehouses (warehouse_id),
        foreign key (pallet_location_id)
-               references warehouse.pallet_location (pallet_location_id)
+               references warehouse.pallet_locations (pallet_location_id)
 );
 
 create table warehouse.picking_locations (
@@ -37,17 +39,17 @@ create table warehouse.picking_locations (
        sku varchar,
        qty int check (qty > 0),
        foreign key (sku)
-               references products.sku_upc (sku)
+               references product.sku_upc (sku)
 );
 
 create table warehouse.warehouse_picking_loc (
        warehouse_id int,
        picking_location_id int,
-       primary key (warehouse_id, picking_location)
+       primary key (warehouse_id, picking_location_id),
        foreign key (warehouse_id)
                references warehouse.warehouses (warehouse_id),
-       foreign key (picking_location)
-               references warehouse.picking_locations (picking_location)
+       foreign key (picking_location_id)
+               references warehouse.picking_locations (picking_location_id)
 );
 
 create table warehouse.cases (
@@ -55,7 +57,7 @@ create table warehouse.cases (
        upc bigint not null,
        qty int check (qty > 0),
        foreign key (upc)
-               references products.sku_upc (upc)
+               references product.sku_upc (upc)
 );
 
 create table warehouse.pallet_case (
@@ -74,13 +76,13 @@ create table warehouse.pickers (
 
 create table warehouse.picker_picked (
        picker_id int,
-       picking_location int,
+       picking_location_id int,
        qty int check (qty > 0),
-       datetime timetamp default now(),
+       datetime timestamp default now(),
        foreign key (picker_id)
-               references warehouse.picker_id (picker_id),
-       foreign key (picking_location)
-               references warehouse.picking_locations (picking_location)
+               references warehouse.pickers (picker_id),
+       foreign key (picking_location_id)
+               references warehouse.picking_locations (picking_location_id)
 );
 
 create table warehouse.qc_station (

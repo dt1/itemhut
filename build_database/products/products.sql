@@ -1,9 +1,9 @@
 -- the base company skus.
 -- ideally, we'd want UPC to be gtin-12, but some custom UPCs may be created
 -- for pieces or replacements, and "master" SKUs for product variations.
--- drop schema if exists product cascade; -- for my testing
+drop schema if exists product cascade; -- for my testing
 
-create schema product;
+create schema if not exists product;
 
 create table product.sku_types (
        sku_type varchar primary key
@@ -17,7 +17,7 @@ create table product.sku_types (
 insert into product.sku_types (sku_type) values
 ('regular'),
 ('piece'),
-('master')
+('master'),
 ('replacement-part');
 
 -- in general, a kit or replacement part should not have a upc, but for listing purposes.
@@ -25,7 +25,7 @@ insert into product.sku_types (sku_type) values
 create table product.sku_upc (
        sku varchar primary key,
        upc bigint unique,
-       sku_type varchar,
+       sku_type varchar not null default 'regular',
        foreign key (sku_type) references product.sku_types (sku_type)
 );
 
@@ -37,14 +37,15 @@ create table product.kits (
        foreign key (child_sku) references product.sku_upc (sku)
 );
 
--- these are for replacement skus that are the same as the original sku.
+-- these are for replacement skus that are the same as the original sku
+-- or for items that are mislabled.
 
 create table product.alternate_skus (
        original_sku varchar,
        alternate_sku varchar primary key,
-       foreign key (internal_sku)
+       foreign key (original_sku)
                references product.sku_upc (sku),
-       foreign key (internal_sku)
+       foreign key (alternate_sku)
                references product.sku_upc (sku)	    
 );
 
