@@ -17,20 +17,26 @@ create table warehouse.pallets (
 
 create table warehouse.pallet_locations (
        pallet_location_id serial primary key,
-       pallet_location_name varchar,
-       pallet_id int,
-       foreign key (pallet_id)
-               references warehouse.pallets (pallet_id)
+       pallet_location_name varchar
 );
 
 create table warehouse.warehouse_pallet_loc (
        warehouse_id int,
-       pallet_location_id int,
-       primary key (warehouse_id, pallet_location_id),
+       pallet_location_id int primary key,
        foreign key (warehouse_id)
                references warehouse.warehouses (warehouse_id),
        foreign key (pallet_location_id)
                references warehouse.pallet_locations (pallet_location_id)
+);
+
+create table warehouse.pallet_palletloc (
+       pallet_location_id int,
+       pallet_id int primary key,
+       foreign key (pallet_location_id)
+               references warehouse.pallet_locations (pallet_location_id),
+       foreign key (pallet_id)
+               references warehouse.pallets (pallet_id)
+
 );
 
 create table warehouse.picking_locations (
@@ -44,8 +50,7 @@ create table warehouse.picking_locations (
 
 create table warehouse.warehouse_picking_loc (
        warehouse_id int,
-       picking_location_id int,
-       primary key (warehouse_id, picking_location_id),
+       picking_location_id int primary key,
        foreign key (warehouse_id)
                references warehouse.warehouses (warehouse_id),
        foreign key (picking_location_id)
@@ -62,8 +67,7 @@ create table warehouse.cases (
 
 create table warehouse.pallet_case (
        pallet_id int,
-       case_id int,
-       primary key (pallet_id, case_id),
+       case_id int primary key,
        foreign key (pallet_id)
                references warehouse.pallets (pallet_id),
        foreign key (case_id)
@@ -92,8 +96,7 @@ create table warehouse.qc_station (
 
 create table warehouse.warehouse_qc_station (
        warehouse_id int,
-       qc_station_id int,
-       primary key (warehouse_id, qc_station_id),
+       qc_station_id int primary key,
        foreign key (warehouse_id)
                references warehouse.warehouses (warehouse_id),
        foreign key (qc_station_id)
@@ -118,4 +121,3 @@ create table warehouse.qc_log (
        foreign key (qc_person_id)
                references warehouse.qc_person (qc_person_id)
 );
-
