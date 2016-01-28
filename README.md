@@ -36,7 +36,8 @@ The code assumes you'd like to use a .yaml file to keep your credentials. I do n
 ######Current Status
 Python is currently talking to PostgreSQL. The only feature that works at this time is insertion into PostgreSQL and a bit of processing.
 
-Instead of requiring virtualenv or other tools to keep Python 2 and 3 separate, I simply call Python2 in the file headers.
+Amazon database is fully comnplete.
+
 
 ######Components
 
@@ -44,6 +45,7 @@ Instead of requiring virtualenv or other tools to keep Python 2 and 3 separate, 
 * PL/pgSQL
 * C
 * Python 3.4
+* bottle (web ui)
 
 ######Setup
 
