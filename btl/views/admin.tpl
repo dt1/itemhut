@@ -28,6 +28,9 @@
 				<a href = "/products/amazon">Amazon</a>
 			</li>
 			<li>
+				<a href = "/products/amazon">Amazon</a>
+			</li>
+			<li>
 				<a href = "/products/ebay">eBay</a>
 			</li>
 		</ul>

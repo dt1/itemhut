@@ -1,29 +1,33 @@
-% include('header.tpl')
+% include('global/header.tpl')
 
 <div class="off-canvas-wrapper">
 
   <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
 
-% include('top_bar.tpl')
-% include('top_nav.tpl')
+% include('global/top_bar.tpl')
+% include('global/top_nav.tpl')
 
 
     <!-- original content goes in this container -->
 
     <div class="off-canvas-content" data-off-canvas-content>
-
       <div class="expanded row">
       	   <div class="medium-2 columns">
+	       <h4>Amazon</h4>
 	   	<ul class="vertical menu">
-			<li>menu</li>
-			<li>menu</li>
-			<li>menu</li>
-			<li>menu</li>
+			<li>
+				<a href = "/products">All</a>
+			</li>
+			% for i in reg:
+			<li>
+				<a href = "/products/amazon/{{i[1]}}">{{i[2]}}</a>
+			</li>
+			% end			
+			
 		</ul>
 	   </div>
-	   
       	   <div class="medium-10 columns">
-	         <p>stuff here</p>
+		 
 	   </div>      
       </div>
 
@@ -37,4 +41,4 @@
 
 </div>
 
-% include('end_body.tpl')
+% include('global/end_body.tpl')

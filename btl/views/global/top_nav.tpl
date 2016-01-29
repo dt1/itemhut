@@ -9,19 +9,22 @@
             <a href="/products">Products</a>
           </li>
           <li>
-            <a href="/">Orders</a>
+            <a href="/warehouse">Warehouse</a>
           </li>
           <li>
-            <a href="/">Emails</a>
+            <a href="/orders">Orders</a>
           </li>
           <li>
-            <a href="/">Customers</a>
+            <a href="/emails">Emails</a>
           </li>
           <li>
-            <a href="/">Analytics</a>
+            <a href="/customers">Customers</a>
           </li>
           <li>
-            <a href="/">Admin</a>
+            <a href="/analytics">Analytics</a>
+          </li>
+          <li>
+            <a href="/admin">Admin</a>
           </li>
       </ul>
       </div>

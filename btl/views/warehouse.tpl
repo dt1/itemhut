@@ -12,19 +12,17 @@
 
     <div class="off-canvas-content" data-off-canvas-content>
 
-      <div class="expanded row">	   
-      	   <div class="large-12 columns">
-	   	<h5>
-		    <a href="/" style = "color: #004291;">New Orders</a>
-		</h5>
-		<span>300 new orders</span>
-		<br>
-		<br>
-	   	<h5>
-		    <a href="/" style = "color: #004291;">New Emails</a>
-		</h5>
-		<span>300 new emails</span>
-
+      <div class="expanded row">
+      	   <div class="medium-2 columns">
+	   	<ul class="vertical menu">
+			<li><a href = "/products/ebay">Warehouse A</a></li>
+			<li><a href = "/products/ebay">Warehouse B</a></li>
+			<li><a href = "/products/ebay">Warehouse C</a></li>
+		</ul>
+	   </div>
+	   
+      	   <div class="medium-10 columns">
+	         <p>stuff here</p>
 	   </div>      
       </div>
 

@@ -14,27 +14,25 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
+	   	<h4 style = "color: #004291;">{{amz_header}}</h4>
 	   	<ul class="vertical menu">
-			<li>
-				<a href = "/products">All</a>
-			</li>
-			<li>
-				<a href = "/products/bandm">My B&M Store</a>
-			</li>
-			<li>
-				<a href = "/products/website">My website</a>
-			</li>
-			<li>
-				<a href = "/products/amazon">Amazon</a>
-			</li>
-			<li>
-				<a href = "/products/ebay">eBay</a>
-			</li>
+			<li><a href = "/products/amazon/{{section}}/new-item">New Item</a></li>
 		</ul>
 	   </div>
-	   
       	   <div class="medium-10 columns">
-	         <p>stuff here</p>
+	   <table>
+		<tr>
+		<th>Item Sku</th>
+		<th>Item Name</th>
+		<th>Quantity</th>
+		<th>Listed Price</th>	
+		</tr>
+	   </table>
+	   	% for f in fields:
+	         <label>{{f[1]}}</label>
+		 <input></input>
+		% end
+
 	   </div>      
       </div>
 
