@@ -33,13 +33,33 @@ def select_amazon_regular():
 def get_amazon_reg_fields(schema_name):
     dbconn.cur.execute(
         """
-        select column_name,
-        initcap(replace(column_name, '_', ' ')) cname
+        select column_name, 
+        initcap(replace(column_name, '_', ' ')) cname,
+        t1.table_name t1tname, 
+        ordinal_position, 
+        data_type, 
+        t2.table_name t2tname
+        from
+        (select table_name, column_name, ordinal_position, data_type
         from information_schema.columns
         where table_schema = '{0}'
-        and table_name = 'template'
-        order by ordinal_position;
+        and table_name = 'template') t1
+        left join
+        (select table_name, column_name
+        from information_schema.columns
+        where table_schema = '{0}'
+        and table_name != 'template') t2
+        using (column_name);
         """.format(schema_name))
+    a = dbconn.cur.fetchall()
+    return a
+
+def get_amazon_valid_arrays(schema_name, table_name):
+    dbconn.cur.execute(
+        """
+        select *
+        from {0}.{1};
+        """.format(schema_name, table_name))
     a = dbconn.cur.fetchall()
     return a
 
@@ -73,12 +93,22 @@ def valid_amazon_list():
 @route("/products/amazon/<section>/new-item")
 def add_amazon_item(section):
     valid_list = valid_amazon_list()
+    fdict = {}
+    d = {"cname" : None, "t1name" : None,
+         "data_type" : None, "t2name" : None, "valid_array" : None}
     if section in valid_list:
         amz_header = section.replace("-", " ").title()
         s = "amazon_{0}".format(section.replace("-", "_"))
         s = s.strip()
         fields = get_amazon_reg_fields(s)
-        return template("views/amazon_section", amz_header = amz_header, fields = fields, section = section)
+        for f in fields:
+            fdict[f[0]] = d
+            fdict[f[0]]["cname"] = f[1]
+            fdict[f[0]]["t1name"] = f[5]
+            fdict[f[0]]["data_type"] = f[4]
+            if f[5]:
+                fdict[f[0]]["valid_array"] = get_amazon_valid_arrays(s, f[5])
+        return template("views/amazon_new_item", amz_header = amz_header, fields = fields, section = section, fdict = fdict)
     
 @route("/products/amazon/<section>")
 def amazon_section(section):
