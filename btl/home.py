@@ -1,6 +1,9 @@
 from bottle import *
 import psycopg2
 import psycopg2.extras
+import collections
+
+from models.amazon import *
 
 import sys
 sys.path.append("/omark/pydb")
@@ -15,102 +18,25 @@ def error404(error):
 def send_static(filename):
     return static_file(filename, root="static/")
 
-
-def select_amazon_regular():
-    dbconn.cur.execute(
-	"""
-	select schema_name,
-        replace(replace(schema_name, 'amazon_', ''), '_', '-') slink,
-        initcap(replace(replace(schema_name, 'amazon_', ''), '_', ' ')) sname
-	from information_schema.schemata
-	where schema_name ~~* 'amazon%'
-	and schema_name !~~* '%lite'
-        order by slink;
-	""")
-    a = dbconn.cur.fetchall()
-    return a
-
-def get_amazon_reg_fields(schema_name):
-    dbconn.cur.execute(
-        """
-        select column_name, 
-        initcap(replace(column_name, '_', ' ')) cname,
-        t1.table_name t1tname, 
-        ordinal_position, 
-        data_type, 
-        t2.table_name t2tname
-        from
-        (select table_name, column_name, ordinal_position, data_type
-        from information_schema.columns
-        where table_schema = '{0}'
-        and table_name = 'template') t1
-        left join
-        (select table_name, column_name
-        from information_schema.columns
-        where table_schema = '{0}'
-        and table_name != 'template') t2
-        using (column_name);
-        """.format(schema_name))
-    a = dbconn.cur.fetchall()
-    return a
-
-def get_amazon_valid_arrays(schema_name, table_name):
-    dbconn.cur.execute(
-        """
-        select *
-        from {0}.{1};
-        """.format(schema_name, table_name))
-    a = dbconn.cur.fetchall()
-    return a
-
-def get_arf(schema_name):
-    c = dbconn.conn.cursor(cursor_factory = psycopg2.extras.DictCursor)
-    c.execute(
-        """
-        select item_sku
-        from {0}.template;
-        """.format(schema_name))
-    a = c.fetchall()
-    return a
-
-def get_base_amazon_data(schema_name):
-    dbconn.cur.execute(
-        """
-        select item_sku, item_name, quantity
-        from {0}.template;
-        """.format(schema_name))
-    a = dbconn.cur.fetchall()
-    return a
-
-def valid_amazon_list():
-    a = select_amazon_regular()
-    valid_list = []
-    for i in a:
-        valid_list.append(i[1])
-    return valid_list
-
 # amazon pages
-@route("/products/amazon/<section>/new-item")
+@route("/channels/amazon/<section>/new-item")
 def add_amazon_item(section):
     valid_list = valid_amazon_list()
-    fdict = {}
-    d = {"cname" : None, "t1name" : None,
-         "data_type" : None, "t2name" : None, "valid_array" : None}
+    fdict = collections.OrderedDict()
     if section in valid_list:
         amz_header = section.replace("-", " ").title()
         s = "amazon_{0}".format(section.replace("-", "_"))
         s = s.strip()
         fields = get_amazon_reg_fields(s)
         for f in fields:
-            fdict[f[0]] = d
+            fdict[f[0]] = {}
             fdict[f[0]]["cname"] = f[1]
-            fdict[f[0]]["t1name"] = f[5]
-            fdict[f[0]]["data_type"] = f[4]
-            if f[5]:
-                fdict[f[0]]["valid_array"] = get_amazon_valid_arrays(s, f[5])
+            fdict[f[0]]["data_type"] = f[3]
+            if f[4]:
+                fdict[f[0]]["valid_array"] = get_amazon_valid_arrays(s, f[4])
         return template("views/amazon_new_item", amz_header = amz_header, fields = fields, section = section, fdict = fdict)
     
-@route("/products/amazon/<section>")
+@route("/channels/amazon/<section>")
 def amazon_section(section):
     valid_list = valid_amazon_list()
     if section in valid_list:
@@ -121,31 +47,80 @@ def amazon_section(section):
         return template("views/amazon_section", amz_header = amz_header, fields = fields, section = section)
 
 # product pages
-@route("/products/<storefront>")
+@route("/channels/<storefront>")
 def product_store(storefront = None):
     if storefront in ["amazon"]:
         a = select_amazon_regular()
         return template("views/amazon", reg = a)
     if storefront in ["ebay", "amazon"]:
-        return template("views/products")
+        return template("views/channels")
     else:
         error404("err")
 
+@route("/channels")
+def products():
+    return template("views/channels")
+
+def sku_upcs():
+    dbconn.cur.execute(
+        """
+        select sku, upc, sku_type, product_name
+        from product.sku_upc
+        left join product.descriptions
+        using (sku);        
+        """)
+    a = dbconn.cur.fetchall()
+    return a
+
+def sku_types():
+    dbconn.cur.execute(
+        """
+        select *
+        from product.sku_types;
+        """)
+    a = dbconn.cur.fetchall()
+    return a
+
+@route("/products/add-product")
+def add_products():
+    sku_upc = sku_upcs()
+    stypes = sku_types()
+    return template("views/add_product", sku_upc = sku_upc, sku_types = stypes)
+
+
+@route("/products/all")
+def all_products():
+    sku_upc = sku_upcs()
+    return template("views/all_products", sku_upc = sku_upc)
+
 @route("/products")
 def products():
-    return template("views/products")
+    return template("views/products", sku_upc = None)
+
+def valid_warehouses():
+    dbconn.cur.execute(
+        """
+        select warehouse_name
+        from warehouse.warehouses
+        order by warehouse_name;
+        """)
+    a = dbconn.cur.fetchall()
+    return a
 
 # warehouse pages
 @route("/warehouse/<wh>")
 def warehouse_n(wh = None):
-    if wh in ["warehouse-a", "warehouse-b"]:
-        return template("views/warehouse")
-    else:
-        error404("err")
+    wh_query = valid_warehouses()
+    wh_list = [i[0] for i in wh_query]
+    valid_wh = [i[0].replace(" ", "-") for i in wh_query]
+    if wh in valid_wh:
+        return template("views/warehouse", wh_list = wh_list)
 
 @route("/warehouse")
 def warehouse():
-    return template("views/warehouse")
+    wh = valid_warehouses()
+    valid_wh = [i[0] for i in wh]
+    return template("views/warehouse", wh_list = valid_wh)
 
 # order pages
 @route("/orders")

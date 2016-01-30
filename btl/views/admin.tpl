@@ -14,30 +14,31 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   	<ul class="vertical menu">
-			<li>
-				<a href = "/products">All</a>
-			</li>
-			<li>
-				<a href = "/products/bandm">My B&M Store</a>
-			</li>
-			<li>
-				<a href = "/products/website">My website</a>
-			</li>
-			<li>
-				<a href = "/products/amazon">Amazon</a>
-			</li>
-			<li>
-				<a href = "/products/amazon">Amazon</a>
-			</li>
-			<li>
-				<a href = "/products/ebay">eBay</a>
-			</li>
-		</ul>
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	         <p>stuff here</p>
+	         <div class = "row">
+		      <div class = "medium-4 columns">
+		      	   <h5 color = >Warehouses</h5>
+		      	   <p><a href = "#">Add Warehouse</a></p>
+		      	   <p><a href = "#">Manage Warehouses</a></p>
+		      </div>
+
+
+		      <div class = "medium-4 columns">
+		      	   <h5 color = >Users and Roles</h5>
+		      	   <p><a href = "#">Add User</a></p>
+		      	   <p><a href = "#">Manage Users</a></p>
+		      	   <p><a href = "#">Add Role</a></p>
+		      	   <p><a href = "#">Manage Roles</a></p>
+		      </div>
+
+		      <div class = "medium-4 columns">
+		      	   <h5 color = >Channels</h5>
+		      	   <p><a href = "#">Add Channel</a></p>
+		      	   <p><a href = "#">Manage Channels</a></p>
+		      </div>
+		 </div>
 	   </div>      
       </div>
 

@@ -9,6 +9,9 @@
             <a href="/products">Products</a>
           </li>
           <li>
+            <a href="/channels">Channels</a>
+          </li>
+          <li>
             <a href="/warehouse">Warehouse</a>
           </li>
           <li>

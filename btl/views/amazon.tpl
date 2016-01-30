@@ -16,11 +16,11 @@
 	       <h4>Amazon</h4>
 	   	<ul class="vertical menu">
 			<li>
-				<a href = "/products">All</a>
+				<a href = "/amazon">All</a>
 			</li>
 			% for i in reg:
 			<li>
-				<a href = "/products/amazon/{{i[1]}}">{{i[2]}}</a>
+				<a href = "/channels/amazon/{{i[1]}}">{{i[2]}}</a>
 			</li>
 			% end			
 			

@@ -16,7 +16,7 @@
       	   <div class="medium-2 columns">
 	   	<h4 style = "color: #004291;">{{amz_header}}</h4>
 	   	<ul class="vertical menu">
-			<li><a href = "/products/amazon/{{section}}/new-item">New Item</a></li>
+			<li><a href = "/channels/amazon/{{section}}/new-item">New Item</a></li>
 		</ul>
 	   </div>
       	   <div class="medium-10 columns">

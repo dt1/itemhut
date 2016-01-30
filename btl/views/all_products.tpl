@@ -15,14 +15,29 @@
       <div class="expanded row">
       	   <div class="medium-2 columns">
 	   	<ul class="vertical menu">
-		% for wh in wh_list:
-		<li><a href = "/warehouse/{{wh.replace(" ", "-")}}">{{wh}}</a></li>
-		% end
+			<li>
+			<a href = "/products/add-product">Add Product</a>
+			</li>
 		</ul>
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	         <p>stuff here</p>
+	   <table>
+		<tr>
+		<th>SKU</th>
+		<th>UPC</th>
+		<th>SKU Type</th>
+		<th>Product Name</th>
+		</tr>
+		% for i in sku_upc:
+		<tr>
+		<td>{{i[0]}}</td>
+		<td>{{i[1]}}</td>
+		<td>{{i[2]}}</td>
+		<td>{{i[3]}}</td>
+		</tr>
+		% end
+	   </table>
 	   </div>      
       </div>
 

@@ -16,25 +16,16 @@
       	   <div class="medium-2 columns">
 	   	<ul class="vertical menu">
 			<li>
-				<a href = "/products">All</a>
+				<a href = "/products/all">All</a>
 			</li>
 			<li>
-				<a href = "/products/bandm">My B&M Store</a>
-			</li>
-			<li>
-				<a href = "/products/website">My website</a>
-			</li>
-			<li>
-				<a href = "/products/amazon">Amazon</a>
-			</li>
-			<li>
-				<a href = "/products/ebay">eBay</a>
+				<a href = "/products">Kits</a>
 			</li>
 		</ul>
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	         <p>stuff here</p>
+	         <p></p>
 	   </div>      
       </div>
 

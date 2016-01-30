@@ -19,19 +19,30 @@
 			<li><a href = "/products/amazon/{{section}}/new-item">New Item</a></li>
 		</ul>
 	   </div>
+	   
       	   <div class="medium-10 columns">
-	   {{fdict}}
-	   <form action="/add-amazon-item" method="post">
 	     <div class = "row">
-	   % for f in fields:
+	   <form action="/add-amazon-item" method="post">
+	     % for k, v in fdict.items():
 	     <div class = "medium-4 columns">
-	   	   <label>{{f[1]}}</label>
-	   	   <input></input>
+	     <label>{{v["cname"]}}
+	     % if "valid_array" in v:
+	     	     <select>
+	     	     %for item in v["valid_array"]:
+		     <option value="{{item[0]}}">{{item[0]}}</option>
+	     	     % end
+  	     	     </select>
+	     % else:
+		<input type = "text">
+	     % end
+	     </label>
 	     </div>
-	   % end
-	     </div>
+	     % end
+	     <div class = "large-12 columns">
 	   <input value="Add product" type="submit" class="button" />
+	   </div>
 	   </form>
+	     </div>
 
 	   </div>      
       </div>

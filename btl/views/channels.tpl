@@ -15,9 +15,18 @@
       <div class="expanded row">
       	   <div class="medium-2 columns">
 	   	<ul class="vertical menu">
-		% for wh in wh_list:
-		<li><a href = "/warehouse/{{wh.replace(" ", "-")}}">{{wh}}</a></li>
-		% end
+			<li>
+				<a href = "/channels/ebay">eBay</a>
+			</li>
+			<li>
+				<a href = "/channels/amazon">Amazon</a>
+			</li>
+			<li>
+				<a href = "/channels/website">Websites</a>
+			</li>
+			<li>
+				<a href = "/channels/bandm">B&M Stores</a>
+			</li>
 		</ul>
 	   </div>
 	   
