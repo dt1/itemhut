@@ -14,15 +14,27 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   	<ul class="vertical menu">
-		% for wh in wh_list:
-		<li><a href = "/warehouses/{{wh.replace(" ", "-").lower()}}">{{wh.title()}}</a></li>
-		% end
-		</ul>
+	   <h4 color = >{{warehouse_name}}</h4>
+	   <p>Pallet Locations</p>
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	         <p>stuff here</p>
+	   <table>
+		<tr>
+		<th>pallet_location</th>
+		<th>pallet #</th>
+		</tr>
+		% for item in pallet_location_list:
+		<tr>
+		<td>{{item[1]}}</td>
+		% if item[2]:
+		<td><a href = "#">{{item[2]}}</a></td>
+		% else:
+		<td>Empty</td>
+		% end
+		</tr>
+		% end
+	   </table>
 	   </div>      
       </div>
 

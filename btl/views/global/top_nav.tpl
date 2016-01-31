@@ -12,7 +12,7 @@
             <a href="/channels">Channels</a>
           </li>
           <li>
-            <a href="/warehouse">Warehouse</a>
+            <a href="/warehouses">Warehouses</a>
           </li>
           <li>
             <a href="/orders">Orders</a>

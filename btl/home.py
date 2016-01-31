@@ -4,6 +4,8 @@ import psycopg2.extras
 import collections
 
 from models.amazon import *
+from models.product import *
+from models.warehouse import *
 
 import sys
 sys.path.append("/omark/pydb")
@@ -45,7 +47,7 @@ def amazon_section(section):
         s = s.strip()
         fields = get_base_amazon_data(s)
         return template("views/amazon_section", amz_header = amz_header, fields = fields, section = section)
-
+        
 # product pages
 @route("/channels/<storefront>")
 def product_store(storefront = None):
@@ -60,26 +62,6 @@ def product_store(storefront = None):
 @route("/channels")
 def products():
     return template("views/channels")
-
-def sku_upcs():
-    dbconn.cur.execute(
-        """
-        select sku, upc, sku_type, product_name
-        from product.sku_upc
-        left join product.descriptions
-        using (sku);        
-        """)
-    a = dbconn.cur.fetchall()
-    return a
-
-def sku_types():
-    dbconn.cur.execute(
-        """
-        select *
-        from product.sku_types;
-        """)
-    a = dbconn.cur.fetchall()
-    return a
 
 @route("/products/add-product")
 def add_products():
@@ -97,26 +79,27 @@ def all_products():
 def products():
     return template("views/products", sku_upc = None)
 
-def valid_warehouses():
-    dbconn.cur.execute(
-        """
-        select warehouse_name
-        from warehouse.warehouses
-        order by warehouse_name;
-        """)
-    a = dbconn.cur.fetchall()
-    return a
-
 # warehouse pages
-@route("/warehouse/<wh>")
+@route("/warehouses/<wh>/pallet-locations")
+def warehouse_pallet_locations(wh = None):
+    wh_query = valid_warehouses()
+    pallet_location_list = pallet_locations(wh)
+    valid_wh = [i[0].replace(" ", "-").lower() for i in wh_query]
+    warehouse_name = wh.replace("-", " ").title()
+    if wh.lower() in valid_wh:
+        return template("views/warehouse_pallet_locations", warehouse_name = warehouse_name, pallet_location_list = pallet_location_list)
+
+@route("/warehouses/<wh>")
 def warehouse_n(wh = None):
     wh_query = valid_warehouses()
+    wh_link = wh
     wh_list = [i[0] for i in wh_query]
-    valid_wh = [i[0].replace(" ", "-") for i in wh_query]
-    if wh in valid_wh:
-        return template("views/warehouse", wh_list = wh_list)
+    valid_wh = [i[0].replace(" ", "-").lower() for i in wh_query]
+    warehouse_name = wh.replace("-", " ").title()
+    if wh.lower() in valid_wh:
+        return template("views/warehouse_page", wh_list = wh_list, warehouse_name = warehouse_name, wh_link = wh_link)
 
-@route("/warehouse")
+@route("/warehouses")
 def warehouse():
     wh = valid_warehouses()
     valid_wh = [i[0] for i in wh]

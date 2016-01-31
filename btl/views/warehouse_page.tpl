@@ -14,15 +14,19 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
+	   <h4 color = >{{warehouse_name}}</h4>
+
 	   	<ul class="vertical menu">
-		% for wh in wh_list:
-		<li><a href = "/warehouses/{{wh.replace(" ", "-").lower()}}">{{wh.title()}}</a></li>
-		% end
+		<li><a href = "/warehouses/{{wh_link}}/information">Information</a></li>
+		<li><a href = "/warehouses/{{wh_link}}/running-inventory">Running Inventory</a></li>
+		<li><a href = "/warehouses/{{wh_link}}/pallet-locations">Pallet Locations</a></li>
+		<li><a href = "/warehouses/{{wh_link}}/pallets">Pallets</a></li>
+		<li><a href = "/warehouses/{{wh_link}}/product-status">Product Status</a></li>
+		<li><a href = "/warehouses/{{wh_link}}/qc-log">QC Logs</a></li>
 		</ul>
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	         <p>stuff here</p>
 	   </div>      
       </div>
 

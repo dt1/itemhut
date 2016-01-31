@@ -60,11 +60,33 @@ def get_arf(schema_name):
     return a
 
 def get_base_amazon_data(schema_name):
-    dbconn.cur.execute(
-        """
-        select item_sku, item_name, quantity
-        from {0}.template;
-        """.format(schema_name))
+    if schema_name == "amazon_coins":
+        dbconn.cur.execute(
+            """
+            select item_sku, 'coin', quantity
+            from {0}.template;
+            """.format(schema_name))
+
+    elif schema_name == "amazon_entertainment_collectibles":
+        dbconn.cur.execute(
+            """
+            select item_sku, 'coin', limited_edition_quantity
+            from {0}.template;
+            """.format(schema_name))
+    elif schema_name == "amazon_food_service_and_jan_san":
+
+        dbconn.cur.execute(
+            """
+            select sku, "product-name", "number-of-items"
+            from {0}.template;
+            """.format(schema_name))
+
+    else:
+        dbconn.cur.execute(
+            """
+            select item_sku, item_name, quantity
+            from {0}.template;
+            """.format(schema_name))
     a = dbconn.cur.fetchall()
     return a
 
