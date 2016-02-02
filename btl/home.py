@@ -79,22 +79,52 @@ def all_products():
 def products():
     return template("views/products", sku_upc = None)
 
+def valid_warehouse_list():
+    wh_query = valid_warehouses()
+    valid_wh = [i[0].replace(" ", "-").lower() for i in wh_query]
+    return valid_wh
+
+@route("/warehouses/cases/new_config")
+def warehouse():
+    wh = valid_warehouses()
+    valid_wh = [i[0] for i in wh]
+    return template("views/warehouse_case_boxes", wh_list = valid_wh)
+
+
+@route("/warehouses/cases")
+def warehouse():
+    wh = valid_warehouses()
+    valid_wh = [i[0] for i in wh]
+    case_boxes = get_case_boxes()
+    return template("views/warehouse_case_boxes", wh_list = valid_wh, case_boxes = case_boxes)
+
+# order pages
+@route("/orders")
+
+
+@route("/warehouses/<wh>/information")
+def warehouse_pallet_locations(wh = None):
+    valid_wh = valid_warehouse_list()
+    wh_info = warehouse_information(wh)
+    warehouse_name = wh.replace("-", " ").title()
+    if wh.lower() in valid_wh:
+        return template("views/warehouse_information", warehouse_name = warehouse_name, wh_info = wh_info)
+
 # warehouse pages
 @route("/warehouses/<wh>/pallet-locations")
 def warehouse_pallet_locations(wh = None):
-    wh_query = valid_warehouses()
+    valid_wh = valid_warehouse_list()
     pallet_location_list = pallet_locations(wh)
-    valid_wh = [i[0].replace(" ", "-").lower() for i in wh_query]
     warehouse_name = wh.replace("-", " ").title()
     if wh.lower() in valid_wh:
         return template("views/warehouse_pallet_locations", warehouse_name = warehouse_name, pallet_location_list = pallet_location_list)
 
 @route("/warehouses/<wh>")
 def warehouse_n(wh = None):
-    wh_query = valid_warehouses()
+    valid_wh = valid_warehouse_list()
     wh_link = wh
+    wh_query = valid_warehouses()
     wh_list = [i[0] for i in wh_query]
-    valid_wh = [i[0].replace(" ", "-").lower() for i in wh_query]
     warehouse_name = wh.replace("-", " ").title()
     if wh.lower() in valid_wh:
         return template("views/warehouse_page", wh_list = wh_list, warehouse_name = warehouse_name, wh_link = wh_link)

@@ -14,34 +14,15 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   	<ul class="vertical menu">
-			<li>
-			<a href = "/products/add-product">Add Product</a>
-			</li>
-		</ul>
+	   <h4 color = >{{warehouse_name}}</h4>
+	   <p>Information</p>
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	   <table id="table_id" class="display">
-	   <thead>
-		<tr>
-		<th>SKU</th>
-		<th>UPC</th>
-		<th>SKU Type</th>
-		<th>Product Name</th>
-		</tr>
-	   </thead>
-	   <tbody>
-	   % for i in sku_upc:
-		<tr>
-		<td>{{i[0]}}</td>
-		<td>{{i[1]}}</td>
-		<td>{{i[2]}}</td>
-		<td>{{i[3]}}</td>
-		</tr>
-		% end
-	   </tbody>
-	   </table>
+	   	<p>{{wh_info[0][0]}}</p>
+	   	<p>{{wh_info[0][1]}}</p>
+	   	<p>{{wh_info[0][2]}} {{wh_info[0][3]}}, {{wh_info[0][4]}}</p>
+	   	<p>warehouse type: {{wh_info[0][5]}}</p>
 	   </div>      
       </div>
 
@@ -54,12 +35,5 @@
   </div>
 
 </div>
-
-<script>
-$(document).ready( function () {
-    $('#table_id').DataTable();
-} );
-</script>
-
 
 % include('global/end_body.tpl')
