@@ -63,5 +63,5 @@ ft = feedback_type('FeedbackLeft')
 
 create_map(ct, ft)
 
-zz = api.execute('GetFeedback', QUERY).response_json()
-print(zz)
+zz = api.execute('GetFeedback', QUERY)
+print(zz.json())

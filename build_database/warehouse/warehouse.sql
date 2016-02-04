@@ -78,7 +78,7 @@ create table warehouse.boxes (
 );
 
 create table warehouse.case_box (
-       case_id int,
+       case_id int primary key,
        box_id int,
        box_qty int check (box_qty > 0),
        foreign key (case_id)

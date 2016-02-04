@@ -14,18 +14,15 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   	<ul class="vertical menu">
-			<li>
-				<a href = "/products/all">All</a>
-			</li>
-			<li>
-				<a href = "/products">Kits</a>
-			</li>
-		</ul>
+	   <h4 color = >{{wh_info[0][0]}}</h4>
+	   <p>Information</p>
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	         <p></p>
+	   	<p>{{wh_info[0][0]}}</p>
+	   	<p>{{wh_info[0][1]}}</p>
+	   	<p>{{wh_info[0][2]}} {{wh_info[0][3]}}, {{wh_info[0][4]}}</p>
+	   	<p>warehouse type: {{wh_info[0][5]}}</p>
 	   </div>      
       </div>
 

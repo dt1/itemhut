@@ -14,19 +14,34 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   <h4 color = >{{warehouse_name}}</h4>
-
 	   	<ul class="vertical menu">
-		<li><a href = "/warehouse/{{warehouse_name}}/information">Information</a></li>
-		<li><a href = "/warehouse/{{warehouse_name}}/running-inventory">Running Inventory</a></li>
-		<li><a href = "/warehouse/{{warehouse_name}}/pallets">Pallets</a></li>
-		<li><a href = "/warehouse/{{warehouse_name}}/pallet-locations">Pallet Locations</a></li>
-		<li><a href = "/warehouse/{{warehouse_name}}/product-status">Product Status</a></li>
-		<li><a href = "/warehouse/{{warehouse_name}}/qc-log">QC Logs</a></li>
+			<li>
+			<a href = "/products/add-product">Add Product</a>
+			</li>
 		</ul>
 	   </div>
 	   
       	   <div class="medium-10 columns">
+	   <table id="table_id" class="display">
+	   <thead>
+		<tr>
+		<th>SKU</th>
+		<th>UPC</th>
+		<th>SKU Type</th>
+		<th>Product Name</th>
+		</tr>
+	   </thead>
+	   <tbody>
+	   % for i in sku_upc:
+		<tr class="table-anchor" onclick="location.href='#'">
+		<td>{{i[0]}}</td>
+		<td>{{i[1]}}</td>
+		<td>{{i[2]}}</td>
+		<td>{{i[3]}}</td>
+		</tr>
+		% end
+	   </tbody>
+	   </table>
 	   </div>      
       </div>
 
@@ -39,5 +54,12 @@
   </div>
 
 </div>
+
+<script>
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
+
 
 % include('global/end_body.tpl')

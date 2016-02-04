@@ -1,3 +1,4 @@
+drop schema ebcats cascade;
 create schema ebcats;
 
 -- for information on product conditions:
@@ -5,23 +6,23 @@ create schema ebcats;
 
 -- Item Condition ID
 -- varchar
-select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, Item, ConditionID}'
-from ebords.json_insert;
+-- select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, Item, ConditionID}'
+-- from ebords.json_insert;
 
 
 -- Item Condition ID
 -- varchar
-select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, Item, ConditionDisplayName}'
-from ebords.json_insert;
+-- select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, Item, ConditionDisplayName}'
+-- from ebords.json_insert;
 
 create table ebcats.json_insert_categories(
   jid serial primary key,
-  v json
+  v jsonb
 );
 
 create table ebcats.json_insert_category_features(
   jid serial primary key,
-  v json
+  v jsonb
 );
 
 
@@ -43,7 +44,6 @@ create table ebcats.categories(
   best_offer_enabled boolean,
   category_parent_id int,
   leaf_category boolean,
-  CONSTRAINT categories_pkey PRIMARY KEY (category_id)
 );
 
 
@@ -69,15 +69,15 @@ create table ebcats.category_condition_ids(
 
 create table ebcats.category_features(
        category_id int primary key,
-       best_offer_auto_decline_enabled, boolean,
-       best_offer_counter_enabled, boolean,
-       free_gallery_plus_enabled, boolean,
-       best_offer_auto_accept_enabled, boolean,
-       best_offer_enabled, boolean,
-       pro_pack_plus_enabled, boolean,
-       global_shipping_enabled, boolean,
-       free_picture_pack_enabled, boolean,
-       value_pack_enabled, boolean,
+       best_offer_auto_decline_enabled boolean,
+       best_offer_counter_enabled boolean,
+       free_gallery_plus_enabled boolean,
+       best_offer_auto_accept_enabled boolean,
+       best_offer_enabled boolean,
+       pro_pack_plus_enabled boolean,
+       global_shipping_enabled boolean,
+       free_picture_pack_enabled boolean,
+       value_pack_enabled boolean,
        chinese int,
        dutch int,
        live int,
@@ -90,6 +90,4 @@ create table ebcats.category_features(
        foreign key (category_id)
        	       references ebcats.categories (category_id)
 	       on update cascade
-);	       
-
-       
+);

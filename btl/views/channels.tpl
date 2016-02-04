@@ -14,6 +14,7 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
+	   	<h4>Channels</h4>
 	   	<ul class="vertical menu">
 			<li>
 				<a href = "/channels/ebay">eBay</a>

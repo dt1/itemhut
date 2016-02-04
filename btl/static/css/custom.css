@@ -1,0 +1,8 @@
+tr.table-anchor:hover {
+    background-color: #A9F5E1;
+    cursor: pointer;
+}
+
+td {
+    white-space: nowrap;
+}

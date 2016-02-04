@@ -14,26 +14,29 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   <h4 color = >{{warehouse_name}}</h4>
-	   <p>Pallet Locations</p>
+	   	<ul class="vertical menu">
+			<li>
+			<a href = "/products/add-kit">Add Kit</a>
+			</li>
+		</ul>
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	   <table>
+	   <table id="table_id" class="display">
+	   <thead>
 		<tr>
-		<th>pallet_location</th>
-		<th>pallet #</th>
+		<th>Master SKU</th>
+		<th>Child SKU(s)</th>
 		</tr>
-		% for item in pallet_location_list:
+	   </thead>
+	   <tbody>
+	   % for i in kits:
 		<tr>
-		<td>{{item[1]}}</td>
-		% if item[2]:
-		<td><a href = "#">{{item[2]}}</a></td>
-		% else:
-		<td>Empty</td>
-		% end
+		<td>{{i[0]}}</td>
+		<td>{{i[1]}}</td>
 		</tr>
 		% end
+	   </tbody>
 	   </table>
 	   </div>      
       </div>
@@ -47,5 +50,12 @@
   </div>
 
 </div>
+
+<script>
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
+
 
 % include('global/end_body.tpl')

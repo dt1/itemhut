@@ -3,6 +3,7 @@
 <title>something</title>
 
 <link rel="stylesheet" type="text/css" href="/static/css/foundation.min.css">
+<link rel="stylesheet" type="text/css" href="/static/css/custom.css">
 
 <script src="/static/js/vendor/jquery.min.js"></script>
 <script src="/static/js/foundation.min.js"></script>

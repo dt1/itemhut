@@ -32,6 +32,7 @@ create table product.sku_upc (
 create table product.kits (
        master_sku varchar,
        child_sku varchar,
+       child_sku_qty int check (child_sku_qty > 0),
        primary key(master_sku, child_sku),
        foreign key (master_sku) references product.sku_upc (sku),
        foreign key (child_sku) references product.sku_upc (sku)
@@ -58,7 +59,7 @@ create table product.alternate_skus (
 create table product.descriptions (
        sku varchar primary key,
        product_name varchar,
-       product_decription varchar,
+       product_description varchar,
        bullet_one varchar,
        bullet_two varchar,
        bullet_three varchar,
