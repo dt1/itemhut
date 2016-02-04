@@ -1,7 +1,6 @@
-######Minor Note
+######Demo Site
 
-omark program is a work in progress. I often reset the repo and there are many work-in-progress notes included in the files that will not appear in the final program. Thank you for coming by and taking a look.
-
+http://192.241.194.172:8080/
 
 #omark
 
