@@ -1,4 +1,4 @@
-drop schema ebay_orders cascade;
+drop schema if exists ebay_orders cascade;
 
 create schema ebay_orders;
 
@@ -75,6 +75,7 @@ create table ebay_orders.transaction_shipping_details (
        shipping_carrier_used varchar,
        shipment_tracking_number varchar,
        foreign key (transaction_array_id)
+       references
        ebay_orders.order_id_transaction_array_id_lut (transaction_array_id)
 );
 
@@ -122,6 +123,7 @@ create table ebay_orders.transaction_taxe_details (
        imposition varchar,
        tax_description varchar,
        foreign key (transaction_array_id)
+       references
        ebay_orders.order_id_transaction_array_id_lut (transaction_array_id)
 );
 

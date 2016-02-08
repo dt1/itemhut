@@ -168,12 +168,10 @@ from ebords.json_insert;
 select v#>'{OrderArray, Order}'->1#>>'{TransactionArray, Transaction, Item, ItemID}'
 from ebords.json_insert;
 
-create table ebords.product_details (
-       order_id varchar primary key,
-       item_id varchar,
+-- create table ebords.product_details (
+--        order_id varchar primary key,
+--        item_id varchar,
        
-
-
 
 
 create trigger process_json_orders
