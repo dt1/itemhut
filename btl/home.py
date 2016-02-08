@@ -8,7 +8,7 @@ from models.product import *
 from models.warehouse import *
 
 import sys
-sys.path.append("/omark/pydb")
+sys.path.append("/itemhut/pydb")
 import dbconn
 
 
