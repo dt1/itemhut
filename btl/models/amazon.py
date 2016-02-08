@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/itemhut/pydb")
+sys.path.append("/omark/pydb")
 import dbconn
 
 def select_amazon_regular():
