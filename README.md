@@ -2,9 +2,9 @@
 
 http://192.241.194.172:8080/
 
-#Item Hut
+#omark
 
-Item Hut is a free and open-source marketing, ERP, CRM, and channel-management tool mainly focusing on B2B.
+omark is a free and open-source marketing, ERP, CRM, and channel-management tool mainly focusing on B2B.
 
 ######Why?
 
@@ -12,7 +12,7 @@ In various professional roles, I have discovered that the marketing, ERP, CRM, a
 
 This program can serve as a cheat-sheet for those who find themselves in my position and don't know where to start, or it can serve as a foundation for those who want to build their own solutions. This program is fundamentally different because it is created by someone who has found himself in the mud.
 
-Item Hut makes a few assumptions that do not reflect reality: in particular, it assumes you have beautiful and clean data, ignoring the mantra "Data is Messy." Yes, data is, and always will be, messy, even with the best of plans. I am not able to know *how* your data is messy. With that in mind, Item Hut attempts to be as flexible as possible, and should be easy to modify. The databaase schema does provide lookup tables that represent some of the more common cases.
+omark makes a few assumptions that do not reflect reality: in particular, it assumes you have beautiful and clean data, ignoring the mantra "Data is Messy." Yes, data is, and always will be, messy, even with the best of plans. I am not able to know *how* your data is messy. With that in mind, omark attempts to be as flexible as possible, and should be easy to modify. The databaase schema does provide lookup tables that represent some of the more common cases.
 
 ######Expected Features
 * B2B Customer Management
@@ -30,7 +30,7 @@ To start, I am using JSON to interact with PostgresSQL, where it is then process
 
 Since I am not able to test half.com at this time, I have no plans to implement the these features. 
 
-The code assumes you'd like to use a .yaml file to keep your credentials. I do not include the .yaml file. You can find the yaml file [here](https://github.com/timotheus/ebaysdk-python/blob/master/ebay.yaml). Place it in /Item Hut/pyebay/ebay.yaml.
+The code assumes you'd like to use a .yaml file to keep your credentials. I do not include the .yaml file. You can find the yaml file [here](https://github.com/timotheus/ebaysdk-python/blob/master/ebay.yaml). Place it in /omark/pyebay/ebay.yaml.
 
 ######Current Status
 Python is currently talking to PostgreSQL. The only feature that works at this time is insertion into PostgreSQL and a bit of processing.
@@ -57,7 +57,7 @@ $ dnf install python-psycopg2
 
 *create the database*
 $ su - postgres
-$ createdb Item Hut
+$ createdb omark
 
 ######Where is the GUI?
 There are no plans to create a GUI component.
