@@ -14,12 +14,12 @@
 
 from ebaysdk.trading import Connection
 import sys
-sys.path.append("/omark/pyebay/common/")
-sys.path.append("/omark/pydb/")
+sys.path.append("/itemhut/pyebay/common/")
+sys.path.append("/itemhut/pydb/")
 import common
 import dbconn
 
-api = Connection(config_file = '/omark/pyebay/ebay.yaml')
+api = Connection(config_file = '/itemhut/pyebay/ebay.yaml')
 
 def creation_time(from_date, to_date):
     ct = {}

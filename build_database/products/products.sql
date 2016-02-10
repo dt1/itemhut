@@ -53,7 +53,7 @@ create table product.alternate_skus (
 -- the descriptions and pictures tables
 -- are for "universal" view of all products
 -- that aren't specific to each marketplace.
--- omark does not express an opinion on what is
+-- itemhut does not express an opinion on what is
 -- correct here, but allows either instance.
 
 create table product.descriptions (

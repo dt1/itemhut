@@ -18,7 +18,7 @@ from sql_helpers import create_helper_functions
 from sql_helpers import drop_build_schema
 
 
-sys.path.append("/omark/pydb")
+sys.path.append("/itemhut/pydb")
 import dbconn
 
 def camel_to_underscore(name):

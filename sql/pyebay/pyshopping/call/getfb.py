@@ -4,7 +4,7 @@
 
 from ebaysdk.trading import Connection
 
-api = Connection(config_file = '/omark/pyebay/ebay.yaml')
+api = Connection(config_file = '/itemhut/pyebay/ebay.yaml')
 
 class Universal(object):
     def get_pagination(self, entries_per_page, page_number = 1):

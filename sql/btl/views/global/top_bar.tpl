@@ -1,6 +1,6 @@
     <div class="title-bar" data-responsive-toggle="widemenu" data-hide-for="medium">
       <div class="title-bar-left">
-        <span class="title-bar-title">omark</span>
+        <span class="title-bar-title">itemhut</span>
       </div>
 
       <div class="title-bar-right">

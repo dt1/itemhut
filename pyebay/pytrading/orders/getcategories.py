@@ -6,14 +6,14 @@
 
 from ebaysdk.trading import Connection
 import sys
-sys.path.append("/omark/pyebay/common/")
-sys.path.append("/omark/pydb/")
+sys.path.append("/itemhut/pyebay/common/")
+sys.path.append("/itemhut/pydb/")
 import dbconn
 
-api = Connection(config_file = '/omark/pyebay/ebay.yaml')
+api = Connection(config_file = '/itemhut/pyebay/ebay.yaml')
 
 def get_categories (detail_level = 'ReturnAll'):
-    api.execute('GetCategories', {'DetailLevel' : detail_level})
+    api.execute('GetCategories', {'DetailLevel' : 'ReturnAll'})
     zz = api.response_json()
     dbconn.cur.execute("""INSERT INTO ebcats.json_insert_categories (v)
                           VALUES ($${0}$$);""".format(zz))

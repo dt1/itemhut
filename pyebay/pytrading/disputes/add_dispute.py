@@ -8,10 +8,10 @@
 
 from ebaysdk.trading import Connection
 import sys
-sys.path.append("/omark/pyebay/common/")
+sys.path.append("/itemhut/pyebay/common/")
 from common import Universal
 
-api = Connection(config_file = '/omark/pyebay/ebay.yaml')
+api = Connection(config_file = '/itemhut/pyebay/ebay.yaml')
 
 class AddDisputeResponse(Universal):
     def dispute_activity(self, activity):

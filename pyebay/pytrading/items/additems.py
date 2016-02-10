@@ -8,5 +8,5 @@
 
 from ebaysdk.trading import Connection
 
-api = Connection(config_file = '/omark/pyebay/ebay.yaml')
+api = Connection(config_file = '/itemhut/pyebay/ebay.yaml')
 

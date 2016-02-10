@@ -8,7 +8,7 @@ import os.path
 import sys
 import glob
 
-sys.path.append("/omark/pydb/")
+sys.path.append("/itemhut/pydb/")
 import dbconn
 
 def find_links(sfile):
