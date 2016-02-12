@@ -19,10 +19,6 @@ begin
 end;
 $$ language plpgsql;
 
-create table ebay_product.valid_linked_pay_pal_account (
-       linked_pay_pal_account varchar
-);
-
 select build_tf_table('auto_pay');
 select build_tf_table('category_based_attributes_prefill');
 select build_tf_table('category_mapping_allowed');
@@ -44,6 +40,7 @@ select build_tf_table('shipping_irregular');
 select build_tf_table('shipping_terms_in_description');
 select build_tf_table('skype_enabled');
 select build_tf_table('use_tax_table');
+select build_tf_table('linked_pay_pal_account');
 
 create table ebay_product.charities (
        charity_id varchar primary key,
@@ -364,6 +361,29 @@ values
 -- do later
 create table ebay_product.storefront ();
 
+
+-- create table buyer_requirement_details (
+--       item_sku varchar primary key,
+--       linked_pay_pal_account varchar,
+--       maximum_buyer_policy_violations_count int,
+--       maximum_buyer_policy_violations_period varchar,
+-- --      <MaximumItemRequirements>
+--       maximum_item_requirements int,
+--       minimum_feedback_score int check(minimum_feedback_score > 0),
+-- --      </MaximumItemRequirements>
+--       <MaximumUnpaidItemStrikesInfo> MaximumUnpaidItemStrikesInfoType
+--         <maximum_unpaid_item_strikes_info_count int,
+--         <maximum_unpaid_item_strikes_info_period varchar,
+--       </MaximumUnpaidItemStrikesInfo>
+--       minimum_feedback_score int, 
+--       <ShipToRegistrationCountry> boolean </ShipToRegistrationCountry>
+--       <VerifiedUserRequirements> VerifiedUserRequirementsType
+--         <MinimumFeedbackScore> int </MinimumFeedbackScore>
+--         <VerifiedUser> boolean </VerifiedUser>
+--       </VerifiedUserRequirements>
+--       <ZeroFeedbackScore> boolean </ZeroFeedbackScore>
+--     </BuyerRequirementDetails>
+
 -- ApplicationData
 -- AutoPay
 -- BuyerRequirementDetails
@@ -371,10 +391,11 @@ create table ebay_product.products (
        item_sku varchar primary key,
        application_data varchar(32),
        auto_pay varchar,
+       best_offer_enabled varchar,
        buyer_requirement_details varchar,
        category_based_attributes_prefill varchar default 'true',
        category_mapping_allowed varchar default 'false',
-       charity varchar default 'false',
+       charity varchar,
        donation_percent float,
        condition_description varchar(1000),
        condition_id int,
@@ -464,9 +485,9 @@ create table ebay_product.products (
        foreign key (category_mapping_allowed)
                references ebay_product.valid_category_mapping_allowed
 	       		  (category_mapping_allowed),
-       foreign key (charity)
-               references ebay_product.valid_charity
-	       		  (charity),
+       foreign key (charity_id)
+               references ebay_product.charities
+	       		  (charity_id),
        foreign key (disable_buyer_requirements)
                references ebay_product.valid_disable_buyer_requirements
 	       		  (disable_buyer_requirements),
