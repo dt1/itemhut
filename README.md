@@ -38,8 +38,14 @@ run bottle:
 $ python3 /itemhut/btl/home.py
 ```
 
+open localhost:8080
+
 ####Full System Setup
 (same as Inventory System Setup)
+
+Python packages:
+BeutifulSoup2
+pandas
 
 Python eBay SDK:
 https://github.com/timotheus/ebaysdk-python
@@ -56,7 +62,6 @@ if i is None or isinstance(i, str) or isinstance(i, unicode):
 to:
 if i is None or isinstance(i, str): #or isinstance(i, unicode):
 ```
-
 
 (to be continued...)
 
@@ -80,38 +85,6 @@ Item Hut makes a few assumptions that do not reflect reality: in particular, it 
 
 ###Implementation considerations:
 Since I am not able to test half.com at this time, I have no plans to implement the these features. 
-
-The code assumes you'd like to use a .yaml file to keep your credentials. I do not include the .yaml file. You can find the yaml file [here](https://github.com/timotheus/ebaysdk-python/blob/master/ebay.yaml). Place it in /Item Hut/pyebay/ebay.yaml.
-
-###Current Status
-Python is currently talking to PostgreSQL. The only feature that works at this time is insertion into PostgreSQL and a bit of processing.
-
-Amazon database is fully comnplete.
-
-
-###Components
-
-* PostgreSQL 9.4 (Will upgrade to 9.5 when it released)
-* PL/pgSQL
-* C
-* Python 3.4
-* bottle (web ui)
-
-###Setup
-
-*BeautifulSoup*
-$ pip install beautifulsoup4
-
-*psycopg2*
-Per the [documentation](http://initd.org/psycopg/docs/install.html), please install it via your package manager of choice. For Fedora:
-$ dnf install python-psycopg2
-
-*create the database*
-$ su - postgres
-$ createdb Item Hut
-
-###Where is the GUI?
-There are no plans to create a GUI component.
 
 ####Permissions and Licensing
 
