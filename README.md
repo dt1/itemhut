@@ -9,15 +9,23 @@ www.itemhut.com
 ###Current Status
 Under active development. To keep things progressing along smoothly, Item Hut is going to begin as an inventory system.
 
+###Why?
+
+In various professional roles, I have discovered that the marketing, ERP, CRM, and channel-management tools (all closed source) have never met the needs and expectations of the companies I have worked for. In response to these short-comings, I have always developed in-house databases and programs to further manage the complexity of the jobs I had to do.
+
+This program can serve as a cheat-sheet for those who find themselves in my position and don't know where to start, or it can serve as a foundation for those who want to build their own solutions. This program is fundamentally different because it is created by someone who has found himself in the mud.
+
+Item Hut makes a few assumptions that do not reflect reality: in particular, it assumes you have beautiful and clean data, ignoring the mantra "Data is Messy." Yes, data is, and always will be, messy, even with the best of plans. I am not able to know *how* your data is messy. With that in mind, Item Hut attempts to be as flexible as possible, and should be easy to modify. The databaase schema does provide lookup tables that represent some of the more common cases.
+
 ####Inventory System Setup
 PostgreSQL 9.5
 
 Python packages:
-*Python3
-*Python Bottle
-*bcrypt
-*hmac
-*Psycopg2
+* Python3
+* Python Bottle
+* bcrypt
+* hmac
+* Psycopg2
 
 clone to /itemhut:
 ```bash
@@ -44,8 +52,8 @@ open localhost:8080
 (same as Inventory System Setup)
 
 Python packages:
-BeutifulSoup2
-pandas
+* BeutifulSoup2
+* pandas
 
 Python eBay SDK:
 https://github.com/timotheus/ebaysdk-python
@@ -64,14 +72,6 @@ if i is None or isinstance(i, str): #or isinstance(i, unicode):
 ```
 
 (to be continued...)
-
-###Why?
-
-In various professional roles, I have discovered that the marketing, ERP, CRM, and channel-management tools (all closed source) have never met the needs and expectations of the companies I have worked for. In response to these short-comings, I have always developed in-house databases and programs to further manage the complexity of the jobs I had to do.
-
-This program can serve as a cheat-sheet for those who find themselves in my position and don't know where to start, or it can serve as a foundation for those who want to build their own solutions. This program is fundamentally different because it is created by someone who has found himself in the mud.
-
-Item Hut makes a few assumptions that do not reflect reality: in particular, it assumes you have beautiful and clean data, ignoring the mantra "Data is Messy." Yes, data is, and always will be, messy, even with the best of plans. I am not able to know *how* your data is messy. With that in mind, Item Hut attempts to be as flexible as possible, and should be easy to modify. The databaase schema does provide lookup tables that represent some of the more common cases.
 
 ###Expected Features
 * B2B Customer Management
