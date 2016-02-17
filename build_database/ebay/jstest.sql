@@ -1,10 +1,3 @@
-
--- alter table ebay_product.products
--- add column buy_it_now_price numeric;
-
--- alter table ebay_product.products
--- add column buy_it_now_price_currency varchar default 'USD';
-
 -- where did "inventory_tracking_method" come from?
 
 
@@ -67,7 +60,11 @@ jsonb_build_object('Item',
 		jsonb_build_object('BestOfferEnabled', best_offer_enabled)) ||
 		jsonb_build_object('BuyItNowPrice', buy_it_now_price)
 ))
-from ebay_product.products;
+from ebay_product.products
+left join ebay_product.charity_product
+using (item_sku)
+left join ebay_product.charities
+using (charity_id);
 
 --  jsonb_build_object('BuyerRequirementDetails', buyer_requirement_details
 --   jsonb_build_object('LinkedPayPalAccount', linked_pay_pal_account)

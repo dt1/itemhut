@@ -44,7 +44,8 @@ select build_tf_table('linked_pay_pal_account');
 
 create table ebay_product.charities (
        charity_id varchar primary key,
-       charity_number int unique
+       charity_number int unique,
+       charity_name varchar unique
 );
 
 create table ebay_product.valid_conditions (
@@ -93,8 +94,6 @@ values
 ('HonestyStyle'),
 ('NoHitCounter'),
 ('RetroStyle');
-
-
 
 create table ebay_product.valid_inventory_tracking_method (
        inventory_tracking_method varchar primary key
@@ -396,7 +395,6 @@ create table ebay_product.products (
        category_based_attributes_prefill varchar default 'true',
        category_mapping_allowed varchar default 'false',
        charity varchar,
-       donation_percent float,
        condition_description varchar(1000),
        condition_id int,
        country varchar not null default 'US',
@@ -422,7 +420,6 @@ create table ebay_product.products (
        listing_enhancement varchar,
        listing_type varchar default 'Chinese',
        location varchar,
-       payment_methods varchar,
        pay_pal_email_address varchar,
        -- PickupInStoreDetails -- add in later
        postal_code varchar not null,
@@ -477,6 +474,8 @@ create table ebay_product.products (
        -- vat_details later
        -- vin -- no motors at the moment
        -- vrm -- no motors at the moment
+       buy_it_now_price numeric,
+       buy_it_now_price_currency varchar default 'USD',
        foreign key (auto_pay)
                references ebay_product.valid_auto_pay (auto_pay),
        foreign key (category_based_attributes_prefill)
@@ -485,9 +484,6 @@ create table ebay_product.products (
        foreign key (category_mapping_allowed)
                references ebay_product.valid_category_mapping_allowed
 	       		  (category_mapping_allowed),
-       foreign key (charity_id)
-               references ebay_product.charities
-	       		  (charity_id),
        foreign key (disable_buyer_requirements)
                references ebay_product.valid_disable_buyer_requirements
 	       		  (disable_buyer_requirements),
@@ -518,9 +514,6 @@ create table ebay_product.products (
        foreign key (listing_type)
                references ebay_product.valid_listing_type
 	       		  (listing_type),
-       foreign key (payment_methods)
-               references ebay_product.valid_payment_methods
-	       		  (payment_methods),
        foreign key (post_checkout_experience_enabled)
                references ebay_product.valid_post_checkout_experience_enabled
 	       		  (post_checkout_experience_enabled),
@@ -597,4 +590,22 @@ create table ebay_product.shipping_service_options (
                references ebay_product.valid_free_shipping (free_shipping)
 );
 
+create table ebay_product.charity_product (
+       charity_id varchar,
+       item_sku varchar,
+       donation_percent numeric check (mod(donation_percent, 5) = 0),
+       primary key (charity_id, item_sku),
+       foreign key (charity_id)
+               references ebay_product.charities (charity_id),
+       foreign key (item_sku)
+               references ebay_product.products (item_sku)	       
+);
+
+create table ebay_product.payment_methods (
+       item_sku varchar,
+       payment_method varchar,
+       primary key (item_sku, payment_method)
+);
+
 drop function build_tf_table(varchar);
+

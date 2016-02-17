@@ -8,7 +8,7 @@ from models.product import *
 from models.warehouse import *
 
 import sys
-sys.path.append("/omark/pydb")
+sys.path.append("/itemhut/pydb")
 import dbconn
 
 
@@ -75,8 +75,8 @@ def product_store(storefront = None):
     if storefront in ["amazon"]:
         a = select_amazon_regular()
         return template("views/amazon/main", reg = a)
-    if storefront in ["ebay", "amazon"]:
-        return template("views/channels")
+    if storefront in ["ebay"]:
+        return template("views/ebay/main")
     else:
         error404("err")
 

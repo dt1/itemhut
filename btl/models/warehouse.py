@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/omark/pydb")
+sys.path.append("/itemhut/pydb")
 import dbconn
 
 def running_inventory(wh):
