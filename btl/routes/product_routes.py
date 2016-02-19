@@ -34,7 +34,7 @@ def add_products():
     if request.POST.get("add-product"):
         sku = request.POST.get("sku")
         upc = request.POST.get("upc")
-        sku_type = request.POST.get("sku_type")
+        sku_type = request.POST.get("sku-type")
 
         insert_sku_upc(sku, upc, sku_type)
         
@@ -49,7 +49,6 @@ def add_products():
         insert_product_descriptions(sku, product_name, product_description, bullet_one, bullet_two, bullet_three, bullet_four, bullet_five)
         
         main_image = request.POST.get("main-image")
-
         
         image_one = request.POST.get("image-one")
         image_two = request.POST.get("image-two")
@@ -64,9 +63,15 @@ def add_products():
         image_eleven = request.POST.get("image-eleven")
         image_twelve = request.POST.get("image-twelve")
         swatch_image = request.POST.get("swatch-image")
-        return template("views/products/add_product", sku_upc = sku_upc, sku_types = stypes, new_sku = sku)
+
+        insert_images(sku, main_image, image_one,
+        image_two, image_three, image_four, image_five, image_six,
+        image_seven, image_eight, image_nine, image_ten, image_eleven,
+        image_twelve, swatch_image)
+
+        return template("views/products/add_product_inv", sku_upc = sku_upc, sku_types = stypes, new_sku = sku)
     else:
-        return template("views/products/add_product", sku_upc = sku_upc, sku_types = stypes, new_sku = None)
+        return template("views/products/add_product_inv", sku_upc = sku_upc, sku_types = stypes, new_sku = None)
 
 @route("/products/all")
 def all_products():

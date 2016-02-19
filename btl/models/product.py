@@ -36,44 +36,38 @@ def kits():
     return a
 
 def insert_sku_upc(sku, upc, sku_type):
+    if upc == '':
+        upc = None
     dbconn.cur.execute(
         """
         begin;
         insert into product.sku_upc (sku, upc, sku_type)
-        values (trim(%s), %s::bigint, %s);
+        values (trim(%s), %s::bigint, %s)
+        on conflict (sku)
+        do update
+        set upc = excluded.upc,
+        sku_type = excluded.sku_type;
         commit;
         """, [sku, upc, sku_type])
 
 def insert_product_descriptions(sku, product_name, product_description, bullet_one, bullet_two, bullet_three, bullet_four, bullet_five):
-    if not product_name:
-        product_name = None
-
-    if not product_description:
-        product_description = None
-
-    if not bullet_one:
-        bullet_one = None
-
-    if not bullet_two:
-        bullet_two = None
-
-    if not bullet_three:
-        bullet_three = None
-
-    if not bullet_four:
-        bullet_four = None
-
-    if not bullet_five:
-        bullet_five = None
-
     dbconn.cur.execute(
         """
         begin;
         insert into product.descriptions 
-        (sku, product_name, product_description, bullet_one, bullet_two,
-      bullet_three, bullet_four, bullet_five)
+        (sku, product_name, product_description, bullet_one, 
+        bullet_two, bullet_three, bullet_four, bullet_five)
         values (trim(%s), trim(%s), trim(%s), trim(%s), trim(%s), 
-        trim(%s), trim(%s), trim(%s));
+        trim(%s), trim(%s), trim(%s))
+        on conflict (sku)
+        do update
+        set product_name = excluded.product_name,
+        product_description = excluded.product_description,
+        bullet_one = excluded.bullet_one,
+        bullet_two = excluded.bullet_two,
+        bullet_three = excluded.bullet_three,
+        bullet_four = excluded.bullet_four,
+        bullet_five = excluded.bullet_five;
         commit;
         """, [sku, product_name, product_description, bullet_one,
              bullet_two, bullet_three, bullet_four, bullet_five])
@@ -117,3 +111,38 @@ def insert_new_case_box(upc, box_qty, case_qty):
         new_box_id nbi;
         commit;
         """, [upc, box_qty, case_qty])
+
+def insert_images(sku, main_image, image_one,
+        image_two, image_three, image_four, image_five, image_six,
+        image_seven, image_eight, image_nine, image_ten, image_eleven,
+        image_twelve, swatch_image):
+    dbconn.cur.execute(
+        """ begin; 
+        insert into product.images (sku, main_image, image_one,
+        image_two, image_three, image_four, image_five, image_six,
+        image_seven, image_eight, image_nine, image_ten, image_eleven,
+        image_twelve, swatch_image)
+        values (%s, %s, %s, %s, %s, %s, %s, %s,
+        %s, %s, %s, %s, %s, %s, %s)
+        on conflict (sku)
+        do update
+        set main_image = excluded.main_image,
+        image_one = excluded.image_one,
+        image_two = excluded.image_two,
+        image_three = excluded.image_three,
+        image_four = excluded.image_four,
+        image_five = excluded.image_five,
+        image_six = excluded.image_six,
+        image_seven = excluded.image_seven,
+        image_eight = excluded.image_eight,
+        image_nine = excluded.image_nine,
+        image_ten = excluded.image_ten,
+        image_eleven = excluded.image_eleven,
+        image_twelve = excluded.image_twelve,
+        swatch_image = excluded.swatch_image;
+        commit;
+        """, [sku, main_image, image_one,
+              image_two, image_three, image_four, image_five,
+              image_six, image_seven, image_eight, image_nine,
+              image_ten, image_eleven,
+              image_twelve, swatch_image])

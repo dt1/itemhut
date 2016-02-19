@@ -2,7 +2,7 @@
 
 <!doctype html>
 <head>
-<title>something</title>
+<title>Item Hut</title>
 
 
 
