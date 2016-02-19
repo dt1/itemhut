@@ -5,4 +5,4 @@ from route_utils import *
 # admin
 @route("/admin")
 def admin():
-    return template("views/admin")
+    return template("views/admin/admin", inv = False)

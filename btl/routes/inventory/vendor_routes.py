@@ -17,7 +17,7 @@ def add_vendor_contact(vid):
                         contact_name = contact_name, vid = vid)
     else:
         return template("views/vendors/add_contact",
-                        contact_name = None, vid = vid)
+                        contact_name = None, vid = vid, inv = True)
     
 
 @route("/vendors/<vid>")
@@ -25,7 +25,7 @@ def vendor_info(vid):
     v_info = get_vendor_info(vid)
     v_contacts = select_vendor_contacts(vid)
     return template("views/vendors/vendor_info", vendor_info = v_info,
-                    contacts = v_contacts)
+                    contacts = v_contacts, inv = True)
 
 @route("/vendors/add-vendor")
 @route("/vendors/add-vendor", method="POST")
@@ -45,11 +45,14 @@ def vendors():
         country = request.POST.get("country")
         insert_new_vendor(vendor_id, vendor_name, phone, fax, website,
                           email, street, city, state, zip, country)
-        return template("views/vendors/add_vendor", new_vendor = vendor_name)
+        return template("views/vendors/add_vendor",
+                        new_vendor = vendor_name, inv = True)
     else:
-        return template("views/vendors/add_vendor", new_vendor = None)
+        return template("views/vendors/add_vendor", new_vendor = None,
+                        inv = True)
 
 @route("/vendors")
 def vendors():
     vendors = select_vendors()
-    return template("views/vendors/main", vendors = vendors)
+    return template("views/vendors/main", vendors = vendors,
+                    inv = True)

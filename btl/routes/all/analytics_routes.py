@@ -5,4 +5,4 @@ from route_utils import *
 # analytics
 @route("/analytics")
 def analytics():
-    return template("views/analytics")
+    return template("views/analytics/analytics", inv = False)

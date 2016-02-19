@@ -19,7 +19,7 @@ def update_product(pid):
         redirect("/products/update-product-{0}".format(sku))
     return template("views/products/update_product_inv",
                     sku_data = sku_data, sku_types = stypes,
-                    sku = pid)
+                    sku = pid, inv = False)
 
 @route("/products/add-kit")
 @route("/products/add-kit", method="POST")
@@ -35,15 +35,19 @@ def add_kit():
                     insert_sku_upc(master_sku, None, "master")
                     insert_kit(master_sku, kit_name, kit_amt)
                 else:
-                    return template("views/products/add_kit", sku_upc = sku_upc, new_sku = None, err = "Please add an amount for your kits")
-        return template("views/products/add_kit", sku_upc = sku_upc, new_sku = master_sku, err = None)
+                    return template("views/products/add_kit",
+                                    sku_upc = sku_upc, new_sku = None,
+                                    err = "Please add an amount for your kits", inv = False)
+        return template("views/products/add_kit", sku_upc = sku_upc,
+                        new_sku = master_sku, err = None, inv = False)
     else:
-        return template("views/products/add_kit", sku_upc = sku_upc, new_sku = None, err = None)
+        return template("views/products/add_kit", sku_upc = sku_upc,
+                        new_sku = None, err = None, inv = False)
 
 @route("/products/kits")
 def all_kits():
     k = kits()
-    return template("views/products/kits", kits = k)
+    return template("views/products/kits", kits = k, inv = False)
 
 @route("/products/add-product")
 @route("/products/add-product", method="POST")
@@ -88,15 +92,21 @@ def add_products():
         image_seven, image_eight, image_nine, image_ten, image_eleven,
         image_twelve, swatch_image)
 
-        return template("views/products/add_product_inv", sku_upc = sku_upc, sku_types = stypes, new_sku = sku)
+        return template("views/products/add_product_inv",
+                        sku_upc = sku_upc, sku_types = stypes,
+                        new_sku = sku, inv = False)
     else:
-        return template("views/products/add_product_inv", sku_upc = sku_upc, sku_types = stypes, new_sku = None)
+        return template("views/products/add_product_inv",
+                        sku_upc = sku_upc, sku_types = stypes,
+                        new_sku = None, inv = False)
 
 @route("/products/all")
 def all_products():
     sku_upc = sku_upcs()
-    return template("views/products/all_products", sku_upc = sku_upc)
+    return template("views/products/all_products", sku_upc = sku_upc,
+                    inv = False)
 
 @route("/products")
 def products():
-    return template("views/products/product_main", sku_upc = None, inv = True)
+    return template("views/products/product_main", sku_upc = None,
+                    inv = False)
