@@ -21,55 +21,47 @@
     <!-- original content goes in this container -->
 
     <div class="off-canvas-content" data-off-canvas-content>
-
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   	<h4>Vendors</h4>
+	   	<h4>Add Contact</h4>
 	   	<ul class="vertical menu">
-			<li>
-				<a href = "/vendors/add-vendor">Add Vendor</a>
-			</li>
 		</ul>
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	   <table id="table_id" class="display">
-	   <thead>
-		<tr>
-		<th>ID</th>
-		<th>Name</th>
-		<th>Phone</th>
-		<th>Fax</th>
-		<th>website</th>
-		<th>email</th>
-		<th>Street</th>
-		<th>City</th>
-		<th>State</th>
-		<th>Zip</th>
-		<th>Country</th>
-		</tr>
-	   </thead>
-	   <tbody>
-	   % for i in vendors:
-	     <tr class="table-anchor" onclick="location.href='/vendors/{{i[0]}}'">
-	     <td>{{i[0]}}</td>
-	     <td>{{i[1]}}</td>
-	     <td>{{i[2]}}</td>
-	     <td>{{i[3]}}</td>
-	     <td>{{i[4]}}</td>
-	     <td>{{i[5]}}</td>
-	     <td>{{i[6]}}</td>
-	     <td>{{i[7]}}</td>
-	     <td>{{i[8]}}</td>
-	     <td>{{i[9]}}</td>
-	     <td>{{i[10]}}</td>
-	     </tr>
-	     % end
-	     </tbody>
-	     </table>
+	   <div class="row">
+      	   <div class="medium-4 columns">
+	   <form action="/vendors/{{vid}}/contacts/edit-contact-{{contact_info[0][0]}}" method="POST">
+	   	 <label>Name
+		 <input type="text" name="name" required="required"
+		 value="{{contact_info[0][1]}}">
+		 </label>
+	   	 
+		 <label>Title
+		 <input type="text" name="title"
+		 value="{{contact_info[0][2]}}">
+		 </label>
+	   	 
+		 <label>Phone
+		 <input type="text" name="phone"
+		 value="{{contact_info[0][3]}}">
+		 </label>
+	   	 
+		 <label>Phone 2
+		 <input type="text" name="alt-phone"
+		 value="{{contact_info[0][4]}}">
+		 </label>
 
-	   </div>      
-      </div>
+		 <label>email
+		 <input type="text" name="email"
+		 value="{{contact_info[0][5]}}">
+		 </label>
+	   <input type="submit" class="button" name="edit-contact"
+	   value="Update Contact">
+	   <form>
+	   </div>
+	   </div>
+	   </div>
 
     </div>
 

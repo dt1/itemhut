@@ -21,14 +21,16 @@
     <!-- original content goes in this container -->
 
     <div class="off-canvas-content" data-off-canvas-content>
-
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   	<h4>Vendors</h4>
-	   	<ul class="vertical menu">
-			<li>
-				<a href = "/vendors/add-vendor">Add Vendor</a>
-			</li>
+	   	<h4>{{vendor_info[0][1]}}</h4>
+		<ul class="vertical menu">
+		<li><a href="/vendors/{{vendor_info[0][0]}}">
+		Information</a></li>
+		<li><a href="/vendors/{{vendor_info[0][0]}}/contacts">
+		 Contacts</a></li>
+		<li><a href="/vendors/{{vendor_info[0][0]}}/products">
+		 Products</a></li>
 		</ul>
 	   </div>
 	   
@@ -49,7 +51,7 @@
 	   <p><b>website</b>: {{vendor_info[0][4]}}</p>
 	   <p><b>email</b>: {{vendor_info[0][5]}}</p>
 	   </div>
-	   <a href="/vendors/edit-vendor/{{vendor_info[0][0]}}">
+	   <a href="/vendors/{{vendor_info[0][0]}}/edit-vendor">
 	      Edit {{vendor_info[0][1]}} Information</a>
 	   </div>
 	   <br>
@@ -60,17 +62,35 @@
 	   <a href="/vendors/{{vendor_info[0][0]}}/add-contact">
 	      Add Contact</a>
 	      % for i in contacts:
-	      	<p>{{i[0]}} {{i[1]}}</p>
-	      	<p>phone: {{i[2]}}</p>
-	      	<p>alt phone:{{i[3]}}</p>
-	      	<p>email:{{i[4]}}</p>
+	      	<p>{{i[1]}}</p>
+		<p>title: {{i[2]}}</p>
+	      	<p>phone: {{i[3]}}</p>
+	      	<p>alt phone:{{i[4]}}</p>
+	      	<p>email:{{i[5]}}</p>
+		<a href="/vendors/{{vendor_info[0][0]}}/edit-contact-{{i[0]}}">Edit</a>
 		<hr>
 	      % end
 	   </div>
 
 	   <div class="medium-7 columns">
 	   	<h5>Products</h5>
-	   <a href="/vendors/add-vendor-product/{{vendor_info[0][0]}}">
+	   <table id="table_id" class="display">
+	   <thead>
+		<tr>
+		<th>SKU</th>
+		<th>UPC</th>
+		</tr>
+	   </thead>
+	   <tbody>		
+	      % for product in vendor_products:
+	      <tr>
+	      <td>{{product[1]}}</td>
+	      <td>{{product[0]}}</td>
+	      </tr>
+	      % end
+	      </tbody>
+	      </table>
+	   <a href="/vendors/{{vendor_info[0][0]}}/add-product">
 	      Add Product</a>
 	   </div>
 

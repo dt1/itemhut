@@ -24,52 +24,31 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   	<h4>Vendors</h4>
+	   	<h4>Add Product</h4>
 	   	<ul class="vertical menu">
-			<li>
-				<a href = "/vendors/add-vendor">Add Vendor</a>
-			</li>
 		</ul>
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	   <table id="table_id" class="display">
-	   <thead>
-		<tr>
-		<th>ID</th>
-		<th>Name</th>
-		<th>Phone</th>
-		<th>Fax</th>
-		<th>website</th>
-		<th>email</th>
-		<th>Street</th>
-		<th>City</th>
-		<th>State</th>
-		<th>Zip</th>
-		<th>Country</th>
-		</tr>
-	   </thead>
-	   <tbody>
-	   % for i in vendors:
-	     <tr class="table-anchor" onclick="location.href='/vendors/{{i[0]}}'">
-	     <td>{{i[0]}}</td>
-	     <td>{{i[1]}}</td>
-	     <td>{{i[2]}}</td>
-	     <td>{{i[3]}}</td>
-	     <td>{{i[4]}}</td>
-	     <td>{{i[5]}}</td>
-	     <td>{{i[6]}}</td>
-	     <td>{{i[7]}}</td>
-	     <td>{{i[8]}}</td>
-	     <td>{{i[9]}}</td>
-	     <td>{{i[10]}}</td>
-	     </tr>
-	     % end
-	     </tbody>
-	     </table>
-
-	   </div>      
-      </div>
+	   % if upc:
+	   <p>{{upc}} added</p>
+	   %end
+	   
+	   <div class="row">
+      	   <div class="medium-4 columns">
+	   
+	   <form action="/vendors/{{vid}}/products/add-product" method="POST">
+	   	 UPC:
+		 <select name="upc">
+		 % for i in item_list:
+		 <option value="{{i[1]}}">{{i[1]}}, {{i[0]}}</option>
+		 % end
+		 </select>
+	   <input type="submit" class="button" name="add-product" value="Add Product">
+	   <form>
+	   </div>
+	   </div>
+	   </div>
 
     </div>
 
