@@ -35,7 +35,8 @@
 	   </thead>
 	   <tbody>
 	   % for i in sku_upc:
-		<tr class="table-anchor" onclick="location.href='#'">
+		<tr class="table-anchor"
+		onclick="location.href='/products/update-product-{{i[0]}}'">
 		<td>{{i[0]}}</td>
 		<td>{{i[1]}}</td>
 		<td>{{i[2]}}</td>

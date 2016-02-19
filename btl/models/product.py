@@ -50,7 +50,10 @@ def insert_sku_upc(sku, upc, sku_type):
         commit;
         """, [sku, upc, sku_type])
 
-def insert_product_descriptions(sku, product_name, product_description, bullet_one, bullet_two, bullet_three, bullet_four, bullet_five):
+def insert_product_descriptions(sku, product_name,
+                                product_description, bullet_one,
+                                bullet_two, bullet_three, bullet_four,
+                                bullet_five):
     dbconn.cur.execute(
         """
         begin;
@@ -61,13 +64,13 @@ def insert_product_descriptions(sku, product_name, product_description, bullet_o
         trim(%s), trim(%s), trim(%s))
         on conflict (sku)
         do update
-        set product_name = excluded.product_name,
-        product_description = excluded.product_description,
-        bullet_one = excluded.bullet_one,
-        bullet_two = excluded.bullet_two,
-        bullet_three = excluded.bullet_three,
-        bullet_four = excluded.bullet_four,
-        bullet_five = excluded.bullet_five;
+        set product_name = trim(excluded.product_name),
+        product_description = trim(excluded.product_description),
+        bullet_one = trim(excluded.bullet_one),
+        bullet_two = trim(excluded.bullet_two),
+        bullet_three = trim(excluded.bullet_three),
+        bullet_four = trim(excluded.bullet_four),
+        bullet_five = trim(excluded.bullet_five);
         commit;
         """, [sku, product_name, product_description, bullet_one,
              bullet_two, bullet_three, bullet_four, bullet_five])
@@ -105,7 +108,7 @@ def insert_new_case_box(upc, box_qty, case_qty):
 	      (insert into warehouse.boxes (upc, piece_qty)
 	       values (%s::int, %s::int)
 	       returning box_id)
-         insert into warehouse.case_box (case_id, box_id, box_qty)
+        insert into warehouse.case_box (case_id, box_id, box_qty)
         select nci.case_id, nbi.box_id, %s::int
         from new_case_id nci,
         new_box_id nbi;
@@ -117,7 +120,8 @@ def insert_images(sku, main_image, image_one,
         image_seven, image_eight, image_nine, image_ten, image_eleven,
         image_twelve, swatch_image):
     dbconn.cur.execute(
-        """ begin; 
+        """ 
+        begin; 
         insert into product.images (sku, main_image, image_one,
         image_two, image_three, image_four, image_five, image_six,
         image_seven, image_eight, image_nine, image_ten, image_eleven,
@@ -126,23 +130,56 @@ def insert_images(sku, main_image, image_one,
         %s, %s, %s, %s, %s, %s, %s)
         on conflict (sku)
         do update
-        set main_image = excluded.main_image,
-        image_one = excluded.image_one,
-        image_two = excluded.image_two,
-        image_three = excluded.image_three,
-        image_four = excluded.image_four,
-        image_five = excluded.image_five,
-        image_six = excluded.image_six,
-        image_seven = excluded.image_seven,
-        image_eight = excluded.image_eight,
-        image_nine = excluded.image_nine,
-        image_ten = excluded.image_ten,
-        image_eleven = excluded.image_eleven,
-        image_twelve = excluded.image_twelve,
-        swatch_image = excluded.swatch_image;
+        set main_image = trim(excluded.main_image),
+        image_one = trim(excluded.image_one),
+        image_two = trim(excluded.image_two),
+        image_three = trim(excluded.image_three),
+        image_four = trim(excluded.image_four),
+        image_five = trim(excluded.image_five),
+        image_six = trim(excluded.image_six),
+        image_seven = trim(excluded.image_seven),
+        image_eight = trim(excluded.image_eight),
+        image_nine = trim(excluded.image_nine),
+        image_ten = trim(excluded.image_ten),
+        image_eleven = trim(excluded.image_eleven),
+        image_twelve = trim(excluded.image_twelve),
+        swatch_image = trim(excluded.swatch_image);
         commit;
         """, [sku, main_image, image_one,
               image_two, image_three, image_four, image_five,
               image_six, image_seven, image_eight, image_nine,
               image_ten, image_eleven,
               image_twelve, swatch_image])
+
+def update_product_data(old_sku, new_sku, upc, sku_type, product_name,
+                     product_description, image):
+    if old_sku.strip() != new_sku.strip():
+        dbconn.cur.execute(
+            """
+            begin;
+            update product.sku_upc
+            set sku = trim(%s)
+            where sku = %s;
+            commit;
+            """, [new_sku, old_sku])
+    insert_sku_upc(new_sku, upc, sku_type)
+    insert_product_descriptions(new_sku, product_name,
+                                product_description, None,
+                                None, None, None, None)
+    insert_images(new_sku, image, None, None, None, None, None, None,
+                  None, None, None, None, None, None, None)
+
+def get_upc(sku):
+    dbconn.cur.execute(
+        """
+        select sku, upc, sku_type, product_name, product_description, 
+               main_image
+        from product.sku_upc
+        join product.descriptions
+        using (sku)
+        join product.images
+        using (sku)
+        where sku = trim(%s);
+        """, [sku])
+    a = dbconn.cur.fetchall()
+    return a

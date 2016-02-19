@@ -34,8 +34,12 @@ create table product.kits (
        child_sku varchar,
        child_sku_qty int check (child_sku_qty > 0),
        primary key(master_sku, child_sku),
-       foreign key (master_sku) references product.sku_upc (sku),
-       foreign key (child_sku) references product.sku_upc (sku)
+       foreign key (master_sku)
+       	       references product.sku_upc (sku)
+	       on update cascade,
+       foreign key (child_sku)
+       	       references product.sku_upc (sku)
+	       on update cascade
 );
 
 -- these are for replacement skus that are the same as the original sku
@@ -45,9 +49,11 @@ create table product.alternate_skus (
        original_sku varchar,
        alternate_sku varchar primary key,
        foreign key (original_sku)
-               references product.sku_upc (sku),
+               references product.sku_upc (sku)
+	       on update cascade,
        foreign key (alternate_sku)
-               references product.sku_upc (sku)	    
+               references product.sku_upc (sku)
+	       on update cascade
 );
 
 -- the descriptions and pictures tables
@@ -65,7 +71,9 @@ create table product.descriptions (
        bullet_three varchar,
        bullet_four varchar,
        bullet_five varchar,
-       foreign key (sku) references product.sku_upc (sku)
+       foreign key (sku)
+       	       references product.sku_upc (sku)
+	       on update cascade
 );
 
 create table product.images (
@@ -84,5 +92,7 @@ create table product.images (
        image_eleven varchar,
        image_twelve varchar,
        swatch_image varchar,
-       foreign key (sku) references product.sku_upc (sku)
+       foreign key (sku)
+       	       references product.sku_upc (sku)
+	       on update cascade
 );

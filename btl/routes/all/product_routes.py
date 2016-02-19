@@ -2,6 +2,25 @@
 
 from route_utils import *
 
+@route("/products/update-product-<pid>")
+@route("/products/update-product-<pid>", method="POST")
+def update_product(pid):
+    sku_data = get_upc(pid)
+    stypes = sku_types()
+    if request.POST.get("update-product"):
+        sku = request.POST.get("sku")
+        upc = request.POST.get("upc")
+        sku_type = request.POST.get("sku-type")
+        product_name = request.POST.get("product-name")
+        product_description = request.POST.get("product-description")
+        main_image = request.POST.get("main-image")
+        update_product_data(pid, sku, upc, sku_type, product_name,
+                       product_description, main_image)
+        redirect("/products/update-product-{0}".format(sku))
+    return template("views/products/update_product_inv",
+                    sku_data = sku_data, sku_types = stypes,
+                    sku = pid)
+
 @route("/products/add-kit")
 @route("/products/add-kit", method="POST")
 def add_kit():
@@ -80,4 +99,4 @@ def all_products():
 
 @route("/products")
 def products():
-    return template("views/products/main", sku_upc = None)
+    return template("views/products/product_main", sku_upc = None, inv = True)

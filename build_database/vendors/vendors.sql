@@ -13,7 +13,7 @@ create table vendor.vendors (
        city varchar,
        state varchar,
        zip varchar,
-       country varchar            
+       country varchar
 );
 
 create table vendor.contacts (
@@ -30,7 +30,8 @@ create table vendor.vendor_contact (
        contact_id int,
        primary key (vendor_id, contact_id),
        foreign key (vendor_id)
-               references vendor.vendors (vendor_id),
+               references vendor.vendors (vendor_id)
+	       on update cascade,
        foreign key (contact_id)
                references vendor.contacts (contact_id)
 );
@@ -39,7 +40,9 @@ create table vendor.vendor_products (
        vendor_id varchar,
        upc bigint primary key,
        foreign key (vendor_id)
-               references vendor.vendors (vendor_id),
+               references vendor.vendors (vendor_id)
+	       on update cascade,
        foreign key (upc)
-               references product.sku_upc (upc)	       
+               references product.sku_upc (upc)
+	       on update cascade
 );
