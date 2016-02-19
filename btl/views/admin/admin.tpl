@@ -30,7 +30,7 @@
 	         <div class = "row">
 		      <div class = "medium-4 columns">
 		      	   <h5 color = >Warehouses</h5>
-		      	   <p><a href = "#">Add Warehouse</a></p>
+		      	   <p><a href = "/admin/add-warehouse">Add Warehouse</a></p>
 		      	   <p><a href = "#">Manage Warehouses</a></p>
 		      </div>
 

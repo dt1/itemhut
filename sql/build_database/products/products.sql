@@ -36,10 +36,10 @@ create table product.kits (
        primary key(master_sku, child_sku),
        foreign key (master_sku)
        	       references product.sku_upc (sku)
-       	       on update cascade,
+	       on update cascade,
        foreign key (child_sku)
        	       references product.sku_upc (sku)
-       	       on update cascade
+	       on update cascade
 );
 
 -- these are for replacement skus that are the same as the original sku

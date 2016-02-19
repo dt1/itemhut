@@ -25,15 +25,15 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   <h4 color = >{{warehouse_name}}</h4>
+	   <h4 color = >{{wh_list[0][1]}}</h4>
 
 	   	<ul class="vertical menu">
-		<li><a href = "/warehouses/{{wh_link}}/information">Information</a></li>
-		<li><a href = "/warehouses/{{wh_link}}/running-inventory">Running Inventory</a></li>
-		<li><a href = "/warehouses/{{wh_link}}/pallet-locations">Pallet Locations</a></li>
-		<li><a href = "/warehouses/{{wh_link}}/pallets">Pallets</a></li>
-		<li><a href = "/warehouses/{{wh_link}}/product-status">Product Status</a></li>
-		<li><a href = "/warehouses/{{wh_link}}/qc-log">QC Logs</a></li>
+		<li><a href = "/warehouses/{{wh_list[0][0]}}/information">Information</a></li>
+		<li><a href = "/warehouses/{{wh_list[0][0]}}/running-inventory">Running Inventory</a></li>
+		<li><a href = "/warehouses/{{wh_list[0][0]}}/pallet-locations">Pallet Locations</a></li>
+		<li><a href = "/warehouses/{{wh_list[0][0]}}/pallets">Pallets</a></li>
+		<li><a href = "/warehouses/{{wh_list[0][0]}}/product-status">Product Status</a></li>
+		<li><a href = "/warehouses/{{wh_list[0][0]}}/qc-log">QC Logs</a></li>
 		</ul>
 	   </div>
 	   

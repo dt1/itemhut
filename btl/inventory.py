@@ -6,10 +6,6 @@ from routes.inventory.warehouse_routes import *
 from routes.inventory.vendor_routes import *
 from routes.inventory.admin_routes import *
 
-@error(404)
-def error404(err):
-    return "404; please press the back button"
-
 # for css, js, img, etc
 @route("/static/<filename:path>")
 def send_static(filename):

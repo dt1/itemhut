@@ -9,7 +9,7 @@
 from ebaysdk.trading import Connection
 import sys
 sys.path.append("/itemhut/pyebay/common/")
-from common import Universal
+from common import *
 
 from pprint import pprint
 
@@ -17,7 +17,6 @@ api = Connection(config_file = '/itemhut/pyebay/ebay.yaml')
 
 
 ##Should be your listing_sku, not to be confused with the real product sku:
-
 
 def application_data(sku):
     appData = {}
@@ -273,8 +272,8 @@ def seller_third_party_username(pname):
 def listing_designer(l_id, psize, t_id):
     ld = {}
     ld.setdefault('ListingDesigner', {})
-    ld.['ListingDesigner'].setdefault('LayoutId', l_id)
-    ld.['ListingDesigner'].setdefault('OptimalPictureSize', psize)
+    ld['ListingDesigner'].setdefault('LayoutId', l_id)
+    ld['ListingDesigner'].setdefault('OptimalPictureSize', psize)
     ld.setdefault('ThemeId', t_id)
     return ld
 

@@ -24,33 +24,28 @@ def running_inventory(wh):
         using (box_id)
         join product.sku_upc
         using (upc)
-        where lower(warehouse_name) = $${0}$$;
-        """.format(wh2))
+        where warehouse_id = %s;
+        """, [wh])
     a = dbconn.cur.fetchall()
     return a
 
 def validate_warehouse(wh):
-    wh2 = wh.replace("-", " ").lower()
     dbconn.cur.execute(
         """
-        select warehouse_name,
-        replace(lower(warehouse_name), ' ', '-')
+        select warehouse_id, warehouse_name
         from warehouse.warehouses
-        where lower(warehouse_name) = $${0}$$;
-        """.format(wh2))
+        where warehouse_id = %s;
+        """, [wh])
     a = dbconn.cur.fetchall()
-    warehouse_name = [i[0] for i in a]
-    warehouse_lower = [i[1] for i in a]
     try:
-        return warehouse_name[0], warehouse_lower[0]
+        return a
     except:
-        return None, None
+        return None
 
 def valid_warehouses():
     dbconn.cur.execute(
         """
-        select warehouse_name,
-        lower(warehouse_name)
+        select warehouse_id, warehouse_name
         from warehouse.warehouses
         order by warehouse_name;
         """)
@@ -84,15 +79,14 @@ def pallet_locations(wh):
     return a
 
 def warehouse_information(wh):
-    wh2 = wh.replace("-", " ").lower()
     dbconn.cur.execute(
         """
         select warehouse_name, warehouse_street_address, 
                warehouse_state, warehouse_zip, 
                warehouse_country, warehouse_type
         from warehouse.warehouses
-        where lower(warehouse_name) = $${0}$$;
-        """.format(wh2))
+        where warehouse_id = %s;
+        """, [wh])
     a = dbconn.cur.fetchall()
     return a
 

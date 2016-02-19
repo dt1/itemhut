@@ -10,7 +10,12 @@ from models.amazon import *
 from models.product import *
 from models.warehouse import *
 from models.vendors import *
+from models.admin import *
 
 import sys
 sys.path.append("/itemhut/pydb")
 import dbconn
+
+@error(404)
+def error404(err):
+    return "404; please press the back button"

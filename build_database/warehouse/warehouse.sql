@@ -7,7 +7,7 @@ create table warehouse.valid_warehouse_type (
 );       
 
 create table warehouse.warehouses (
-       warehouse_id serial primary key,
+       warehouse_id varchar primary key,
        warehouse_name varchar unique not null,
        warehouse_street_address varchar,
        warehouse_state varchar,
@@ -28,10 +28,11 @@ create table warehouse.pallet_locations (
 );
 
 create table warehouse.warehouse_pallet_loc (
-       warehouse_id int,
+       warehouse_id varchar,
        pallet_location_id int primary key,
        foreign key (warehouse_id)
-               references warehouse.warehouses (warehouse_id),
+               references warehouse.warehouses (warehouse_id)
+	       on update cascade,
        foreign key (pallet_location_id)
                references warehouse.pallet_locations (pallet_location_id)
 );
@@ -56,16 +57,17 @@ create table warehouse.picking_locations (
 );
 
 create table warehouse.warehouse_picking_loc (
-       warehouse_id int,
+       warehouse_id varchar,
        picking_location_id int primary key,
        foreign key (warehouse_id)
-               references warehouse.warehouses (warehouse_id),
+               references warehouse.warehouses (warehouse_id)
+	       on update cascade,
        foreign key (picking_location_id)
                references warehouse.picking_locations (picking_location_id)
 );
 
 create table warehouse.cases (
-       case_id serial primary key,
+       case_id serial primary key
 );
 
 create table warehouse.boxes (
@@ -117,10 +119,11 @@ create table warehouse.qc_station (
 );
 
 create table warehouse.warehouse_qc_station (
-       warehouse_id int,
+       warehouse_id varchar,
        qc_station_id int primary key,
        foreign key (warehouse_id)
-               references warehouse.warehouses (warehouse_id),
+               references warehouse.warehouses (warehouse_id)
+	       on update cascade,
        foreign key (qc_station_id)
                references warehouse.qc_station (qc_station_id)
 );

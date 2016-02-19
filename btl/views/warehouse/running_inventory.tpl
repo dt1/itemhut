@@ -25,7 +25,7 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   <h4 color = >{{warehouse_name}}</h4>
+	   <h4 color = >{{wh_list[0][1]}}</h4>
 	   <p>Pallet Locations</p>
 	   </div>
 	   

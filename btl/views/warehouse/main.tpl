@@ -22,13 +22,12 @@
     <!-- original content goes in this container -->
 
     <div class="off-canvas-content" data-off-canvas-content>
-
       <div class="expanded row">
       	   <h4>Warehouses</h4>
       	   <div class="medium-2 columns">
 	   	<ul class="vertical menu">
-		% for wh in wh_list:
-		<li><a href = "/warehouses/{{wh.replace(" ", "-").lower()}}">{{wh.title()}}</a></li>
+		% for i in wh:
+		<li><a href = "/warehouses/{{i[0]}}">{{i[1]}}</a></li>
 		% end
 		</ul>
 

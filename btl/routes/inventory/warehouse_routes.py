@@ -29,7 +29,7 @@ def warehouse_cases():
                     case_boxes = case_boxes, inv = True)
 
 @route("/warehouses/<wh>/information")
-def warehouse_pallet_locations(wh = None):
+def warehouse_gen_information(wh = None):
     wh_info = warehouse_information(wh)
     if wh_info:
         return template("views/warehouse/information",
@@ -40,23 +40,23 @@ def warehouse_pallet_locations(wh = None):
 
 @route("/warehouses/<wh>/running-inventory")
 def warehouse_pallet_locations(wh = None):
-    warehouse_name, warehouse_lower = validate_warehouse(wh)
+    wh_list = validate_warehouse(wh)
     sku_count = running_inventory(wh)
-    if warehouse_name:
+    if wh_list:
         return template("views/warehouse/running_inventory",
-                        warehouse_name = warehouse_name,
+                        wh_list = wh_list,
                         sku_count = sku_count, inv = True)
-    else:
-        error404("err")
+    # else:
+    #     error404("err")
 
 
 @route("/warehouses/<wh>/pallet-locations")
 def warehouse_pallet_locations(wh = None):
-    warehouse_name, warehouse_lower = validate_warehouse(wh)
+    wh_list = validate_warehouse(wh)
     pallet_location_list = pallet_locations(wh)
-    if warehouse_name:
+    if wh_list:
         return template("views/warehouse/pallet_locations",
-                        warehouse_name = warehouse_name,
+                        wh_list = wh_list,
                         pallet_location_list = pallet_location_list,
                         inv = True)
     else:
@@ -64,17 +64,14 @@ def warehouse_pallet_locations(wh = None):
 
 @route("/warehouses/<wh>")
 def warehouse_n(wh = None):
-    warehouse_name, warehouse_lower = validate_warehouse(wh)
-    if warehouse_name:
-        return template("views/warehouse/wh_page",
-                        warehouse_name = warehouse_name,
-                        wh_link = warehouse_lower, inv = True)
+    wh_list = validate_warehouse(wh)
+    if wh_list:
+        return template("views/warehouse/wh_page", wh_list = wh_list, inv = True)
     else:
         error404("err")
     
 @route("/warehouses")
 def warehouse():
     wh = valid_warehouses()
-    valid_wh = [i[0] for i in wh]
-    return template("views/warehouse/main", wh_list = valid_wh,
+    return template("views/warehouse/main", wh = wh,
                     inv = True)

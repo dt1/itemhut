@@ -2,6 +2,11 @@
 
 from route_utils import *
 
+@route("/admin/add-warehouse")
+def add_warehouse():
+    return template("views/admin/add_warehouse",
+                    new_warehouse = None, inv = True)
+
 # admin
 @route("/admin")
 def admin():
