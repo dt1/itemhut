@@ -27,45 +27,52 @@
 	   <h4 color = >{{wh_info[0][1]}}</h4>
 	   % include('warehouse/side_nav_menu.tpl', wh_id = wh_info[0][0])
 	   </div>
-	   
       	   <div class="medium-10 columns">
-	   <h4>Pallet Locations</h4>	   
-	   <table id="table_id" class="display">
-	   <thead>
-		<tr>
-		<th>pallet_location</th>
-		<th>pallet #</th>
-		<th>Information</th>
-		<th>Qty</th>
-		</tr>
-	    </thead>
-	    </tbody>
-		% for item in pallet_location_list:
-		<tr>
-		<td>{{item[1]}}</td>
-		% if item[2]:
-		<td>{{item[2]}}</td>
-		% else:
-		<td>Empty</td>
-		% end
-		% if item[3]:
-		<td>{{item[3]}}</td>
-		% else:
-		<td>Empty</td>
-		% end
-		% if item[4]:
-		<td>{{item[4]}}</td>
-		% else:
-		<td>Empty</td>
-		% end
-		</tr>
-		% end
-	   </tbody>
-	   </table>
-	   <a href="/warehouses/{{wh_info[0][0]}}/add-pallet-location">
-	   Add Pallet Location</a>
+	   <h4>Update Picking Location</h4>
+
+	   <form action="/warehouses/{{wh_info[0][0]}}/update-picking-location-{{pid}}" method="POST">
+	   <div class="row">
+	   <div class="medium-3 columns">
+	   <label>Picking Location
+	   <input type="text" name="picking-location"
+	   value="{{pl_info[0][0]}}"required="required">
+	   </label>
+
+	   <div class="medium-9 columns">
 	   </div>
-      </div>
+	   </div>
+	   </div>
+
+	   <div class="row">
+	   <div class="medium-3 columns">
+	   <label>SKU
+		<select name="sku">
+		<option value=""></option>
+		% for item in sku_upc:
+		% if item[0] == pl_info[0][1]:
+		<option value="{{item[0]}}" selected="selected">{{item[0]}}</option>
+		% else:
+		<option value="{{item[0]}}">{{item[0]}}</option>
+           	% end
+		% end
+		</select>
+	   </label>
+	   </div>
+	   <div class="medium-3 columns">
+	   <label>Qty
+		<input type="number" min="1" value="{{pl_info[0][2]}}"
+		name="qty">
+	   </label>
+	   </div>
+	   <div class="medium-6 columns">
+	   </div>
+
+	   </div>
+
+	    <input type="submit" class="button"
+	    value="Update Picking Location" name="update-picking-location">
+	    </form>
+	    </div>
 
     </div>
 

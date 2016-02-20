@@ -29,43 +29,47 @@
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	   <h4>Pallet Locations</h4>	   
-	   <table id="table_id" class="display">
-	   <thead>
-		<tr>
-		<th>pallet_location</th>
-		<th>pallet #</th>
-		<th>Information</th>
-		<th>Qty</th>
-		</tr>
-	    </thead>
-	    </tbody>
-		% for item in pallet_location_list:
-		<tr>
-		<td>{{item[1]}}</td>
-		% if item[2]:
-		<td>{{item[2]}}</td>
-		% else:
-		<td>Empty</td>
-		% end
-		% if item[3]:
-		<td>{{item[3]}}</td>
-		% else:
-		<td>Empty</td>
-		% end
-		% if item[4]:
-		<td>{{item[4]}}</td>
-		% else:
-		<td>Empty</td>
-		% end
-		</tr>
-		% end
-	   </tbody>
-	   </table>
-	   <a href="/warehouses/{{wh_info[0][0]}}/add-pallet-location">
-	   Add Pallet Location</a>
+	   <h4>Add Picking Location</h4>
+	   % if message:
+	   <p>{{message}}</p>
+	   % end
+	   <form action="/warehouses/{{wh_info[0][0]}}/add-picking-location" method="POST">
+	   <div class="row">
+	   <div class="medium-3 columns">
+	   <label>Picking Location
+	   <input type="text" name="picking-location" required="required">
+	   </label>
+
+	   <div class="medium-9 columns">
 	   </div>
-      </div>
+	   </div>
+	   </div>
+
+	   <div class="row">
+	   <div class="medium-3 columns">
+	   <label>SKU
+		<select name="sku">
+		<option value=""></option>
+		% for item in sku_upc:
+		<option value="{{item[0]}}">{{item[0]}}</option>
+           	% end
+		</select>
+	   </label>
+	   </div>
+	   <div class="medium-3 columns">
+	   <label>Qty
+		<input type="number" min="1" name="qty">
+	   </label>
+	   </div>
+	   <div class="medium-6 columns">
+	   </div>
+
+	   </div>
+
+	    <input type="submit" class="button"
+	    value="Add Picking Location" name="add-picking-location">
+	    </form>
+	    </div>
 
     </div>
 

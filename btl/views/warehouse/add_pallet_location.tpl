@@ -22,6 +22,7 @@
     <!-- original content goes in this container -->
 
     <div class="off-canvas-content" data-off-canvas-content>
+
       <div class="expanded row">
       	   <div class="medium-2 columns">
 	   <h4 color = >{{wh_info[0][1]}}</h4>
@@ -37,11 +38,30 @@
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	   	<p>{{wh_info[0][0]}}</p>
-	   	<p>{{wh_info[0][1]}}</p>
-	   	<p>{{wh_info[0][2]}} {{wh_info[0][3]}}, {{wh_info[0][4]}}</p>
-	   	<p>warehouse type: {{wh_info[0][5]}}</p>
-	   </div>      
+
+	   % if location_name:
+	   <p>Added {{location_name}}</p>
+	   % end
+	   <h4>Add Pallet Location</h4>
+	   <form action="/warehouses/{{wh_info[0][0]}}/add-pallet-location" method="POST">
+	   <div class="row">
+	   <div class="medium-3 columns">
+	   <label>Location Name
+		<input type="text" name="location-name" required="required">
+	   </label>
+	   </div>
+
+	   </div>
+	   <div class="row">
+	   <div class="medium-3 columns">
+	   <input type="submit" class="button" value="Add Pallet Location" name="add-pallet-location">
+	   </div>
+	   </div>
+
+	    </form>
+	   
+
+	   </div>
       </div>
 
     </div>
@@ -53,5 +73,12 @@
   </div>
 
 </div>
+
+<script>
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
+
 
 % include('global/end_body.tpl')

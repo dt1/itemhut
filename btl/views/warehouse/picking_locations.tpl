@@ -33,15 +33,15 @@
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
-		<th>pallet_location</th>
-		<th>pallet #</th>
-		<th>Information</th>
+		<th>Picking Location</th>
+		<th>SKU</th>
 		<th>Qty</th>
 		</tr>
 	    </thead>
 	    </tbody>
-		% for item in pallet_location_list:
-		<tr>
+		% for item in picking_location_list:
+		<tr class="table-anchor"
+		onclick="location.href='/warehouses/{{wh_info[0][0]}}/update-picking-location-{{item[0]}}'">
 		<td>{{item[1]}}</td>
 		% if item[2]:
 		<td>{{item[2]}}</td>
@@ -53,17 +53,11 @@
 		% else:
 		<td>Empty</td>
 		% end
-		% if item[4]:
-		<td>{{item[4]}}</td>
-		% else:
-		<td>Empty</td>
-		% end
-		</tr>
 		% end
 	   </tbody>
 	   </table>
-	   <a href="/warehouses/{{wh_info[0][0]}}/add-pallet-location">
-	   Add Pallet Location</a>
+	   <a href="/warehouses/{{wh_info[0][0]}}/add-picking-location">
+	   Add Picking Location</a>
 	   </div>
       </div>
 

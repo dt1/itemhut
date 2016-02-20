@@ -25,12 +25,12 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   <h4 color = >{{wh_list[0][1]}}</h4>
-	   <p>Pallet Locations</p>
+	   <h4 color = >{{wh_info[0][1]}}</h4>
+	   % include('warehouse/side_nav_menu.tpl', wh_id = wh_info[0][0])
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	   
+	   <h4>Running Inventory</h4>	   
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>

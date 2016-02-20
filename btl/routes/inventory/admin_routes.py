@@ -10,7 +10,7 @@ def add_warehouse():
         street = request.POST.get("street")
         state = request.POST.get("state")
         zip = request.POST.get("zip_code")
-        country request.POST.get("country")
+        country = request.POST.get("country")
         warehouse_type = request.POST.get("wh-type")
     return template("views/admin/add_warehouse",
                     new_warehouse = None, inv = True)

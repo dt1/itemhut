@@ -25,8 +25,8 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   <h4 color = >{{wh_info[0][0]}}</h4>
-	   <p>Information</p>
+	   <h4>{{wh_info[0][1]}}</h4>
+	   % include('warehouse/side_nav_menu.tpl', wh_id = wh_info[0][0])
 	   </div>
 	   
       	   <div class="medium-10 columns">
