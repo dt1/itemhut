@@ -36,7 +36,7 @@ $su - postgres
 $createdb itemhut
 $psql -d itemhut -U postgres -f /itemhut/build_database/products/products.sql 
 $psql -d itemhut -U postgres -f /itemhut/build_database/warehouse/warhouse.sql 
-$psql -d itemhut -U postgres -f /itemhut/build_database/warehouse/populate-warhouse.sql 
+$psql -d itemhut -U postgres -f /itemhut/build_database/vendors/vendors.sql
 ```
 
 run bottle:
