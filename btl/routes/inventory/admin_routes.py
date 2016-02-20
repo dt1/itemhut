@@ -4,6 +4,14 @@ from route_utils import *
 
 @route("/admin/add-warehouse")
 def add_warehouse():
+    if request.POST.get("update-product"):
+        warehouse_id = request.POST.get("warehouse-id")
+        warehouse_name = request.POST.get("warehouse-name")
+        street = request.POST.get("street")
+        state = request.POST.get("state")
+        zip = request.POST.get("zip_code")
+        country request.POST.get("country")
+        warehouse_type = request.POST.get("wh-type")
     return template("views/admin/add_warehouse",
                     new_warehouse = None, inv = True)
 

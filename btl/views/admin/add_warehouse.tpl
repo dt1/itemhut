@@ -54,7 +54,7 @@
 	   <div class="row">
 	   <div class="medium-4 columns">
 	   <label>Street Address
-	   <input type="text" name="address">
+	   <input type="text" name="street">
 	   </select>
 	   </label>
 	   </div>

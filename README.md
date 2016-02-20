@@ -2,7 +2,7 @@
 
 Item Hut is a free and open-source marketing, ERP, CRM, and channel-management tool mainly focusing on B2B.
 
-###Demo Site
+###Web Site
 
 www.itemhut.com
 
@@ -14,8 +14,6 @@ Under active development. To keep things progressing along smoothly, Item Hut is
 In various professional roles, I have discovered that the marketing, ERP, CRM, and channel-management tools (all closed source) have never met the needs and expectations of the companies I have worked for. In response to these short-comings, I have always developed in-house databases and programs to further manage the complexity of the jobs I had to do.
 
 This program can serve as a cheat-sheet for those who find themselves in my position and don't know where to start, or it can serve as a foundation for those who want to build their own solutions. This program is fundamentally different because it is created by someone who has found himself in the mud.
-
-Item Hut makes a few assumptions that do not reflect reality: in particular, it assumes you have beautiful and clean data, ignoring the mantra "Data is Messy." Yes, data is, and always will be, messy, even with the best of plans. I am not able to know *how* your data is messy. With that in mind, Item Hut attempts to be as flexible as possible, and should be easy to modify. The databaase schema does provide lookup tables that represent some of the more common cases.
 
 ####Inventory System Setup
 PostgreSQL 9.5
@@ -80,11 +78,7 @@ if i is None or isinstance(i, str): #or isinstance(i, unicode):
 * Intensive marketing analysis
 * "Feature Complete" Ebay and Amazon API integration.
 * Flat File creation
-* Excellent Documentation (mostly found in the source code)
-* etc.
-
-###Implementation considerations:
-Since I am not able to test half.com at this time, I have no plans to implement the these features. 
+* Excellent Documentation
 
 ####Permissions and Licensing
 
