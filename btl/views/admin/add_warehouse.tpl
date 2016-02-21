@@ -33,7 +33,12 @@
 	   % if new_warehouse:
 	   <p>Added {{new_warehouse}}</p>
 	   % end
-	   <form action="/products/add-product" method="POST">
+
+	   % if wh_err:
+	   <p>{{wh_err}}</p>
+	   % end
+
+	   <form action="/admin/add-warehouse" method="POST">
 
 	   <div class="row">
 	   <div class="medium-2 columns">
@@ -82,7 +87,11 @@
 	   </div>
 	   <div class="medium-2 columns">
 	   <label>Warehouse Type
-		<input type="text" name="wh-type">
+	   	<select name="wh-type">
+		% for i in wh_types:
+		<option value="{{i[0]}}">{{i[0]}}</option>
+		% end
+		</select>
 	   </label>
  	   </div>
 	   <div class="medium-6 columns">

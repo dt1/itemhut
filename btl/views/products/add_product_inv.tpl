@@ -63,7 +63,7 @@
 
 	   <div class="medium-2 columns">
 	   <label>Product Name
-	   	  <input type="text" name="product-name">
+	   	  <input type="text" name="product-name" required="required">
 	   </label>
 	   </div>
 

@@ -13,29 +13,27 @@ def new_warehouse_case_config():
         case_qty = request.POST.get("case-qty")
         if int(upc) in upc_list:
             insert_new_case_box(upc, box_qty, case_qty)
-            return template("views/warehouse/add_case_box", err = None,
-                            inv = True, upc_list = upc_list)
+            return template("views/warehouse/new_case_box", err = None,
+                            inv = False)
         else:
-            return template("views/warehouse/add_case_box",
-                            err = "UPC invalid: " + upc, inv = True,
-                            upc_list = upc_list)
+            return template("views/warehouse/new_case_box",
+                            err = "UPC invalid: " + upc, inv = False)
     else:
-        return template("views/warehouse/add_case_box",
-                        err = None, inv = True,
-                        upc_list = upc_list)
+        return template("views/warehouse/new_case_box",
+                        err = None, inv = False)
 
 @route("/warehouses/cases")
 def warehouse_cases():
     case_boxes = get_case_boxes()
     return template("views/warehouse/case_boxes",
-                    case_boxes = case_boxes, inv = True)
+                    case_boxes = case_boxes, inv = False)
 
 @route("/warehouses/<wh>/information")
 def warehouse_gen_information(wh = None):
     wh_info = warehouse_information(wh)
     if wh_info:
         return template("views/warehouse/information",
-                        wh_info = wh_info, inv = True)
+                        wh_info = wh_info, inv = False)
     else:
         error404("err")
 
@@ -47,7 +45,7 @@ def warehouse_running_inventory(wh = None):
     if wh_info:
         return template("views/warehouse/running_inventory",
                         wh_info = wh_info,
-                        sku_count = sku_count, inv = True)
+                        sku_count = sku_count, inv = False)
     else:
         error404("err")
 
@@ -66,11 +64,11 @@ def update_picking_location(wh, pid):
         redirect("/warehouses/{0}/update-picking-location-{1}".format(wh, pid))
         return template("views/warehouse/update_picking_location",
                         pid = pid, wh_info = wh_info,
-                        sku_upc = sku_upc, inv = True, pl_info = pl_info)
+                        sku_upc = sku_upc, inv = False, pl_info = pl_info)
     if wh_info:
         return template("views/warehouse/update_picking_location",
                         pid = pid, wh_info = wh_info,
-                        sku_upc = sku_upc, inv = True, pl_info = pl_info)
+                        sku_upc = sku_upc, inv = False, pl_info = pl_info)
     else:
         error404("err")
 
@@ -87,11 +85,11 @@ def add_warehouse_picking_location(wh = None):
         message = insert_picking_location(wh, picking_location, sku, qty)
         return template("views/warehouse/add_picking_location",
                         wh_info = wh_info, sku_upc = sku_upc,
-                        inv = True, message = message)
+                        inv = False, message = message)
     if wh_info:
         return template("views/warehouse/add_picking_location",
                         wh_info = wh_info, sku_upc = sku_upc,
-                        inv = True, message = None)
+                        inv = False, message = None)
     else:
         error404("err")
 
@@ -103,7 +101,7 @@ def warehouse_picking_locations(wh = None):
         return template("views/warehouse/picking_locations",
                         wh_info = wh_info,
                         picking_location_list = picking_location_list,
-                        inv = True)
+                        inv = False)
     else:
         error404("err")
 
@@ -117,11 +115,11 @@ def add_pallet_location(wh):
         insert_pallet_location(wh, location_name)
         return template("views/warehouse/add_pallet_location",
                         wh_info = wh_info,
-                        inv = True, location_name = location_name)
+                        inv = False, location_name = location_name)
     if wh_info:
         return template("views/warehouse/add_pallet_location",
                         wh_info = wh_info,
-                        inv = True, location_name = None)
+                        inv = False, location_name = None)
     else:
         error404("err")
 
@@ -133,7 +131,7 @@ def warehouse_pallets(wh = None):
         return template("views/warehouse/pallets",
                         wh_info = wh_info,
                         pallet_location_list = pallet_location_list,
-                        inv = True)
+                        inv = False)
     else:
         error404("err")
 
@@ -145,7 +143,7 @@ def warehouse_pallet_locations(wh = None):
         return template("views/warehouse/pallet_locations",
                         wh_info = wh_info,
                         pallet_location_list = pallet_location_list,
-                        inv = True)
+                        inv = False)
     else:
         error404("err")
 
@@ -153,10 +151,10 @@ def warehouse_pallet_locations(wh = None):
 def warehouse_n(wh = None):
     wh_info = warehouse_information(wh)
     return template("views/warehouse/wh_page",
-                    wh_info = wh_info, inv = True)
+                    wh_info = wh_info, inv = False)
 
 @route("/warehouses")
 def warehouse():
     wh = valid_warehouses()
     return template("views/warehouse/main", wh = wh,
-                    inv = True)
+                    inv = False)

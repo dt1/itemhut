@@ -64,7 +64,7 @@ create table product.alternate_skus (
 
 create table product.descriptions (
        sku varchar primary key,
-       product_name varchar,
+       product_name varchar not null,
        product_description varchar,
        bullet_one varchar,
        bullet_two varchar,
