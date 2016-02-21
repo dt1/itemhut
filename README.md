@@ -41,10 +41,10 @@ $psql -d itemhut -U postgres -f /itemhut/build_database/vendors/vendors.sql
 
 run bottle:
 ```
-$ python3 /itemhut/btl/home.py
+$ python3 /itemhut/btl/inventory.py
 ```
 
-open localhost:8080
+open localhost:8081
 
 ####Full System Setup
 (same as Inventory System Setup)
