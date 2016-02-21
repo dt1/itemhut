@@ -45,7 +45,7 @@ def validate_warehouse(wh):
 def valid_warehouses():
     dbconn.cur.execute(
         """
-        select warehouse_id, warehouse_name
+        select warehouse_id, warehouse_name, warehouse_type
         from warehouse.warehouses
         order by warehouse_name;
         """)
@@ -196,3 +196,50 @@ def update_picking_location_info(pid, picking_location, sku, qty):
         where picking_location_id = %s;
         commit;
         """, [picking_location, sku, qty, pid])
+
+def select_sku_upc_not_in_3pl(wh):
+    dbconn.cur.execute(
+        """
+        select sku, upc
+        from product.sku_upc psu
+        where not exists
+	(select *
+	from warehouse.warehouse_picking_loc
+	join warehouse.picking_locations
+	using (picking_location_id)
+	where warehouse_id = %s
+	and psu.upc = upc);
+        """, [wh])
+    a = dbconn.cur.fetchall()
+    return a
+
+def insert_3pl_product(wh, upc, qty):
+    dbconn.cur.execute(
+        """
+        begin;
+        with new_loc (picking_location_id) as
+	    (insert into warehouse.picking_locations
+		(picking_location_name,
+	         upc, qty)
+	     values (now()::varchar, %s::bigint, %s::int)
+	     returning picking_location_id)
+        insert into warehouse.warehouse_picking_loc
+	     (warehouse_id, picking_location_id)
+        select %s, picking_location_id
+        from new_loc;
+        commit;
+        """, [upc, qty, wh])
+
+def select_3pl_running_inventory(wh):
+    dbconn.cur.execute(
+        """
+        select sku, upc, qty
+        from warehouse.warehouse_picking_loc
+        join warehouse.picking_locations
+        using (picking_location_id)
+        join product.sku_upc
+        using (upc)
+        where warehouse_id = %s;
+        """, [wh])
+    a = dbconn.cur.fetchall()
+    return a

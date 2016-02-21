@@ -33,9 +33,32 @@ def warehouse_cases():
 @route("/warehouses/<wh>/information")
 def warehouse_gen_information(wh = None):
     wh_info = warehouse_information(wh)
-    if wh_info:
+    if wh_info[0][6] == 'B&M':
         return template("views/warehouse/information",
                         wh_info = wh_info, inv = True)
+    elif wh_info[0][6] == '3PL':
+        return template("views/warehouse/information_3pl",
+                        wh_info = wh_info, inv = True)
+    else:
+        error404("err")
+
+
+@route("/warehouses/<wh>/add-product")
+@route("/warehouses/<wh>/add-product", method="POST")
+def warehouse_add_product(wh = None):
+    wh_info = warehouse_information(wh)
+    sku_upc = select_sku_upc_not_in_3pl(wh)
+    if request.POST.get("add-product"):
+        upc = request.POST.get("upc")
+        qty = request.POST.get("qty")
+        insert_3pl_product(wh, upc, qty)
+        return template("views/warehouse/add_3pl_product",
+                        wh_info = wh_info, inv = True,
+                        sku_upc = sku_upc, upc=upc)
+    if wh_info[0][6] == '3PL':
+        return template("views/warehouse/add_3pl_product",
+                        wh_info = wh_info, inv = True,
+                        sku_upc = sku_upc, upc=None)
     else:
         error404("err")
 
@@ -43,11 +66,15 @@ def warehouse_gen_information(wh = None):
 @route("/warehouses/<wh>/running-inventory")
 def warehouse_running_inventory(wh = None):
     wh_info = warehouse_information(wh)
-    sku_count = running_inventory(wh)
-    if wh_info:
+    sku_count = select_3pl_running_inventory(wh)
+    if wh_info[0][6] == 'B&M':
         return template("views/warehouse/running_inventory",
-                        wh_info = wh_info,
-                        sku_count = sku_count, inv = True)
+                        sku_count = sku_count,
+                        wh_info = wh_info, inv = True)
+    elif wh_info[0][6] == '3PL':
+        return template("views/warehouse/running_3pl_inventory",
+                        sku_count = sku_count,
+                        wh_info = wh_info, inv = True)
     else:
         error404("err")
 
@@ -152,8 +179,12 @@ def warehouse_pallet_locations(wh = None):
 @route("/warehouses/<wh>")
 def warehouse_n(wh = None):
     wh_info = warehouse_information(wh)
-    return template("views/warehouse/wh_page",
-                    wh_info = wh_info, inv = True)
+    if wh_info[0][6] == 'B&M':
+        return template("views/warehouse/wh_page",
+                        wh_info = wh_info, inv = True)
+    if wh_info[0][6] == '3PL':
+        return template("views/warehouse/wh3pl_page",
+                        wh_info = wh_info, inv = True)
 
 @route("/warehouses")
 def warehouse():

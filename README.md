@@ -44,7 +44,7 @@ run bottle:
 $ python3 /itemhut/btl/inventory.py
 ```
 
-open localhost:8081
+open localhost:8082
 
 ####Full System Setup
 (same as Inventory System Setup)

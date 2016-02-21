@@ -25,15 +25,8 @@
       <div class="expanded row">
       	   <div class="medium-2 columns">
 	   <h4 color = >{{wh_info[0][1]}}</h4>
+% include('warehouse/side_nav_menu.tpl', wh_id = wh_info[0][0])
 
-	   	<ul class="vertical menu">
-		<li><a href = "/warehouses/{{wh_info[0][0]}}/information">Information</a></li>
-		<li><a href = "/warehouses/{{wh_info[0][0]}}/running-inventory">Running Inventory</a></li>
-		<li><a href = "/warehouses/{{wh_info[0][0]}}/pallet-locations">Pallet Locations</a></li>
-		<li><a href = "/warehouses/{{wh_info[0][0]}}/pallets">Pallets</a></li>
-		<li><a href = "/warehouses/{{wh_info[0][0]}}/product-status">Product Status</a></li>
-		<li><a href = "/warehouses/{{wh_info[0][0]}}/qc-log">QC Logs</a></li>
-		</ul>
 	   </div>
 	   
       	   <div class="medium-10 columns">

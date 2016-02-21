@@ -22,35 +22,42 @@
     <!-- original content goes in this container -->
 
     <div class="off-canvas-content" data-off-canvas-content>
+
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	        <h4>Warehouses</h4>
-	   	<ul class="vertical menu">
-		% for i in wh:
-		% if i[2] == 'B&M':
-		<li><a href = "/warehouses/{{i[0]}}">{{i[1]}}</a></li>
-		% end
-		% end
-		</ul>
-
-	        <h4>3PL</h4>
-	   	<ul class="vertical menu">
-		% for i in wh:
-		% if i[2] == '3PL':
-		<li><a href = "/warehouses/{{i[0]}}">{{i[1]}}</a></li>
-		% end
-		% end
-		</ul>
-		
-
-		<h4>Base Management</h4>
-	   	<ul class="vertical menu">
-		    <li><a href = "/warehouses/cases">Cases & Boxes</a></li>
-		</ul>
-	   </div>
+	   <h4 color = >{{wh_info[0][1]}}</h4>
+	   <p>Add Product</p>
 	   
-      	   <div class="medium-10 columns">
-	         <p>stuff here</p>
+	   </div>
+
+
+      	   <div class="expanded row">
+
+
+      	   <div class="medium-2 columns">
+	   % if upc:
+	   <p>Added {{upc}}</p>
+	   % end
+	   <form action="/warehouses/{{wh_info[0][0]}}/add-product"
+	   method="POST">
+	   
+	   <div class="row">
+
+	   <label>UPC
+	   <select name="upc">
+	   % for i in sku_upc:
+	   <option value="{{i[1]}}">{{i[1]}}</option>
+	   % end
+	   </select>
+	   </label>
+	   <label>QTY
+	   <input type="number" min="1" name="qty">
+	   </label>
+
+	   <input type="submit" class="button" name="add-product"
+	   value="Add UPC">
+
+	   </form>
 	   </div>      
       </div>
 

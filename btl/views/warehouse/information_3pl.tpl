@@ -22,35 +22,18 @@
     <!-- original content goes in this container -->
 
     <div class="off-canvas-content" data-off-canvas-content>
+
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	        <h4>Warehouses</h4>
-	   	<ul class="vertical menu">
-		% for i in wh:
-		% if i[2] == 'B&M':
-		<li><a href = "/warehouses/{{i[0]}}">{{i[1]}}</a></li>
-		% end
-		% end
-		</ul>
-
-	        <h4>3PL</h4>
-	   	<ul class="vertical menu">
-		% for i in wh:
-		% if i[2] == '3PL':
-		<li><a href = "/warehouses/{{i[0]}}">{{i[1]}}</a></li>
-		% end
-		% end
-		</ul>
-		
-
-		<h4>Base Management</h4>
-	   	<ul class="vertical menu">
-		    <li><a href = "/warehouses/cases">Cases & Boxes</a></li>
-		</ul>
+	   <h4>{{wh_info[0][1]}}</h4>
+	   % include('warehouse/side_nav_3pl_menu.tpl', wh_id = wh_info[0][0])
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	         <p>stuff here</p>
+	   	<p>{{wh_info[0][0]}}</p>
+	   	<p>{{wh_info[0][1]}}</p>
+	   	<p>{{wh_info[0][2]}} {{wh_info[0][3]}}, {{wh_info[0][4]}}</p>
+	   	<p>warehouse type: {{wh_info[0][5]}}</p>
 	   </div>      
       </div>
 

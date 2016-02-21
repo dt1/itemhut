@@ -50,7 +50,7 @@ create table warehouse.pallet_palletloc (
 create table warehouse.picking_locations (
        picking_location_id serial primary key,
        picking_location_name varchar,
-       sku varchar,
+       upc bigint,
        qty int check (qty > 0),
        foreign key (sku)
                references product.sku_upc (sku)

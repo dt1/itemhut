@@ -22,35 +22,32 @@
     <!-- original content goes in this container -->
 
     <div class="off-canvas-content" data-off-canvas-content>
+
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	        <h4>Warehouses</h4>
-	   	<ul class="vertical menu">
-		% for i in wh:
-		% if i[2] == 'B&M':
-		<li><a href = "/warehouses/{{i[0]}}">{{i[1]}}</a></li>
-		% end
-		% end
-		</ul>
-
-	        <h4>3PL</h4>
-	   	<ul class="vertical menu">
-		% for i in wh:
-		% if i[2] == '3PL':
-		<li><a href = "/warehouses/{{i[0]}}">{{i[1]}}</a></li>
-		% end
-		% end
-		</ul>
-		
-
-		<h4>Base Management</h4>
-	   	<ul class="vertical menu">
-		    <li><a href = "/warehouses/cases">Cases & Boxes</a></li>
-		</ul>
+	   <h4 color = >{{wh_info[0][1]}}</h4>
+	   % include('warehouse/side_nav_3pl_menu.tpl', wh_id = wh_info[0][0])
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	         <p>stuff here</p>
+	   <h4>Running Inventory</h4>	   
+	   <table id="table_id" class="display">
+	   <thead>
+		<tr>
+		<th>Sku</th>
+		<th>UPC</th>
+		<th>Qty</th>
+		</tr>
+	    </thead>
+	    </tbody>
+		% for item in sku_count:
+		<tr>
+		<td>{{item[0]}}</td>
+		<td>{{item[1]}}</td>
+		<td>{{item[2]}}</td>
+		% end
+	   </tbody>
+	   </table>
 	   </div>      
       </div>
 
@@ -63,5 +60,12 @@
   </div>
 
 </div>
+
+<script>
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
+
 
 % include('global/end_body.tpl')
