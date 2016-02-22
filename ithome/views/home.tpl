@@ -93,7 +93,8 @@ code base <a href="https://github.com/dt1/item-hut">here</a>.</p>
 
 <div class="row">
 <div class="medium-12 columns text-center">
-  <p><b>$500 / month</b></p>
+  <p><b>$999 setup</b></p>
+  <p><b>$499 / month</b></p>
   <ul class="vertical menu">
     <li>Up to 5 users.</li>
     <li>Unlimited Products</li>
@@ -110,6 +111,15 @@ code base <a href="https://github.com/dt1/item-hut">here</a>.</p>
   <ul class="vertical menu">
     <li>On-Site Training</li>
     <li>Customization for Your Needs</li>
+  </ul>
+</div>
+</div>
+<br>
+<div class="row">
+<div class="medium-12 columns text-center">
+  <p><b>Support for Our Open Source Users</b></p>
+  <ul class="vertical menu">
+    <li>Contact Us</li>
   </ul>
 </div>
 </div>
