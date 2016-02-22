@@ -6,6 +6,9 @@ create table warehouse.valid_warehouse_type (
        warehouse_type varchar primary key
 );       
 
+insert into warehouse_type.valid_warehouse_type (warehouse_type)
+values ('B&M'), ('3PL');
+
 create table warehouse.warehouses (
        warehouse_id varchar primary key,
        warehouse_name varchar unique not null,

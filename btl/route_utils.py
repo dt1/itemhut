@@ -11,6 +11,7 @@ from models.product import *
 from models.warehouse import *
 from models.vendors import *
 from models.admin import *
+from models.incoming import *
 
 import sys
 sys.path.append("/itemhut/pydb")

@@ -14,6 +14,9 @@
             <a href="/channels">Channels</a>
           </li>
           <li>
+            <a href="/incoming">Incoming</a>
+          </li>
+          <li>
             <a href="/warehouses">Warehouses</a>
           </li>
           <li>
@@ -33,11 +36,11 @@
           </li>
       </ul>
       </div>
-      <div class="top-bar-right">
+<!--      <div class="top-bar-right">
         <ul class="menu">
           <li><input type="search" placeholder="Search"></li>
           <li><button class="button">Search</button></li>
-        </ul>
+        </ul> -->
       </div>
     </div>
     <script>

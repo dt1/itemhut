@@ -22,49 +22,41 @@
     <!-- original content goes in this container -->
 
     <div class="off-canvas-content" data-off-canvas-content>
+
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   <h4 color = >{{wh_info[0][1]}}</h4>
-	   % include('warehouse/side_nav_menu.tpl', wh_id = wh_info[0][0])
+	   	<h4>Incoming</h4>
+	   % include('incoming/side_nav_menu')
+		
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	   <h4>Pallet Locations</h4>	   
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
-		<th>pallet_location</th>
-		<th>pallet #</th>
-		<th>Information</th>
-		<th>Qty</th>
+		<th>Record ID</th>
+		<th>Invoice</th>
+		<th>Vendor ID</th>
+		<th>Order Date</th>
+		<th>ETA</th>
+		<th>Complete?</th>
 		</tr>
-	    </thead>
-	    </tbody>
-		% for item in pallet_location_list:
-		<tr>
-		<td>{{item[1]}}</td>
-		% if item[2]:
-		<td>{{item[2]}}</td>
-		% else:
-		<td>Empty</td>
-		% end
-		% if item[3]:
-		<td>{{item[3]}}</td>
-		% else:
-		<td>Empty</td>
-		% end
-		% if item[4]:
-		<td>{{item[4]}}</td>
-		% else:
-		<td>Empty</td>
-		% end
+	   </thead>
+	   <tbody>
+	   % for i in orders:
+		<tr class="table-anchor">
+		<td>{{i[0]}}</td>
+		<td>{{i[1]}}</td>
+		<td>{{i[2]}}</td>
+		<td>{{i[3]}}</td>
+		<td>{{i[4]}}</td>
+		<td>{{i[5]}}</td>
 		</tr>
-		% end
+	   % end
 	   </tbody>
 	   </table>
-	   <a href="/warehouses/{{wh_info[0][0]}}/add-pallet-location">
-	   Add Pallet Location</a>
-	   </div>
+		 
+	   </div>      
       </div>
 
     </div>
@@ -76,12 +68,10 @@
   </div>
 
 </div>
-
 <script>
 $(document).ready( function () {
     $('#table_id').DataTable();
 } );
 </script>
-
 
 % include('global/end_body.tpl')
