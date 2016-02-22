@@ -10,7 +10,7 @@
 
 <style>
   #top-splash {
-  background: url("/static/images/home-background.png");
+  background: url("/static/images/home-background.jpg");
   background-size: cover;
   background-repeat:   no-repeat;
   background-position: center center;
@@ -33,7 +33,7 @@
   margin-right: 0px;
   background-color: black;
   right: 0px;
-  opacity: 0.70;
+  z-index: 3;
   }
 
   </style>

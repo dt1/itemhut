@@ -14,9 +14,9 @@
 </div>
 
 <div class="row">
-<div class="medium-8 columns">
+<div class="medium-5 columns">
 </div>
-<div class="medium-4 mdown columns">
+<div class="medium-7 mdown columns">
 
 <h1 class="white-text">Item Hut</h1>
 <h3 class="white-text">Finally, a fully integrated e-commerce system.</h3>
