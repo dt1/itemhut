@@ -4,7 +4,7 @@ Item Hut is a free and open-source marketing, ERP, CRM, and channel-management t
 
 ###Web Site
 
-www.itemhut.com
+https://itemhut.com/
 
 ###Current Status
 Under active development. To keep things progressing along smoothly, Item Hut is going to begin as an inventory system.
