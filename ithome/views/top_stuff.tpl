@@ -8,6 +8,36 @@
 
 <meta name="google-site-verification" content="pYKAhOxevhCLgElCo5Ktkj4XaUnkWsZSLJzJOUd3JE8" />
 
+<style>
+  #top-splash {
+  background: url("/static/images/home-background.png");
+  background-size: cover;
+  background-repeat:   no-repeat;
+  background-position: center center;
+  height:700px;
+  }
+
+  .white-text {
+  color: white;
+  text-shadow: 2px 2px black;
+  }
+
+  .mdown {
+  margin-top: 10em;
+  background-color: black;
+  opacity: 0.80;
+  }
+
+  #home-top-bar{
+  position: fixed;
+  margin-right: 0px;
+  background-color: black;
+  right: 0px;
+  opacity: 0.70;
+  }
+
+  </style>
+
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -19,18 +49,3 @@
 
 </script>
 </head>
-
-<body>
- 
-<div class="top-bar">
-
-<div class="top-bar-right fixed">
-<ul class="menu">
-<li><a href="/">Home</a></li>
-<li><a href="#features">Features</a></li>
-<li><a href="#philosophy">Philosopy</a></li>
-<li><a href="#pricing">Pricing</a></li>
-</ul>
-</div>
-
-</div>

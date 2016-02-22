@@ -1,17 +1,32 @@
-% include('top_stuff.tpl') 
+% include('top_stuff.tpl')
+<body>
+ 
+<div id="top-splash">
+
+<div class="top-bar-right" id="home-top-bar">
+
+<ul class="menu">
+<li><a href="/">Home</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#philosophy">Philosopy</a></li>
+<li><a href="#pricing">Pricing</a></li>
+</ul>
+</div>
+
 <div class="row">
-<div class="columns-12 text-center">
+<div class="medium-8 columns">
+</div>
+<div class="medium-4 mdown columns">
 
-<h1 class="center">Item Hut</h1>
-<h3>Finally, a fully integrated e-commerce system.</h3>
-<p>A Free and Open Source System.</p>
-<a class="button">Try the Full Demo</a>
-<a class="button">Try the Inventory Demo</a>
+<h1 class="white-text">Item Hut</h1>
+<h3 class="white-text">Finally, a fully integrated e-commerce system.</h3>
+<p class="white-text">A Free and Open Source System.</p>
+<a class="button" href="http://demo.itemhut.com/">Try the Full Demo</a>
+<a class="button" href="http://inventory-demo.itemhut.com/">Try the Inventory Demo</a>
 
 </div>
 </div>
-
-
+</div>
 
 <div class="row column text-center">
 <hr>
@@ -81,10 +96,10 @@ code base <a href="https://github.com/dt1/item-hut">here</a>.</p>
   <p><b>$500 / month</b></p>
   <ul class="vertical menu">
     <li>Up to 5 users.</li>
-    <li>Email & Phone Support</li>
     <li>Unlimited Products</li>
     <li>Email Support</li>
     <li>Phone Support</li>
+    <li>Each Extra User: $99 / month.</li>
   </ul>
 </div>
 </div>
