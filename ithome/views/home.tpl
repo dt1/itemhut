@@ -82,20 +82,25 @@ sales data is yours to keep.</p>
   charging you money to operate the systems we use. We believe in
   giving back to the community who graciously gave their effort to
   the products we use. For this and many more reasons,
-  Item Hub is totally free and open source. You can find the entire
+  Item Hut is totally free and open source. You can find the entire
 code base <a href="https://github.com/dt1/item-hut">here</a>.</p>
 </div>
 </div>
 
 <div class="row column text-center">
-<h4 id="pricing">Simple Pricing.</h4>
+<h4 id="pricing">Simple Pricing</h4>
 </div>
 
 <div class="row">
 <div class="medium-12 columns text-center">
-  <p><b>$999 setup</b></p>
-  <p><b>$499 / month</b></p>
   <ul class="vertical menu">
+    <li><b>$999 setup</b></li>
+    <li>Server Setup</li>
+    <li>Data Importation</li>
+  </ul>
+  <br>
+  <ul class="vertical menu">
+    <li><b>$499 / month</b></li>
     <li>Up to 5 users.</li>
     <li>Unlimited Products</li>
     <li>Email Support</li>
@@ -107,8 +112,8 @@ code base <a href="https://github.com/dt1/item-hut">here</a>.</p>
 <br>
 <div class="row">
 <div class="medium-12 columns text-center">
-  <p><b>Optional Addons</b></p>
   <ul class="vertical menu">
+    <li><b>Optional Addons</b></li>
     <li>On-Site Training</li>
     <li>Customization for Your Needs</li>
   </ul>
@@ -117,8 +122,8 @@ code base <a href="https://github.com/dt1/item-hut">here</a>.</p>
 <br>
 <div class="row">
 <div class="medium-12 columns text-center">
-  <p><b>Support for Our Open Source Users</b></p>
   <ul class="vertical menu">
+    <li><b>Support for Our Open Source Users</b></li>
     <li>Contact Us</li>
   </ul>
 </div>
@@ -126,10 +131,12 @@ code base <a href="https://github.com/dt1/item-hut">here</a>.</p>
 <br>
 <div class="row">
   <div class="medium-12 columns text-center">
-  <p><b>Contact Us to Sign Up</b></p>
-  <a>david.t@itemhut.com</a>
-  <p>512-769-7253</p>
-  <p>Located in Austin, TX</p>
+  <ul class="vertical menu">
+  <li><b>Contact David to Sign Up</b></li>
+  <li><a href="mailto:david.t@itemhut.com">david.t@itemhut.com</a></li>
+  <li>512-769-7253</li>
+  </ul>
+  <p><b>Located in Austin, TX</b></p>
 </div>
 </div>
 
