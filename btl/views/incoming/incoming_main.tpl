@@ -44,7 +44,8 @@
 	   </thead>
 	   <tbody>
 	   % for i in orders:
-		<tr class="table-anchor">
+		<tr class="table-anchor"
+		onclick="location.href='/incoming/update-order-{{i[0]}}'">
 		<td>{{i[0]}}</td>
 		<td>{{i[1]}}</td>
 		<td>{{i[2]}}</td>
@@ -73,5 +74,21 @@ $(document).ready( function () {
     $('#table_id').DataTable();
 } );
 </script>
+
+<style>
+
+.dataTables_length{
+width: 5em;
+}
+
+.dataTables_filter{
+width:15em;
+margin-left:-17em;
+}
+
+.dataTables_paginate{
+margin-left:-12em;
+}
+</style>
 
 % include('global/end_body.tpl')

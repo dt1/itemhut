@@ -27,6 +27,7 @@
       	   <div class="medium-2 columns">
 	   <h4 color = >{{wh_info[0][1]}}</h4>
 	   <p>Add Product</p>
+	   % include('warehouse/side_nav_3pl_menu.tpl', wh_id = wh_info[0][0])
 	   
 	   </div>
 

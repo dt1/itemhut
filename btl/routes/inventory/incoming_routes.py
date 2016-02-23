@@ -22,14 +22,7 @@ def update_incoming_order(oid):
 def all_records():
     orders = select_all_incoming_orders()
     return template("views/incoming/incoming_main", inv = True,
-                    invoice_added = False, orders = orders)
-
-@route("/incoming/incoming-records")
-def incoming_records():
-    orders = select_incoming_orders()
-    return template("views/incoming/incoming_main", inv = True,
-                    invoice_added = False, orders = orders)
-
+                    orders = orders)
 
 @route("/incoming/add-record")
 @route("/incoming/add-record", method="POST")

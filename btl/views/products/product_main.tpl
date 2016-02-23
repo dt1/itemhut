@@ -70,5 +70,20 @@ $(document).ready( function () {
 } );
 </script>
 
+<style>
+
+.dataTables_length{
+width: 5em;
+}
+
+.dataTables_filter{
+width:15em;
+margin-left:-25em;
+}
+
+.dataTables_paginate{
+margin-left:-20em;
+}
+</style>
 
 % include('global/end_body.tpl')
