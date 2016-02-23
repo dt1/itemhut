@@ -8,8 +8,5 @@
 <li><a href = "/warehouses/{{wh_id}}/qc-log">QC Logs</a></li>
 </ul>
 
-<h4>Base Management</h4>
-<ul class="vertical menu">
-<li><a href = "/warehouses/cases">Cases & Boxes</a></li>
-</ul>
+
 

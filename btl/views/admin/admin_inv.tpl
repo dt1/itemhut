@@ -18,27 +18,34 @@
 % include('global/top_nav.tpl')
 % end
 
-
     <!-- original content goes in this container -->
 
     <div class="off-canvas-content" data-off-canvas-content>
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   <h4 color = >{{wh_info[0][1]}}</h4>
-	   % include('warehouse/side_nav_3pl_menu.tpl', wh_id = wh_info[0][0])
 	   </div>
+	   
       	   <div class="medium-10 columns">
-	   <h4>Update Inventory</h4>
-	   <p><b>SKU: </b>{{sku_count[0][0]}} ({{sku_count[0][2]}})</p>
-	   <form action="/warehouses/{{wh_info[0][0]}}/update-running-inventory-{{sku_count[0][0]}}" method="POST">
-	   <div class="row">
-	   <div class="medium-3 columns">
-	   <input type="number" name="qty" min="1">
-	   <input type="submit" class="button" name="update-qty"
-	   value="Update QTY">
-	   </div>      
-	   </div>      
+	         <div class = "row">
+		      <div class = "medium-4 columns">
+		      	   <h5 color = >Warehouses</h5>
+		      	   <p><a href = "/admin/add-warehouse">Add Warehouse</a></p>
+		      	   <p><a href = "#">Manage Warehouses</a></p>
+		      </div>
+
+
+		      <div class = "medium-4 columns">
+		      	   <h5 color = >Users and Roles</h5>
+		      	   <p><a href = "#">Add User</a></p>
+		      	   <p><a href = "#">Manage Users</a></p>
+		      	   <p><a href = "#">Add Role</a></p>
+		      	   <p><a href = "#">Manage Roles</a></p>
+		      </div>
+
+		      <div class = "medium-4 columns">
+		      </div>
+		 </div>
 	   </div>      
       </div>
 

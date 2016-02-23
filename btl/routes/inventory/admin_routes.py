@@ -32,4 +32,4 @@ def add_warehouse():
 # admin
 @route("/admin")
 def admin():
-    return template("views/admin/admin", inv = True)
+    return template("views/admin/admin_inv", inv = True)
