@@ -169,17 +169,17 @@ def update_product_data(old_sku, new_sku, upc, sku_type, product_name,
     insert_images(new_sku, image, None, None, None, None, None, None,
                   None, None, None, None, None, None, None)
 
-def get_upc(sku):
+def get_sku_data(sku):
     dbconn.cur.execute(
         """
         select sku, upc, sku_type, product_name, product_description, 
                main_image
         from product.sku_upc
-        join product.descriptions
+        left join product.descriptions
         using (sku)
-        join product.images
+        left join product.images
         using (sku)
-        where sku = trim(%s);
+        where trim(sku) = trim(%s);
         """, [sku])
     a = dbconn.cur.fetchall()
     return a

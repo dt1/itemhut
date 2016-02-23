@@ -5,7 +5,7 @@ from route_utils import *
 @route("/products/update-product-<pid>")
 @route("/products/update-product-<pid>", method="POST")
 def update_product(pid):
-    sku_data = get_upc(pid)
+    sku_data = get_sku_data(pid)
     stypes = sku_types()
     if request.POST.get("update-product"):
         sku = request.POST.get("sku")

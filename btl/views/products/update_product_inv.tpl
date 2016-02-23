@@ -65,7 +65,11 @@
 	   <div class="row">
 	   <div class="medium-6 columns">
 	   <label>Product Description
+	   % if sku_data[0][4]:
 	   <textarea name="product-description">{{sku_data[0][4]}}</textarea>
+	   % else:
+	   <textarea name="product-description"></textarea>
+	   % end
            </label>
 	   <div class="medium-6 columns">
 	   </div>
@@ -75,8 +79,12 @@
 	   <div class="row">
 	   <div class="medium-6 columns">
 	   <label>Image
+	   % if sku_data[0][5]:
 		<input type="text" name="main-image"
 		value="{{sku_data[0][5]}}">
+	   % else:
+	   	<input type="text" name="main-image">
+	   % end
 	   </label>
 	   <div class="medium-6 columns">
  	   </div>
@@ -93,7 +101,7 @@
 	   </div>
 
 	   </form>
-	   </div>
+
       </div>
 
     </div>
