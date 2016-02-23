@@ -26,19 +26,32 @@
       <div class="expanded row">
       	   <div class="medium-2 columns">
 	   	<h4>Products</h4>
-	   	<ul class="vertical menu">
-			<li>
-				<a href = "/products/all">All</a>
-			</li>
-			<li>
-				<a href = "/products/kits">Kits</a>
-			</li>
-		</ul>
+		% include('products/product_side_nav')
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	         <p></p>
-	   </div>      
+	   <h4>All Products</h4>
+	   <table id="table_id" class="display">
+	   <thead>
+		<tr>
+		<th>SKU</th>
+		<th>UPC</th>
+		<th>SKU Type</th>
+		<th>Product Name</th>
+		</tr>
+	   </thead>
+	   <tbody>
+	   % for i in sku_upc:
+		<tr class="table-anchor"
+		onclick="location.href='/products/update-product-{{i[0]}}'">
+		<td>{{i[0]}}</td>
+		<td>{{i[1]}}</td>
+		<td>{{i[2]}}</td>
+		<td>{{i[3]}}</td>
+		</tr>
+		% end
+	   </tbody>
+	   </table>	   </div>      
       </div>
 
     </div>
@@ -50,5 +63,12 @@
   </div>
 
 </div>
+
+<script>
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
+
 
 % include('global/end_body.tpl')

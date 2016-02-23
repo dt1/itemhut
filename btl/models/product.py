@@ -15,6 +15,18 @@ def sku_upcs():
     a = dbconn.cur.fetchall()
     return a
 
+def select_reg_products():
+    dbconn.cur.execute(
+        """
+        select sku, upc, sku_type, product_name
+        from product.sku_upc
+        left join product.descriptions
+        using (sku)
+        where sku_type <> 'master';        
+        """)
+    a = dbconn.cur.fetchall()
+    return a
+
 def sku_types():
     dbconn.cur.execute(
         """

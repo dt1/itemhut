@@ -25,11 +25,8 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   	<ul class="vertical menu">
-			<li>
-			<a href = "/products/add-kit">Add Kit</a>
-			</li>
-		</ul>
+	   <h4>Kits</h4>
+	   % include('products/product_side_nav')
 	   </div>
 	   
       	   <div class="medium-10 columns">
