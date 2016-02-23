@@ -9,12 +9,6 @@ https://itemhut.com/
 ###Current Status
 Under active development. To keep things progressing along smoothly, Item Hut is going to begin as an inventory system.
 
-###Why?
-
-In various professional roles, I have discovered that the marketing, ERP, CRM, and channel-management tools (all closed source) have never met the needs and expectations of the companies I have worked for. In response to these short-comings, I have always developed in-house databases and programs to further manage the complexity of the jobs I had to do.
-
-This program can serve as a cheat-sheet for those who find themselves in my position and don't know where to start, or it can serve as a foundation for those who want to build their own solutions. This program is fundamentally different because it is created by someone who has found himself in the mud.
-
 ####Inventory System Setup
 PostgreSQL 9.5
 
