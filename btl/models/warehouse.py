@@ -5,7 +5,6 @@ sys.path.append("/itemhut/pydb")
 import dbconn
 
 def running_inventory(wh):
-    wh2 = wh.replace("-", " ").lower()
     dbconn.cur.execute(
         """
         select sku, box_qty * piece_qty
@@ -132,12 +131,15 @@ def insert_pallet_location(warehouse_id, location_name):
 def select_picking_locations(wh):
     dbconn.cur.execute(
         """
-        select picking_location_id, picking_location_name, sku, qty
+        select picking_location_id, picking_location_name, sku, upc, 
+               qty
         from warehouse.warehouses
         join warehouse.warehouse_picking_loc 
         using(warehouse_id)
         join warehouse.picking_locations 
         using(picking_location_id)
+        join product.sku_upc
+        using (upc)
         where warehouse_id = %s;
         """, [wh])
     a = dbconn.cur.fetchall()
@@ -178,7 +180,7 @@ def insert_picking_location(wh, picking_location, sku, qty):
 def select_picking_location_info(pid):
     dbconn.cur.execute(
         """
-        select picking_location_name, sku, qty
+        select picking_location_name, upc, qty
         from warehouse.picking_locations
         where picking_location_id = %s::int;
         """, [pid])
@@ -191,9 +193,9 @@ def update_picking_location_info(pid, picking_location, sku, qty):
         begin;
         update warehouse.picking_locations
         set picking_location_name = %s,
-        sku = %s,
-        qty = %s
-        where picking_location_id = %s;
+        upc = %s::bigint,
+        qty = %s::int
+        where picking_location_id = %s::int;
         commit;
         """, [picking_location, sku, qty, pid])
 
@@ -243,3 +245,28 @@ def select_3pl_running_inventory(wh):
         """, [wh])
     a = dbconn.cur.fetchall()
     return a
+
+def select_3pl_running_inventory_sku(wh, sku):
+    dbconn.cur.execute(
+        """
+        select sku, upc, qty, picking_location_id
+        from warehouse.warehouse_picking_loc
+        join warehouse.picking_locations
+        using (picking_location_id)
+        join product.sku_upc
+        using (upc)
+        where warehouse_id = %s
+        and sku = %s;
+        """, [wh, sku])
+    a = dbconn.cur.fetchall()
+    return a
+
+def update_3pl_running_inventory(picking_location_id, qty):
+    dbconn.cur.execute(
+        """
+        begin;
+        update warehouse.picking_locations
+        set qty = %s::int
+        where picking_location_id = %s;
+        commit;
+        """, [qty, picking_location_id])

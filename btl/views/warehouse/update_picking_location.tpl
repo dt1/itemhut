@@ -42,21 +42,17 @@
 	   </div>
 	   </div>
 	   </div>
-
 	   <div class="row">
 	   <div class="medium-3 columns">
-	   <label>SKU
-		<select name="sku">
-		<option value=""></option>
+	   <label>UPC
+		<input list="upc_list" name="upc"
+		value="{{pl_info[0][1]}}" style="margin-top:2em;">
+		</label>
+		<datalist id="upc_list">
 		% for item in sku_upc:
-		% if item[0] == pl_info[0][1]:
-		<option value="{{item[0]}}" selected="selected">{{item[0]}}</option>
-		% else:
-		<option value="{{item[0]}}">{{item[0]}}</option>
-           	% end
+		<option value="{{item[1]}}">
 		% end
-		</select>
-	   </label>
+		</datalist>
 	   </div>
 	   <div class="medium-3 columns">
 	   <label>Qty

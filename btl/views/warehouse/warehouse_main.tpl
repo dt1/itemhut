@@ -41,10 +41,15 @@
 		% end
 		% end
 		</ul>
+		<h4>Base Management</h4>
+		<ul class="vertical menu">
+		<li><a href = "/warehouses/cases">Cases & Boxes</a></li>
+		</ul>	   
 		</div>
-	   
+
       	   <div class="medium-10 columns">
 	         <p>stuff here</p>
+
 	   </div>      
       </div>
 

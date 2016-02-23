@@ -33,7 +33,7 @@
 	   	<p>{{wh_info[0][0]}}</p>
 	   	<p>{{wh_info[0][1]}}</p>
 	   	<p>{{wh_info[0][2]}} {{wh_info[0][3]}}, {{wh_info[0][4]}}</p>
-	   	<p>warehouse type: {{wh_info[0][5]}}</p>
+	   	<p>Country: {{wh_info[0][5]}}</p>
 	   </div>      
       </div>
 

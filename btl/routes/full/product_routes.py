@@ -5,7 +5,7 @@ from route_utils import *
 @route("/products/update-product-<pid>")
 @route("/products/update-product-<pid>", method="POST")
 def update_product(pid):
-    sku_data = get_upc(pid)
+    sku_data = get_sku_data(pid)
     stypes = sku_types()
     if request.POST.get("update-product"):
         sku = request.POST.get("sku")
@@ -36,10 +36,12 @@ def add_kit():
                     insert_kit(master_sku, kit_name, kit_amt)
                 else:
                     return template("views/products/add_kit",
-                                    sku_upc = sku_upc, new_sku = None,
+                                    sku_upc = sku_upc,
+                                    new_sku = None,
                                     err = "Please add an amount for your kits", inv = False)
-        return template("views/products/add_kit", sku_upc = sku_upc,
-                        new_sku = master_sku, err = None, inv = False)
+        return template("views/products/add_kit",
+                        sku_upc = sku_upc, new_sku = master_sku,
+                        err = None, inv = False)
     else:
         return template("views/products/add_kit", sku_upc = sku_upc,
                         new_sku = None, err = None, inv = False)
@@ -99,14 +101,8 @@ def add_products():
         return template("views/products/add_product_inv",
                         sku_upc = sku_upc, sku_types = stypes,
                         new_sku = None, inv = False)
-
-@route("/products/all")
-def all_products():
-    sku_upc = sku_upcs()
-    return template("views/products/all_products", sku_upc = sku_upc,
-                    inv = False)
-
 @route("/products")
 def products():
-    return template("views/products/product_main", sku_upc = None,
+    sku_upc = select_reg_products()
+    return template("views/products/product_main", sku_upc = sku_upc,
                     inv = False)

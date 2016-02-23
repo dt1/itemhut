@@ -5,4 +5,4 @@ from route_utils import *
 # order pages
 @route("/orders")
 def orders():
-    return template("views/orders")
+    return template("views/orders/orders")

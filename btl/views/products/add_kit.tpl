@@ -55,15 +55,15 @@
 
 	   % for i in range(1, 11):
 	   <div class="row">
-	   <div class="medium-3 columns">
+	   <div class="medium-3 columns" style="margin-top:2em;">
 	   <label>SKU
-		<select name="kit-name-{{i}}">
+	   <input list="kits" name="kit-name-{{i}}"></label>
+	   <datalist id="kits">
 		<option value=""></option>
 		% for item in sku_upc:
-		<option value="{{item[0]}}">{{item[0]}}</option>
+		<option value="{{item[0]}}">
            	% end
-		</select>
-	   </label>
+		</datalist>
 	   </div>
 	   <div class="medium-3 columns">
 	   <label>Qty

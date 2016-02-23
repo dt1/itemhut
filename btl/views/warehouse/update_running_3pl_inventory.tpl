@@ -22,29 +22,23 @@
     <!-- original content goes in this container -->
 
     <div class="off-canvas-content" data-off-canvas-content>
+
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	        <h4>Warehouses</h4>
-	   	<ul class="vertical menu">
-		% for i in wh:
-		% if i[2] == 'B&M':
-		<li><a href = "/warehouses/{{i[0]}}">{{i[1]}}</a></li>
-		% end
-		% end
-		</ul>
-
-	        <h4>3PL</h4>
-	   	<ul class="vertical menu">
-		% for i in wh:
-		% if i[2] == '3PL':
-		<li><a href = "/warehouses/{{i[0]}}">{{i[1]}}</a></li>
-		% end
-		% end
-		</ul>
-		</div>
-	   
+	   <h4 color = >{{wh_info[0][1]}}</h4>
+	   % include('warehouse/side_nav_3pl_menu.tpl', wh_id = wh_info[0][0])
+	   </div>
       	   <div class="medium-10 columns">
-	         <p>stuff here</p>
+	   <h4>Update Inventory</h4>
+	   <p><b>SKU: </b>{{sku_count[0][0]}} ({{sku_count[0][2]}})</p>
+	   <form action="/warehouses/{{wh_info[0][0]}}/update-running-inventory-{{sku_count[0][0]}}" method="POST">
+	   <div class="row">
+	   <div class="medium-3 columns">
+	   <input type="number" name="qty" min="1">
+	   <input type="submit" class="button" name="update-qty"
+	   value="Update QTY">
+	   </div>      
+	   </div>      
 	   </div>      
       </div>
 

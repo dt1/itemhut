@@ -63,6 +63,24 @@ def warehouse_add_product(wh = None):
         error404("err")
 
 
+@route("/warehouses/<wh>/update-running-inventory-<sku>")
+@route("/warehouses/<wh>/update-running-inventory-<sku>",
+       method="POST")
+def update_warehouse_running_inventory(wh, sku):
+    wh_info = warehouse_information(wh)
+    sku_count = select_3pl_running_inventory_sku(wh, sku)
+    if wh_info[0][6] == '3PL' and sku_count:
+        if request.POST.get("update-qty"):
+            qty = request.POST.get("qty")
+            picking_loc = sku_count[0][3]
+            update_3pl_running_inventory(picking_loc, qty)
+            redirect("/warehouses/{0}/update-running-inventory-{1}".format(wh, sku))
+        return template("views/warehouse/update_running_3pl_inventory",
+                        sku_count = sku_count,
+                        wh_info = wh_info, inv = True)
+    else:
+        error404("err")
+
 @route("/warehouses/<wh>/running-inventory")
 def warehouse_running_inventory(wh = None):
     wh_info = warehouse_information(wh)
@@ -87,9 +105,9 @@ def update_picking_location(wh, pid):
     sku_upc = sku_upcs()
     if request.POST.get("update-picking-location"):
         picking_location = request.POST.get("picking-location")
-        sku = request.POST.get("sku")
+        upc = request.POST.get("upc")
         qty = request.POST.get("qty")
-        update_picking_location_info(pid, picking_location, sku, qty)
+        update_picking_location_info(pid, picking_location, upc, qty)
         redirect("/warehouses/{0}/update-picking-location-{1}".format(wh, pid))
         return template("views/warehouse/update_picking_location",
                         pid = pid, wh_info = wh_info,
@@ -189,5 +207,5 @@ def warehouse_n(wh = None):
 @route("/warehouses")
 def warehouse():
     wh = valid_warehouses()
-    return template("views/warehouse/main", wh = wh,
+    return template("views/warehouse/warehouse_main", wh = wh,
                     inv = True)

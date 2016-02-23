@@ -75,11 +75,11 @@ width: 5em;
 
 .dataTables_filter{
 width:15em;
-margin-left:-17em;
+margin-left:-27em;
 }
 
 .dataTables_paginate{
-margin-left:-12em;
+margin-left:-22em;
 }
 </style>
 

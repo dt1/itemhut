@@ -29,12 +29,13 @@
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	   <h4>Pallet Locations</h4>	   
+	   <h4>Picking Locations</h4>	   
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
 		<th>Picking Location</th>
 		<th>SKU</th>
+		<th>UPC</th>
 		<th>Qty</th>
 		</tr>
 	    </thead>
@@ -53,6 +54,7 @@
 		% else:
 		<td>Empty</td>
 		% end
+		<td>{{item[4]}}</td>
 		% end
 	   </tbody>
 	   </table>
@@ -76,6 +78,22 @@ $(document).ready( function () {
     $('#table_id').DataTable();
 } );
 </script>
+
+<style>
+
+.dataTables_length{
+width: 5em;
+}
+
+.dataTables_filter{
+width:15em;
+margin-left:-25em;
+}
+
+.dataTables_paginate{
+margin-left:-22em;
+}
+</style>
 
 
 % include('global/end_body.tpl')
