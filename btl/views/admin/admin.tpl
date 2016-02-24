@@ -37,10 +37,8 @@
 
 		      <div class = "medium-4 columns">
 		      	   <h5 color = >Users and Roles</h5>
-		      	   <p><a href = "#">Add User</a></p>
+		      	   <p><a href = "/admin/add-user">Add User</a></p>
 		      	   <p><a href = "#">Manage Users</a></p>
-		      	   <p><a href = "#">Add Role</a></p>
-		      	   <p><a href = "#">Manage Roles</a></p>
 		      </div>
 
 		      <div class = "medium-4 columns">

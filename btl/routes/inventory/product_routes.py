@@ -3,8 +3,9 @@
 from route_utils import *
 
 @route("/products/update-product-<pid>")
-@route("/products/update-product-<pid>", method="POST")
+@post("/products/update-product-<pid>")
 def update_product(pid):
+    check_user()
     sku_data = get_sku_data(pid)
     stypes = sku_types()
     if request.POST.get("update-product"):
@@ -22,8 +23,9 @@ def update_product(pid):
                     sku = pid, inv = True)
 
 @route("/products/add-kit")
-@route("/products/add-kit", method="POST")
+@post("/products/add-kit")
 def add_kit():
+    check_user()
     sku_upc = sku_upcs()
     if request.POST.get("add-kit"):
         master_sku = request.POST.get("master-sku")
@@ -48,12 +50,14 @@ def add_kit():
 
 @route("/products/kits")
 def all_kits():
+    check_user()
     k = kits()
     return template("views/products/kits", kits = k, inv = True)
 
 @route("/products/add-product")
-@route("/products/add-product", method="POST")
+@post("/products/add-product")
 def add_products():
+    check_user()
     sku_upc = sku_upcs()
     stypes = sku_types()
     if request.POST.get("add-product"):
@@ -103,6 +107,7 @@ def add_products():
                         new_sku = None, inv = True)
 @route("/products")
 def products():
+    check_user()
     sku_upc = select_reg_products()
     return template("views/products/product_main", sku_upc = sku_upc,
                     inv = True)

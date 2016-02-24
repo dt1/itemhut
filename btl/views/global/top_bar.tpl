@@ -6,6 +6,6 @@
       </div>
 
       <div class="title-bar-right">
-        <span class="title-bar-title">Log Out</span>
+        <span class="title-bar-title"><a href="/logout">Log Out</a></span>
       </div>
     </div>

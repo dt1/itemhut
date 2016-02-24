@@ -1,10 +1,29 @@
 # This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 from route_utils import *
+import bcrypt
+
+@route("/admin/add-user")
+@post("/admin/add-user")
+def add_user():
+    check_admin()
+    if request.POST.get("add-user"):
+        uname = request.POST.get("user-name")
+        password = request.POST.get("password")
+        urole = request.POST.get("role")
+        hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+        user_error = insert_new_user(uname, hashed, urole)
+        return template("views/admin/add_user", new_user = uname,
+                    role_types = ['admin', 'user'],
+                    user_error = user_error, inv = True)
+    return template("views/admin/add_user", new_user = None,
+                    role_types = ['admin', 'user'], user_error = None,
+                    inv = True)
 
 @route("/admin/add-warehouse")
-@route("/admin/add-warehouse", method="POST")
+@post("/admin/add-warehouse")
 def add_warehouse():
+    check_admin()
     wh_types = select_warehouse_types()
     if request.POST.get("add-warehouse"):
         warehouse_id = request.POST.get("warehouse-id")
@@ -32,4 +51,5 @@ def add_warehouse():
 # admin
 @route("/admin")
 def admin():
+    check_admin()
     return template("views/admin/admin_inv", inv = True)

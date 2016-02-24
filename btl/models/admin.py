@@ -35,3 +35,32 @@ def insert_warehouse(warehouse_id, warehouse_name, street, state, zip,
         commit;
         """, [warehouse_id, warehouse_name, street, state, zip,
                      country, warehouse_type])
+
+def insert_new_user(username, password, role):
+    dbconn.cur.execute(
+        """
+        select user_name
+        from users.users
+        where user_name = %s;
+        """, [username])
+    a = dbconn.cur.fetchall()
+    if a:
+        return True
+        
+    dbconn.cur.execute(
+        """
+        begin;
+        insert into users.users (user_name, password, user_role)
+        values (%s, %s, %s);
+        commit
+        """, [username, password, role])
+
+def select_user_password_role(username):
+    dbconn.cur.execute(
+        """
+        select password, user_role
+        from users.users
+        where user_name = %s;
+        """, [username])
+    a = dbconn.cur.fetchall()
+    return a

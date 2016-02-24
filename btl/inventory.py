@@ -19,4 +19,4 @@ def index():
     return template("views/home/home.tpl", inv = True)
 
 debug(True)
-run(reloader=True, host="localhost", port=8082)
+run(reloader=True, host="localhost", port=8082, app=myapp)

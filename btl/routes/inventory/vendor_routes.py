@@ -3,8 +3,9 @@
 from route_utils import *
 
 @route("/vendors/<vid>/contacts/edit-contact-<cid>")
-@route("/vendors/<vid>/contacts/edit-contact-<cid>", method="POST")
+@post("/vendors/<vid>/contacts/edit-contact-<cid>")
 def edit_vendor_contact(vid, cid):
+    check_user()
     contact_info = select_vendor_contact_info(cid)
     if request.POST.get("edit-contact"):
         contact_name = request.POST.get("name")
@@ -21,8 +22,9 @@ def edit_vendor_contact(vid, cid):
                         inv = True)
 
 @route("/vendors/<vid>/products/add-product")
-@route("/vendors/<vid>/products/add-product", method="POST")
+@post("/vendors/<vid>/products/add-product")
 def add_vendor_product(vid):
+    check_user()
     item_list = select_upc_list()
     if request.POST.get("add-product"):
         upc = request.POST.get("upc")
@@ -34,8 +36,9 @@ def add_vendor_product(vid):
                         item_list = item_list, inv = True, vid = vid)
     
 @route("/vendors/<vid>/contacts/add-contact")
-@route("/vendors/<vid>/contacts/add-contact", method="POST")
+@post("/vendors/<vid>/contacts/add-contact")
 def add_vendor_contact(vid):
+    check_user()
     if request.POST.get("add-contact"):
         contact_name = request.POST.get("name")
         contact_title = request.POST.get("title")
@@ -52,6 +55,7 @@ def add_vendor_contact(vid):
     
 @route("/vendors/<vid>/contacts")
 def vendor_contacts(vid):
+    check_user()
     v_info = get_vendor_info(vid)
     v_contacts = select_vendor_contacts(vid)
     return template("views/vendors/vendor_contacts",
@@ -60,6 +64,7 @@ def vendor_contacts(vid):
 
 @route("/vendors/<vid>/products")
 def vendor_contacts(vid):
+    check_user()
     v_info = get_vendor_info(vid)
     v_products = select_vendor_products(vid)
     return template("views/vendors/vendor_products",
@@ -69,6 +74,7 @@ def vendor_contacts(vid):
     
 @route("/vendors/<vid>")
 def vendor_info(vid):
+    check_user()
     v_info = get_vendor_info(vid)
     v_contacts = select_vendor_contacts(vid)
     v_products = select_vendor_products(vid)
@@ -77,8 +83,9 @@ def vendor_info(vid):
                         inv = True, vendor_products = v_products)
 
 @route("/vendors/<vid>/edit-vendor")
-@route("/vendors/<vid>/edit-vendor", method="POST")
+@post("/vendors/<vid>/edit-vendor")
 def edit_vendor(vid):
+    check_user()
     vendor_info = get_vendor_info(vid)
     if request.POST.get("update-vendor"):
         old_vendor_id = vid
@@ -102,8 +109,9 @@ def edit_vendor(vid):
                         vendor_info = vendor_info, inv = True)
 
 @route("/vendors/add-vendor")
-@route("/vendors/add-vendor", method="POST")
+@post("/vendors/add-vendor")
 def add_vendor():
+    check_user()
     vendors = select_vendors()
     if request.POST.get("add-vendor"):
         vendor_id = request.POST.get("vendor-id")
@@ -127,6 +135,7 @@ def add_vendor():
 
 @route("/vendors")
 def vendors():
+    check_user()
     vendors = select_vendors()
     return template("views/vendors/main", vendors = vendors,
                     inv = True)

@@ -15,9 +15,10 @@ PostgreSQL 9.5
 Python packages:
 * Python3
 * Python Bottle
+* Psycopg2
 * bcrypt
 * hmac
-* Psycopg2
+* beaker
 
 clone to /itemhut:
 ```bash

@@ -3,8 +3,9 @@
 from route_utils import *
 
 @route("/incoming/update-order-<oid>")
-@route("/incoming/update-order-<oid>", method="POST")
+@post("/incoming/update-order-<oid>")
 def update_incoming_order(oid):
+    check_user()
     if request.POST.get("arrived"):
         set_order_complete(oid)
     if request.POST.get("add-product"):
@@ -20,13 +21,15 @@ def update_incoming_order(oid):
 
 @route("/incoming/all-records")
 def all_records():
+    check_user()
     orders = select_all_incoming_orders()
     return template("views/incoming/incoming_main", inv = True,
                     orders = orders)
 
 @route("/incoming/add-record")
-@route("/incoming/add-record", method="POST")
+@post("/incoming/add-record")
 def add_record():
+    check_user()
     if request.POST.get("add-record"):
         invoice = request.POST.get("invoice")
         vendor_id = request.POST.get("vendor-id")
@@ -42,6 +45,7 @@ def add_record():
 
 @route("/incoming")
 def incoming():
+    check_user()
     orders = select_incoming_orders()
     return template("views/incoming/incoming_main", inv = True,
                     orders = orders)
