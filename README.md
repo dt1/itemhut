@@ -43,6 +43,8 @@ $ python3 /itemhut/btl/inventory.py
 
 open localhost:8082
 
+You will see a "Create First User" page.
+
 ####Full System Setup
 (same as Inventory System Setup)
 

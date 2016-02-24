@@ -16,7 +16,8 @@ def send_static(filename):
 # home page    
 @route("/")
 def index():
-    return template("views/home/home.tpl", inv = True)
+    check_user()
+    return template("views/home/home", inv = True)
 
 debug(True)
 run(reloader=True, host="localhost", port=8082, app=myapp)

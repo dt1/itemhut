@@ -24,19 +24,42 @@ def login_user(username, password):
             redirect("/")
     return "fail"
         
-@route('/logout')
-#@post('/logout')
+@route("/logout")
+#@post("/logout")
 def logout():
     request.session.delete()
-    redirect('/login')
+    redirect("/login")
 
-@route('/login')
-@post('/login')
+@route("/initialize")
+@post("/initialize")
+def initialize():
+    user_cnt = select_user_count()
+    if user_cnt:
+        redirect("/")
+    if request.POST.get("create-user"):
+        uname = request.POST.get("username")
+        password = request.POST.get("password")
+        password2 = request.POST.get("password2")
+        if password == password2:
+            hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+            insert_new_user(uname, hashed, "admin")
+            t = login_user(uname, password)
+        else:
+            err = "Passwords don't match"
+            return template("views/login/first_user", e = err)
+    return template("views/login/first_user", e = None)
+
+    
+@route("/login")
+@post("/login")
 def login():
     """Authenticate users"""
+    user_cnt = select_user_count()
+    if not user_cnt:
+        redirect("/initialize")
     if request.POST.get("login"):
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        username = request.POST.get("username")
+        password = request.POST.get("password")
         t = login_user(username, password)
         return template("views/login/login_page", t = "Login Failed")
     return template("views/login/login_page", t = None)

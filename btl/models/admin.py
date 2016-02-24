@@ -4,6 +4,18 @@ import sys
 sys.path.append("/itemhut/pydb")
 import dbconn
 
+def select_user_count():
+    dbconn.cur.execute(
+        """
+        select count(*)
+        from users.users;
+        """)
+    a = dbconn.cur.fetchall()
+    if a[0][0] > 0:
+        return True
+    else:
+        return False
+
 def select_warehouse_types():
     dbconn.cur.execute(
         """
