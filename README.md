@@ -29,16 +29,19 @@ $ git clone https://github.com/dt1/item-hut.git
 
 setup the database
 ```bash
-$su - postgres
-$createdb itemhut
-$psql -d itemhut -U postgres -f /itemhut/build_database/products/products.sql 
-$psql -d itemhut -U postgres -f /itemhut/build_database/warehouse/warhouse.sql 
-$psql -d itemhut -U postgres -f /itemhut/build_database/vendors/vendors.sql
+$ su - postgres
+$ createdb itemhut
+$ psql -d itemhut -U postgres -f /itemhut/build_database/products/products.sql 
+$ psql -d itemhut -U postgres -f /itemhut/build_database/warehouse/warhouse.sql 
+$ psql -d itemhut -U postgres -f /itemhut/build_database/vendors/vendors.sql
+$ psql -d itemhut -U postgres -f /itemhut/build_database/incoming/incoming.sql
+$ psql -d itemhut -U postgres -f /itemhut/build_database/users/users.sql
 ```
 
 run bottle:
 ```
-$ python3 /itemhut/btl/inventory.py
+$ cd /itemhut/btl
+$ python3 inventory.py
 ```
 
 open localhost:8082
