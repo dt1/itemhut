@@ -7,6 +7,7 @@ from routes.inventory.vendor_routes import *
 from routes.inventory.admin_routes import *
 from routes.inventory.incoming_routes import *
 from routes.inventory.login_routes import *
+from routes.inventory.order_routes import *
 
 # for css, js, img, etc
 @route("/static/<filename:path>")

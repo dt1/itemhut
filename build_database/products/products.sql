@@ -1,3 +1,5 @@
+-- This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
 -- the base company skus.
 -- ideally, we'd want UPC to be gtin-12, but some custom UPCs may be created
 -- for pieces or replacements, and "master" SKUs for product variations.

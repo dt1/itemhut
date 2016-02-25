@@ -20,6 +20,9 @@
             <a href="/vendors">Vendors</a>
           </li>
           <li>
+            <a href="/orders">Orders</a>
+          </li>
+          <li>
             <a href="/admin">Admin</a>
           </li>
       </ul>
