@@ -17,14 +17,6 @@ def send_static(filename):
 def get_invoices(filename):
     return static_file(filename, root="uploaded_files/invoices/")
 
-@route("/test")
-@post("/test")
-def test():
-    if request.POST.get("submit"):
-        f = request.POST.get("f")
-        redirect("/uploaded_files/invoices/{0}".format(f))
-    return template("test")
-
 # home page    
 @route("/")
 def index():

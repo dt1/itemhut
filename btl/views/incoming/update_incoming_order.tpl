@@ -39,6 +39,7 @@
 	   <p><b>Order Date</b>: {{order_info[0][3]}}<p>
 	   <p><b>ETA</b>: {{order_info[0][4]}}<p>
 	   <p><b>Completed?</b> {{order_info[0][5]}}<p>
+	   <p><a href="/uploaded_files/invoices/{{order_info[0][6]}}">Invoice File</a><p>
 	   <form action="/incoming/update-order-{{order_info[0][0]}}"
 	   method="POST">
 	   <input type="submit" class="button" name="arrived"

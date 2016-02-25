@@ -22,7 +22,7 @@ def select_incoming_order_data(oid):
     dbconn.cur.execute(
         """
         select incoming_order_id, invoice, vendor_id, order_date,
-        eta, completed
+        eta, completed, invoice_file
         from incoming.orders
         where incoming_order_id = %s;
         """, [oid])
