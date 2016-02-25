@@ -8,11 +8,17 @@ from routes.full.admin_routes import *
 from routes.full.channel_routes import *
 from routes.full.order_routes import *
 from routes.full.incoming_routes import *
+from routes.full.login_routes import *
+from routes.full.order_routes import *
 
 # for css, js, img, etc
 @route("/static/<filename:path>")
 def send_static(filename):
     return static_file(filename, root="static/")
+
+@route("/uploaded_files/invoices/<filename:path>")
+def get_invoices(filename):
+    return static_file(filename, root="uploaded_files/invoices/")
 
 # home page    
 @route("/")
@@ -20,4 +26,4 @@ def index():
     return template("views/home/home.tpl", inv = False)
 
 debug(True)
-run(reloader=True, host="localhost", port=8081)
+run(reloader=True, host="localhost", port=8081, app=myapp)
