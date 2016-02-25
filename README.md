@@ -22,11 +22,6 @@ Item Hut is a nightly rolling release. Each push to this repo should be stable.
 
 There are no update scripts with each version. Some updates will require manual intervention. Be sure to backup your database, diff the schemas, and be prepared to do ETL.
 
-####Currently working on:
-Allowing file uploads and viewing for incoming invoices.
-
-API endpoints for order importation.
-
 ####Inventory System Setup
 PostgreSQL 9.5
 
