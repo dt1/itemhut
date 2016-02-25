@@ -32,7 +32,7 @@ PostgreSQL 9.5
 
 Python packages:
 * Python3
-* Python Bottle
+* Python Bottle (0.12.9) <- important for file uploads
 * Psycopg2
 * bcrypt
 * hmac
