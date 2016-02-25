@@ -3,8 +3,6 @@
 from route_utils import *
 import bottle
 import beaker
-from bottle.ext import auth
-from bottle.ext.auth.decorator import login
 import bcrypt
 import hmac
 

@@ -26,9 +26,3 @@ create table orders.orders (
                references orders.market_orders (market_order_id)
 );
 
--- some test data
-insert into orders.msku_sku (msku, sku)
-values ('i4', 'item-four'),
-('blow-dryer', 'blow dryer'),
-('item-a', 'item-a');
-
