@@ -35,11 +35,20 @@ def add_record():
         vendor_id = request.POST.get("vendor-id")
         order_date = request.POST.get("order-date")
         eta = request.POST.get("eta")
-        invoice_file = request.POST.get("invoice-file")
+        upload = request.POST.get("invoice-file")
+        name, ext = os.path.splitext(upload.filename)
+        save_path = "uploaded_files/invoices/{0}".format(upload.filename)
+
+        upload.save(save_path, overwrite=True)
+
+            
         insert_invoice_data(invoice, vendor_id, order_date, eta,
-                        invoice_file)
+                                str(invoice_file))
+
+    
         return template("views/incoming/add_record", inv = True,
                         invoice_added = invoice)
+        
     return template("views/incoming/add_record", inv = True,
                     invoice_added = False)
 

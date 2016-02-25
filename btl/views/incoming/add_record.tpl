@@ -22,7 +22,6 @@
     <!-- original content goes in this container -->
 
     <div class="off-canvas-content" data-off-canvas-content>
-
       <div class="expanded row">
       	   <div class="medium-2 columns">
 	   	<h4>Incoming</h4>
@@ -33,7 +32,9 @@
 		 % if invoice_added:
 		 <p>{{invoice_added}} added.</p>
 		 % end
-		 <form action="/incoming/add-record" method="POST">
+
+		 <form action="/incoming/add-record" method="POST"
+		 enctype="multipart/form-data">
 
 		 <div class="row">
 		 <div class="medium-3 columns">

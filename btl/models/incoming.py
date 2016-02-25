@@ -13,10 +13,10 @@ def insert_invoice_data(invoice, vendor_id, order_date, eta,
         begin;
         insert into incoming.orders (invoice, vendor_id, order_date,
               eta, completed, invoice_file)
-        values (%s, %s, %s::date, %s::date, false, 'test');
+        values (%s, %s, %s::date, %s::date, false, %s);
         commit;
         """, [invoice, vendor_id, order_date, eta,
-             ])
+              invoice_file])
 
 def select_incoming_order_data(oid):
     dbconn.cur.execute(

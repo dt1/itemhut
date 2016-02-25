@@ -9,7 +9,23 @@ https://itemhut.com/
 (the version found here is sligtly different. For example, you are able to create users and login)
 
 ###Current Status
-Under active development. To keep things progressing along smoothly, Item Hut is going to begin as an inventory system.
+Under active development. To keep things progressing along smoothly, Item Hut is going to begin as an inventory system. However, there are tables for ebay orders, Amazon products, etc. Please refer to the er-diagrams.
+
+####Viewing ER Diagrams
+
+The ER Diagrams were created using Dia:
+http://dia-installer.de/
+
+####Release Schedule and Upgrading
+
+Item Hut is a nightly rolling release. Each push to this repo should be stable.
+
+There are no update scripts with each version. Some updates will require manual intervention. Be sure to backup your database, diff the schemas, and be prepared to do ETL.
+
+####Currently working on:
+Allowing file uploads and viewing for incoming invoices.
+
+API endpoints for order importation.
 
 ####Inventory System Setup
 PostgreSQL 9.5
