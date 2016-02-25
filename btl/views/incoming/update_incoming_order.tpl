@@ -68,15 +68,18 @@
 	   </tbody>
 	   </table>
 	   <form action="/incoming/update-order-{{order_info[0][0]}}"
-	   method="POST">
+	   method="POST" id="input-form">
+	   
 	   <p>Add Product</p>
 	   <label>UPC
-	   <select name="upc" required="required">
+	   <input list="upc" required="required"></label>
+	   <datalist id="upc">
 	   % for i in upc_list:
-	   <option value="{{i}}">{{i[0]}}</option>
+	   <option value="{{i[0]}}">{{i[0]}}</option>
 	   % end
-	   </select>
-	   </label>
+	   </datalist>
+	   <input type="hidden" name="upc" id="upc">
+	   
 	   <label>Qty
 	   <input type="number" min="1" required="required" name="qty">
 	   </label>
@@ -109,6 +112,11 @@
 $(document).ready( function () {
     $('#table_id').DataTable();
 } );
+
+$('#input-form input, #input-form select').change(function() {
+    $('#upc').val(this.value);
+});
+
 </script>
 
 % include('global/end_body.tpl')

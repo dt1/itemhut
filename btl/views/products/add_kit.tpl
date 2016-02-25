@@ -41,7 +41,7 @@
 	     <p>{{err}}</p>
 	   % end
 	   
-	   <form action="/products/add-kit" method="POST">
+	   <form action="/products/add-kit" method="POST" id="input-form">
 	   <div class="row">
 	   <div class="medium-3 columns">
 	   <label> Master SKU

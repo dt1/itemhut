@@ -94,6 +94,7 @@ def get_order_upc_candidates(oid):
         from incoming.order_products
         where upc = psu.upc
         and incoming_order_id = %s::int)
+        and upc is not null;
         """, [oid])
     a = dbconn.cur.fetchall()
     return a

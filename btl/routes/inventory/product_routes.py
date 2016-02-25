@@ -26,7 +26,7 @@ def update_product(pid):
 @post("/products/add-kit")
 def add_kit():
     check_user()
-    sku_upc = sku_upcs()
+    sku_upc = sku_kit_candidates()
     if request.POST.get("add-kit"):
         master_sku = request.POST.get("master-sku")
         for i in range(1, 11):
