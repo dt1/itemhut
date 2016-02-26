@@ -94,7 +94,9 @@ create table warehouse.case_box (
 
 create table warehouse.pallet_case (
        pallet_id int,
-       case_id int primary key,
+       case_id int,
+       case_qty int check(case_qty > 0),
+       primary key(pallet_id, case_id),
        foreign key (pallet_id)
                references warehouse.pallets (pallet_id),
        foreign key (case_id)

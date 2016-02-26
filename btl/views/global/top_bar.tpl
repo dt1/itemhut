@@ -2,7 +2,7 @@
 
     <div class="title-bar" data-responsive-toggle="widemenu" data-hide-for="medium">
       <div class="title-bar-left">
-        <span class="title-bar-title">Item Hut</span>
+        <span class="title-bar-title"><a href="https://itemhut.com/">Item Hut</a></span>
       </div>
 
       <div class="title-bar-right">

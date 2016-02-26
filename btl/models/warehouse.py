@@ -270,3 +270,80 @@ def update_3pl_running_inventory(picking_location_id, qty):
         where picking_location_id = %s;
         commit;
         """, [qty, picking_location_id])
+
+
+def select_case_boxes(pid):
+    dbconn.cur.execute(
+        """
+        select case_id, upc, box_qty, piece_qty
+        from warehouse.cases
+        join warehouse.case_box
+        using (case_id)
+        join warehouse.boxes
+        using (box_id)
+        where case_id not in
+        (select case_id
+        from warehouse.pallet_case
+        where pallet_id = %s);
+        """, [pid])
+    a = dbconn.cur.fetchall()
+    return a
+
+def generate_pallet_id():
+    dbconn.cur.execute(
+        """
+        begin;
+        with new_pl (pallet_location_id) as
+	      (insert into warehouse.pallet_locations
+		    (pallet_location_name)
+	       values ('staged')
+	       returning pallet_location_id)
+	       ,
+             new_pallet (pallet_id) as
+	       (insert into warehouse.pallets (pallet_id)
+		values (default)
+	        returning pallet_id)
+	        ,
+              new_wh_palletloc as
+                (insert into warehouse.warehouse_pallet_loc
+		     (warehouse_id, pallet_location_id)
+	         select 'wh-one', pallet_location_id
+	         from new_pl)
+        insert into warehouse.pallet_palletloc
+             (pallet_location_id, pallet_id)
+        select pallet_location_id, pallet_id
+        from new_pl, new_pallet
+        returning pallet_id;
+        """)
+    a = dbconn.cur.fetchall()
+    dbconn.cur.execute(
+        """
+        commit;
+        """)
+    return a
+
+def select_pallet_info(pid):
+    dbconn.cur.execute(
+        """
+        select case_id, upc, box_qty, piece_qty, case_qty
+        from warehouse.cases
+        join warehouse.case_box
+        using (case_id)
+        join warehouse.boxes
+        using (box_id)
+        join warehouse.pallet_case
+        using (case_id)
+        where pallet_id = %s;
+        """, [pid])
+    a = dbconn.cur.fetchall()
+    return a
+
+def insert_pallet_case(pid, cid, qty):
+    dbconn.cur.execute(
+        """
+        begin;
+        insert into warehouse.pallet_case
+             (pallet_id, case_id, case_qty)
+        values (%s::int, %s::int, %s::int);
+        commit;
+        """, [pid, cid, qty])

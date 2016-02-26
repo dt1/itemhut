@@ -179,8 +179,37 @@ def add_pallet_location(wh):
     else:
         error404("err")
 
+# pallets
+@route("/warehouses/<wh>/update-pallet-<pid>")
+@post("/warehouses/<wh>/update-pallet-<pid>")
+def warehouse_pallets(wh, pid):
+    check_user()
+    wh_info = warehouse_information(wh)
+    case_boxes = select_case_boxes(pid)
+    pallet_info = select_pallet_info(pid)
+    pallet_location_list = select_pallet_locations(wh)
+    if request.POST.get("add-case"):
+        cid = request.POST.get("case-id")
+        qty = request.POST.get("qty")
+        insert_pallet_case(pid, cid, qty)
+        url = "/warehouses/{0}/update-pallet-{1}".format(wh, pid)
+        redirect(url)
+
+    if wh_info:
+        return template("views/warehouse/create_pallet",
+                        wh_info = wh_info,
+                        inv = True, wh = wh, case_boxes = case_boxes,
+                        pallet_info = pallet_info, pid = pid)
+
+@route("/warehouses/<wh>/create-pallet")
+def warehouse_pallets(wh):
+    check_user()
+    pid = generate_pallet_id()
+    url = "/warehouses/{0}/update-pallet-{1}".format(wh, pid[0][0])
+    redirect(url)
+
 @route("/warehouses/<wh>/pallets")
-def warehouse_pallets(wh = None):
+def warehouse_pallets(wh):
     check_user()
     wh_info = warehouse_information(wh)
     pallet_location_list = select_pallet_locations(wh)
@@ -192,8 +221,9 @@ def warehouse_pallets(wh = None):
     else:
         error404("err")
 
-@route("/warehouses/<wh>/pallet-locations")
-def warehouse_pallet_locations(wh = None):
+
+@route("/warehouses/<wh>/pallet-locations/update-loc-<pid>")
+def warehouse_pallet_locations(wh, pid):
     check_user()
     wh_info = warehouse_information(wh)
     pallet_location_list = select_pallet_locations(wh)
@@ -203,19 +233,31 @@ def warehouse_pallet_locations(wh = None):
                         pallet_location_list = pallet_location_list,
                         inv = True)
     else:
-        error404("err")
+        return error404("err")
+        
+@route("/warehouses/<wh>/pallet-locations")
+def warehouse_pallet_locations(wh):
+    check_user()
+    wh_info = warehouse_information(wh)
+    pallet_location_list = select_pallet_locations(wh)
+    if wh_info:
+        return template("views/warehouse/pallet_locations",
+                        wh_info = wh_info,
+                        pallet_location_list = pallet_location_list,
+                        inv = True)
 
 @route("/warehouses/<wh>")
 def warehouse_n(wh = None):
     check_user()
     wh_info = warehouse_information(wh)
-    if wh_info[0][6] == 'B&M':
-        return template("views/warehouse/wh_page",
-                        wh_info = wh_info, inv = True)
-    if wh_info[0][6] == '3PL':
-        return template("views/warehouse/wh3pl_page",
-                        wh_info = wh_info, inv = True)
-
+    if wh_info:
+        if wh_info[0][6] == 'B&M':
+            return template("views/warehouse/wh_page",
+                            wh_info = wh_info, inv = True)
+        if wh_info[0][6] == '3PL':
+            return template("views/warehouse/wh3pl_page",
+                            wh_info = wh_info, inv = True)
+        
 @route("/warehouses")
 def warehouse():
     check_user()

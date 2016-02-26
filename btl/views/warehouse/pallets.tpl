@@ -29,7 +29,7 @@
 	   </div>
 	   
       	   <div class="medium-10 columns">
-	   <h4>Pallet Locations</h4>	   
+	   <h4>Pallets</h4>	   
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
@@ -62,8 +62,8 @@
 		% end
 	   </tbody>
 	   </table>
-	   <a href="/warehouses/{{wh_info[0][0]}}/add-pallet-location">
-	   Add Pallet Location</a>
+	   <a href="/warehouses/{{wh_info[0][0]}}/create-pallet">
+	   Add Pallet</a>
 	   </div>
       </div>
 
