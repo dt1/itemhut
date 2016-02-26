@@ -20,7 +20,6 @@
 
 
     <!-- original content goes in this container -->
-
     <div class="off-canvas-content" data-off-canvas-content>
       <div class="expanded row">
       	   <div class="medium-2 columns">
@@ -30,9 +29,20 @@
 
       	   <div class="medium-10 columns">
 	   <h4>Pallet ID {{pid}}</h4>
-
+	   % if err:
+	   {{err}}
+	   % end
 	   <form action="/warehouses/{{wh}}/update-pallet-{{pid}}" method="POST">
-
+	   
+	   <div class="row">
+	   <div class="medium-4 columns">
+	   <label width="100px;">Pallet Location:
+	   <input width="100px;" type="text" name="pallet-location"
+	   value="{{pallet_info[0][5]}}" required="required">
+	   </label>
+	   </div>
+	   </div>
+	   
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
@@ -60,7 +70,7 @@
 	   <div class="row">
 	   <div class="medium-3 columns">
 	   </label>QTY:
-	   <input type="number" min="1" name="qty">
+	   <input type="number" min="1" name="qty" required="required">
 	   </label>
 	   </div>
 	   </div>

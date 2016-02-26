@@ -187,19 +187,29 @@ def warehouse_pallets(wh, pid):
     wh_info = warehouse_information(wh)
     case_boxes = select_case_boxes(pid)
     pallet_info = select_pallet_info(pid)
-    pallet_location_list = select_pallet_locations(wh)
     if request.POST.get("add-case"):
+        ploc = request.POST.get("pallet-location")
         cid = request.POST.get("case-id")
         qty = request.POST.get("qty")
-        insert_pallet_case(pid, cid, qty)
-        url = "/warehouses/{0}/update-pallet-{1}".format(wh, pid)
-        redirect(url)
-
-    if wh_info:
-        return template("views/warehouse/create_pallet",
+        pl_id = pallet_info[0][6]
+        if cid:
+            insert_pallet_case(pid, cid, qty)
+            update_pallet_location(pl_id, ploc)
+            url = "/warehouses/{0}/update-pallet-{1}".format(wh, pid)
+            redirect(url)
+        else:
+            err = "Please enter a case"
+            return template("views/warehouse/update_pallet",
                         wh_info = wh_info,
                         inv = True, wh = wh, case_boxes = case_boxes,
-                        pallet_info = pallet_info, pid = pid)
+                        pallet_info = pallet_info, pid = pid,
+                        err = err)
+    if wh_info:
+        return template("views/warehouse/update_pallet",
+                        wh_info = wh_info,
+                        inv = True, wh = wh, case_boxes = case_boxes,
+                        pallet_info = pallet_info, pid = pid,
+                        err = None)
 
 @route("/warehouses/<wh>/create-pallet")
 def warehouse_pallets(wh):

@@ -54,7 +54,9 @@ def valid_warehouses():
 def select_pallet_locations(wh):
     dbconn.cur.execute(
         """
-        select pallet_location_id, pallet_location_name, pallet_id, sku || ' boxes(' || box_qty || ')' info, piece_qty * box_qty total
+        select pallet_location_id, pallet_location_name, pallet_id, 
+        string_agg(sku || ' cases(' || case_qty || ')', ','), 
+	string_agg(sku || '(' || (case_qty * piece_qty * box_qty)::varchar || ')', ';;')        
         from warehouse.warehouses
         join warehouse.warehouse_pallet_loc
         using (warehouse_id)
@@ -71,6 +73,7 @@ def select_pallet_locations(wh):
         left join product.sku_upc
         using (upc)
         where warehouse_id = %s
+        group by pallet_location_id, pallet_location_name, pallet_id
         order by pallet_location_id;
         """, [wh])
     a = dbconn.cur.fetchall()
@@ -325,15 +328,20 @@ def generate_pallet_id():
 def select_pallet_info(pid):
     dbconn.cur.execute(
         """
-        select case_id, upc, box_qty, piece_qty, case_qty
-        from warehouse.cases
-        join warehouse.case_box
-        using (case_id)
-        join warehouse.boxes
-        using (box_id)
-        join warehouse.pallet_case
-        using (case_id)
-        where pallet_id = %s;
+        select case_id, upc, box_qty, piece_qty, case_qty, 
+        pallet_location_name, pallet_location_id
+        from warehouse.pallet_palletloc
+        join warehouse.pallet_locations
+        using (pallet_location_id)
+	join warehouse.pallets
+        using (pallet_id)
+	left join warehouse.pallet_case
+        using (pallet_id)
+	left join warehouse.case_box
+	using (case_id)
+	left join warehouse.boxes
+	using (box_id)
+        where pallet_id = %s::int;
         """, [pid])
     a = dbconn.cur.fetchall()
     return a
@@ -347,3 +355,13 @@ def insert_pallet_case(pid, cid, qty):
         values (%s::int, %s::int, %s::int);
         commit;
         """, [pid, cid, qty])
+
+def update_pallet_location(pl_id, pl_name):
+    dbconn.cur.execute(
+        """
+        begin;
+        update warehouse.pallet_locations
+        set pallet_location_name = %s
+        where pallet_location_id = %s::int;
+        commit;
+        """, [pl_name, pl_id])
