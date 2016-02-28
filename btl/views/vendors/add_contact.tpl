@@ -35,7 +35,7 @@
 	   % end
 	   <div class="row">
       	   <div class="medium-4 columns">
-	   <form action="/vendors/{{vid}}/add-contact" method="POST">
+	   <form action="/vendors/{{vid}}/contacts/add-contact" method="POST">
 	   	 <label>Name
 		 <input type="text" name="name" required="required">
 		 </label>

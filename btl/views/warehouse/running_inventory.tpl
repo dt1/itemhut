@@ -35,6 +35,7 @@
 	   <thead>
 		<tr>
 		<th>Sku</th>
+		<th>UPC</th>
 		<th>Qty</th>
 		</tr>
 	    </thead>
@@ -43,6 +44,7 @@
 		<tr>
 		<td>{{item[0]}}</td>
 		<td>{{item[1]}}</td>
+		<td>{{item[2]}}</td>
 		% end
 	   </tbody>
 	   </table>

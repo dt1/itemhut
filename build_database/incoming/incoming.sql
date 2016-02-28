@@ -14,6 +14,7 @@ create table incoming.orders (
        invoice_file varchar,
        foreign key (vendor_id)
                references vendor.vendors (vendor_id)
+	       on update cascade
 );
 
 create table incoming.order_products (

@@ -42,12 +42,13 @@
 	   </label>
 	   </div>
 	   </div>
-	   
+
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
 		<th></th>
 		<th width="100px">Case ID</th>
+		<th>SKU</th>
 		<th>UPC</th>
 		<th width="140px">Boxes / Case</th>
 		<th width="140px">PCS / Box</th>
@@ -62,6 +63,7 @@
 		<td>{{item[1]}}</td>
 		<td>{{item[2]}}</td>
 		<td>{{item[3]}}</td>
+		<td>{{item[4]}}</td>
 		</tr>
 		% end
 	   </tbody>
@@ -93,6 +95,7 @@
 	   <thead>
 		<tr>
 		<th width="100px">Case ID</th>
+		<th>SKU</th>
 		<th>UPC</th>
 		<th width="140px">Boxes / Case</th>
 		<th width="140px">PCS / Box</th>
@@ -107,6 +110,7 @@
 		<td>{{item[2]}}</td>
 		<td>{{item[3]}}</td>
 		<td>{{item[4]}}</td>
+		<td>{{item[5]}}</td>
 		</tr>
 		% end
 	   </tbody>

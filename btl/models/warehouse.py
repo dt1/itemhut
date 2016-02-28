@@ -7,7 +7,7 @@ import dbconn
 def running_inventory(wh):
     dbconn.cur.execute(
         """
-        select sku, box_qty * piece_qty
+        select sku, upc, sum(box_qty * piece_qty * case_qty)
         from warehouse.warehouses
         join warehouse.warehouse_pallet_loc
         using (warehouse_id)
@@ -23,7 +23,8 @@ def running_inventory(wh):
         using (box_id)
         join product.sku_upc
         using (upc)
-        where warehouse_id = %s;
+        where warehouse_id = %s
+        group by sku, upc;
         """, [wh])
     a = dbconn.cur.fetchall()
     return a
@@ -278,12 +279,14 @@ def update_3pl_running_inventory(picking_location_id, qty):
 def select_case_boxes(pid):
     dbconn.cur.execute(
         """
-        select case_id, upc, box_qty, piece_qty
+        select case_id, sku, upc, box_qty, piece_qty
         from warehouse.cases
         join warehouse.case_box
         using (case_id)
         join warehouse.boxes
         using (box_id)
+        join product.sku_upc
+        using (upc)
         where case_id not in
         (select case_id
         from warehouse.pallet_case
@@ -328,7 +331,7 @@ def generate_pallet_id():
 def select_pallet_info(pid):
     dbconn.cur.execute(
         """
-        select case_id, upc, box_qty, piece_qty, case_qty, 
+        select case_id, sku, upc, box_qty, piece_qty, case_qty, 
         pallet_location_name, pallet_location_id
         from warehouse.pallet_palletloc
         join warehouse.pallet_locations
@@ -341,6 +344,8 @@ def select_pallet_info(pid):
 	using (case_id)
 	left join warehouse.boxes
 	using (box_id)
+        left join product.sku_upc
+        using (upc)
         where pallet_id = %s::int;
         """, [pid])
     a = dbconn.cur.fetchall()

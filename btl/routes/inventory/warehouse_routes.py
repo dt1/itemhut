@@ -89,7 +89,7 @@ def update_warehouse_running_inventory(wh, sku):
 def warehouse_running_inventory(wh = None):
     check_user()
     wh_info = warehouse_information(wh)
-    sku_count = select_3pl_running_inventory(wh)
+    sku_count = running_inventory(wh)
     if wh_info[0][6] == 'B&M':
         return template("views/warehouse/running_inventory",
                         sku_count = sku_count,

@@ -7,6 +7,7 @@ create table orders.msku_sku (
        sku varchar,
        foreign key (sku)
                references product.sku_upc (sku)
+	       on update cascade
 );
 
 create table orders.market_orders (

@@ -72,13 +72,12 @@
 	   
 	   <p>Add Product</p>
 	   <label>UPC
-	   <input list="upc" required="required"></label>
+	   <input name="upc" list="upc" required="required"></label>
 	   <datalist id="upc">
 	   % for i in upc_list:
 	   <option value="{{i[0]}}">{{i[0]}}</option>
 	   % end
 	   </datalist>
-	   <input type="hidden" name="upc" id="upc">
 	   
 	   <label>Qty
 	   <input type="number" min="1" required="required" name="qty">

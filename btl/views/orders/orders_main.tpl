@@ -45,8 +45,7 @@
 	   </thead>
 	   <tbody>
 	   % for i in orders:
-		<tr class="table-anchor"
-		onclick="location.href='/products/update-product-{{i[0]}}'">
+		<tr class="table-anchor">
 		<td>{{i[0]}}</td>
 		<td>{{i[1]}}</td>
 		<td>{{i[2]}}</td>

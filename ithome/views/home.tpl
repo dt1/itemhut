@@ -1,15 +1,18 @@
 % include('top_stuff.tpl')
 <body>
- 
+<div id="top"> 
 <div id="top-splash">
 
 <div class="top-bar-right" id="home-top-bar">
 
 <ul class="menu">
 <li><a href="/">Home</a></li>
+<li><a href="#what">What We Are</a></li>
+<li><a href="#open-source">Open Source</a></li>
+<li><a href="#customizable">Customizable</a></li>
 <li><a href="#features">Features</a></li>
-<li><a href="#philosophy">Philosopy</a></li>
 <li><a href="#pricing">Pricing</a></li>
+<li><a href="#contact">Contact</a></li>
 </ul>
 </div>
 
@@ -28,9 +31,100 @@
 </div>
 </div>
 
-<div class="row column text-center">
+
+<div class="row column text-center" id="what">
 <hr>
-<h2 id="features">Features</h2>
+<h2>Item Hut is...</h2>
+</div>
+
+<div class="row">
+
+<div class="medium-3 columns">
+<p></p>
+</div>
+
+<div class="medium-6 columns">
+<p>A fast-growing growing inventory system with the vision to create a
+fully-featured ecommerce and B&M solution that integrates channels management,
+ticket tracking, order management, vendor management, shipping, and all components
+of running a successful small and medium sized business.</p>
+
+<p>Imagine a system where your customer service personnel can see the order,
+check inventory and see expected arrivals on out of stock products, and answer emails
+without toggling through many systems. Item Hut will be all of this and much more.</p>
+
+<p>Built as an open source platform, we have infinite extensibility and integrations
+in mind. Want to connect to the database using Accass or Excel (or the free alternatives:
+Libre Office)? We can set that up for you. Want to integrate with another platform? We
+can probably do that. We focus on you and your business.</p>
+<div class="medium-3 columns">
+<p></p>
+</div>
+
+<div class="medium-3 columns">
+<p></p>
+</div>
+
+</div>
+
+<div class="medium-3 columns">
+</div>
+
+</div>
+
+<div class="row column text-center"  id="open-source">
+<hr>
+<h2>Open Source</h2>
+</div>
+
+<div class="row">
+<div class="medium-3 columns">
+<p></p>
+</div>
+
+<div class="medium-6 columns">
+<p>We use powerful and open source technologies, which means we aren't
+  charging you money to operate the systems we use. We believe in
+  giving back to the community who graciously gave their effort to
+  the products we use. For this and many more reasons,
+  Item Hut is totally free and open source.</p>
+<p>You can find the entire
+code base <a href="https://github.com/dt1/item-hut">here</a>.</p>
+</div>
+
+<div class="medium-3 columns">
+</div>
+
+</div>
+
+<div class="row column text-center"  id="customizable">
+<hr>
+<h2>Customizable</h2>
+</div>
+
+<div class="row">
+<div class="medium-3 columns">
+<p></p>
+</div>
+
+<div class="medium-6 columns">
+
+
+<p>We build systems that are created around you and your business.</p>
+<p>Need a feature that isn't listed here? Contact us and let us know
+what you need.</p>
+<p>Each customer gets their own dedicated server, a fully customizable
+piece of software that fits their needs.</p>
+</div>
+
+<div class="medium-3 columns">
+</div>
+
+</div>
+
+<div class="row column text-center" id="features">
+<hr>
+<h2>Features</h2>
 </div>
 
 <div class="row">
@@ -66,29 +160,9 @@
 </div>
 </div>
 
-<div class="row column text-center">
+<div class="row column text-center" id="pricing">
 <hr>
-<h2 id="philosophy">Open Source</h2>
-</div>
-
-<div class="row">
-<div class="medium-12 columns">
-<p>Have you ever been told that you are not allowed to have your
-  data back? That it is your responsibility to keep hundreds of
-thousands, if not millions, of records in Excel Sheets?</p>
-<p>We believe this is wrong. All of your customer, product, and
-sales data is yours to keep.</p>
-<p>We use powerful and open source technologies, which means we aren't
-  charging you money to operate the systems we use. We believe in
-  giving back to the community who graciously gave their effort to
-  the products we use. For this and many more reasons,
-  Item Hut is totally free and open source. You can find the entire
-code base <a href="https://github.com/dt1/item-hut">here</a>.</p>
-</div>
-</div>
-
-<div class="row column text-center">
-<h4 id="pricing">Simple Pricing</h4>
+<h4>Simple Pricing</h4>
 </div>
 
 <div class="row">
@@ -130,7 +204,7 @@ code base <a href="https://github.com/dt1/item-hut">here</a>.</p>
 </div>
 <br>
 <div class="row">
-  <div class="medium-12 columns text-center">
+  <div class="medium-12 columns text-center" id="contact">
   <ul class="vertical menu">
   <li><b>Contact David to Sign Up</b></li>
   <li><a href="mailto:david.t@itemhut.com">david.t@itemhut.com</a></li>

@@ -56,22 +56,6 @@
 	   </div>
 	   <br>
 
-	   <div class="row">
-	   <div class="medium-5 columns">
-	   	<h5>Contacts</h5>
-	   <a href="/vendors/{{vendor_info[0][0]}}/add-contact">
-	      Add Contact</a>
-	      % for i in contacts:
-	      	<p>{{i[1]}}</p>
-		<p>title: {{i[2]}}</p>
-	      	<p>phone: {{i[3]}}</p>
-	      	<p>alt phone:{{i[4]}}</p>
-	      	<p>email:{{i[5]}}</p>
-		<a href="/vendors/{{vendor_info[0][0]}}/edit-contact-{{i[0]}}">Edit</a>
-		<hr>
-	      % end
-	   </div>
-
 	   <div class="medium-7 columns">
 	   	<h5>Products</h5>
 	   <table id="table_id" class="display">
