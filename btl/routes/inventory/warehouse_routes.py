@@ -89,12 +89,13 @@ def update_warehouse_running_inventory(wh, sku):
 def warehouse_running_inventory(wh = None):
     check_user()
     wh_info = warehouse_information(wh)
-    sku_count = running_inventory(wh)
     if wh_info[0][6] == 'B&M':
+        sku_count = running_inventory(wh)
         return template("views/warehouse/running_inventory",
                         sku_count = sku_count,
                         wh_info = wh_info, inv = True)
     elif wh_info[0][6] == '3PL':
+        sku_count = select_3pl_running_inventory(wh)
         return template("views/warehouse/running_3pl_inventory",
                         sku_count = sku_count,
                         wh_info = wh_info, inv = True)
@@ -272,5 +273,6 @@ def warehouse_n(wh = None):
 def warehouse():
     check_user()
     wh = valid_warehouses()
+    running_inventory = select_all_running_inventory()
     return template("views/warehouse/warehouse_main", wh = wh,
-                    inv = True)
+                    inv = True, running_inventory = running_inventory)

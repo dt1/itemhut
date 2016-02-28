@@ -48,7 +48,24 @@
 		</div>
 
       	   <div class="medium-10 columns">
-	         <p>stuff here</p>
+	   <h4>Running Inventory</h4>
+	   <table id="table_id" class="display">
+	   <thead>
+		<tr>
+		<th>SKU</th>
+		<th>UPC</th>
+		<th>QTY</th>
+		</tr>
+	   </thead>
+	   <tbody>
+	   % for i in running_inventory:
+		<td>{{i[0]}}</td>
+		<td>{{i[1]}}</td>
+		<td>{{i[2]}}</td>
+		</tr>
+		% end
+	   </tbody>
+	   </table>	   </div>      
 
 	   </div>      
       </div>
@@ -62,5 +79,27 @@
   </div>
 
 </div>
+
+<script>
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
+
+<style>
+
+.dataTables_length{
+width: 5em;
+}
+
+.dataTables_filter{
+width:15em;
+margin-left:-25em;
+}
+
+.dataTables_paginate{
+margin-left:-10em;
+}
+</style>
 
 % include('global/end_body.tpl')

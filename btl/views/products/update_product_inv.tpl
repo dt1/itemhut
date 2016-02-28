@@ -20,7 +20,8 @@
 	   </div>
 
       	   <div class="medium-10 columns">
-	   <form action="/products/update-product-{{sku_data[0][0]}}" method="POST">
+	   <form action="/products/update-product-{{sku_data[0][0]}}"
+	   method="POST" enctype="multipart/form-data">
 
 	   <div class="row">
 	   <div class="medium-2 columns">
@@ -78,16 +79,19 @@
 
 	   <div class="row">
 	   <div class="medium-6 columns">
-	   <label>Image
 	   % if sku_data[0][5]:
-		<input type="text" name="main-image"
-		value="{{sku_data[0][5]}}">
+	   <img src="/uploaded_files/images/{{sku_data[0][5]}}"
 	   % else:
-	   	<input type="text" name="main-image">
+	   <p>no image</p>
 	   % end
+	   width="100px;"/>
+	   <label>Replace Image
+	   <input type="file" name="main-image">
 	   </label>
+
 	   <div class="medium-6 columns">
  	   </div>
+
 	   </div>
 	   </div>
 

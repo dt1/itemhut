@@ -43,7 +43,7 @@
 	   </label>
 	   </div>
 	   </div>
-{{case_boxes}}
+
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>

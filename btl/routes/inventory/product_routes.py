@@ -15,8 +15,18 @@ def update_product(pid):
         product_name = request.POST.get("product-name")
         product_description = request.POST.get("product-description")
         main_image = request.POST.get("main-image")
+        
+        save_path = "uploaded_files/images/{0}".format(main_image)
+
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+
+        main_image.save(save_path, overwrite=True)
+
+        image_path = "{0}/{1}".format(main_image, main_image.filename)
+        
         update_product_data(pid, sku, upc, sku_type, product_name,
-                       product_description, main_image)
+                            product_description, image_path)
         redirect("/products/update-product-{0}".format(sku))
     return template("views/products/update_product_inv",
                     sku_data = sku_data, sku_types = stypes,
@@ -79,6 +89,15 @@ def add_products():
         
         main_image = request.POST.get("main-image")
         
+        save_path = "uploaded_files/images/{0}".format(main_image)
+
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+
+        main_image.save(save_path, overwrite=True)
+
+        image_path = "{0}/{1}".format(main_image, main_image.filename)
+        
         image_one = request.POST.get("image-one")
         image_two = request.POST.get("image-two")
         image_three = request.POST.get("image-three")
@@ -93,7 +112,7 @@ def add_products():
         image_twelve = request.POST.get("image-twelve")
         swatch_image = request.POST.get("swatch-image")
 
-        insert_images(sku, main_image, image_one,
+        insert_images(sku, image_path, image_one,
         image_two, image_three, image_four, image_five, image_six,
         image_seven, image_eight, image_nine, image_ten, image_eleven,
         image_twelve, swatch_image)

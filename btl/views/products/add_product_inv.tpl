@@ -33,7 +33,8 @@
 	   % if new_sku:
 	   <p>Added {{new_sku}}</p>
 	   % end
-	   <form action="/products/add-product" method="POST">
+	   <form action="/products/add-product" method="POST"
+	   enctype="multipart/form-data">
 
 	   <div class="row">
 	   <div class="medium-2 columns">
@@ -81,7 +82,7 @@
 	   <div class="row">
 	   <div class="medium-6 columns">
 	   <label>Image
-		<input type="text" name="main-image">
+		<input type="file" name="main-image">
 	   </label>
 	   <div class="medium-6 columns">
  	   </div>

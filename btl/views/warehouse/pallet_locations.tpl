@@ -27,7 +27,6 @@
 	   <h4 color = >{{wh_info[0][1]}}</h4>
 	   % include('warehouse/side_nav_menu.tpl', wh_id = wh_info[0][0])
 	   </div>
-	   
       	   <div class="medium-10 columns">
 	   <h4>Pallet Locations</h4>	   
 	   <table id="table_id" class="display">
@@ -50,12 +49,19 @@
 		<td>Empty</td>
 		% end
 		% if item[3]:
-		<td>{{item[3]}}</td>
+		<td>
+		% for ii in item[3].split(";;"):
+		{{ii}}<br>
+		% end
+		</td>
 		% else:
 		<td>Empty</td>
 		% end
 		% if item[4]:
-		<td>{{item[4]}}</td>
+		<td>
+		% for ii in item[4].split(";;"):
+		{{ii}}<br>
+		% end
 		% else:
 		<td>Empty</td>
 		% end

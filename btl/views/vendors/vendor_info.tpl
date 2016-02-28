@@ -56,30 +56,6 @@
 	   </div>
 	   <br>
 
-	   <div class="medium-7 columns">
-	   	<h5>Products</h5>
-	   <table id="table_id" class="display">
-	   <thead>
-		<tr>
-		<th>SKU</th>
-		<th>UPC</th>
-		</tr>
-	   </thead>
-	   <tbody>		
-	      % for product in vendor_products:
-	      <tr>
-	      <td>{{product[1]}}</td>
-	      <td>{{product[0]}}</td>
-	      </tr>
-	      % end
-	      </tbody>
-	      </table>
-	   <a href="/vendors/{{vendor_info[0][0]}}/add-product">
-	      Add Product</a>
-	   </div>
-
-	   </div>
-	   </div>      
 
 
 	   </div>

@@ -18,6 +18,11 @@ def send_static(filename):
 def get_invoices(filename):
     return static_file(filename, root="uploaded_files/invoices/")
 
+@route("/uploaded_files/images/<filename:path>")
+def get_images(filename):
+    return static_file(filename, root="uploaded_files/images/")
+
+
 # home page    
 @route("/")
 def index():

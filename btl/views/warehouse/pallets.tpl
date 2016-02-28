@@ -41,7 +41,8 @@
 	    </thead>
 	    </tbody>
 		% for item in pallet_location_list:
-		<tr>
+		<tr class="table-anchor"
+		onclick="location.href='/warehouses/{{wh_info[0][0]}}/update-pallet-{{item[0]}}'">
 		<td>{{item[1]}}</td>
 		% if item[2]:
 		<td>{{item[2]}}</td>

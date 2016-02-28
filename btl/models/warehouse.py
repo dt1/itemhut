@@ -56,7 +56,7 @@ def select_pallet_locations(wh):
     dbconn.cur.execute(
         """
         select pallet_location_id, pallet_location_name, pallet_id, 
-        string_agg(sku || ' cases(' || case_qty || ')', ','), 
+        string_agg(sku || '/' || upc || ' cases(' || case_qty || ')', ';;'), 
 	string_agg(sku || '(' || (case_qty * piece_qty * box_qty)::varchar || ')', ';;')        
         from warehouse.warehouses
         join warehouse.warehouse_pallet_loc
@@ -370,3 +370,40 @@ def update_pallet_location(pl_id, pl_name):
         where pallet_location_id = %s::int;
         commit;
         """, [pl_name, pl_id])
+
+
+def select_all_running_inventory():
+    dbconn.cur.execute(
+        """
+        select sku, upc, coalesce(total1, 0) + coalesce(total2, 0)
+from 
+        (select sku, upc, qty total1
+        from warehouse.warehouse_picking_loc
+        join warehouse.picking_locations
+        using (picking_location_id)
+        join product.sku_upc
+        using (upc)) t1
+
+	full join
+
+        (select sku, upc, sum(box_qty * piece_qty * case_qty) total2
+        from warehouse.warehouses
+        join warehouse.warehouse_pallet_loc
+        using (warehouse_id)
+        join warehouse.pallet_locations
+        using (pallet_location_id)
+        join warehouse.pallet_palletloc
+        using (pallet_location_id)
+        join warehouse.pallet_case
+        using (pallet_id)
+        join warehouse.case_box
+        using (case_id)
+        join warehouse.boxes
+        using (box_id)
+        join product.sku_upc
+        using (upc)
+        group by sku, upc) t2
+        using (sku, upc);
+        """)
+    a = dbconn.cur.fetchall()
+    return a
