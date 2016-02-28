@@ -34,7 +34,6 @@
 	   {{err}}
 	   % end
 	   <form action="/warehouses/{{wh}}/update-pallet-{{pid}}" method="POST">
-	   
 	   <div class="row">
 	   <div class="medium-4 columns">
 	   <label width="100px;">Pallet Location:
@@ -43,7 +42,7 @@
 	   </label>
 	   </div>
 	   </div>
-{{case_boxes}}
+
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>

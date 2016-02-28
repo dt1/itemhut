@@ -7,7 +7,9 @@ import dbconn
 def running_inventory(wh):
     dbconn.cur.execute(
         """
-        select sku, upc, sum(box_qty * piece_qty * case_qty)
+        select sku, upc,
+        sum(coalesce(box_qty * piece_qty * case_qty, 0) 
+            + coalesce(qty, 0))
         from warehouse.warehouses
         join warehouse.warehouse_pallet_loc
         using (warehouse_id)
@@ -22,6 +24,8 @@ def running_inventory(wh):
         join warehouse.boxes
         using (box_id)
         join product.sku_upc
+        using (upc)
+        right join warehouse.picking_locations
         using (upc)
         where warehouse_id = %s
         group by sku, upc;

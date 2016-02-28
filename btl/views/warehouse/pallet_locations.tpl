@@ -102,7 +102,7 @@ margin-left:-27em;
 }
 
 .dataTables_paginate{
-margin-left:-20em;
+margin-left:-5em;
 }
 </style>
 

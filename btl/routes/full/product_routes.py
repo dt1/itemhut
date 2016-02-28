@@ -3,8 +3,9 @@
 from route_utils import *
 
 @route("/products/update-product-<pid>")
-@route("/products/update-product-<pid>", method="POST")
+@post("/products/update-product-<pid>")
 def update_product(pid):
+    check_user()
     sku_data = get_sku_data(pid)
     stypes = sku_types()
     if request.POST.get("update-product"):
@@ -14,17 +15,28 @@ def update_product(pid):
         product_name = request.POST.get("product-name")
         product_description = request.POST.get("product-description")
         main_image = request.POST.get("main-image")
+        
+        save_path = "uploaded_files/images/{0}".format(main_image)
+
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+
+        main_image.save(save_path, overwrite=True)
+
+        image_path = "{0}/{1}".format(main_image, main_image.filename)
+        
         update_product_data(pid, sku, upc, sku_type, product_name,
-                       product_description, main_image)
+                            product_description, image_path)
         redirect("/products/update-product-{0}".format(sku))
     return template("views/products/update_product_inv",
                     sku_data = sku_data, sku_types = stypes,
                     sku = pid, inv = False)
 
 @route("/products/add-kit")
-@route("/products/add-kit", method="POST")
+@post("/products/add-kit")
 def add_kit():
-    sku_upc = sku_upcs()
+    check_user()
+    sku_upc = sku_kit_candidates()
     if request.POST.get("add-kit"):
         master_sku = request.POST.get("master-sku")
         for i in range(1, 11):
@@ -48,12 +60,14 @@ def add_kit():
 
 @route("/products/kits")
 def all_kits():
+    check_user()
     k = kits()
     return template("views/products/kits", kits = k, inv = False)
 
 @route("/products/add-product")
-@route("/products/add-product", method="POST")
+@post("/products/add-product")
 def add_products():
+    check_user()
     sku_upc = sku_upcs()
     stypes = sku_types()
     if request.POST.get("add-product"):
@@ -75,6 +89,15 @@ def add_products():
         
         main_image = request.POST.get("main-image")
         
+        save_path = "uploaded_files/images/{0}".format(main_image)
+
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+
+        main_image.save(save_path, overwrite=True)
+
+        image_path = "{0}/{1}".format(main_image, main_image.filename)
+        
         image_one = request.POST.get("image-one")
         image_two = request.POST.get("image-two")
         image_three = request.POST.get("image-three")
@@ -89,7 +112,7 @@ def add_products():
         image_twelve = request.POST.get("image-twelve")
         swatch_image = request.POST.get("swatch-image")
 
-        insert_images(sku, main_image, image_one,
+        insert_images(sku, image_path, image_one,
         image_two, image_three, image_four, image_five, image_six,
         image_seven, image_eight, image_nine, image_ten, image_eleven,
         image_twelve, swatch_image)
@@ -103,6 +126,7 @@ def add_products():
                         new_sku = None, inv = False)
 @route("/products")
 def products():
+    check_user()
     sku_upc = select_reg_products()
     return template("views/products/product_main", sku_upc = sku_upc,
                     inv = False)

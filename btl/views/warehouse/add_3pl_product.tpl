@@ -52,7 +52,7 @@
 	   </select>
 	   </label>
 	   <label>QTY
-	   <input type="number" min="1" name="qty">
+	   <input type="number" min="0" name="qty">
 	   </label>
 
 	   <input type="submit" class="button" name="add-product"

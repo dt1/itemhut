@@ -56,7 +56,7 @@
 	   </div>
 	   <div class="medium-3 columns">
 	   <label>Qty
-		<input type="number" min="1" value="{{pl_info[0][2]}}"
+		<input type="number" min="0" value="{{pl_info[0][2]}}"
 		name="qty">
 	   </label>
 	   </div>

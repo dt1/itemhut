@@ -3,8 +3,9 @@
 from route_utils import *
 
 @route("/incoming/update-order-<oid>")
-@route("/incoming/update-order-<oid>", method="POST")
+@post("/incoming/update-order-<oid>")
 def update_incoming_order(oid):
+    check_user()
     if request.POST.get("arrived"):
         set_order_complete(oid)
     if request.POST.get("add-product"):
@@ -20,28 +21,42 @@ def update_incoming_order(oid):
 
 @route("/incoming/all-records")
 def all_records():
+    check_user()
     orders = select_all_incoming_orders()
     return template("views/incoming/incoming_main", inv = False,
                     orders = orders)
 
 @route("/incoming/add-record")
-@route("/incoming/add-record", method="POST")
+@post("/incoming/add-record")
 def add_record():
+    check_user()
     if request.POST.get("add-record"):
         invoice = request.POST.get("invoice")
         vendor_id = request.POST.get("vendor-id")
         order_date = request.POST.get("order-date")
         eta = request.POST.get("eta")
         invoice_file = request.POST.get("invoice-file")
+
+        save_path = "uploaded_files/invoices/{0}".format(invoice_file)
+        
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+        
+        invoice_file.save(save_path, overwrite=True)
+
+        f_path = "{0}/{1}".format(invoice_file, invoice_file.filename)
         insert_invoice_data(invoice, vendor_id, order_date, eta,
-                        invoice_file)
+                                f_path)
+    
         return template("views/incoming/add_record", inv = False,
                         invoice_added = invoice)
+        
     return template("views/incoming/add_record", inv = False,
                     invoice_added = False)
 
 @route("/incoming")
 def incoming():
+    check_user()
     orders = select_incoming_orders()
     return template("views/incoming/incoming_main", inv = False,
                     orders = orders)

@@ -81,10 +81,10 @@
 	   <div class="medium-6 columns">
 	   % if sku_data[0][5]:
 	   <img src="/uploaded_files/images/{{sku_data[0][5]}}"
+	   width="100px;"/>
 	   % else:
 	   <p>no image</p>
 	   % end
-	   width="100px;"/>
 	   <label>Replace Image
 	   <input type="file" name="main-image">
 	   </label>

@@ -41,10 +41,12 @@
 	    </thead>
 	    </tbody>
 		% for item in sku_count:
-		<tr>
+		<tr class="table-anchor"
+		onclick="location.href='/warehouses/{{wh_info[0][0]}}/update-running-inventory-{{item[0]}}'">
 		<td>{{item[0]}}</td>
 		<td>{{item[1]}}</td>
 		<td>{{item[2]}}</td>
+		</tr>
 		% end
 	   </tbody>
 	   </table>

@@ -4,8 +4,9 @@ from route_utils import *
 
 # warehouse pages:
 @route("/warehouses/cases/new-config")
-@route("/warehouses/cases/new-config", method="POST")
+@post("/warehouses/cases/new-config")
 def new_warehouse_case_config():
+    check_user()
     upc_list = get_upcs()
     if request.POST.get("add-config"):
         upc = request.POST.get("upc")
@@ -26,12 +27,14 @@ def new_warehouse_case_config():
 
 @route("/warehouses/cases")
 def warehouse_cases():
+    check_user()
     case_boxes = get_case_boxes()
     return template("views/warehouse/case_boxes",
                     case_boxes = case_boxes, inv = False)
 
 @route("/warehouses/<wh>/information")
 def warehouse_gen_information(wh = None):
+    check_user()
     wh_info = warehouse_information(wh)
     if wh_info[0][6] == 'B&M':
         return template("views/warehouse/information",
@@ -44,8 +47,9 @@ def warehouse_gen_information(wh = None):
 
 
 @route("/warehouses/<wh>/add-product")
-@route("/warehouses/<wh>/add-product", method="POST")
+@post("/warehouses/<wh>/add-product")
 def warehouse_add_product(wh = None):
+    check_user()
     wh_info = warehouse_information(wh)
     sku_upc = select_sku_upc_not_in_3pl(wh)
     if request.POST.get("add-product"):
@@ -64,9 +68,9 @@ def warehouse_add_product(wh = None):
 
 
 @route("/warehouses/<wh>/update-running-inventory-<sku>")
-@route("/warehouses/<wh>/update-running-inventory-<sku>",
-       method="POST")
+@post("/warehouses/<wh>/update-running-inventory-<sku>")
 def update_warehouse_running_inventory(wh, sku):
+    check_user()
     wh_info = warehouse_information(wh)
     sku_count = select_3pl_running_inventory_sku(wh, sku)
     if wh_info[0][6] == '3PL' and sku_count:
@@ -83,13 +87,15 @@ def update_warehouse_running_inventory(wh, sku):
 
 @route("/warehouses/<wh>/running-inventory")
 def warehouse_running_inventory(wh = None):
+    check_user()
     wh_info = warehouse_information(wh)
-    sku_count = select_3pl_running_inventory(wh)
     if wh_info[0][6] == 'B&M':
+        sku_count = running_inventory(wh)
         return template("views/warehouse/running_inventory",
                         sku_count = sku_count,
                         wh_info = wh_info, inv = False)
     elif wh_info[0][6] == '3PL':
+        sku_count = select_3pl_running_inventory(wh)
         return template("views/warehouse/running_3pl_inventory",
                         sku_count = sku_count,
                         wh_info = wh_info, inv = False)
@@ -98,8 +104,9 @@ def warehouse_running_inventory(wh = None):
 
 
 @route("/warehouses/<wh>/update-picking-location-<pid>")
-@route("/warehouses/<wh>/update-picking-location-<pid>", method="POST")
+@post("/warehouses/<wh>/update-picking-location-<pid>")
 def update_picking_location(wh, pid):
+    check_user()
     wh_info = warehouse_information(wh)
     pl_info = select_picking_location_info(pid)
     sku_upc = sku_upcs()
@@ -121,8 +128,9 @@ def update_picking_location(wh, pid):
 
 
 @route("/warehouses/<wh>/add-picking-location")
-@route("/warehouses/<wh>/add-picking-location", method="POST")
+@post("/warehouses/<wh>/add-picking-location")
 def add_warehouse_picking_location(wh = None):
+    check_user()
     wh_info = warehouse_information(wh)
     sku_upc = sku_upcs()
     if request.POST.get("add-picking-location"):
@@ -142,6 +150,7 @@ def add_warehouse_picking_location(wh = None):
 
 @route("/warehouses/<wh>/picking-locations")
 def warehouse_picking_locations(wh = None):
+    check_user()
     wh_info = warehouse_information(wh)
     picking_location_list = select_picking_locations(wh)
     if wh_info:
@@ -154,8 +163,9 @@ def warehouse_picking_locations(wh = None):
 
 ## pallet locations
 @route("/warehouses/<wh>/add-pallet-location")
-@route("/warehouses/<wh>/add-pallet-location", method="POST")
+@post("/warehouses/<wh>/add-pallet-location")
 def add_pallet_location(wh):
+    check_user()
     wh_info = warehouse_information(wh)
     if request.POST.get("add-pallet-location"):
         location_name = request.POST.get("location-name")
@@ -170,8 +180,48 @@ def add_pallet_location(wh):
     else:
         error404("err")
 
+# pallets
+@route("/warehouses/<wh>/update-pallet-<pid>")
+@post("/warehouses/<wh>/update-pallet-<pid>")
+def warehouse_pallets(wh, pid):
+    check_user()
+    wh_info = warehouse_information(wh)
+    case_boxes = select_case_boxes(pid)
+    pallet_info = select_pallet_info(pid)
+    if request.POST.get("add-case"):
+        ploc = request.POST.get("pallet-location")
+        cid = request.POST.get("case-id")
+        qty = request.POST.get("qty")
+        pl_id = pallet_info[0][6]
+        if cid:
+            insert_pallet_case(pid, cid, qty)
+            update_pallet_location(pl_id, ploc)
+            url = "/warehouses/{0}/update-pallet-{1}".format(wh, pid)
+            redirect(url)
+        else:
+            err = "Please enter a case"
+            return template("views/warehouse/update_pallet",
+                        wh_info = wh_info,
+                        inv = False, wh = wh, case_boxes = case_boxes,
+                        pallet_info = pallet_info, pid = pid,
+                        err = err)
+    if wh_info:
+        return template("views/warehouse/update_pallet",
+                        wh_info = wh_info,
+                        inv = False, wh = wh, case_boxes = case_boxes,
+                        pallet_info = pallet_info, pid = pid,
+                        err = None)
+
+@route("/warehouses/<wh>/create-pallet")
+def warehouse_pallets(wh):
+    check_user()
+    pid = generate_pallet_id()
+    url = "/warehouses/{0}/update-pallet-{1}".format(wh, pid[0][0])
+    redirect(url)
+
 @route("/warehouses/<wh>/pallets")
-def warehouse_pallets(wh = None):
+def warehouse_pallets(wh):
+    check_user()
     wh_info = warehouse_information(wh)
     pallet_location_list = select_pallet_locations(wh)
     if wh_info:
@@ -182,8 +232,10 @@ def warehouse_pallets(wh = None):
     else:
         error404("err")
 
-@route("/warehouses/<wh>/pallet-locations")
-def warehouse_pallet_locations(wh = None):
+
+@route("/warehouses/<wh>/pallet-locations/update-loc-<pid>")
+def warehouse_pallet_locations(wh, pid):
+    check_user()
     wh_info = warehouse_information(wh)
     pallet_location_list = select_pallet_locations(wh)
     if wh_info:
@@ -192,20 +244,35 @@ def warehouse_pallet_locations(wh = None):
                         pallet_location_list = pallet_location_list,
                         inv = False)
     else:
-        error404("err")
+        return error404("err")
+        
+@route("/warehouses/<wh>/pallet-locations")
+def warehouse_pallet_locations(wh):
+    check_user()
+    wh_info = warehouse_information(wh)
+    pallet_location_list = select_pallet_locations(wh)
+    if wh_info:
+        return template("views/warehouse/pallet_locations",
+                        wh_info = wh_info,
+                        pallet_location_list = pallet_location_list,
+                        inv = False)
 
 @route("/warehouses/<wh>")
 def warehouse_n(wh = None):
+    check_user()
     wh_info = warehouse_information(wh)
-    if wh_info[0][6] == 'B&M':
-        return template("views/warehouse/wh_page",
-                        wh_info = wh_info, inv = False)
-    if wh_info[0][6] == '3PL':
-        return template("views/warehouse/wh3pl_page",
-                        wh_info = wh_info, inv = False)
-
+    if wh_info:
+        if wh_info[0][6] == 'B&M':
+            return template("views/warehouse/wh_page",
+                            wh_info = wh_info, inv = False)
+        if wh_info[0][6] == '3PL':
+            return template("views/warehouse/wh3pl_page",
+                            wh_info = wh_info, inv = False)
+        
 @route("/warehouses")
 def warehouse():
+    check_user()
     wh = valid_warehouses()
+    running_inventory = select_all_running_inventory()
     return template("views/warehouse/warehouse_main", wh = wh,
-                    inv = False)
+                    inv = False, running_inventory = running_inventory)
