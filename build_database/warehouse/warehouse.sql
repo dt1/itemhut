@@ -54,7 +54,7 @@ create table warehouse.picking_locations (
        picking_location_id serial primary key,
        picking_location_name varchar,
        upc bigint,
-       qty int check (qty > 0),
+       qty int check (qty >= 0),
        foreign key (sku)
                references product.sku_upc (sku)
 );
@@ -110,7 +110,7 @@ create table warehouse.pickers (
 create table warehouse.picker_picked (
        picker_id int,
        picking_location_id int,
-       qty int check (qty > 0),
+       qty int check (qty >= 0),
        datetime timestamp default now(),
        foreign key (picker_id)
                references warehouse.pickers (picker_id),
