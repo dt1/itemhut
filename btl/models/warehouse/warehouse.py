@@ -4,6 +4,56 @@ import sys
 sys.path.append("/itemhut/pydb")
 import dbconn
 
+def add_full_pallet_to_pickingloc(wh, pid):
+        dbconn.cur.execute(
+            """
+            begin;
+            with upc_count(upc, total) as
+                (select upc, case_qty * piece_qty * box_qty total
+                 from warehouse.pallet_palletloc
+                 left join warehouse.pallet_case
+                 using (pallet_id)
+	         left join warehouse.case_box
+                 using (case_id)
+                 left join warehouse.boxes
+                 using (box_id)
+                 left join product.sku_upc
+                 using (upc)
+                 where pallet_id = %s::int
+                 group by upc, total, pallet_id)
+            update warehouse.picking_locations wpl
+            set qty = qty + total
+            from
+            (select upc, total
+            from upc_count) t1
+            where wpl.upc = t1.upc
+            and wpl.picking_location_id in
+            (select picking_location_id
+            from warehouse.warehouse_picking_loc
+            where warehouse_id = %s);
+
+            delete from warehouse.pallets
+            where pallet_id = %s::int;
+            commit;
+            """, [pid, wh, pid])
+
+
+def insert_new_pallet_palletloc(pl_id):
+    dbconn.cur.execute(
+        """
+        with new_pallet (pallet_id) as 
+	    (insert into warehouse.pallets(pallet_id)
+	     values (default)
+	     returning pallet_id)
+        insert into warehouse.pallet_palletloc
+	    (pallet_location_id, pallet_id)
+        select %s, pallet_id
+        from new_pallet
+        returning pallet_id;
+        """, [pl_id])
+    a = dbconn.cur.fetchall()
+    return a
+
 def running_inventory(wh):
     dbconn.cur.execute(
         """

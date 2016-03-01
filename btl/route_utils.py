@@ -22,6 +22,17 @@ import sys
 sys.path.append("/itemhut/pydb")
 import dbconn
 
+session_opts = {
+    'session.type': 'file',
+    'session.cookie_expires': 14400,
+    'session.data_dir': './data',
+    'session.auto': True
+}
+
+@hook('before_request')
+def setup_request():
+    request.session = request.environ['beaker.session']
+
 @error(404)
 def error404(error):
     return "404; please press the back button"
@@ -36,27 +47,14 @@ def check_user():
         return True
     redirect("/login")
 
-
 def check_admin():
     if 'username' in request.session:
         un = request.session["username"]
         role = request.session["usertype"]
         if role == "admin":
             return True
-        else:
-            redirect("/")
-
-session_opts = {
-    'session.type': 'file',
-    'session.cookie_expires': 14400,
-    'session.data_dir': './data',
-    'session.auto': True
-}
+        redirect("/")
 
 myapp = SessionMiddleware(bottle.app(), session_opts)
-
-@hook('before_request')
-def setup_request():
-    request.session = request.environ['beaker.session']
 
 inv = True

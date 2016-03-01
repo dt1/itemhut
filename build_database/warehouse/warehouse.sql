@@ -101,7 +101,8 @@ create table warehouse.pallet_case (
        case_qty int check(case_qty > 0),
        primary key(pallet_id, case_id),
        foreign key (pallet_id)
-               references warehouse.pallets (pallet_id),
+               references warehouse.pallets (pallet_id)
+	       on delete cascade,
        foreign key (case_id)
                references warehouse.cases (case_id)
 );
