@@ -17,8 +17,8 @@ def new_warehouse_case_config():
             insert_new_case_box(upc, box_qty, case_qty)
             return dict(upc_list = upc_list)
         else:
-            return dict(err = "UPC invalid: " + upc,
-                            upc_list = upc_list)
+            err = "UPC invalid: {0}".format(upc)
+            return dict(err = err, upc_list = upc_list)
     else:
         return dict(upc_list = upc_list)
 
@@ -42,10 +42,9 @@ def warehouse_gen_information(wh):
     else:
         error404("err")
 
-
 @route("/warehouses/<wh>/add-product")
 @post("/warehouses/<wh>/add-product")
-@view("views/warehouse/add_3pl_product", inv = inv)
+@view("views/warehouse/add_3pl_product", inv = inv, upc = None)
 def warehouse_add_product(wh):
     check_user()
     wh_info = warehouse_information(wh)
@@ -56,7 +55,7 @@ def warehouse_add_product(wh):
         insert_3pl_product(wh, upc, qty)
         return dict(wh_info = wh_info, sku_upc = sku_upc, upc=upc)
     if wh_info[0][6] == '3PL':
-        return dict(wh_info = wh_info, sku_upc = sku_upc, upc = None)
+        return dict(wh_info = wh_info, sku_upc = sku_upc)
     else:
         error404("err")
 
@@ -109,11 +108,11 @@ def update_picking_location(wh, pid):
         qty = request.POST.get("qty")
         update_picking_location_info(pid, picking_location, upc, qty)
         redirect("/warehouses/{0}/update-picking-location-{1}".format(wh, pid))
-        return dict(pid = pid, wh_info = wh_info,
-                        sku_upc = sku_upc, pl_info = pl_info)
+        return dict(pid = pid, wh_info = wh_info, sku_upc = sku_upc,
+                    pl_info = pl_info)
     if wh_info:
-        return dict(pid = pid, wh_info = wh_info,
-                        sku_upc = sku_upc, pl_info = pl_info)
+        return dict(pid = pid, wh_info = wh_info, sku_upc = sku_upc,
+                    pl_info = pl_info)
     else:
         error404("err")
 
@@ -131,7 +130,7 @@ def add_warehouse_picking_location(wh):
         qty = request.POST.get("qty")
         message = insert_picking_location(wh, picking_location, sku, qty)
         return dict(wh_info = wh_info, sku_upc = sku_upc,
-                         message = message)
+                    message = message)
     if wh_info:
         return dict(wh_info = wh_info, sku_upc = sku_upc,
                     message = None)
