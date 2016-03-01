@@ -27,11 +27,14 @@ PostgreSQL 9.5
 
 Python packages:
 * Python3
-* Python Bottle (0.12.9) <- important for file uploads
+* Python Bottle
 * Psycopg2
 * bcrypt
 * hmac
 * beaker
+
+Please be sure you have the latest version of each package.
+For example, Bottle version 0.12.9 is needed to do file uploads.
 
 clone to /itemhut:
 ```bash
