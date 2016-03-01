@@ -4,6 +4,7 @@ from route_utils import *
 
 @route("/products/update-product-<pid>")
 @post("/products/update-product-<pid>")
+@view("views/products/update_product_inv", inv = inv)
 def update_product(pid):
     check_user()
     sku_data = get_sku_data(pid)
@@ -28,12 +29,12 @@ def update_product(pid):
         update_product_data(pid, sku, upc, sku_type, product_name,
                             product_description, image_path)
         redirect("/products/update-product-{0}".format(sku))
-    return template("views/products/update_product_inv",
-                    sku_data = sku_data, sku_types = stypes,
-                    sku = pid, inv = True)
+    return template(sku_data = sku_data, sku_types = stypes,
+                    sku = pid)
 
 @route("/products/add-kit")
 @post("/products/add-kit")
+@view("views/products/add_kit", inv = inv, err = None, new_sku = None)
 def add_kit():
     check_user()
     sku_upc = sku_kit_candidates()
@@ -47,25 +48,22 @@ def add_kit():
                     insert_sku_upc(master_sku, None, "master")
                     insert_kit(master_sku, kit_name, kit_amt)
                 else:
-                    return template("views/products/add_kit",
-                                    sku_upc = sku_upc,
-                                    new_sku = None,
-                                    err = "Please add an amount for your kits", inv = True)
-        return template("views/products/add_kit",
-                        sku_upc = sku_upc, new_sku = master_sku,
-                        err = None, inv = True)
+                    err = "Please add an amount for your kits"
+                    return dict(sku_upc = sku_upc, err = err)
+        return dict(sku_upc = sku_upc, new_sku = master_sku)
     else:
-        return template("views/products/add_kit", sku_upc = sku_upc,
-                        new_sku = None, err = None, inv = True)
+        return dict(sku_upc = sku_upc)
 
 @route("/products/kits")
+@view("views/products/kits", inv = inv)
 def all_kits():
     check_user()
     k = kits()
-    return template("views/products/kits", kits = k, inv = True)
+    return dict(kits = k)
 
 @route("/products/add-product")
 @post("/products/add-product")
+@view("views/products/add_product_inv", inv = inv)
 def add_products():
     check_user()
     sku_upc = sku_upcs()
@@ -117,16 +115,15 @@ def add_products():
         image_seven, image_eight, image_nine, image_ten, image_eleven,
         image_twelve, swatch_image)
 
-        return template("views/products/add_product_inv",
-                        sku_upc = sku_upc, sku_types = stypes,
-                        new_sku = sku, inv = True)
+        return dict(sku_upc = sku_upc, sku_types = stypes,
+                    new_sku = sku)
     else:
-        return template("views/products/add_product_inv",
-                        sku_upc = sku_upc, sku_types = stypes,
-                        new_sku = None, inv = True)
+        return dict(sku_upc = sku_upc, sku_types = stypes,
+                    new_sku = None)
+
 @route("/products")
+@view("views/products/product_main", inv = inv)
 def products():
     check_user()
     sku_upc = select_reg_products()
-    return template("views/products/product_main", sku_upc = sku_upc,
-                    inv = True)
+    return dict(sku_upc = sku_upc)

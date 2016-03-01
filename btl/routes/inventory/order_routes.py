@@ -3,14 +3,15 @@
 from route_utils import *
 
 @route("/orders")
+@view("views/orders/orders_main", inv = inv)
 def orders():
     check_user()
     orders = select_all_orders()
-    return template("views/orders/orders_main", inv = True,
-                    orders = orders)
+    return dict(orders = orders)
 
 @route("/orders/add-order")
 @post("/orders/add-order")
+@view("views/orders/add_order", inv = inv)
 def add_order():
     check_user()
     msku_list = select_valid_mskus()
@@ -22,8 +23,6 @@ def add_order():
         err = insert_market_order(order_id, marketplace,msku, qty)
         if err:
             err = "Order {0} already exists".format(order_id)
-        return template("views/orders/add_order",
-                        msku_list = msku_list, inv = True, err = err,
+        return dict(msku_list = msku_list, inv = inv, err = err,
                         new_order = order_id)
-    return template("views/orders/add_order", msku_list = msku_list,
-                    inv = True, err = None, new_order = None)
+    return dict(msku_list = msku_list, err = None, new_order = None)

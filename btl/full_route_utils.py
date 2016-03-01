@@ -59,4 +59,4 @@ myapp = SessionMiddleware(bottle.app(), session_opts)
 def setup_request():
     request.session = request.environ['beaker.session']
 
-inv = True
+inv = False

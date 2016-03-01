@@ -1,6 +1,6 @@
 # This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-from route_utils import *
+from full_route_utils import *
 
 # amazon pages
 @route("/channels/amazon/<section>/new-item")
@@ -20,7 +20,7 @@ def add_amazon_item(section):
                 fdict[f[0]]["valid_array"] = get_amazon_valid_arrays(s, f[4])
         return template("views/amazon/new_item",
                         amz_header = amz_header, fields = fields,
-                        section = section, fdict = fdict, inv = False)
+                        section = section, fdict = fdict, inv = inv)
     
 @route("/channels/amazon/<section>")
 def amazon_section(section):
@@ -32,7 +32,7 @@ def amazon_section(section):
         fields = get_base_amazon_data(s)
         return template("views/amazon/section",
                         amz_header = amz_header, fields = fields,
-                        section = section, inv = False)
+                        section = section, inv = inv)
 
 @route("/channels/<storefront>")
 def product_store(storefront = None):

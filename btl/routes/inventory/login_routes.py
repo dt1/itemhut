@@ -30,6 +30,7 @@ def logout():
 
 @route("/initialize")
 @post("/initialize")
+@view("views/login/first_user")
 def initialize():
     user_cnt = select_user_count()
     if user_cnt:
@@ -44,12 +45,13 @@ def initialize():
             t = login_user(uname, password)
         else:
             err = "Passwords don't match"
-            return template("views/login/first_user", e = err)
-    return template("views/login/first_user", e = None)
+            return dict(e = err)
+    return dict(e = None)
 
     
 @route("/login")
 @post("/login")
+@view("views/login/login_page")
 def login():
     """Authenticate users"""
     user_cnt = select_user_count()
@@ -59,5 +61,5 @@ def login():
         username = request.POST.get("username")
         password = request.POST.get("password")
         t = login_user(username, password)
-        return template("views/login/login_page", t = "Login Failed")
-    return template("views/login/login_page", t = None)
+        return dict(t = "Login Failed")
+    return dict(t = None)

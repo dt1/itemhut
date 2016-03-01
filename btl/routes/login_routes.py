@@ -46,7 +46,7 @@ def initialize():
         else:
             err = "Passwords don't match"
             return dict(e = err)
-    return dict(e = None)
+    return return dict(e = None)
 
     
 @route("/login")

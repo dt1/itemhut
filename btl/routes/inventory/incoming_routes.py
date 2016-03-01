@@ -4,6 +4,7 @@ from route_utils import *
 
 @route("/incoming/update-order-<oid>")
 @post("/incoming/update-order-<oid>")
+@view("views/incoming/update_incoming_order", inv = inv)
 def update_incoming_order(oid):
     check_user()
     if request.POST.get("arrived"):
@@ -15,19 +16,19 @@ def update_incoming_order(oid):
     products = select_incoming_product(oid)
     upc_list = get_order_upc_candidates(oid)
     order_info = select_incoming_order_data(oid)
-    return template("views/incoming/update_incoming_order", inv = True,
-                    invoice_added = False, order_info = order_info,
-                    upc_list = upc_list, products = products)
+    return dict(invoice_added = False, order_info = order_info,
+                upc_list = upc_list, products = products)
 
 @route("/incoming/all-records")
+@view("views/incoming/incoming_main", inv = inv)
 def all_records():
     check_user()
     orders = select_all_incoming_orders()
-    return template("views/incoming/incoming_main", inv = True,
-                    orders = orders)
+    return dict(orders = orders)
 
 @route("/incoming/add-record")
 @post("/incoming/add-record")
+@view("views/incoming/add_record", inv = inv)
 def add_record():
     check_user()
     if request.POST.get("add-record"):
@@ -48,15 +49,13 @@ def add_record():
         insert_invoice_data(invoice, vendor_id, order_date, eta,
                                 f_path)
     
-        return template("views/incoming/add_record", inv = True,
-                        invoice_added = invoice)
+        return dict(invoice_added = invoice)
         
-    return template("views/incoming/add_record", inv = True,
-                    invoice_added = False)
+    return dict(invoice_added = False)
 
 @route("/incoming")
+@view("views/incoming/incoming_main", inv = inv)
 def incoming():
     check_user()
     orders = select_incoming_orders()
-    return template("views/incoming/incoming_main", inv = True,
-                    orders = orders)
+    return dict(orders = orders)
