@@ -38,15 +38,18 @@ create table warehouse.warehouse_pallet_loc (
 	       on update cascade,
        foreign key (pallet_location_id)
                references warehouse.pallet_locations (pallet_location_id)
+	       on delete cascade
 );
 
 create table warehouse.pallet_palletloc (
        pallet_location_id int,
        pallet_id int primary key,
        foreign key (pallet_location_id)
-               references warehouse.pallet_locations (pallet_location_id),
+               references warehouse.pallet_locations (pallet_location_id)
+	       on delete cascade,
        foreign key (pallet_id)
                references warehouse.pallets (pallet_id)
+	       on delete cascade
 
 );
 

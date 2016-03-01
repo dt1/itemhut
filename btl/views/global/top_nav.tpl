@@ -23,13 +23,13 @@
             <a href="/orders">Orders</a>
           </li>
           <li>
-            <a href="/emails">Emails</a>
+            <a>Emails</a>
           </li>
           <li>
-            <a href="/customers">Customers</a>
+            <a>Customers</a>
           </li>
           <li>
-            <a href="/analytics">Analytics</a>
+            <a>Analytics</a>
           </li>
           <li>
             <a href="/admin">Admin</a>

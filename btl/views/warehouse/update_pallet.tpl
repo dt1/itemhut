@@ -20,7 +20,6 @@
 
 
     <!-- original content goes in this container -->
-    {{pallet_info}}
     <div class="off-canvas-content" data-off-canvas-content>
       <div class="expanded row">
       	   <div class="medium-2 columns">
@@ -33,6 +32,7 @@
 	   % if err:
 	   {{err}}
 	   % end
+
 	   <form action="/warehouses/{{wh}}/update-pallet-{{pid}}" method="POST">
 	   <div class="row">
 	   <div class="medium-4 columns">
@@ -42,6 +42,10 @@
 	   </label>
 	   </div>
 	   </div>
+	   <input type="submit" class="button" name="update-loc"
+	   value="Update Location">
+	   </form>
+	   <form action="/warehouses/{{wh}}/update-pallet-{{pid}}" method="POST">
 
 	   <table id="table_id" class="display">
 	   <thead>
@@ -88,12 +92,13 @@
       </div>
 
       	   <div class="medium-5 columns" style="margin-left:-1000px">
-	   <h4>Boxes</h4>
+	   <h4>Cases</h4>
 	   % if pallet_info:
 	   
 	   <table>
 	   <thead>
 		<tr>
+		<th></th>
 		<th width="100px">Case ID</th>
 		<th>SKU</th>
 		<th>UPC</th>
@@ -105,6 +110,11 @@
 	    </tbody>
 		% for item in pallet_info:
 		<tr>
+		% if item[0]:
+		<td><a href="/warehouses/{{wh}}/update-pallet-{{pid}}/delete-case-{{item[0]}}">delete</a></td>
+		% else:
+		<td></td>
+		% end
 		<td>{{item[0]}}</td>
 		<td>{{item[1]}}</td>
 		<td>{{item[2]}}</td>

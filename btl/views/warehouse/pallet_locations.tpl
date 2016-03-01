@@ -28,7 +28,11 @@
 	   % include('warehouse/side_nav_menu.tpl', wh_id = wh_info[0][0])
 	   </div>
       	   <div class="medium-10 columns">
-	   <h4>Pallet Locations</h4>	   
+	   <h4>Pallet Locations</h4>
+
+	   <a href="/warehouses/{{wh_info[0][0]}}/add-pallet-location">
+	   Add Pallet Location</a>
+
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
@@ -36,12 +40,13 @@
 		<th width="150px">pallet #</th>
 		<th>Information</th>
 		<th>Qty</th>
+		<th></th>
 		</tr>
 	    </thead>
 	    </tbody>
 		% for item in pallet_location_list:
 		<tr class="table-anchor"
-		onclick="location.href='/warehouses/{{wh_info[0][0]}}/update-pallet-{{item[0]}}'">
+		onclick="location.href='/warehouses/{{wh_info[0][0]}}/update-pallet-{{item[2]}}'">
 		<td>{{item[1]}}</td>
 		% if item[2]:
 		<td>{{item[2]}}</td>
@@ -65,12 +70,11 @@
 		% else:
 		<td>Empty</td>
 		% end
+		<td><a href="/warehouses/{{wh_info[0][0]}}/delete-pallet-location-{{item[0]}}">delete</a></td>
 		</tr>
 		% end
 	   </tbody>
 	   </table>
-	   <a href="/warehouses/{{wh_info[0][0]}}/add-pallet-location">
-	   Add Pallet Location</a>
 	   </div>
       </div>
 

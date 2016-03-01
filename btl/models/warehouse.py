@@ -336,7 +336,7 @@ def select_pallet_info(pid):
     dbconn.cur.execute(
         """
         select case_id, sku, upc, box_qty, piece_qty, case_qty, 
-        pallet_location_name, pallet_location_id
+        coalesce(pallet_location_name, 'Empty'), pallet_location_id
         from warehouse.pallet_palletloc
         join warehouse.pallet_locations
         using (pallet_location_id)
@@ -365,6 +365,16 @@ def insert_pallet_case(pid, cid, qty):
         commit;
         """, [pid, cid, qty])
 
+def delete_pallet_case(pid, cid):
+    dbconn.cur.execute(
+        """
+        begin;
+        delete from warehouse.pallet_case
+        where pallet_id = %s::int
+        and case_id = %s::int;
+        commit;
+        """, [pid, cid])
+    
 def update_pallet_location(pl_id, pl_name):
     dbconn.cur.execute(
         """
@@ -376,6 +386,16 @@ def update_pallet_location(pl_id, pl_name):
         """, [pl_name, pl_id])
 
 
+def delete_pallet_loc_cascades(pid):
+    dbconn.cur.execute(
+        """
+        begin;
+        delete
+        from warehouse.pallet_locations
+        where pallet_location_id = %s::int;
+        commit;
+        """, [pid])
+    
 def select_all_running_inventory():
     dbconn.cur.execute(
         """

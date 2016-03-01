@@ -161,6 +161,12 @@ def warehouse_picking_locations(wh = None):
     else:
         error404("err")
 
+@route("/warehouses/<wh>/delete-pallet-location-<pid>")
+def delete_pallet_location(wh, pid):
+    delete_pallet_loc_cascades(pid)
+    url = "/warehouses/{0}/pallet-locations".format(wh)
+    redirect(url)
+        
 ## pallet locations
 @route("/warehouses/<wh>/add-pallet-location")
 @post("/warehouses/<wh>/add-pallet-location")
@@ -180,6 +186,12 @@ def add_pallet_location(wh):
     else:
         error404("err")
 
+@route("/warehouses/<wh>/update-pallet-<pid>/delete-case-<cid>")
+def delete_case_from_pallet(wh, pid, cid):
+    delete_pallet_case(pid, cid)
+    url = "/warehouses/{0}/update-pallet-{1}".format(wh, pid)
+    redirect(url)
+        
 # pallets
 @route("/warehouses/<wh>/update-pallet-<pid>")
 @post("/warehouses/<wh>/update-pallet-<pid>")
@@ -188,14 +200,17 @@ def warehouse_pallets(wh, pid):
     wh_info = warehouse_information(wh)
     case_boxes = select_case_boxes(pid)
     pallet_info = select_pallet_info(pid)
-    if request.POST.get("add-case"):
+    if request.POST.get("update-loc"):
         ploc = request.POST.get("pallet-location")
+        pl_id = pallet_info[0][7]
+        update_pallet_location(pl_id, ploc)
+        url = "/warehouses/{0}/update-pallet-{1}".format(wh, pid)
+        redirect(url)
+    if request.POST.get("add-case"):
         cid = request.POST.get("case-id")
         qty = request.POST.get("qty")
-        pl_id = pallet_info[0][6]
         if cid:
             insert_pallet_case(pid, cid, qty)
-            update_pallet_location(pl_id, ploc)
             url = "/warehouses/{0}/update-pallet-{1}".format(wh, pid)
             redirect(url)
         else:
