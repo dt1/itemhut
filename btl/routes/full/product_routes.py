@@ -29,7 +29,7 @@ def update_product(pid):
         update_product_data(pid, sku, upc, sku_type, product_name,
                             product_description, image_path)
         redirect("/products/update-product-{0}".format(sku))
-    return template(sku_data = sku_data, sku_types = stypes,
+    return dict(sku_data = sku_data, sku_types = stypes,
                     sku = pid)
 
 @route("/products/add-kit")

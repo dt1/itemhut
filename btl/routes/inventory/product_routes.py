@@ -6,7 +6,6 @@ from route_utils import *
 @post("/products/update-product-<pid>")
 @view("views/products/update_product_inv", inv = inv)
 def update_product(pid):
-    check_user()
     sku_data = get_sku_data(pid)
     stypes = sku_types()
     if request.POST.get("update-product"):
@@ -29,14 +28,13 @@ def update_product(pid):
         update_product_data(pid, sku, upc, sku_type, product_name,
                             product_description, image_path)
         redirect("/products/update-product-{0}".format(sku))
-    return template(sku_data = sku_data, sku_types = stypes,
+    return dict(sku_data = sku_data, sku_types = stypes,
                     sku = pid)
 
 @route("/products/add-kit")
 @post("/products/add-kit")
 @view("views/products/add_kit", inv = inv, err = None, new_sku = None)
 def add_kit():
-    check_user()
     sku_upc = sku_kit_candidates()
     if request.POST.get("add-kit"):
         master_sku = request.POST.get("master-sku")
@@ -57,7 +55,6 @@ def add_kit():
 @route("/products/kits")
 @view("views/products/kits", inv = inv)
 def all_kits():
-    check_user()
     k = kits()
     return dict(kits = k)
 
@@ -65,7 +62,6 @@ def all_kits():
 @post("/products/add-product")
 @view("views/products/add_product_inv", inv = inv)
 def add_products():
-    check_user()
     sku_upc = sku_upcs()
     stypes = sku_types()
     if request.POST.get("add-product"):
@@ -124,6 +120,5 @@ def add_products():
 @route("/products")
 @view("views/products/product_main", inv = inv)
 def products():
-    check_user()
     sku_upc = select_reg_products()
     return dict(sku_upc = sku_upc)

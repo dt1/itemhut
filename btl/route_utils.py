@@ -33,6 +33,11 @@ session_opts = {
 def setup_request():
     request.session = request.environ['beaker.session']
 
+@hook('before_request')
+def strip_path():
+    request.environ['PATH_INFO'] = request.environ['PATH_INFO'].rstrip('/')
+
+    
 @error(404)
 def error404(error):
     return "404; please press the back button"
@@ -41,11 +46,14 @@ def error404(error):
 def error403(error):
     return "page restricted. Please press the back button"
 
+@hook('before_request')
 def check_user():
-    if 'username' in request.session:
-        un = request.session["username"]
-        return True
-    redirect("/login")
+    def inner(*args, **kwargs):
+        if 'username' in request.session:
+            un = request.session["username"]
+            return True
+        redirect("/login")
+    return inner
 
 def check_admin():
     if 'username' in request.session:
