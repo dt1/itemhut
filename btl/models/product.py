@@ -33,6 +33,7 @@ def select_reg_products():
         select sku, upc, sku_type, product_name
         from product.sku_upc
         left join product.descriptions
+        
         using (sku)
         where sku_type <> 'master';        
         """)
