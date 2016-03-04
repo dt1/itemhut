@@ -24,9 +24,7 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   	<h4>Add Contact</h4>
-	   	<ul class="vertical menu">
-		</ul>
+	   % include('vendors/vendor_side_nav.tpl', vendor_info = vendor_info)
 	   </div>
 	   
       	   <div class="medium-10 columns">

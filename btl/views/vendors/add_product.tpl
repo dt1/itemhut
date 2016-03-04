@@ -24,9 +24,7 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   	<h4>Add Product</h4>
-	   	<ul class="vertical menu">
-		</ul>
+	   % include('vendors/vendor_side_nav.tpl', vendor_info = vendor_info)
 	   </div>
 	   
       	   <div class="medium-10 columns">
@@ -36,14 +34,26 @@
 	   
 	   <div class="row">
       	   <div class="medium-4 columns">
+	   <h4>Add Product</h4>
 	   
 	   <form action="/vendors/{{vid}}/products/add-product" method="POST">
-	   	 UPC:
-		 <select name="upc">
-		 % for i in item_list:
-		 <option value="{{i[1]}}">{{i[1]}}, {{i[0]}}</option>
-		 % end
-		 </select>
+	   <table id="table_id" class="display">
+	   <thead>
+		<tr>
+		<th>SKU</th>
+		<th>UPC</th>
+		</tr>
+	   </thead>
+	   <tbody>
+	   % for i in item_list:
+		<tr class="table-anchor"
+		onclick="location.href='/products/update-product-{{i[0]}}'">
+		<td>{{i[0]}}</td>
+		<td>{{i[1]}}</td>
+		</tr>
+		% end
+	   </tbody>
+	   </table>
 	   <input type="submit" class="button" name="add-product" value="Add Product">
 	   <form>
 	   </div>

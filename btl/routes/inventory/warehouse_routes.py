@@ -247,17 +247,22 @@ def warehouse_pallet_locations(wh):
     if wh_info:
         return dict(wh_info = wh_info,
                     pallet_location_list = pallet_location_list)
-    
+
 @route("/warehouses/<wh>")
 def warehouse_n(wh):
     wh_info = warehouse_information(wh)
-    if wh_info:
-        if wh_info[0][6] == 'B&M':
-            return template("views/warehouse/wh_page",
-                            wh_info = wh_info, inv = inv)
-        if wh_info[0][6] == '3PL':
-            return template("views/warehouse/wh3pl_page",
-                            wh_info = wh_info, inv = inv)
+    if wh_info[0][6] == 'B&M':
+        sku_count = running_inventory(wh)
+        return template("views/warehouse/running_inventory",
+                        sku_count = sku_count, wh_info = wh_info,
+                        inv = inv)
+    elif wh_info[0][6] == '3PL':
+        sku_count = select_3pl_running_inventory(wh)
+        return template("views/warehouse/running_3pl_inventory",
+                        sku_count = sku_count, wh_info = wh_info,
+                        inv = inv)
+    else:
+        return error404("err")
         
 @route("/warehouses")
 @view("views/warehouse/warehouse_main", inv = inv)

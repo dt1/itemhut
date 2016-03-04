@@ -24,10 +24,11 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   	<p>Edit <b>{{vendor_info[0][1]}}</b></p>
+	   % include('vendors/vendor_side_nav.tpl', vendor_info = vendor_info)
 	   </div>
 	   
       	   <div class="medium-10 columns">
+	   	<h4>Edit <b>{{vendor_info[0][1]}}</b></h4>
 
 	   <form action="/vendors/{{vendor_info[0][0]}}/edit-vendor" method="POST">
 

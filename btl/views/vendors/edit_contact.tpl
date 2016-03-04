@@ -23,14 +23,13 @@
     <div class="off-canvas-content" data-off-canvas-content>
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   	<h4>Add Contact</h4>
-	   	<ul class="vertical menu">
-		</ul>
+	   % include('vendors/vendor_side_nav.tpl', vendor_info = vendor_info)
 	   </div>
 	   
       	   <div class="medium-10 columns">
 	   <div class="row">
       	   <div class="medium-4 columns">
+	   <h4>Edit Contact</h4>
 	   <form action="/vendors/{{vid}}/contacts/edit-contact-{{contact_info[0][0]}}" method="POST">
 	   	 <label>Name
 		 <input type="text" name="name" required="required"

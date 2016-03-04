@@ -22,16 +22,9 @@
 
     <div class="off-canvas-content" data-off-canvas-content>
       <div class="expanded row">
+      
       	   <div class="medium-2 columns">
-	   	<h4>{{vendor_info[0][1]}}</h4>
-		<ul class="vertical menu">
-		<li><a href="/vendors/{{vendor_info[0][0]}}">
-		Information</a></li>
-		<li><a href="/vendors/{{vendor_info[0][0]}}/contacts">
-		Contacts</a></li>
-		<li><a href="/vendors/{{vendor_info[0][0]}}/products">
-		 Products</a></li>
-		</ul>
+	   % include('vendors/vendor_side_nav.tpl', vendor_info = vendor_info)
 	   </div>
 	   
       	   <div class="medium-10 columns">
@@ -41,15 +34,28 @@
 	   	<h5>Contacts</h5>
 	   <a href="/vendors/{{vendor_info[0][0]}}/contacts/add-contact">
 	      Add Contact</a>
+	      <table>
+	      <thead>
+	      <tr>
+	      <th>Name</th>
+	      <th>Title</th>
+	      <th>Phone</th>
+	      <th>Phone2</th>
+	      <th>email</th>
+	      </thead>
+	      <tbody>
 	      % for i in contacts:
-	      	<p>{{i[1]}}</p>
-		<p>title: {{i[2]}}</p>
-	      	<p>phone: {{i[3]}}</p>
-	      	<p>alt phone:{{i[4]}}</p>
-	      	<p>email:{{i[5]}}</p>
-		<a href="/vendors/{{vendor_info[0][0]}}/contacts/edit-contact-{{i[0]}}">Edit</a>
-		<hr>
-	      % end
+	      <tr class="table-anchor"
+	      onclick="location.href='/vendors/{{vendor_info[0][0]}}/contacts/edit-contact-{{i[0]}}'">
+	      	<td>{{i[1]}}</td>
+		<td>{{i[2]}}</td>
+	      	<td>{{i[3]}}</td>
+	      	<td>{{i[4]}}</td>
+	      	<td>{{i[5]}}</td>
+		</tr>
+		% end
+		</tbody>
+		</table>
 	   </div>
 
 	   </div>

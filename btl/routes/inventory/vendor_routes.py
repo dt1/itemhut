@@ -6,6 +6,7 @@ from route_utils import *
 @post("/vendors/<vid>/contacts/edit-contact-<cid>")
 @view("views/vendors/edit_contact", inv = inv)
 def edit_vendor_contact(vid, cid):
+    vendor_info = get_vendor_info(vid)
     contact_info = select_vendor_contact_info(cid)
     if request.POST.get("edit-contact"):
         contact_name = request.POST.get("name")
@@ -17,24 +18,29 @@ def edit_vendor_contact(vid, cid):
                               alt_phone, email)
         redirect("/vendors/{0}/contacts/edit-contact-{1}".format(vid, cid))
     else:
-        return dict(contact_info = contact_info, vid = vid)
+        return dict(contact_info = contact_info, vid = vid,
+                    vendor_info = vendor_info)
 
 @route("/vendors/<vid>/products/add-product")
 @post("/vendors/<vid>/products/add-product")
 @view("views/vendors/add_product", inv = inv)
 def add_vendor_product(vid):
+    vendor_info = get_vendor_info(vid)
     item_list = select_upc_list()
     if request.POST.get("add-product"):
         upc = request.POST.get("upc")
         insert_product_vendor(vid, upc)
-        return dict(upc = upc, item_list = item_list, vid = vid)
+        return dict(upc = upc, item_list = item_list, vid = vid,
+                    vendor_info = vendor_info)
     else:
-        return dict(upc = None, item_list = item_list, vid = vid)
+        return dict(upc = None, item_list = item_list, vid = vid,
+                    vendor_info = vendor_info)
     
 @route("/vendors/<vid>/contacts/add-contact")
 @post("/vendors/<vid>/contacts/add-contact")
 @view("views/vendors/add_contact", inv = inv)
 def add_vendor_contact(vid):
+    vendor_info = get_vendor_info(vid)
     if request.POST.get("add-contact"):
         contact_name = request.POST.get("name")
         contact_title = request.POST.get("title")
@@ -43,33 +49,35 @@ def add_vendor_contact(vid):
         email = request.POST.get("email")
         insert_vendor_contact(vid, contact_name, contact_title, phone,
                        alt_phone, email)
-        return dict(contact_name = contact_name, vid = vid)
+        return dict(contact_name = contact_name, vid = vid,
+                    vendor_info = vendor_info)
     else:
-        return dict(contact_name = None, vid = vid)
+        return dict(contact_name = None, vid = vid,
+                    vendor_info = vendor_info)
     
 @route("/vendors/<vid>/contacts")
 @view("views/vendors/vendor_contacts", inv = inv)
 def vendor_contacts(vid):
-    v_info = get_vendor_info(vid)
+    vendor_info = get_vendor_info(vid)
     v_contacts = select_vendor_contacts(vid)
     return dict(contacts = v_contacts,
-                    vendor_info = v_info)
+                    vendor_info = vendor_info)
 
 @route("/vendors/<vid>/products")
 @view("views/vendors/vendor_products", inv = inv)
 def vendor_contacts(vid):
-    v_info = get_vendor_info(vid)
+    vendor_info = get_vendor_info(vid)
     v_products = select_vendor_products(vid)
     return dict(vendor_products = v_products,
-                    vendor_info = v_info)
+                    vendor_info = vendor_info)
     
 @route("/vendors/<vid>")
 @view("views/vendors/vendor_info", inv = inv)
 def vendor_info(vid):
-    v_info = get_vendor_info(vid)
+    vendor_info = get_vendor_info(vid)
     v_contacts = select_vendor_contacts(vid)
     v_products = select_vendor_products(vid)
-    return dict(vendor_info = v_info, contacts = v_contacts,
+    return dict(vendor_info = vendor_info, contacts = v_contacts,
                     vendor_products = v_products)
 
 @route("/vendors/<vid>/edit-vendor")
