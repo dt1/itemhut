@@ -176,8 +176,8 @@ def insert_images(sku, main_image, image_one,
               image_ten, image_eleven,
               image_twelve, swatch_image])
 
-def update_product_data(old_sku, new_sku, upc, sku_type, product_name,
-                     product_description, image):
+def update_product_data(old_sku, new_sku, upc, sku_type,
+                        product_name, product_description, image):
     if old_sku.strip() != new_sku.strip():
         dbconn.cur.execute(
             """
@@ -187,12 +187,14 @@ def update_product_data(old_sku, new_sku, upc, sku_type, product_name,
             where sku = %s;
             commit;
             """, [new_sku, old_sku])
+        
     insert_sku_upc(new_sku, upc, sku_type)
     insert_product_descriptions(new_sku, product_name,
                                 product_description, None,
                                 None, None, None, None)
-    insert_images(new_sku, image, None, None, None, None, None, None,
-                  None, None, None, None, None, None, None)
+    if image:
+        insert_images(new_sku, image, None, None, None, None, None,
+                      None, None, None, None, None, None, None, None)
 
 def get_sku_data(sku):
     dbconn.cur.execute(

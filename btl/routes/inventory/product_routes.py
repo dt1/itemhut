@@ -15,18 +15,26 @@ def update_product(pid):
         product_name = request.POST.get("product-name")
         product_description = request.POST.get("product-description")
         main_image = request.POST.get("main-image")
+
+        if main_image:
+            save_path = "uploaded_files/images/{0}".format(main_image)
+
+            if not os.path.exists(save_path):
+                os.makedirs(save_path)
+
+                main_image.save(save_path, overwrite=True)
+
+                image_path = "{0}/{1}".format(main_image,
+                                              main_image.filename)
         
-        save_path = "uploaded_files/images/{0}".format(main_image)
+                update_product_data(pid, sku, upc, sku_type,
+                                    product_name, product_description,
+                                    image_path)
+        else:
+            update_product_data(pid, sku, upc, sku_type,
+                                product_name, product_description,
+                                None)
 
-        if not os.path.exists(save_path):
-            os.makedirs(save_path)
-
-        main_image.save(save_path, overwrite=True)
-
-        image_path = "{0}/{1}".format(main_image, main_image.filename)
-        
-        update_product_data(pid, sku, upc, sku_type, product_name,
-                            product_description, image_path)
         redirect("/products/update-product-{0}".format(sku))
     return dict(sku_data = sku_data, sku_types = stypes,
                     sku = pid)

@@ -45,12 +45,12 @@ def warehouse_gen_information(wh):
 def warehouse_add_product(wh):
     wh_info = warehouse_information(wh)
     sku_upc = select_sku_upc_not_in_3pl(wh)
-    if request.POST.get("add-product"):
-        upc = request.POST.get("upc")
-        qty = request.POST.get("qty")
-        insert_3pl_product(wh, upc, qty)
-        return dict(wh_info = wh_info, sku_upc = sku_upc, upc=upc)
     if wh_info[0][6] == '3PL':
+        if request.POST.get("add-product"):
+            upc = request.POST.get("upc")
+            qty = request.POST.get("qty")
+            insert_3pl_product(wh, upc, qty)
+            return dict(wh_info = wh_info, sku_upc = sku_upc, upc=upc)
         return dict(wh_info = wh_info, sku_upc = sku_upc)
     else:
         return error404("err")
@@ -96,16 +96,14 @@ def update_picking_location(wh, pid):
     wh_info = warehouse_information(wh)
     pl_info = select_picking_location_info(pid)
     sku_upc = sku_upcs()
-    if request.POST.get("update-picking-location"):
-        picking_location = request.POST.get("picking-location")
-        upc = request.POST.get("upc")
-        qty = request.POST.get("qty")
-        update_picking_location_info(pid, picking_location, upc, qty)
-        url = "/warehouses/{0}/update-picking-location-{1}".format(wh, pid)
-        redirect(url)
-        return dict(pid = pid, wh_info = wh_info, sku_upc = sku_upc,
-                    pl_info = pl_info)
     if wh_info:
+        if request.POST.get("update-picking-location"):
+            picking_location = request.POST.get("picking-location")
+            upc = request.POST.get("upc")
+            qty = request.POST.get("qty")
+            update_picking_location_info(pid, picking_location, upc, qty)
+            url = "/warehouses/{0}/update-picking-location-{1}".format(wh, pid)
+            redirect(url)
         return dict(pid = pid, wh_info = wh_info, sku_upc = sku_upc,
                     pl_info = pl_info)
     else:
@@ -160,11 +158,11 @@ def delete_pallet_location(wh, pid):
 @view("views/warehouse/add_pallet_location", inv = inv)
 def add_pallet_location(wh):
     wh_info = warehouse_information(wh)
-    if request.POST.get("add-pallet-location"):
-        location_name = request.POST.get("location-name")
-        insert_pallet_location(wh, location_name)
-        return dict(wh_info = wh_info, location_name = location_name)
     if wh_info:
+        if request.POST.get("add-pallet-location"):
+            location_name = request.POST.get("location-name")
+            insert_pallet_location(wh, location_name)
+            return dict(wh_info = wh_info, location_name = location_name)
         return dict(wh_info = wh_info, location_name = None)
     else:
         return error404("err")
