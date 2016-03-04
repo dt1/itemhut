@@ -127,7 +127,7 @@ def insert_product_vendor(vendor_id, upc):
         """
         begin;
         insert into vendor.vendor_products (vendor_id, upc)
-        values (%s, %s)
+        values (%s, %s::bigint)
         on conflict (upc)
         do nothing;
         commit;
@@ -137,8 +137,12 @@ def select_upc_list():
     dbconn.cur.execute(
         """
         select sku, upc
-        from product.sku_upc
-        where upc is not null;
+        from product.sku_upc psu
+        where upc is not null
+        and not exists
+        (select *
+        from vendor.vendor_products
+        where upc = psu.upc);
         """)
     a = dbconn.cur.fetchall()
     return a
@@ -155,3 +159,13 @@ def select_vendor_products(vid):
         """, [vid])
     a = dbconn.cur.fetchall()
     return a
+
+def delete_vendor_product(vid, upc):
+    dbconn.cur.execute(
+        """
+        begin;
+        delete from vendor.vendor_products
+        where vendor_id = %s
+        and upc = %s::bigint;
+        commit;
+        """, [vid, upc])

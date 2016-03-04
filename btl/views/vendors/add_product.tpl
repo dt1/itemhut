@@ -21,7 +21,6 @@
     <!-- original content goes in this container -->
 
     <div class="off-canvas-content" data-off-canvas-content>
-
       <div class="expanded row">
       	   <div class="medium-2 columns">
 	   % include('vendors/vendor_side_nav.tpl', vendor_info = vendor_info)
@@ -40,14 +39,15 @@
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
+		<th></th>
 		<th>SKU</th>
 		<th>UPC</th>
 		</tr>
 	   </thead>
 	   <tbody>
 	   % for i in item_list:
-		<tr class="table-anchor"
-		onclick="location.href='/products/update-product-{{i[0]}}'">
+		<tr>
+		<td><input type="radio" name="upc" value="{{i[1]}}"></td>
 		<td>{{i[0]}}</td>
 		<td>{{i[1]}}</td>
 		</tr>
@@ -55,7 +55,7 @@
 	   </tbody>
 	   </table>
 	   <input type="submit" class="button" name="add-product" value="Add Product">
-	   <form>
+	   </form>
 	   </div>
 	   </div>
 	   </div>

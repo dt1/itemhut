@@ -11,9 +11,9 @@ import bcrypt
 import hmac
 
 from models.amazon import *
-from models.product import *
+import models.product as prd
 from models.warehouse.warehouse import *
-from models.vendors import *
+import models.vendors as ven
 from models.admin import *
 from models.incoming import *
 from models.orders import *

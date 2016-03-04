@@ -25,67 +25,68 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   <h4>Add Kit</h4>
-	   	<ul class="vertical menu">
-		</ul>
-		% include('products/product_side_nav')
+	   <h4>Add Product</h4>
+	   % include('products/product_side_nav')
 	   </div>
 
       	   <div class="medium-10 columns">
-
 	   % if new_sku:
-	   	   <p>New Master Sku Added: {{new_sku}}
+	   <p>Added {{new_sku}}</p>
 	   % end
+	   <form action="/products/add-kit" method="POST"
+	   enctype="multipart/form-data">
 
-	   % if err:
-	     <p>{{err}}</p>
-	   % end
-	   
-	   <form action="/products/add-kit" method="POST" id="input-form">
 	   <div class="row">
-	   <div class="medium-3 columns">
-	   <label> Master SKU
-		<input type="text" name="master-sku" required="required">
-	   </label>
-
-	   <div class="medium-9 columns">
-	   </div>
-	   </div>
-	   </div>
-
-	   % for i in range(1, 11):
-	   <div class="row">
-	   <div class="medium-3 columns" style="margin-top:2em;">
-	   <label>SKU
-	   <input list="kits" name="kit-name-{{i}}"></label>
-	   <datalist id="kits">
-		<option value=""></option>
-		% for item in sku_upc:
-		<option value="{{item[0]}}">
-           	% end
-		</datalist>
-	   </div>
-	   <div class="medium-3 columns">
-	   <label>Qty
-		<input type="number" min="1" name="kit-amt-{{i}}">
+	   <div class="medium-2 columns">
+	   <label>Sku
+	   	  <input type="text" name="sku" required="required">
 	   </label>
 	   </div>
+
+	   <div class="medium-2 columns">
+	   <label>Product Name
+	   	  <input type="text" name="product-name" required="required">
+	   </label>
+	   </div>
+
+	   <div class="medium-4 columns">
+	   </div>
+
+	   </div>
+	   <div class="row">
+	   <div class="medium-6 columns">
+	   <label>Product Description
+	   		  <textarea name="product-description"></textarea>
+           </label>
 	   <div class="medium-6 columns">
 	   </div>
-
 	   </div>
-	   % end
+	   </div>
 
-	    <input type="submit" class="button" value="Add Kit" name="add-kit">
-	    </form>
+	   <div class="row">
+	   <div class="medium-6 columns">
+	   <label>Image
+		<input type="file" name="main-image">
+	   </label>
+	   <div class="medium-6 columns">
+ 	   </div>
+	   </div>
+	   </div>
 
+	   <div class="row">
+	   <div class="medium-6 columns">
 
+	   <div class="row">
+	   <div class="medium-2 columns">
+	   <input type="submit" class="button" value="Add Kit" name="add-product">
+	   </div>
+	   </div>
+
+	   </form>
 	   </div>
       </div>
 
     </div>
-
-
   <!-- close wrapper, no more content after this -->
 
   </div>

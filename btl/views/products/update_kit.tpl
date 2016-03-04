@@ -25,36 +25,66 @@
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   <h4>Kits</h4>
-	   % include('products/product_side_nav')
+	   <h4>Add Kit</h4>
+	   	<ul class="vertical menu">
+		</ul>
+		% include('products/product_side_nav')
 	   </div>
-	   
+
       	   <div class="medium-10 columns">
+	   
+	   <form action="/products/add-kit" method="POST" id="input-form">
+	   <div class="row">
+	   <div class="medium-3 columns">
+	   <label> Master SKU
+		<input type="text" name="master-sku" value="{{sku}}" required="required">
+	   </label>
+
+	   <div class="medium-9 columns">
+	   </div>
+	   </div>
+	   </div>
+
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
-		<th>Master SKU</th>
-		<th>Child SKU(s)</th>
 		<th></th>
+		<th>SKU</th>
+		<th>UPC</th>
 		</tr>
 	   </thead>
 	   <tbody>
-	   % for i in kits:
-		<tr class="table-anchor"
-		onclick="location.href='/products/update-kit-{{i[0]}}'">
+
+		% for i in sku_upc:
+		<tr>
+		<td><input type="radio" name="upc" value="{{i[1]}}"></td>
 		<td>{{i[0]}}</td>
 		<td>{{i[1]}}</td>
-		<td><a href="/products/add-kit-children-{{i[0]}}">
-		       Add children</a></td>
 		</tr>
 		% end
 	   </tbody>
 	   </table>
-	   </div>      
+
+	   <div class="row">
+	   <div class="medium-3 columns">
+	   <label>Qty
+		<input type="number" min="1" name="qty"
+		required="required">
+	   </label>
+	   </div>
+	   <div class="medium-6 columns">
+	   </div>
+	   </div>
+	    <input type="submit" class="button" value="Add Kit" name="add-kit">
+
+	   
+	    </form>
+
+
+	   </div>
       </div>
 
     </div>
-
 
 
   <!-- close wrapper, no more content after this -->
@@ -62,7 +92,6 @@
   </div>
 
 </div>
-
 <script>
 $(document).ready( function () {
     $('#table_id').DataTable();
@@ -77,12 +106,13 @@ width: 5em;
 
 .dataTables_filter{
 width:15em;
-margin-left:-27em;
+margin-left:-25em;
 }
 
 .dataTables_paginate{
-margin-left:-22em;
+margin-left:-20em;
 }
 </style>
+
 
 % include('global/end_body.tpl')

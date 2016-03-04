@@ -18,6 +18,7 @@
 % include('global/top_nav.tpl')
 % end
 
+
     <!-- original content goes in this container -->
 
     <div class="off-canvas-content" data-off-canvas-content>
@@ -36,6 +37,7 @@
 		<tr>
 		<th>SKU</th>
 		<th>UPC</th>
+		<th></th>
 		</tr>
 	   </thead>
 	   <tbody>		
@@ -43,6 +45,7 @@
 	      <tr>
 	      <td>{{product[1]}}</td>
 	      <td>{{product[0]}}</td>
+	      <td><a href="/vendors/{{vendor_info[0][0]}}/products/delete-product-{{product[0]}}">delete</a></td>
 	      </tr>
 	      % end
 	      </tbody>
