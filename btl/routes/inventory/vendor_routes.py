@@ -41,9 +41,9 @@ def add_vendor_product(vid):
     item_list = ven.select_upc_list()
     if request.POST.get("add-product"):
         upc = request.POST.get("upc")
-        insert_product_vendor(vid, upc)
-        return dict(upc = upc, item_list = item_list, vid = vid,
-                    vendor_info = vendor_info)
+        ven.insert_product_vendor(vid, upc)
+        url = "/vendors/{0}/products/add-product".format(vid)
+        redirect(url)
     else:
         return dict(upc = None, item_list = item_list, vid = vid,
                     vendor_info = vendor_info)

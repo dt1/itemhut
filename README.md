@@ -51,6 +51,7 @@ $ psql -d itemhut -U postgres -f /itemhut/build_database/vendors/vendors.sql
 $ psql -d itemhut -U postgres -f /itemhut/build_database/incoming/incoming.sql
 $ psql -d itemhut -U postgres -f /itemhut/build_database/users/users.sql
 $ psql -d itemhut -U postgres -f /itemhut/build_database/orders/orders.sql
+$ psql -d itemhut -U postgres -f /itemhut/build_database/customers/company.sql
 ```
 
 run bottle:

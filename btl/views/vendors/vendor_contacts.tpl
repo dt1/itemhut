@@ -32,9 +32,7 @@
 	   <div class="row">
 	   <div class="medium-5 columns">
 	   	<h5>Contacts</h5>
-	   <a href="/vendors/{{vendor_info[0][0]}}/contacts/add-contact">
-	      Add Contact</a>
-	      <table>
+	      <table id="table_id" class="display">
 	      <thead>
 	      <tr>
 	      <th>Name</th>
@@ -42,16 +40,18 @@
 	      <th>Phone</th>
 	      <th>Phone2</th>
 	      <th>email</th>
+	      <th></th>
+	      </tr>
 	      </thead>
 	      <tbody>
 	      % for i in contacts:
-	      <tr class="table-anchor"
-	      onclick="location.href='/vendors/{{vendor_info[0][0]}}/contacts/edit-contact-{{i[0]}}'">
+	      <tr>
 	      	<td>{{i[1]}}</td>
 		<td>{{i[2]}}</td>
 	      	<td>{{i[3]}}</td>
 	      	<td>{{i[4]}}</td>
 	      	<td>{{i[5]}}</td>
+	      	<td><a href="/vendors/{{vendor_info[0][0]}}/contacts/edit-contact-{{i[0]}}">View / Edit</a></td>
 		</tr>
 		% end
 		</tbody>

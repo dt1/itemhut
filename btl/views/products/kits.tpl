@@ -36,14 +36,16 @@
 		<th>Master SKU</th>
 		<th>Child SKU(s)</th>
 		<th></th>
+		<th></th>
 		</tr>
 	   </thead>
 	   <tbody>
 	   % for i in kits:
-		<tr class="table-anchor"
-		onclick="location.href='/products/update-kit-{{i[0]}}'">
+		<tr>
 		<td>{{i[0]}}</td>
 		<td>{{i[1]}}</td>
+		<td><a href="/products/update-kit-{{i[0]}}">
+		       View / Edit</a></td>
 		<td><a href="/products/add-kit-children-{{i[0]}}">
 		       Add children</a></td>
 		</tr>

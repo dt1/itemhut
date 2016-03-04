@@ -38,16 +38,17 @@
 		<th>UPC</th>
 		<th>SKU Type</th>
 		<th>Product Name</th>
+		<th></th>
 		</tr>
 	   </thead>
 	   <tbody>
 	   % for i in sku_upc:
-		<tr class="table-anchor"
-		onclick="location.href='/products/update-product-{{i[0]}}'">
+		<tr>
 		<td>{{i[0]}}</td>
 		<td>{{i[1]}}</td>
 		<td>{{i[2]}}</td>
 		<td>{{i[3]}}</td>
+		<td><a href="/products/update-product-{{i[0]}}">View / Edit</a></td>
 		</tr>
 		% end
 	   </tbody>

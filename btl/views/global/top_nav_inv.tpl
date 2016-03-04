@@ -23,6 +23,9 @@
             <a href="/orders">Orders</a>
           </li>
           <li>
+            <a href="/companies">Companies</a>
+          </li>
+          <li>
             <a href="/admin">Admin</a>
           </li>
       </ul>

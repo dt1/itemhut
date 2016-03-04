@@ -7,10 +7,10 @@
 
 <ul class="menu">
 <li><a href="/">Home</a></li>
+<li><a href="#features">Features</a></li>
 <li><a href="#what">What We Are</a></li>
 <li><a href="#open-source">Open Source</a></li>
 <li><a href="#customizable">Customizable</a></li>
-<li><a href="#features">Features</a></li>
 <li><a href="#pricing">Pricing</a></li>
 <li><a href="#contact">Contact</a></li>
 </ul>
@@ -31,6 +31,121 @@
 </div>
 </div>
 
+<div class="row column text-center" id="features">
+<hr>
+<h2>Features</h2>
+</div>
+
+<div class="row">
+
+<div class="medium-2 columns">
+<p></p>
+</div>
+
+<div class="medium-4 columns">
+  <h4>Inventory & Warehousing</h4>
+  <img src="/static/images/pallet-boxes.png" width="200px">
+  <ul>
+    <li>Pallet Management</li>
+    <li>Picking Location Management</li>
+    <li>Quality Control</li>
+    <li>User Logging</li>
+    <li>Incoming Inventory</li>
+    <li>3PL (3rd Party Warehouses)</li>
+    <li>Vendor Management</li>
+  </ul>
+</div>
+
+
+<div class="medium-4 columns">
+<h4>Product Management</h4>
+
+<ul>
+  <li>SKUs & UPCs</li>
+</ul>
+
+<div class="row">
+
+</div>
+<img src="/static/images/barcode.png">
+<ul>
+  <li>Kitting</li>
+</ul>
+
+<div class="row">
+
+<div class="medium-2 columns">
+<img src="/static/images/blue-pen.png">
+<p>50pcs</p>
+</div>
+
+<div class="medium-2 columns">
+<img src="/static/images/blue-plus.png" width="20px">
+</div>
+
+
+<div class="medium-3 columns">
+<img src="/static/images/notepad.png">
+<p>70pcs</p>
+</div>
+
+<div class="medium-2 columns">
+<img src="/static/images/blue-equals.png" width="20px">
+</div>
+
+<div class="medium-3 columns">
+<img src="/static/images/notepad-pen.png">
+<p>50pcs</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="medium-2 columns">
+<p></p>
+</div>
+
+</div>
+
+
+<div class="row">
+<hr>
+<div class="medium-2 columns">
+<p></p>
+</div>
+
+<div class="medium-4 columns">
+  <h4>Order Management</h4>
+<img src="/static/images/order-book.png" width="150px">
+</div>
+
+<div class="medium-4 columns">
+  <h4>Customer Management</h4>
+<img src="/static/images/customer-service-icon.png" width="150px">
+</div>
+
+
+<div class="medium-2 columns">
+<p></p>
+</div>
+
+</div>
+
+<div class="row text-center">
+<hr>
+  <h4>Upcoming</h4>
+  
+<ul>
+  <li>Channels Management</li>
+  <li>Shipping</li>
+  <li>Email Ticketing</li>
+  <li>CRM</li>
+  <li>Email Ticketing</p>
+</ul>
+</div>
+
+</div>
 
 <div class="row column text-center" id="what">
 <hr>
@@ -122,43 +237,7 @@ piece of software that fits their needs.</p>
 
 </div>
 
-<div class="row column text-center" id="features">
-<hr>
-<h2>Features</h2>
-</div>
 
-<div class="row">
-<div class="medium-4 columns">
-  <h4>Inventory</h4>
-  <ul>
-    <li>3PL (3rd Party Warehouses)</li>
-    <li>Pallet Management</li>
-    <li>Picking Location Management</li>
-    <li>Quality Control</li>
-    <li>User Logging</li>
-    <li>Incoming Inventory</li>
-    <li>Vendor Management</li>
-  </ul>
-</div>
-<div class="medium-4 columns">
-  <h4>Product Management</h4>
-<ul>
-  <li>SKUs</li>
-  <li>Kitting</li>
-</ul>
-</div>
-<div class="medium-4 columns">
-  <h4>Upcoming</h4>
-<ul>
-  <li>Channels Management</li>
-  <li>Shipping</li>
-  <li>Email Ticketing</li>
-  <li>Order Management</li>
-  <li>CRM</li>
-  <li>Email Ticketing</p>
-</ul>
-</div>
-</div>
 
 <div class="row column text-center" id="pricing">
 <hr>
@@ -206,7 +285,7 @@ piece of software that fits their needs.</p>
 <div class="row">
   <div class="medium-12 columns text-center" id="contact">
   <ul class="vertical menu">
-  <li><b>Contact David to Sign Up</b></li>
+  <li><b>Contact David for a Free Demo</b></li>
   <li><a href="mailto:david.t@itemhut.com">david.t@itemhut.com</a></li>
   <li>512-769-7253</li>
   </ul>
