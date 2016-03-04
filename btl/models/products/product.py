@@ -4,6 +4,8 @@ import sys
 sys.path.append("/itemhut/pydb")
 import dbconn
 
+from models.products.kits import *
+
 def sku_upcs():
     dbconn.cur.execute(
         """
@@ -15,32 +17,6 @@ def sku_upcs():
     a = dbconn.cur.fetchall()
     return a
 
-def sku_kit_candidates(sku):
-    dbconn.cur.execute(
-        """
-        select sku, upc, product_name
-        from product.sku_upc psu
-        left join product.descriptions
-        using (sku)
-        where sku_type <> 'master'
-        and not exists
-        (select *
-         from product.kits
-         where child_sku = psu.sku
-         and master_sku = %s);
-        """, [sku])
-    a = dbconn.cur.fetchall()
-    return a
-
-def select_sku_kits(sku):
-    dbconn.cur.execute(
-        """
-        select child_sku, child_sku_qty
-        from product.kits
-        where master_sku = %s;
-        """, [sku])
-    a = dbconn.cur.fetchall()
-    return a
 
 def select_reg_products():
     dbconn.cur.execute(
@@ -64,41 +40,6 @@ def sku_types():
     a = dbconn.cur.fetchall()
     return a
 
-def select_kits():
-    dbconn.cur.execute(
-        """
-        select master_sku, 
-        string_agg(child_sku || ' (' || child_sku_qty || ')', ' ')
-        from product.kits
-        group by master_sku
-
-        union
-
-        select sku, null
-        from product.sku_upc psu
-        where sku_type = 'master'
-        and not exists
-	   (select *
-	    from product.kits
-	    where master_sku = psu.sku);
-        """)
-    a = dbconn.cur.fetchall()
-    return a
-
-def insert_sku_upc(sku, upc, sku_type):
-    if upc == '':
-        upc = None
-    dbconn.cur.execute(
-        """
-        begin;
-        insert into product.sku_upc (sku, upc, sku_type)
-        values (trim(%s), %s::bigint, %s)
-        on conflict (sku)
-        do update
-        set upc = excluded.upc,
-        sku_type = excluded.sku_type;
-        commit;
-        """, [sku, upc, sku_type])
 
 def insert_product_descriptions(sku, product_name,
                                 product_description, bullet_one,
@@ -124,24 +65,6 @@ def insert_product_descriptions(sku, product_name,
         commit;
         """, [sku, product_name, product_description, bullet_one,
              bullet_two, bullet_three, bullet_four, bullet_five])
-
-def insert_kit(master_sku, kit_sku, kit_amt):
-    dbconn.cur.execute(
-        """
-        begin;
-        insert into product.kits (master_sku, child_sku, child_sku_qty)
-        values(%s, %s, %s);
-        commit;
-        """, [master_sku, kit_sku, kit_amt])
-
-def delete_kit_child(master, child):
-    dbconn.cur.execute(
-        """
-        begin;
-        delete from product.kits
-        where master_sku = %s
-        and child_sku = %s;
-        """, [master, child])
     
 def get_upcs():
     dbconn.cur.execute(
