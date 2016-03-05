@@ -42,13 +42,13 @@
 		<th>Qty</th>
 		<th></th>
 		<th></th>
+		<th></th>
 		</tr>
 	    </thead>
 	    </tbody>
 		% for item in pallet_location_list:
 		% if item[2]:
-		<tr class="table-anchor"
-		onclick="location.href='/warehouses/{{wh_info[0][0]}}/update-pallet-{{item[2]}}'">
+		<tr>
 		<td>{{item[1]}}</td>
 		<td>{{item[2]}}</td>
 		% if item[3]:
@@ -68,13 +68,13 @@
 		% else:
 		<td>Empty</td>
 		% end
+		<td><a href="/warehouses/{{wh_info[0][0]}}/update-pallet-{{item[2]}}">Update Pallet</a></td>
 		<td><a href="/warehouses/{{wh_info[0][0]}}/delete-pallet-location-{{item[0]}}">delete</a></td>
 		<td><a href="/warehouses/{{wh_info[0][0]}}/move-to-picking-{{item[2]}}">move to picking</a></td>
 		</tr>
 
 		% else:
-		<tr class="table-anchor"
-		onclick="location.href='/warehouses/{{wh_info[0][0]}}/add-pallet-to-ploc-{{item[0]}}'">
+		<tr>
 		<td>{{item[1]}}</td>
 		<td>Empty</td>
 		% if item[3]:
@@ -94,6 +94,7 @@
 		% else:
 		<td>Empty</td>
 		% end
+		<td><a href="/warehouses/{{wh_info[0][0]}}/add-pallet-to-ploc-{{item[0]}}">Add Pallet</a></td>
 		<td><a href="/warehouses/{{wh_info[0][0]}}/delete-pallet-location-{{item[0]}}">delete</a></td>
 		<td><a href="/warehouses/{{wh_info[0][0]}}/move-to-picking-{{item[2]}}">move to picking</a></td>
 		</tr>

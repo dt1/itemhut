@@ -24,7 +24,10 @@ def add_company():
         state = request.POST.get("state")
         zipcode = request.POST.get("zip")
         country = request.POST.get("country")
-        url = "/companies/edit-company-{0}".format(1)
+        cid = com.insert_company(uid, cname, phone1, phone2, fax,
+                                 email, street, state, zipcode,
+                                 country)
+        url = "/companies/edit-company-{0}".format(cid[0][0])
         redirect(url)
     return dict()
 

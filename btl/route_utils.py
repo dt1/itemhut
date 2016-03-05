@@ -17,6 +17,7 @@ import models.vendors as ven
 from models.admin import *
 from models.incoming import *
 from models.orders import *
+import models.companies as com
 
 import sys
 sys.path.append("/itemhut/pydb")
