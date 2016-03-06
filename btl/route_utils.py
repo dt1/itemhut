@@ -47,14 +47,11 @@ def error404(error):
 def error403(error):
     return "page restricted. Please press the back button"
 
-@hook('before_request')
 def check_user():
-    def inner(*args, **kwargs):
-        if 'username' in request.session:
-            un = request.session["username"]
-            return True
-        redirect("/login")
-    return inner
+    if 'username' in request.session:
+        un = request.session["username"]
+        return True
+    redirect("/login")
 
 def check_admin():
     if 'username' in request.session:

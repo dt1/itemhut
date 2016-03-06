@@ -27,6 +27,7 @@ def get_images(filename):
 # home page    
 @route("/")
 def index():
+    check_user()
     return template("views/home/home", inv = True)
 
 debug(True)

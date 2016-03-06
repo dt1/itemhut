@@ -6,6 +6,7 @@ from route_utils import *
 @post("/companies/<cid:int>/contacts/edit-contact-<cnid:int>")
 @view("views/companies/edit_contact", inv = inv)
 def edit_company_contact(cid, cnid):
+    check_user()
     cinfo = com.select_company_info(cid)
     contact_info = com.select_contact(cnid)
     if request.POST.get("edit-contact"):
@@ -27,6 +28,7 @@ def edit_company_contact(cid, cnid):
 @post("/companies/<cid:int>/add-contact")
 @view("views/companies/add_contact", inv = inv)
 def add_company_contact(cid):
+    check_user()
     cinfo = com.select_company_info(cid)
     if request.POST.get("add-contact"):
         contact_name = request.POST.get("contact-name")
@@ -43,12 +45,14 @@ def add_company_contact(cid):
 @route("/companies/<cid:int>/contacts")
 @view("views/companies/contacts", inv = inv)
 def company_contacts(cid):
+    check_user()
     cinfo = com.select_company_info(cid)
     contact_list = com.select_company_contacts(cid)
     return dict(cinfo = cinfo[0], contact_list = contact_list)
 
 @route("/companies/<cid:int>")
 def reroute_company(cid):
+    check_user()
     url = "/companies/edit-company-{0}".format(cid)
     redirect(url)
 
@@ -56,6 +60,7 @@ def reroute_company(cid):
 @post("/companies/edit-company-<cid:int>")
 @view("views/companies/edit_company", inv = inv)
 def edit_company(cid):
+    check_user()
     cinfo = com.select_company_info(cid)
     if request.POST.get("edit-company"):
         uid = request.POST.get("company-uid")
@@ -80,6 +85,7 @@ def edit_company(cid):
 @post("/companies/add-company")
 @view("views/companies/add_company", inv = inv)
 def add_company():
+    check_user()
     if request.POST.get("add-company"):
         uid = request.POST.get("company-uid")
         cname = request.POST.get("company-name")
@@ -101,5 +107,6 @@ def add_company():
 @route("/companies")
 @view("views/companies/company_main", inv = inv)
 def companies():
+    check_user()
     cinfo = com.select_all_companies()
     return dict(cinfo = cinfo)

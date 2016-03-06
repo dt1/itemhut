@@ -6,6 +6,7 @@ from route_utils import *
 @post("/incoming/update-order-<oid>")
 @view("views/incoming/update_incoming_order", inv = inv)
 def update_incoming_order(oid):
+    check_user()
     if request.POST.get("arrived"):
         set_order_complete(oid)
     if request.POST.get("add-product"):
@@ -21,6 +22,7 @@ def update_incoming_order(oid):
 @route("/incoming/all-records")
 @view("views/incoming/incoming_main", inv = inv)
 def all_records():
+    check_user()
     orders = select_all_incoming_orders()
     return dict(orders = orders)
 
@@ -28,6 +30,7 @@ def all_records():
 @post("/incoming/add-record")
 @view("views/incoming/add_record", inv = inv)
 def add_record():
+    check_user()
     if request.POST.get("add-record"):
         invoice = request.POST.get("invoice")
         vendor_id = request.POST.get("vendor-id")
@@ -53,5 +56,6 @@ def add_record():
 @route("/incoming")
 @view("views/incoming/incoming_main", inv = inv)
 def incoming():
+    check_user()
     orders = select_incoming_orders()
     return dict(orders = orders)

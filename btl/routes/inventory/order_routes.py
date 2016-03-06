@@ -5,6 +5,7 @@ from route_utils import *
 @route("/orders")
 @view("views/orders/orders_main", inv = inv)
 def orders():
+    check_user()
     orders = select_all_orders()
     return dict(orders = orders)
 
@@ -12,6 +13,7 @@ def orders():
 @post("/orders/add-order")
 @view("views/orders/add_order", inv = inv)
 def add_order():
+    check_user()
     msku_list = select_valid_mskus()
     if request.POST.get("add-order"):
         order_id = request.POST.get("order-id")
