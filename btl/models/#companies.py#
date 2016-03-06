@@ -137,3 +137,6 @@ def update_contact(cnid, contact_name, position, phone1, phone2,
         where contact_id = %s::int;
         commit;
         """, [contact_name, position, phone1, phone2, email, cnid])
+
+
+http://localhost:8082/companies/2/contacts/edit-contact-1

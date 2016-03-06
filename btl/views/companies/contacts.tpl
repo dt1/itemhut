@@ -18,47 +18,48 @@
 % include('global/top_nav.tpl')
 % end
 
+
     <!-- original content goes in this container -->
 
     <div class="off-canvas-content" data-off-canvas-content>
 
       <div class="expanded row">
       	   <div class="medium-2 columns">
-	   	<h4>Vendors</h4>
-	   	<ul class="vertical menu">
-			<li>
-			<a href = "/vendors">All</a>
-			</li>
-			<li>
-			<a href = "/vendors/add-vendor">Add Vendor</a>
-			</li>
-		</ul>
-	   </div>
-	   
+	   % include('companies/companies_side_nav', cinfo = cinfo)
+		</div>
       	   <div class="medium-10 columns">
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
-		<th>ID</th>
 		<th>Name</th>
+		<th>Postion</th>
+		<th>Phone1</th>
+		<th>Phone2</th>
+		<th>email</th>
 		<th></th>
 		</tr>
 	   </thead>
 	   <tbody>
-	   % for i in vendors:
-	     <tr>
-	     <td>{{i[0]}}</td>
-	     <td>{{i[1]}}</td>
-	     <td><a href="/vendors/{{i[0]}}">View / Edit</a></td>
-	     </tr>
-	     % end
-	     </tbody>
-	     </table>
+	   % for i in contact_list:
+		<tr>
+		<td>{{i[1]}}</td>
+		<td>{{i[2]}}</td>
+		<td>{{i[3]}}</td>
+		<td>{{i[4]}}</td>
+		<td>{{i[5]}}</td>
+		<td><a href="/companies/{{cinfo[0]}}/contacts/edit-contact-{{i[0]}}">View / Edit</a></td>
+		</tr>
+		% end
+	   </tbody>
+	   </table>
+	   	
+	   </div>
 
-	   </div>      
       </div>
 
     </div>
+
+
 
   <!-- close wrapper, no more content after this -->
 
@@ -80,11 +81,11 @@ width: 5em;
 
 .dataTables_filter{
 width:15em;
-margin-left:-17em;
+margin-left:-25em;
 }
 
 .dataTables_paginate{
-margin-left:-12em;
+margin-left:-20em;
 }
 </style>
 

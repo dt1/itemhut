@@ -1,5 +1,9 @@
+<h4>{{cinfo[2]}}</h4>
 <ul class="vertical menu">
-<li><a href="/companies">All</a></li>
-<hr>
-<li><a href="/companies/add-company">Add Company</a></li>
+<li>
+<a href="/companies/{{cinfo[0]}}/contacts">Contacts</a>
+</li>
+<li>
+<a href="/companies/{{cinfo[0]}}/add-contact">Add Contact</a>
+</li>
 </ul>

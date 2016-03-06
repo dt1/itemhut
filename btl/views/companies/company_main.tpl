@@ -26,14 +26,36 @@
       <div class="expanded row">
       	   <div class="medium-2 columns">
 	   	<h4>Companies</h4>
-		% include('companies/companies_side_nav')
-	   </div>
-	   
+		<ul class="vertical menu">
+		<li><a href="/companies">All</a></li>
+		<hr>
+		<li>
+		<a href="/companies/add-company">Add Company</a>
+		</li>
+		</ul>
+		</div>
       	   <div class="medium-10 columns">
-	   <h4>Companies</h4>
+	   <table id="table_id" class="display">
+	   <thead>
+		<tr>
+		<th>ID</th>
+		<th>Name</th>
+		</tr>
+	   </thead>
+	   <tbody>
+	   % for i in cinfo:
+		<tr>
+		<td>{{i[1]}}</td>
+		<td>{{i[2]}}</td>
+		<td><a href="/companies/edit-company-{{i[0]}}">
+		       View / Edit</a></td>
+		</tr>
+		% end
+	   </tbody>
+	   </table>
+	   	
+	   </div>
 
-
-</div>      
       </div>
 
     </div>

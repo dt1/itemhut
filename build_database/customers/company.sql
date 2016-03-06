@@ -11,7 +11,7 @@ create table company.companies (
        company_fax varchar,
        company_email varchar,
        company_street varchar,
-       copmany_state varchar,
+       company_state varchar,
        company_zip varchar,
        company_country varchar
 );
