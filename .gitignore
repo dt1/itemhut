@@ -5,6 +5,8 @@
 *.sql~
 .#*
 __pycache__
-omark
+itemhut
 *~
 .~lock.*
+btl/uploaded_files/images
+btl/uploaded_files/invoices
