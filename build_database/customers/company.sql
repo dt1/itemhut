@@ -36,7 +36,8 @@ create table company.contacts (
 
 create table company.company_contact (
        company_id int,
-       contact_id int,
+       contact_id int primary key,
+       unique (company_id, contact_id),
        foreign key (company_id)
                references company.companies (company_id),
        foreign key (contact_id)

@@ -13,6 +13,7 @@ create table users.users (
        user_name varchar primary key,
        password varchar,
        user_role varchar,
+       person_name varchar,
        foreign key (user_role)
                references users.valid_user_roles (user_role)
 );
