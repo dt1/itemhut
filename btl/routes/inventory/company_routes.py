@@ -4,7 +4,7 @@ from route_utils import *
 
 @route("/companies/<cid:int>/contacts/edit-contact-<cnid:int>")
 @post("/companies/<cid:int>/contacts/edit-contact-<cnid:int>")
-@view("views/companies/edit_contact", inv = inv)
+@view("views/companies/edit_contact")
 def edit_company_contact(cid, cnid):
     check_user()
     cinfo = com.select_company_info(cid)
@@ -26,7 +26,7 @@ def edit_company_contact(cid, cnid):
 
 @route("/companies/<cid:int>/add-contact")
 @post("/companies/<cid:int>/add-contact")
-@view("views/companies/add_contact", inv = inv)
+@view("views/companies/add_contact")
 def add_company_contact(cid):
     check_user()
     cinfo = com.select_company_info(cid)
@@ -43,7 +43,7 @@ def add_company_contact(cid):
     return dict(cinfo = cinfo[0])
 
 @route("/companies/<cid:int>/contacts")
-@view("views/companies/contacts", inv = inv)
+@view("views/companies/contacts")
 def company_contacts(cid):
     check_user()
     cinfo = com.select_company_info(cid)
@@ -58,7 +58,7 @@ def reroute_company(cid):
 
 @route("/companies/edit-company-<cid:int>")
 @post("/companies/edit-company-<cid:int>")
-@view("views/companies/edit_company", inv = inv)
+@view("views/companies/edit_company")
 def edit_company(cid):
     check_user()
     cinfo = com.select_company_info(cid)
@@ -83,7 +83,7 @@ def edit_company(cid):
 
 @route("/companies/add-company")
 @post("/companies/add-company")
-@view("views/companies/add_company", inv = inv)
+@view("views/companies/add_company")
 def add_company():
     check_user()
     if request.POST.get("add-company"):
@@ -105,7 +105,7 @@ def add_company():
     return dict()
 
 @route("/companies")
-@view("views/companies/company_main", inv = inv)
+@view("views/companies/company_main")
 def companies():
     check_user()
     cinfo = com.select_all_companies()

@@ -1,10 +1,6 @@
 <!-- This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 
-% if inv:
 % include('global/header_inv.tpl')
-% else:
-% include('global/header.tpl')
-%end
 
 <div class="off-canvas-wrapper">
 
@@ -12,11 +8,7 @@
 
 % include('global/top_bar.tpl')
 
-% if inv:
 % include('global/top_nav_inv.tpl')
-% else:
-% include('global/top_nav.tpl')
-% end
 
     <!-- original content goes in this container -->
 
@@ -24,17 +16,7 @@
 
       <div class="expanded row">	   
       	   <div class="large-12 columns">
-	   	<h5>
-		    <a href="/" style = "color: #004291;">New Orders</a>
-		</h5>
-		<span>300 new orders</span>
-		<br>
-		<br>
-	   	<h5>
-		    <a href="/" style = "color: #004291;">New Emails</a>
-		</h5>
-		<span>300 new emails</span>
-
+	   <h3>This is a live demo. Please feel free to insert, delete, and alter any data you are able to.</h3>
 	   </div>      
       </div>
 

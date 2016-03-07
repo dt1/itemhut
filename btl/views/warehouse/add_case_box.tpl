@@ -1,10 +1,7 @@
 <!-- This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 
-% if inv:
+
 % include('global/header_inv.tpl')
-% else:
-% include('global/header.tpl')
-%end
 
 <div class="off-canvas-wrapper">
 
@@ -12,12 +9,7 @@
 
 % include('global/top_bar.tpl')
 
-% if inv:
 % include('global/top_nav_inv.tpl')
-% else:
-% include('global/top_nav.tpl')
-% end
-
 
     <!-- original content goes in this container -->
 

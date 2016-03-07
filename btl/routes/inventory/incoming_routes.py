@@ -4,7 +4,7 @@ from route_utils import *
 
 @route("/incoming/update-order-<oid>")
 @post("/incoming/update-order-<oid>")
-@view("views/incoming/update_incoming_order", inv = inv)
+@view("views/incoming/update_incoming_order")
 def update_incoming_order(oid):
     check_user()
     if request.POST.get("arrived"):
@@ -20,7 +20,7 @@ def update_incoming_order(oid):
                 upc_list = upc_list, products = products)
 
 @route("/incoming/all-records")
-@view("views/incoming/incoming_main", inv = inv)
+@view("views/incoming/incoming_main")
 def all_records():
     check_user()
     orders = select_all_incoming_orders()
@@ -28,7 +28,7 @@ def all_records():
 
 @route("/incoming/add-record")
 @post("/incoming/add-record")
-@view("views/incoming/add_record", inv = inv)
+@view("views/incoming/add_record")
 def add_record():
     check_user()
     if request.POST.get("add-record"):
@@ -54,7 +54,7 @@ def add_record():
     return dict(invoice_added = False)
 
 @route("/incoming")
-@view("views/incoming/incoming_main", inv = inv)
+@view("views/incoming/incoming_main")
 def incoming():
     check_user()
     orders = select_incoming_orders()

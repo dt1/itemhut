@@ -5,7 +5,7 @@ import bcrypt
 
 @route("/admin/add-user")
 @post("/admin/add-user")
-@view("views/admin/add_user", inv = inv)
+@view("views/admin/add_user")
 def add_user():
     check_admin()
     if request.POST.get("add-user"):
@@ -22,7 +22,7 @@ def add_user():
 
 @route("/admin/add-warehouse")
 @post("/admin/add-warehouse")
-@view("views/admin/add_warehouse", inv = inv, wh_err = None)
+@view("views/admin/add_warehouse", wh_err = None)
 def add_warehouse():
     check_admin()
     wh_types = select_warehouse_types()
@@ -48,6 +48,6 @@ def add_warehouse():
 
 # admin
 @route("/admin")
-@view("views/admin/admin_inv", inv = inv)
+@view("views/admin/admin_inv")
 def admin():
     check_admin()

@@ -4,7 +4,7 @@ from route_utils import *
 
 @route("/vendors/<vid>/contacts/edit-contact-<cid>")
 @post("/vendors/<vid>/contacts/edit-contact-<cid>")
-@view("views/vendors/edit_contact", inv = inv)
+@view("views/vendors/edit_contact")
 def edit_vendor_contact(vid, cid):
     check_user()
     vendor_info = ven.get_vendor_info(vid)
@@ -38,7 +38,7 @@ def delete_vendor_product(vid, pid):
 
 @route("/vendors/<vid>/products/add-product")
 @post("/vendors/<vid>/products/add-product")
-@view("views/vendors/add_product", inv = inv)
+@view("views/vendors/add_product")
 def add_vendor_product(vid):
     check_user()
     vendor_info = ven.get_vendor_info(vid)
@@ -53,7 +53,7 @@ def add_vendor_product(vid):
                     vendor_info = vendor_info)
 
 @route("/vendors/<vid>/products")
-@view("views/vendors/vendor_products", inv = inv)
+@view("views/vendors/vendor_products")
 def vendor_contacts(vid):
     check_user()
     vendor_info = ven.get_vendor_info(vid)
@@ -62,7 +62,7 @@ def vendor_contacts(vid):
                     vendor_info = vendor_info)
     
 @route("/vendors/<vid>")
-@view("views/vendors/vendor_info", inv = inv)
+@view("views/vendors/vendor_info")
 def vendor_info(vid):
     check_user()
     vendor_info = ven.get_vendor_info(vid)
@@ -73,7 +73,7 @@ def vendor_info(vid):
 
 @route("/vendors/<vid>/contacts/add-contact")
 @post("/vendors/<vid>/contacts/add-contact")
-@view("views/vendors/add_contact", inv = inv)
+@view("views/vendors/add_contact")
 def add_vendor_contact(vid):
     check_user()
     vendor_info = ven.get_vendor_info(vid)
@@ -92,7 +92,7 @@ def add_vendor_contact(vid):
                     vendor_info = vendor_info)
     
 @route("/vendors/<vid>/contacts")
-@view("views/vendors/vendor_contacts", inv = inv)
+@view("views/vendors/vendor_contacts")
 def vendor_contacts(vid):
     check_user()
     vendor_info = ven.get_vendor_info(vid)
@@ -102,7 +102,7 @@ def vendor_contacts(vid):
 
 @route("/vendors/<vid>/edit-vendor")
 @post("/vendors/<vid>/edit-vendor")
-@view("views/vendors/edit_vendor", inv = inv)
+@view("views/vendors/edit_vendor")
 def edit_vendor(vid):
     check_user()
     vendor_info = ven.get_vendor_info(vid)
@@ -128,7 +128,7 @@ def edit_vendor(vid):
 
 @route("/vendors/add-vendor")
 @post("/vendors/add-vendor")
-@view("views/vendors/add_vendor", inv = inv)
+@view("views/vendors/add_vendor")
 def add_vendor():
     check_user()
     vendors = ven.select_vendors()
@@ -152,7 +152,7 @@ def add_vendor():
         return dict(new_vendor = None)
 
 @route("/vendors")
-@view("views/vendors/main", inv = inv)
+@view("views/vendors/main")
 def vendors():
     check_user()
     vendors = ven.select_vendors()

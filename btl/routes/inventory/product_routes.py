@@ -4,7 +4,7 @@ from route_utils import *
 
 @route("/products/update-product-<pid>")
 @post("/products/update-product-<pid>")
-@view("views/products/update_product_inv", inv = inv)
+@view("views/products/update_product_inv")
 def update_product(pid):
     check_user()
     sku_data = prd.get_sku_data(pid)
@@ -51,7 +51,7 @@ def delete_kit_child(master, child):
 
 @route("/products/add-kit-children-<sku>")
 @post("/products/add-kit-children-<sku>")
-@view("views/products/add_kit_children", inv = inv)
+@view("views/products/add_kit_children")
 def update_kit(sku):
     check_user()
     sku_upc = prd.sku_kit_candidates(sku)
@@ -66,17 +66,16 @@ def update_kit(sku):
 
 @route("/products/update-kit-<sku>")
 @post("/products/update-kit-<sku>")
-@view("views/products/add_kit", inv = inv, err = None, new_sku = None)
+@view("views/products/add_kit", err = None, new_sku = None)
 def update_kit(sku):
     check_user()
     pass
 
 @route("/products/add-kit")
 @post("/products/add-kit")
-@view("views/products/add_kit", inv = inv, err = None, new_sku = None)
+@view("views/products/add_kit", err = None, new_sku = None)
 def add_kit():
     check_user()
-    sku_upc = prd.sku_kit_candidates()
     if request.POST.get("add-product"):
         sku = request.POST.get("sku")
         upc = None
@@ -137,10 +136,10 @@ def add_kit():
         url = "/products/update-kit-{0}".format(sku)
         redirect(url)
     else:
-        return dict(sku_upc = sku_upc, new_sku = None)
+        return dict()
 
 @route("/products/kits")
-@view("views/products/kits", inv = inv)
+@view("views/products/kits")
 def all_kits():
     check_user()
     k = prd.select_kits()
@@ -148,7 +147,7 @@ def all_kits():
 
 @route("/products/add-product")
 @post("/products/add-product")
-@view("views/products/add_product_inv", inv = inv)
+@view("views/products/add_product_inv")
 def add_products():
     check_user()
     sku_upc = prd.sku_upcs()
@@ -212,7 +211,7 @@ def add_products():
                     new_sku = None)
 
 @route("/products")
-@view("views/products/product_main", inv = inv)
+@view("views/products/product_main")
 def products():
     check_user()
     sku_upc = prd.select_reg_products()
