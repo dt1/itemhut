@@ -39,13 +39,13 @@
 		</div>
 
       	   <div class="medium-10 columns">
-	   <h4>Running Inventory</h4>
+	   <h4>Running Inventory (All Warehouses)</h4>
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
-		<th>SKU</th>
-		<th>UPC</th>
-		<th>QTY</th>
+		% for h in ["SKU", "UPC", "Qty"]:
+		<th>{{h}}</th>
+		% end
 		</tr>
 	   </thead>
 	   <tbody>

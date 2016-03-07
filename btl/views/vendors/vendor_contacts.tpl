@@ -27,12 +27,10 @@
 	      <table id="table_id" class="display">
 	      <thead>
 	      <tr>
-	      <th>Name</th>
-	      <th>Title</th>
-	      <th>Phone</th>
-	      <th>Phone2</th>
-	      <th>email</th>
-	      <th></th>
+	      % for h in ["Name", "Title", "Phone", "Phone2", "email",
+	                % ""]:
+	      <th>{{h}}</th>
+	      % end
 	      </tr>
 	      </thead>
 	      <tbody>

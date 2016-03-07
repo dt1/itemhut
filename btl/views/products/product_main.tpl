@@ -25,11 +25,10 @@
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
-		<th>SKU</th>
-		<th>UPC</th>
-		<th>SKU Type</th>
-		<th>Product Name</th>
-		<th></th>
+		% for h in ["SKU", "UPC", "SKU Type", "Product Name",
+		          % ""]:
+		<th>{{h}}</th>
+		% end
 		</tr>
 	   </thead>
 	   <tbody>

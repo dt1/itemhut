@@ -27,13 +27,10 @@
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
-		<th width="200px">Pallet Location</th>
-		<th width="150px">pallet #</th>
-		<th>Information</th>
-		<th>Qty</th>
-		<th></th>
-		<th></th>
-		<th></th>
+		% for h in ["Pallet Location", "Pallet #",
+		          % "Information", "Qty", "", "", ""]:
+	        <th>{{h}}</th>
+		% end
 		</tr>
 	    </thead>
 	    </tbody>

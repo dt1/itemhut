@@ -31,9 +31,9 @@
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
-		<th>ID</th>
-		<th>Name</th>
-		<th></th>
+		% for h in ["ID", "Name", ""]:
+		<th>{{h}}</th>
+		% end
 		</tr>
 	   </thead>
 	   <tbody>

@@ -43,9 +43,9 @@
 	   <table>
 	   <thead>
 	   <tr>
-	   <th>SKU</th>
-	   <th>UPC</th>
-	   <th>QTY</th>
+	   % for h in ["SKU", "UPC", "qty"]:
+	   <th>{{h}}</th>
+	   % end
 	   </tr>
 	   </thead>
 	   <tbody>

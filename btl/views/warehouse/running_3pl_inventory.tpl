@@ -25,18 +25,18 @@
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
-		<th>Sku</th>
-		<th>UPC</th>
-		<th>Qty</th>
+		% for h in ["SKU", "UPC", "Qty", ""]:
+		<th>{{h}}</th>
+		% end
 		</tr>
 	    </thead>
 	    </tbody>
 		% for item in sku_count:
-		<tr class="table-anchor"
-		onclick="location.href='/warehouses/{{wh_info[0][0]}}/update-running-inventory-{{item[0]}}'">
+		<tr>
 		<td>{{item[0]}}</td>
 		<td>{{item[1]}}</td>
 		<td>{{item[2]}}</td>
+		<td><a href="/warehouses/{{wh_info[0][0]}}/update-running-inventory-{{item[0]}}">View / Edit</a></td>
 		</tr>
 		% end
 	   </tbody>

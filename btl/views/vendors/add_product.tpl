@@ -31,9 +31,9 @@
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
-		<th></th>
-		<th>SKU</th>
-		<th>UPC</th>
+		% for h in ["", "SKU", "UPC"]:
+		<th>{{h}}</th>
+		% end
 		</tr>
 	   </thead>
 	   <tbody>

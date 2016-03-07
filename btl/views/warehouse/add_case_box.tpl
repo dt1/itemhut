@@ -68,10 +68,4 @@
   </div>
 </div>
 
-<script>
-$(document).ready( function () {
-    $('#table_id').DataTable();
-} );
-</script>
-
 % include('global/end_body.tpl')

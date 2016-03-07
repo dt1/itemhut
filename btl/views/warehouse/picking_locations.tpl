@@ -24,16 +24,15 @@
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
-		<th>Picking Location</th>
-		<th>SKU</th>
-		<th>UPC</th>
-		<th>Qty</th>
+		% for h in ["Picking Location", "SKU", "UPC",
+		          % "Qty", ""]:
+		<th>{{h}}</th>
+		% end
 		</tr>
 	    </thead>
 	    </tbody>
 		% for item in picking_location_list:
-		<tr class="table-anchor"
-		onclick="location.href='/warehouses/{{wh_info[0][0]}}/update-picking-location-{{item[0]}}'">
+		<tr">
 		<td>{{item[1]}}</td>
 		% if item[2]:
 		<td>{{item[2]}}</td>
@@ -47,6 +46,7 @@
 		% end
 		<td>{{item[4]}}</td>
 		% end
+		<td><a href="/warehouses/{{wh_info[0][0]}}/update-picking-location-{{item[0]}}">View / Edit"</a></td>
 	   </tbody>
 	   </table>
 	   <a href="/warehouses/{{wh_info[0][0]}}/add-picking-location">

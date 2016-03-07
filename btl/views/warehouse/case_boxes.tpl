@@ -26,14 +26,11 @@
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
-		<th>Case Id</th>
-		<th>Box Id</th>
-		<th>Box Qty</th>
-		<th>Piece Qty</th>
-		<th>UPC</th>
-		<th>SKU</th>
-		<th>Product Name</th>
-		<th>Total Pieces</th>
+		% for h in ["Case Id", "Box Id", "Box Qty", "Piece Qty",
+		          % "UPC", "SKU", "Product Name",
+			  % "Total Pieces"]:
+		<th>{{h}}</th>
+		% end
 		</tr>
 	   </thead>
 		<tbody>

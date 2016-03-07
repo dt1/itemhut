@@ -38,7 +38,7 @@ def add_company_contact(cid):
         email = request.POST.get("email")
         cnid = com.add_contact(cid, contact_name, position, phone1,
                                phone2, email)
-        url = "/companies/{0}/contacts/edit-contact-{1}".format(cid, cnid)
+        url = "/companies/{0}/contacts/edit-contact-{1}".format(cid, cnid[0][0])
         redirect(url)
     return dict(cinfo = cinfo[0])
 

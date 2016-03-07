@@ -24,10 +24,10 @@
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
-		<th>pallet_location</th>
-		<th>pallet #</th>
-		<th>Information</th>
-		<th>Qty</th>
+		% for h in ["Pallet Location", "Pallet #",
+		          % "Information", "Qty"]:
+		<th>{{h}}</th>
+		% end
 		</tr>
 	    </thead>
 	    </tbody>

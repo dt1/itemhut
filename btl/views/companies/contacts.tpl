@@ -22,12 +22,10 @@
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
-		<th>Name</th>
-		<th>Postion</th>
-		<th>Phone1</th>
-		<th>Phone2</th>
-		<th>email</th>
-		<th></th>
+		% for h in ["Name", "Position", "Phone1", "Phone2",
+		          % "email", ""]:
+		<th>{{h}}</th>
+		% end
 		</tr>
 	   </thead>
 	   <tbody>
@@ -40,10 +38,10 @@
 		<td>{{i[5]}}</td>
 		<td><a href="/companies/{{cinfo[0]}}/contacts/edit-contact-{{i[0]}}">View / Edit</a></td>
 		</tr>
-		% end
+	   % end
 	   </tbody>
 	   </table>
-	   	
+	   	{{contact_list}}
 	   </div>
 
       </div>

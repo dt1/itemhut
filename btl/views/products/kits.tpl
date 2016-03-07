@@ -24,10 +24,9 @@
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
-		<th>Master SKU</th>
-		<th>Child SKU(s)</th>
-		<th></th>
-		<th></th>
+		% for h in ["Master SKU", "Child SKU(s)", "", ""]:
+		<th>{{h}}</th>
+		% end
 		</tr>
 	   </thead>
 	   <tbody>

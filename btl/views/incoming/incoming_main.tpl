@@ -25,24 +25,23 @@
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
-		<th>Record ID</th>
-		<th>Invoice</th>
-		<th>Vendor ID</th>
-		<th>Order Date</th>
-		<th>ETA</th>
-		<th>Complete?</th>
+		% for h in ["Record ID", "Invoice", "Vendor ID",
+		          % "Order Date", "ETA", "Complete?", ""]:
+	        <th>{{h}}</th>
+		% end
 		</tr>
 	   </thead>
 	   <tbody>
 	   % for i in orders:
-		<tr class="table-anchor"
-		onclick="location.href='/incoming/update-order-{{i[0]}}'">
+		<tr>
 		<td>{{i[0]}}</td>
 		<td>{{i[1]}}</td>
 		<td>{{i[2]}}</td>
 		<td>{{i[3]}}</td>
 		<td>{{i[4]}}</td>
 		<td>{{i[5]}}</td>
+		<td><a href="/incoming/update-order-{{i[0]}}">
+		    View / Edit</a></td>
 		</tr>
 	   % end
 	   </tbody>

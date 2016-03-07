@@ -41,12 +41,10 @@
 	   <table id="table_id" class="display">
 	   <thead>
 		<tr>
-		<th></th>
-		<th width="100px">Case ID</th>
-		<th>SKU</th>
-		<th>UPC</th>
-		<th width="140px">Boxes / Case</th>
-		<th width="140px">PCS / Box</th>
+		% for h in ["", "Case ID", "SKU", "UPC",
+		% "Boxes per Case", "PCS per Box"]:
+		<th>{{h}}</th>
+		% end
 		</tr>
 	    </thead>
 	    </tbody>
