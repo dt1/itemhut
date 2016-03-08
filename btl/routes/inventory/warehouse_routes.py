@@ -8,7 +8,7 @@ from route_utils import *
 @view("views/warehouse/add_case_box", err = None)
 def new_warehouse_case_config():
     check_user()
-    upc_list = get_upcs()
+    upc_list = prd.get_upcs()
     if request.POST.get("add-config"):
         upc = request.POST.get("upc")
         box_qty = request.POST.get("box-qty")

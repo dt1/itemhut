@@ -4,7 +4,7 @@
 <head>
 <title>Item Hut Inventory</title>
 
-
+<link rel="icon" href="/static/img/itemhut.png">
 
 <link rel="stylesheet" type="text/css" href="/static/css/foundation.min.css">
 <link rel="stylesheet" type="text/css" href="/static/css/custom.css">
