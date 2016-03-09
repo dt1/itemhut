@@ -16,7 +16,7 @@ from models.warehouse.warehouse import *
 import models.vendors as ven
 from models.admin import *
 from models.incoming import *
-from models.orders import *
+import models.orders as ords
 import models.companies as com
 
 import sys

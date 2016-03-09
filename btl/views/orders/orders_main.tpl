@@ -1,5 +1,7 @@
 <!-- This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 
+% rebase('global/base.tpl')
+
 <div class="off-canvas-content" data-off-canvas-content>
 
   <div class="expanded row">
@@ -24,14 +26,7 @@
 	</thead>
 	<tbody>
 	  % for i in orders:
-	  <tr class="table-anchor">
-	    <td>{{i[0]}}</td>
-	    <td>{{i[1]}}</td>
-	    <td>{{i[2]}}</td>
-	    <td>{{i[3]}}</td>
-	    <td>{{i[4]}}</td>
-	    <td>{{i[5]}}</td>
-	    <td>{{i[6]}}</td>
+	  <tr>
 	  </tr>
 	  % end
 	</tbody>

@@ -9,46 +9,147 @@ def select_valid_mskus():
     dbconn.cur.execute(
         """
         select marketplace_sku
-        from orders.msku_sku;
+        from marketplace.msku_sku;
         """)
     a = dbconn.cur.fetchall()
     return a
 
-def insert_market_order(market_order_id, marketplace, marketplace_sku, qty_sold):
+def select_valid_marketplaces():
     dbconn.cur.execute(
         """
-        select market_order_id
-        from orders.market_orders
-        where market_order_id = trim(%s);
-        """, [market_order_id])
+        select marketplace
+        from marketplace.valid_markeplace;
+        """)
     a = dbconn.cur.fetchall()
-    if a:
-        return True
-    
-    dbconn.cur.execute(
-        """
-        begin;
-        insert into orders.market_orders
-            (market_order_id, marketplace, marketplace_sku, qty_sold)
-        values (trim(%s), trim(%s), trim(%s), %s::int);
-        
-        insert into orders.orders(market_order_id)
-        values (trim(%s));
-
-        commit;
-        """, [market_order_id, marketplace, marketplace_sku, qty_sold,
-              market_order_id])
+    return a
 
 def select_all_orders():
     dbconn.cur.execute(
         """
-        select order_id, market_order_id, marketplace, sku, 
-             marketplace_sku, qty_sold, order_date
-        from orders.market_orders
-        join orders.orders
-        using (market_order_id)
-        join orders.msku_sku
-        using (marketplace_sku);
+        select 1;
         """)
     a = dbconn.cur.fetchall()
     return a
+
+def insert_market_step1_no_sameship(order_id, marketplace,
+                                    salesperson_id, company_id,
+                                    contact_id):
+    if contact_id == "None":
+        contact_id = None
+        
+    dbconn.cur.execute(
+        """
+        begin;
+        with new_order (internal_order_id) as
+            (insert into orders.market_orders (market_order_id,
+                  marketplace, salesperson_id)
+             values (%s, %s, %s)
+             returning internal_order_id)
+        insert into orders.moi_company (internal_order_id, company_id,
+             company_contact_id)
+        select internal_order_id, %s::int, %s::int
+        from new_order
+        returning internal_order_id;
+        """, [order_id, marketplace, salesperson_id, company_id,
+              contact_id])
+    a = dbconn.cur.fetchall()
+    dbconn.cur.execute(
+        """
+        commit;
+        """)
+    return a
+
+def insert_market_step1_sameship(order_id, marketplace,
+                                 salesperson_id, company_id,
+                                 contact_id):
+    if contact_id == "None":
+        contact_id = None
+        
+    dbconn.cur.execute(
+        """
+        begin;
+        with new_order (internal_order_id) as
+            (insert into orders.market_orders (market_order_id,
+                  marketplace, salesperson_id)
+             values (%s, %s, %s)
+             returning internal_order_id)
+             ,
+             new_moi (internal_order_id) as
+             (insert into orders.moi_company (internal_order_id, 
+                                              company_id,
+                                              company_contact_id)
+              select internal_order_id, %s::int, %s::int
+              from new_order
+              returning internal_order_id)
+        insert into orders.shipto(internal_order_id, shipto_company,
+                    shipto_attn, shipto_street, shipto_city, 
+                    shipto_state, shipto_zip, shipto_country)
+        select internal_order_id, company_name, contact_name, 
+                company_street, company_state, 
+                company_state, company_zip, 
+                company_country
+        from company.companies
+        left join company.company_contact
+        using (company_id)
+        left join company.contacts
+        using (contact_id)
+        , new_moi
+        where company_id = %s::int
+        and (contact_id = %s::int
+        or contact_id is null)
+        returning internal_order_id;
+        """, [order_id, marketplace, salesperson_id, company_id,
+              contact_id, company_id, contact_id])
+    a = dbconn.cur.fetchall()
+    dbconn.cur.execute(
+        """
+        commit;
+        """)
+    return a
+
+def insert_market_step1(order_id, marketplace, salesperson_id,
+                        sameship, company_id, contact_id):
+    if sameship:
+        a = insert_market_step1_sameship(order_id, marketplace,
+                                            salesperson_id, company_id,
+                                            contact_id)
+    else:
+        a = insert_market_step1_no_sameship(order_id, marketplace,
+                                            salesperson_id, company_id,
+                                            contact_id)
+    return a
+
+def select_valid_markter_order(order_id):
+    dbconn.cur.execute(
+        """
+        select internal_order_id, market_order_id, shipto_company_id, 
+        shipto_company, 
+        shipto_attn, shipto_street, shipto_city, shipto_state,
+        shipto_zip, shipto_country, ship_by_date, deliver_by_date
+        from orders.market_orders
+        left join orders.shipto
+        using (internal_order_id)
+        left join orders.shipto_companies
+        using (shipto_company_id)
+        where internal_order_id = %s::int;
+        """, [order_id])
+    a = dbconn.cur.fetchall()
+    return a
+
+def insert_shipto(oid, shipto_company, shipto_attn, shipto_street,
+                  shipto_city, shipto_state, shipto_zip,
+                  shipto_country, ship_by_date, deliver_by_date):
+    if ship_by_date == "":
+        ship_by_date = None
+    if deliver_by_date == "":
+        deliver_by_date = None
+    dbconn.cur.execute(
+        """
+        begin;
+        select orders.insert_shipto_customer(%s::int, %s, 
+        %s, %s, %s, %s, 
+        %s, %s, %s, %s);
+        commit; 
+        """, [oid, shipto_company, 
+        shipto_attn, shipto_street, shipto_city, shipto_state, 
+        shipto_zip, shipto_country, ship_by_date, deliver_by_date])

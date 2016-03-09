@@ -137,3 +137,17 @@ def update_contact(cnid, contact_name, position, phone1, phone2,
         where contact_id = %s::int;
         commit;
         """, [contact_name, position, phone1, phone2, email, cnid])
+
+def select_companies_with_contacts():
+    dbconn.cur.execute(
+        """
+        select company_id, contact_id, company_uid, company_name, 
+               contact_name
+        from company.companies
+        left join company.company_contact
+        using (company_id)
+        left join company.contacts
+        using (contact_id);
+        """)
+    a = dbconn.cur.fetchall()
+    return a

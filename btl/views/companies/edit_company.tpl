@@ -80,13 +80,14 @@
       </div>
       <div class="medium-3 columns">
 	<label>State
-	  <input type="text" name="state">
+	  <input type="text" name="state"
+		 value="{{cinfo[8]}}">
 	</label>
       </div>
       <div class="medium-3 columns">
 	<label>Zip
 	  <input type="text" name="zip"
-		 value="{{cinfo[8]}}">
+		 value="{{cinfo[9]}}">
 	</label>
       </div>
       <div class="medium-3 columns">
@@ -97,7 +98,7 @@
       <div class="medium-3 columns">
 	<label>Country
 	  <input type="text" name="country"
-		 value="{{cinfo[9]}}">
+		 value="{{cinfo[10]}}">
 	</label>
       </div>
     </div>
