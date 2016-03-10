@@ -16,12 +16,21 @@ values ('SAGE'),
 create table marketplace.msku_sku (
        marketplace_sku varchar primary key,
        sku varchar not null,
-       marketplace varchar not null,
        foreign key (sku)
                references product.sku_upc (sku)
+	       on update cascade
+);
+
+create table marketplace.msku_marketplace (
+       marketplace_sku varchar not null,
+       marketplace varchar not null,
+       primary key (marketplace_sku, marketplace),
+       foreign key (marketplace_sku)
+               references marketplace.msku_sku (marketplace_sku)
 	       on update cascade,
        foreign key (marketplace)
                references marketplace.valid_markeplace
 	       (marketplace)
 	       on update cascade
 );
+

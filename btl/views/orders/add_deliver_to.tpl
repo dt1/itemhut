@@ -99,8 +99,9 @@
 	<input type="submit" class="button" name="another-company"
 	       value="Add Another Company">
 
-	<input type="submit" class="button" name="done"
-	       value="Done With Companies">
+	<a href="/orders/add-order/order{{mlist[0][0]}}/list-companies"
+	   class="button">
+	  Done With Companies</a>
 	
       </form>
     </div>

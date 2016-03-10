@@ -64,19 +64,29 @@ create table orders.shipto_companies (
 );
 
 create table orders.shipto (
+       shipto_id serial primary key,
        internal_order_id int,
        shipto_company_id int,
-       marketplace_sku varchar,
-       sku_qty int check(sku_qty > 0),
        ship_by_date date,
        deliver_by_date date,
-       unique (internal_order_id, shipto_company_id, marketplace_sku,
-       	       sku_qty, ship_by_date, deliver_by_date),
        foreign key (internal_order_id, marketplace_sku)
                references orders.market_order_skus
 	       (internal_order_id, marketplace_sku),
        foreign key (shipto_company_id)
                references orders.shipto_companies (shipto_company_id)
+);
+
+create table orders.shipto_marketplace_skus (
+       shipto_id int,
+       marketplace_sku varchar,
+       sku_qty int check(sku_qty > 0),
+       primary key (shipto_id, marketplace_sku),
+       foreign key (marketplace_sku)
+               references marketplace.msku_sku 
+               (marketplace_sku)
+               on update cascade,
+       foreign key (shipto_id)
+               references orders.shipto (shipto_id)
 );
 
 create table orders.valid_file_type (
@@ -89,12 +99,12 @@ values ('Purchase Order'),
 ('B&W Proof'),
 ('Color Proof');
 
-create table orders.files (
-       internal_order_id int,
+create table orders.shipto_files (
+       shipto_id int,
        file_path varchar,
        file_type varchar,
-       foreign key (internal_order_id)
-               references orders.market_orders (internal_order_id)
+       foreign key (shipto_id)
+               references orders.shipto(shipto_id)
 );
 
 

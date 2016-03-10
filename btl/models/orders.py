@@ -5,6 +5,20 @@ sys.path.append("/itemhut/pydb")
 import dbconn
 import psycopg2
 
+def select_all_orders():
+    dbconn.cur.execute(
+        """
+        select internal_order_id, market_order_id, marketplace, 
+               company_name, order_date, salesperson_id
+        from orders.market_orders
+        join orders.moi_company
+        using (internal_order_id)
+        join company.companies
+        using (company_id);
+        """)
+    a = dbconn.cur.fetchall()
+    return a
+
 def select_valid_mskus():
     dbconn.cur.execute(
         """
@@ -19,14 +33,6 @@ def select_valid_marketplaces():
         """
         select marketplace
         from marketplace.valid_markeplace;
-        """)
-    a = dbconn.cur.fetchall()
-    return a
-
-def select_all_orders():
-    dbconn.cur.execute(
-        """
-        select 1;
         """)
     a = dbconn.cur.fetchall()
     return a
@@ -81,6 +87,9 @@ def insert_market_step1_sameship(order_id, marketplace,
               select internal_order_id, %s::int, %s::int
               from new_order
               returning internal_order_id)
+              ,
+              
+              new_company (
         insert into orders.shipto(internal_order_id, shipto_company,
                     shipto_attn, shipto_street, shipto_city, 
                     shipto_state, shipto_zip, shipto_country)
@@ -119,7 +128,7 @@ def insert_market_step1(order_id, marketplace, salesperson_id,
                                             contact_id)
     return a
 
-def select_valid_markter_order(order_id):
+def select_valid_market_order(order_id):
     dbconn.cur.execute(
         """
         select internal_order_id, market_order_id, shipto_company_id, 
@@ -153,3 +162,119 @@ def insert_shipto(oid, shipto_company, shipto_attn, shipto_street,
         """, [oid, shipto_company, 
         shipto_attn, shipto_street, shipto_city, shipto_state, 
         shipto_zip, shipto_country, ship_by_date, deliver_by_date])
+
+def select_order_companies(order_id):
+    dbconn.cur.execute(
+        """
+        select shipto_id, internal_order_id, market_order_id, 
+        shipto_company_id,  shipto_company, ship_by_date, 
+        deliver_by_date
+        from orders.shipto_companies
+        join orders.shipto
+        using (shipto_company_id)
+        join orders.market_orders
+        using (internal_order_id)        
+        where internal_order_id = %s::int
+        order by shipto_id;
+        """, [order_id])
+    a = dbconn.cur.fetchall()
+    return a
+
+def select_company_product_candidates(order_id):
+    dbconn.cur.execute(
+        """
+        select sku, marketplace_sku, product_name
+        from marketplace.msku_marketplace mmm
+        join marketplace.msku_sku
+        using (marketplace_sku)
+        left join product.descriptions
+        using (sku)
+        where exists
+        (select *
+        from orders.market_orders
+        where marketplace = mmm.marketplace
+        and internal_order_id = %s::int)
+        and not exists
+        (select *
+        from orders.market_order_skus
+        where marketplace_sku = mmm.marketplace_sku
+        and internal_order_id = %s::int)
+        and not exists
+        (select *
+        from orders.shipto_marketplace_skus
+        where marketplace_sku = mmm.marketplace_sku);
+        """, [order_id, order_id])
+    a = dbconn.cur.fetchall()
+    return a
+
+def select_company_shipto_products(sid):
+    dbconn.cur.execute(
+        """
+        select marketplace_sku, sku_qty
+        from orders.shipto_marketplace_skus
+        where shipto_id = %s;
+        """, [sid])
+    a = dbconn.cur.fetchall()
+    return a
+
+def insert_shipto_product(sid, msku, qty):
+    dbconn.cur.execute(
+        """
+        begin;
+        insert into orders.shipto_marketplace_skus
+            (shipto_id, marketplace_sku, sku_qty)
+        values (%s::int, %s, %s::int)
+        on conflict (shipto_id, marketplace_sku)
+        do update
+        set sku_qty = %s::int;
+        commit;
+        """, [sid, msku, qty, qty])
+
+def delete_company_product(sid, msku):
+    dbconn.cur.execute(
+        """
+        begin;
+        delete from orders.shipto_marketplace_skus
+        where shipto_id = %s
+        and marketplace_sku = %s;
+        commit;
+        """, [sid, msku])
+
+def select_valid_filetypes():
+    dbconn.cur.execute(
+        """
+        select file_type
+        from orders.valid_file_type;
+        """)
+    a = dbconn.cur.fetchall()
+    return a
+
+def select_uploaded_files(sid):
+    dbconn.cur.execute(
+        """
+        select file_path, file_type
+        from orders.shipto_files
+        where shipto_id = %s::int;
+        """, [sid])
+    a = dbconn.cur.fetchall()
+    return a
+
+def save_uploaded_files(sid, fpath, ftype):
+    dbconn.cur.execute(
+        """
+        begin;
+        insert into orders.shipto_files (shipto_id, file_path, 
+              file_type)
+        values (%s::int, %s, %s);
+        commit;
+        """, [sid, fpath, ftype])
+
+def delete_uploaded_file(sid, fpath):
+    dbconn.cur.execute(
+        """
+        begin;
+        delete from orders.shipto_files
+        where shipto_id = %s::int
+        and file_path = %s;
+        commit;
+        """, [sid, fpath])
