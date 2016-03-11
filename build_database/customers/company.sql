@@ -26,7 +26,7 @@ create table company.branches (
 );
 
 create table company.contacts (
-       contact_id serial primary key,
+       company_contact_id serial primary key,
        contact_name varchar,
        contact_position varchar,
        contact_phone varchar,

@@ -14,7 +14,7 @@ def delete_order_file(oid, sid, p, f):
     os.rmdir(delpath)
     url = "/orders/add-order/order{0}/company{1}-add-files".format(oid, sid)
     redirect(url)
-    
+
 
 @route("/orders/add-order/order<oid:int>/company<sid:int>-add-files")
 @post("/orders/add-order/order<oid:int>/company<sid:int>-add-files")
@@ -33,13 +33,13 @@ def add_order_file(oid, sid):
         if not os.path.exists(save_path):
             os.makedirs(save_path)
         upload.save(save_path)
-        
+
         fpath = "{0}/{1}".format(phash, upload.filename)
         ords.save_uploaded_files(sid, fpath, ftype)
-        
+
         url = "/orders/add-order/order{0}/company{1}-add-files".format(oid, sid)
         redirect(url)
-        
+
     return dict(mlist = mlist, oid = oid, sid = sid,
                 valid_ftypes = valid_ftypes,
                 uploaded_files = uploaded_files)
@@ -68,7 +68,7 @@ def add_company_products(oid, sid):
         redirect(url)
     return dict(mlist = mlist, oid = oid, sid = sid, pclist = pclist,
                 added_plist = added_plist)
-    
+
 
 @route("/orders/add-order/order<oid:int>/company<cid:int>")
 def redirect_to_company_page(oid, cid):
@@ -166,6 +166,15 @@ def add_order():
     return dict(msku_list = msku_list, err = None, new_order = None,
                 market_list = market_list, userid = userid,
                 companies = companies)
+
+@route("/orders/view-order-<oid:int>")
+@view("views/orders/view_order")
+def view_order(oid):
+    check_user()
+    order_info = ords.select_order_company_info(oid)
+    shipto_info = ords.select_order_shipto(oid)
+    return dict(order_info = order_info, shipto_info = shipto_info)
+
 
 @route("/orders")
 @view("views/orders/orders_main")

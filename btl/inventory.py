@@ -23,6 +23,10 @@ def get_invoices(filename):
 def get_images(filename):
     return static_file(filename, root="uploaded_files/images/")
 
+@route("/uploaded_files/orders/<filename:path>")
+def get_images(filename):
+    return static_file(filename, root="uploaded_files/orders/")
+
 
 # home page    
 @route("/")

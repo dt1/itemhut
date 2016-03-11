@@ -29,7 +29,7 @@
 	  <td>{{i[3]}}</td>
 	  <td>{{i[4]}}</td>
 	  <td>{{i[5]}}</td>
-	  <td><a>Edit / View</a></td>
+	  <td><a href="/orders/view-order-{{i[0]}}">Edit / View</a></td>
 	</tr>
 	% end
       </tbody>
