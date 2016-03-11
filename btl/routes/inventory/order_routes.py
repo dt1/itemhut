@@ -3,6 +3,13 @@
 from route_utils import *
 from datetime import datetime
 
+@route("/orders/order<oid:int>/delete-shipto-record-<sid:int>")
+def delete_shipto_record(oid, sid):
+    check_user()
+    ords.delete_shipto_record(sid)
+    url = "/orders/view-order-{0}".format(oid)
+    redirect(url)
+    
 @route("/orders/add-order/order<oid:int>/delete-file<sid:int>/<p>/<f>")
 def delete_order_file(oid, sid, p, f):
     check_user()
@@ -84,26 +91,30 @@ def add_order_list_companies(oid):
     return dict(clist = clist)
 
 
-@route("/orders/add-order/order<oid:int>/add-deliver-to")
-@post("/orders/add-order/order<oid:int>/add-deliver-to")
-@view("views/orders/add_deliver_to")
-def add_deliver_to(oid):
+@route("/orders/order<oid:int>/edit-deliver-to-<sid:int>")
+@post("/orders/order<oid:int>/edit-deliver-to-<sid:int>")
+@view("views/orders/edit_deliver_to")
+def edit_deliver_to(oid, sid):
     check_user()
     mlist = ords.select_valid_market_order(oid)
-    if mlist:
-        if request.POST.get("another-company"):
-            shipto_company = request.POST.get("company")
-            shipto_attn = request.POST.get("attn")
-            shipto_street = request.POST.get("street")
-            shipto_city = request.POST.get("city")
-            shipto_state = request.POST.get("state")
-            shipto_zip = request.POST.get("zip")
-            shipto_country = request.POST.get("country")
-            ship_by_date = request.POST.get("ship-by")
-            deliver_by_date = request.POST.get("deliver-by")
-        return dict(mlist = mlist)
-    else:
-        redirect("/orders/add-order")
+    shipto_info = ords.select_order_shipto(oid)
+    if request.POST.get("edit-company"):
+        shipto_company = request.POST.get("company")
+        shipto_attn = request.POST.get("attn")
+        shipto_street = request.POST.get("street")
+        shipto_city = request.POST.get("city")
+        shipto_state = request.POST.get("state")
+        shipto_zip = request.POST.get("zip")
+        shipto_country = request.POST.get("country")
+        ship_by_date = request.POST.get("ship-by")
+        deliver_by_date = request.POST.get("deliver-by")
+        ords.edit_shipto_company(sid, shipto_company, shipto_attn,
+                        shipto_street, shipto_city, shipto_state,
+                        shipto_zip, shipto_country, ship_by_date,
+                        deliver_by_date)
+        url = "/orders/view-order-{0}".format(oid)
+        redirect(url)
+    return dict(mlist = mlist, shipto_info = shipto_info)
 
 @route("/orders/add-order/order<oid:int>/deliver-to")
 @post("/orders/add-order/order<oid:int>/deliver-to")
@@ -112,7 +123,7 @@ def add_deliver_to(oid):
     check_user()
     mlist = ords.select_valid_market_order(oid)
     if mlist:
-        if request.POST.get("another-company") or request.POST.get("done"):
+        if request.POST.get("add-company"):
             shipto_company = request.POST.get("company")
             shipto_attn = request.POST.get("attn")
             shipto_street = request.POST.get("street")
@@ -127,11 +138,8 @@ def add_deliver_to(oid):
                                shipto_state, shipto_zip,
                                shipto_country, ship_by_date,
                                deliver_by_date)
-            if request.POST.get("another-company"):
-                url = "/orders/add-order/order{0}/add-deliver-to".format(oid)
-                redirect(url)
-            else:
-                return "done"
+            url = "/orders/view-order-{0}".format(oid)
+            redirect(url)
         return dict(mlist = mlist)
     else:
         redirect("/orders/add-order")
@@ -161,7 +169,7 @@ def add_order():
         oid = ords.insert_market_step1(order_id, marketplace,
                                   salesperson_id, sameship, company_id,
                                   contact_id)
-        url = "/orders/add-order/order{0}/deliver-to".format(oid[0][0])
+        url = "/orders/view-order-{0}".format(oid[0][0])
         redirect(url)
     return dict(msku_list = msku_list, err = None, new_order = None,
                 market_list = market_list, userid = userid,

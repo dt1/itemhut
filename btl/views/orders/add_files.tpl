@@ -44,7 +44,7 @@
 	
 	<input type="submit" class="button" name="add-file"
 	       value="Add File">
-	<a href="/orders/add-order/order{{oid}}/list-companies"
+	<a href="/orders/view-order-{{oid}}"
 	   class="button">Done</a>
       </form>
     </div>

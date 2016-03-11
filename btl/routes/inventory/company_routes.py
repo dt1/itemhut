@@ -93,12 +93,13 @@ def add_company():
         phone2 = request.POST.get("phone-two")
         fax = request.POST.get("fax")
         email = request.POST.get("email")
+        city = request.POST.get("city")
         street = request.POST.get("street")
         state = request.POST.get("state")
         zipcode = request.POST.get("zip")
         country = request.POST.get("country")
         cid = com.insert_company(uid, cname, phone1, phone2, fax,
-                                 email, street, state, zipcode,
+                                 email, street, city, state, zipcode,
                                  country)
         url = "/companies/edit-company-{0}".format(cid[0][0])
         redirect(url)

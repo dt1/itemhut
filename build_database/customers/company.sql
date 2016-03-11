@@ -11,6 +11,7 @@ create table company.companies (
        company_fax varchar,
        company_email varchar,
        company_street varchar,
+       company_city varchar,
        company_state varchar,
        company_zip varchar,
        company_country varchar
@@ -36,10 +37,10 @@ create table company.contacts (
 
 create table company.company_contact (
        company_id int,
-       contact_id int primary key,
+       company_contact_id int primary key,
        unique (company_id, contact_id),
        foreign key (company_id)
                references company.companies (company_id),
-       foreign key (contact_id)
-               references company.contacts (contact_id)
+       foreign key (company_contact_id)
+               references company.contacts (company_contact_id)
 );

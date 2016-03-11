@@ -74,41 +74,11 @@ def insert_market_step1_sameship(order_id, marketplace,
     dbconn.cur.execute(
         """
         begin;
-        with new_order (internal_order_id) as
-            (insert into orders.market_orders (market_order_id,
-                  marketplace, salesperson_id)
-             values (%s, %s, %s)
-             returning internal_order_id)
-             ,
-             new_moi (internal_order_id) as
-             (insert into orders.moi_company (internal_order_id,
-                                              company_id,
-                                              company_contact_id)
-              select internal_order_id, %s::int, %s::int
-              from new_order
-              returning internal_order_id)
-              ,
-
-              new_company (
-        insert into orders.shipto(internal_order_id, shipto_company,
-                    shipto_attn, shipto_street, shipto_city,
-                    shipto_state, shipto_zip, shipto_country)
-        select internal_order_id, company_name, contact_name,
-                company_street, company_state,
-                company_state, company_zip,
-                company_country
-        from company.companies
-        left join company.company_contact
-        using (company_id)
-        left join company.contacts
-        using (contact_id)
-        , new_moi
-        where company_id = %s::int
-        and (contact_id = %s::int
-        or contact_id is null)
-        returning internal_order_id;
-        """, [order_id, marketplace, salesperson_id, company_id,
-              contact_id, company_id, contact_id])
+        select r_internal_order_id 
+        from orders.insert_company_sameship(%s, %s, %s, %s::int, 
+        %s::int);
+        """, [order_id, salesperson_id, marketplace, company_id,
+              contact_id])
     a = dbconn.cur.fetchall()
     dbconn.cur.execute(
         """
@@ -324,3 +294,41 @@ def select_order_shipto(order_id):
         """, [order_id])
     a = dbconn.cur.fetchall()
     return a
+
+def delete_shipto_record(sid):
+    dbconn.cur.execute(
+        """
+        begin;
+        delete from orders.shipto
+        where shipto_id = %s::int;
+        commit;
+        """, [sid])
+
+def edit_shipto_company(sid, shipto_company, shipto_attn,
+                        shipto_street, shipto_city, shipto_state,
+                        shipto_zip, shipto_country, ship_by_date,
+                        deliver_by_date):
+    dbconn.cur.execute(
+        """
+        begin;
+        update orders.shipto_companies
+        set shipto_company = %s, 
+        shipto_attn = %s,
+        shipto_street = %s, 
+        shipto_city = %s,
+        shipto_state = %s,
+        shipto_zip = %s, 
+        shipto_country = %s
+        where shipto_id = %s::int;
+
+        # update orders.shipto
+        # set ship_by_date = %s::date,
+        # deliver_by_date = %s::date
+        # where shipto_id = %s::int;
+        commit;
+        """, [shipto_company, shipto_attn, shipto_street, shipto_city,
+              shipto_state, shipto_zip, shipto_country, sid,
+              ship_by_date, deliver_by_date, sid])
+              
+        
+    

@@ -82,11 +82,12 @@ create table orders.shipto_marketplace_skus (
        sku_qty int check(sku_qty > 0),
        primary key (shipto_id, marketplace_sku),
        foreign key (marketplace_sku)
-               references marketplace.msku_sku 
+               references marketplace.msku_sku
                (marketplace_sku)
                on update cascade,
        foreign key (shipto_id)
                references orders.shipto (shipto_id)
+	       on delete cascade
 );
 
 create table orders.valid_file_type (
@@ -105,6 +106,7 @@ create table orders.shipto_files (
        file_type varchar,
        foreign key (shipto_id)
                references orders.shipto(shipto_id)
+	       on delete cascade
 );
 
 
@@ -162,6 +164,56 @@ where not exists (
       and deliver_by_date = tt.ddate);
 
 drop table tt;
+
+end;
+$$ language plpgsql;
+
+
+create or replace function orders.insert_company_sameship
+       (n_market_order varchar, n_salesperson_id varchar, n_marketplace varchar,
+       n_company_id int, n_contact_id int, out r_internal_order_id int)
+as
+$$
+declare
+t_internal_order_id int;
+
+begin
+
+with morder (noid) as
+(insert into orders.market_orders (market_order_id, marketplace, salesperson_id)
+values (n_market_order, n_marketplace, n_salesperson_id)
+returning internal_order_id)
+
+select noid into t_internal_order_id
+from morder;
+
+create temp table cc as
+select company_id, company_name, contact_name, company_street,
+company_city, company_state, company_zip, company_country, company_contact_id
+from company.companies
+left join company.company_contact
+using (company_id)
+left join company.contacts
+using (company_contact_id)
+where company_id = n_company_id
+and company_contact_id = n_contact_id;
+
+perform orders.insert_shipto_customer
+       (t_internal_order_id, company_name,
+       contact_name,
+       company_street, company_city,
+       company_state, company_zip,
+       company_country, null::date,
+       null::date)
+from cc;
+
+insert into orders.moi_company(internal_order_id, company_id,
+	company_contact_id)
+values(t_internal_order_id, n_company_id, n_contact_id);
+
+drop table cc;
+
+r_internal_order_id := t_internal_order_id;
 
 end;
 $$ language plpgsql;

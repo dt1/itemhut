@@ -8,6 +8,8 @@
     % include('orders/orders_side_nav.tpl')
   </div>
 
+{{shipto_info}}
+  
   <div class="medium-10 columns">
     <h4>View Order ({{order_info[0][1]}})</h4>
 
@@ -36,6 +38,8 @@
 
     <div class="row">
       <div class="medium-12 columns">
+	<a href="/orders/add-order/order{{order_info[0][0]}}/deliver-to"
+	   class="button">Add Ship-to Company</a>
 	<h4>Ship-to Information</h4>
 
 	% for i in shipto_info:
@@ -49,6 +53,11 @@
 	    <p>{{i[9]}}</p>
 	    <p><b>Ship By: </b>{{i[10]}}</p>
 	    <p><b>Deliver By: </b>{{i[11]}}</p>
+	    <a href="/orders/order{{shipto_info[0][0]}}/delete-shipto-record-{{shipto_info[0][1]}}"
+	       class="button">Delete Record</a>
+	    	    <a href="/orders/order{{shipto_info[0][0]}}/edit-deliver-to-{{shipto_info[0][1]}}"
+	       class="button">Edit Company</a>
+
 	  </div>
 
 	  <div class="medium-6 columns">

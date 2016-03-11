@@ -30,18 +30,18 @@ def select_company_info(cid):
     return a
 
 def insert_company(uid, cname, phone1, phone2, fax, email, street,
-                   state, zipcode, country):
+                   city, state, zipcode, country):
     dbconn.cur.execute(
         """
         begin;
         insert into company.companies (company_uid, company_name,
              company_phone, company_phone2, company_fax, company_email,
-             company_street, company_state, company_zip,
+             company_street, company_city, company_state, company_zip,
              company_country)
-        values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         returning company_id;
         """, [uid, cname, phone1, phone2, fax, email, street,
-                   state, zipcode, country])
+                   city, state, zipcode, country])
     a = dbconn.cur.fetchall()
     dbconn.cur.execute(
         """
@@ -80,11 +80,11 @@ def add_contact(cid, contact_name, contact_position, phone1, phone2,
                   contact_position, contact_phone, contact_phone2, 
                   contact_email)
              values (%s, %s, %s, %s, %s)
-             returning (contact_id))
+             returning (company_contact_id))
         insert into company.company_contact (company_id, contact_id)
-        select %s, contact_id
+        select %s, company_contact_id
         from new_contact
-        returning contact_id;
+        returning company_contact_id;
         """, [contact_name, contact_position, phone1, phone2,
               email, cid])
     
@@ -100,13 +100,13 @@ def add_contact(cid, contact_name, contact_position, phone1, phone2,
 def select_company_contacts(cid):
     dbconn.cur.execute(
         """
-        select contact_id, contact_name, contact_position, 
+        select company_contact_id, contact_name, contact_position, 
                contact_phone, contact_phone2, contact_email
         from company.contacts ccs
         where exists
         (select *
          from company.company_contact
-         where contact_id = ccs.contact_id
+         where company_contact_id = ccs.company_contact_id
          and company_id = %s::int);
         """, [cid])
     a = dbconn.cur.fetchall()
@@ -115,10 +115,10 @@ def select_company_contacts(cid):
 def select_contact(cnid):
     dbconn.cur.execute(
         """
-        select contact_id, contact_name, contact_position, 
+        select company_contact_id, contact_name, contact_position, 
         contact_phone, contact_phone2, contact_email
         from company.contacts
-        where contact_id = %s::int;
+        where company_contact_id = %s::int;
         """, [cnid])
     a = dbconn.cur.fetchall()
     return a
@@ -134,20 +134,20 @@ def update_contact(cnid, contact_name, position, phone1, phone2,
         contact_phone = %s,
         contact_phone2 = %s,
         contact_email = %s
-        where contact_id = %s::int;
+        where company_contact_id = %s::int;
         commit;
         """, [contact_name, position, phone1, phone2, email, cnid])
 
 def select_companies_with_contacts():
     dbconn.cur.execute(
         """
-        select company_id, contact_id, company_uid, company_name, 
+        select company_id, company_contact_id, company_uid, company_name, 
                contact_name
         from company.companies
         left join company.company_contact
         using (company_id)
         left join company.contacts
-        using (contact_id);
+        using (company_contact_id);
         """)
     a = dbconn.cur.fetchall()
     return a

@@ -74,6 +74,16 @@
 	</label>
       </div>
       <div class="medium-3 columns">
+	<label>City
+	  <input type="text" name="city">
+	</label>
+      </div>
+      <div class="medium-6 columns">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="medium-3 columns">
 	<label>State
 	  <input type="text" name="state">
 	</label>
@@ -84,14 +94,11 @@
 	</label>
       </div>
       <div class="medium-3 columns">
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="medium-3 columns">
 	<label>Country
 	  <input type="text" name="country">
 	</label>
+      </div>
+      <div class="medium-3 columns">
       </div>
     </div>
 
@@ -99,6 +106,6 @@
       <input type="submit" class="button" name="add-company"
 	     value="Add Company">
     </div>
-    </form>
+  </form>
   </div>
 </div>

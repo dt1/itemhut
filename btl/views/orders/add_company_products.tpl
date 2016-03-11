@@ -52,7 +52,7 @@
 
     <input type="submit" class="button" name="add-product"
 	   value="Add Product">
-    <a href="/orders/add-order/order{{oid}}/list-companies"
+    <a href="/orders/view-order-{{oid}}"
        class="button">Done</a>
     </form>
   </div>
