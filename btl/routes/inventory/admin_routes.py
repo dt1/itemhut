@@ -82,6 +82,39 @@ def add_user():
                 user_types = user_types,
                 user_error = None)
 
+@route("/admin/update-warehouse-<wh>")
+@post("/admin/update-warehouse-<wh>")
+@view("views/admin/update_warehouse")
+def manage_warehouses(wh):
+    check_admin()
+    wh_info = adm.select_warehouse_info(wh)
+    if request.POST.get("update-warehouse"):
+        wh_id = request.POST.get("wh-id")
+        wh_name = request.POST.get("wh-name")
+        wh_street = request.POST.get("wh-street")
+        wh_state = request.POST.get("wh-state")
+        wh_zip = request.POST.get("wh-zip")
+        wh_country = request.POST.get("wh-country")
+
+        err = adm.update_warehouse_info(wh, wh_id, wh_name, wh_street,
+                                        wh_state, wh_zip, wh_country)
+        if err:
+            err = "Warehouse id {0} already in use.".format(wh_id)
+            return dict (wh_info = wh_info, err = err)
+        else:
+            url = "/admin/update-warehouse-{0}".format(wh_id)
+            redirect (url)
+            
+    return dict(wh_info = wh_info, err = None)
+
+
+@route("/admin/manage-warehouses")
+@view("views/admin/manage_warehouses")
+def manage_warehouses():
+    check_admin()
+    wh_list = adm.select_warehouse_list()
+    return dict(wh_list = wh_list)
+
 @route("/admin/add-warehouse")
 @post("/admin/add-warehouse")
 @view("views/admin/add_warehouse", wh_err = None)

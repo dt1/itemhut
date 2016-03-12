@@ -58,7 +58,7 @@ def insert_new_user(username, password, real_name,  utype, urole):
     a = dbconn.cur.fetchall()
     if a:
         return True
-        
+
     dbconn.cur.execute(
         """
         begin;
@@ -131,7 +131,7 @@ def update_user(original_username, username, real_name, utype,
 
     if utype == "":
         utype = None
-        
+
     dbconn.cur.execute(
         """
         begin;
@@ -149,3 +149,51 @@ def update_user_password(uid, pwd):
         where user_name = %s;
         commit;
         """, [pwd, uid])
+
+def select_warehouse_list():
+    dbconn.cur.execute(
+        """
+        select warehouse_id, warehouse_name, warehouse_type
+        from warehouse.warehouses;
+        """)
+    a = dbconn.cur.fetchall()
+    return a
+
+def select_warehouse_info(wh):
+    dbconn.cur.execute(
+        """
+        select warehouse_id, warehouse_name, warehouse_street_address,
+        warehouse_state, warehouse_zip, warehouse_country
+        from warehouse.warehouses
+        where warehouse_id = %s;
+        """, [wh])
+    a = dbconn.cur.fetchall()
+    return a
+
+def update_warehouse_info(original_wh_id, wh_id, wh_name, wh_street,
+                          wh_state, wh_zip, wh_country):
+    if original_wh_id != wh_id:
+        dbconn.cur.execute(
+            """
+            select warehouse_id
+            from warehouse.warehouses
+            where warehouse_id = %s;
+            """, [wh_id])
+        a = dbconn.cur.fetchall()
+        if a:
+            return True
+
+    dbconn.cur.execute(
+        """
+        begin;
+        update warehouse.warehouses
+        set warehouse_id = trim(%s),
+        warehouse_name = trim(%s),
+        warehouse_street_address = trim(%s),
+        warehouse_state = trim(%s),
+        warehouse_zip = trim(%s),
+        warehouse_country = trim(%s)
+        where warehouse_id = %s;
+        commit;
+        """, [wh_id, wh_name, wh_street, wh_state,
+              wh_zip, wh_country, original_wh_id])
