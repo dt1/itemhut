@@ -14,7 +14,7 @@ from models.amazon import *
 import models.products.product as prd
 from models.warehouse.warehouse import *
 import models.vendors as ven
-from models.admin import *
+import  models.admin as adm
 from models.incoming import *
 import models.orders as ords
 import models.companies as com
@@ -57,7 +57,7 @@ def check_admin():
     if 'username' in request.session:
         un = request.session["username"]
         role = request.session["usertype"]
-        if role == "admin":
+        if role == "admin" or role == "original admin":
             return True
         redirect("/")
 

@@ -7,30 +7,22 @@
   </div>
 
   <div class="medium-10 columns">
-
-    <h4>Add User</h4>
+{{user_info}}
+    <h4>Update {{user_info[0][0]}}</h4>
     % if user_error and new_user:
     <p>{{new_user}} already exists</p>
     % elif new_user:
     <p>Added {{new_user}}</p>
     % end
 
-    <form action="/admin/add-user" method="POST">
+    <form action="/admin/update-user-{{user_info[0][0]}}"
+	  method="POST">
 
       <div class="row">
 	<div class="medium-2 columns">
 	  <label>username:
-	    <input type="text" name="user-name" required="required">
-	  </label>
-	</div>
-	<div class="medium-10 columns">
-	</div>
-      </div>
-
-      <div class="row">
-	<div class="medium-2 columns">
-	  <label>password:
-	    <input type="password" name="password" required="required">
+	    <input type="text" name="user-name" required="required"
+		   value="{{user_info[0][0]}}">
 	  </label>
 	</div>
 	<div class="medium-10 columns">
@@ -40,7 +32,11 @@
       <div class="row">
 	<div class="medium-4 columns">
 	  <label>Name:
-	    <input type="text" name="real-name" required="required">
+	    <input type="text" name="real-name"
+		   % if user_info[0][1]:
+		   value="{{user_info[0][1]}}"
+		   %end
+		   >
 	  </label>
 	</div>
 	<div class="medium-10 columns">
@@ -65,6 +61,7 @@
 	<div class="medium-2 columns">
 	  <label>type
 	    <select name="utype">
+	      <option value="">-</option>
 	      % for i in user_types:
 	      <option value="{{i[0]}}">{{i[0]}}</option>
 	      % end
@@ -78,8 +75,8 @@
 
       <div class="row">
 	<div class="medium-2 columns">
-	  <input type="submit" class="button" value="Add User"
-		 name="add-user">
+	  <input type="submit" class="button" value="Update User"
+		 name="update-user">
 	</div>
       </div>
 
