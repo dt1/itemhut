@@ -38,7 +38,7 @@ For example, Bottle version 0.12.9 is needed to do file uploads.
 
 clone to /itemhut:
 ```bash
-$ git clone https://github.com/dt1/item-hut.git
+$ git clone https://github.com/dt1/itemhut.git
 ```
 
 setup the database
