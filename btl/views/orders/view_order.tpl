@@ -7,8 +7,6 @@
     <h4>Orders</h4>
     % include('orders/orders_side_nav.tpl')
   </div>
-
-{{shipto_info}}
   
   <div class="medium-10 columns">
     <h4>View Order ({{order_info[0][1]}})</h4>

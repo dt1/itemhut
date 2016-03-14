@@ -23,6 +23,7 @@ def update_user_password(uid):
         redirect(url)
     return dict(err = None, uid = uid)
 
+
 @route("/admin/update-user-<uid>")
 @post("/admin/update-user-<uid>")
 @view("views/admin/update_user")
@@ -81,69 +82,3 @@ def add_user():
     return dict(new_user = None, role_types = role_types,
                 user_types = user_types,
                 user_error = None)
-
-@route("/admin/update-warehouse-<wh>")
-@post("/admin/update-warehouse-<wh>")
-@view("views/admin/update_warehouse")
-def manage_warehouses(wh):
-    check_admin()
-    wh_info = adm.select_warehouse_info(wh)
-    if request.POST.get("update-warehouse"):
-        wh_id = request.POST.get("wh-id")
-        wh_name = request.POST.get("wh-name")
-        wh_street = request.POST.get("wh-street")
-        wh_state = request.POST.get("wh-state")
-        wh_zip = request.POST.get("wh-zip")
-        wh_country = request.POST.get("wh-country")
-
-        err = adm.update_warehouse_info(wh, wh_id, wh_name, wh_street,
-                                        wh_state, wh_zip, wh_country)
-        if err:
-            err = "Warehouse id {0} already in use.".format(wh_id)
-            return dict (wh_info = wh_info, err = err)
-        else:
-            url = "/admin/update-warehouse-{0}".format(wh_id)
-            redirect (url)
-            
-    return dict(wh_info = wh_info, err = None)
-
-
-@route("/admin/manage-warehouses")
-@view("views/admin/manage_warehouses")
-def manage_warehouses():
-    check_admin()
-    wh_list = adm.select_warehouse_list()
-    return dict(wh_list = wh_list)
-
-@route("/admin/add-warehouse")
-@post("/admin/add-warehouse")
-@view("views/admin/add_warehouse", wh_err = None)
-def add_warehouse():
-    check_admin()
-    wh_types = adm.select_warehouse_types()
-    if request.POST.get("add-warehouse"):
-        warehouse_id = request.POST.get("warehouse-id")
-        warehouse_name = request.POST.get("warehouse-name")
-        street = request.POST.get("street")
-        state = request.POST.get("state")
-        zip = request.POST.get("zip_code")
-        country = request.POST.get("country")
-        warehouse_type = request.POST.get("wh-type")
-        wh_id = adm.select_warehouse_id(warehouse_id)
-        if wh_id:
-            wh_err = "{0} already exists. Try another ID".format(warehouse_id)
-            return dict(new_warehouse = warehouse_name,
-                        wh_types = wh_types, wh_err = wh_err)
-        adm.insert_warehouse(warehouse_id, warehouse_name, street,
-                             state,
-                         zip, country, warehouse_type)
-        return dict(new_warehouse = warehouse_name,
-                    wh_types = wh_types)
-    return dict(new_warehouse = None,
-                wh_types = wh_types)
-
-# admin
-@route("/admin")
-@view("views/admin/admin_main")
-def admin():
-    check_admin()

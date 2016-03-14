@@ -1,14 +1,14 @@
 # This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 from route_utils import *
-from routes.inventory.product_routes import *
-from routes.inventory.warehouse_routes import *
-from routes.inventory.vendor_routes import *
-from routes.inventory.admin_routes import *
-from routes.inventory.incoming_routes import *
-from routes.inventory.login_routes import *
-from routes.inventory.order_routes import *
-from routes.inventory.company_routes import *
+from routes.product_routes import *
+from routes.warehouse_routes import *
+from routes.vendor_routes import *
+from routes.admin.admin_routes import *
+from routes.incoming_routes import *
+from routes.login_routes import *
+from routes.order_routes import *
+from routes.company_routes import *
 
 # for css, js, img, etc
 @route("/static/<filename:path>")
@@ -27,6 +27,10 @@ def get_images(filename):
 def get_images(filename):
     return static_file(filename, root="uploaded_files/orders/")
 
+@route("/uploaded_files/orders/<filename:path>")
+def palletloc_files(filename):
+    return static_file(filename, root="uploaded_files/palletlocs/")
+
 
 # home page    
 @route("/")
@@ -36,3 +40,4 @@ def index():
 
 debug(True)
 run(reloader=True, host="localhost", port=8082, app=myapp)
+#run(host="104.236.161.137", port=8082, app=myapp)

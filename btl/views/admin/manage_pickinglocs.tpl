@@ -4,31 +4,41 @@
 
 <div class="expanded row">
   <div class="medium-2 columns">
+    <h4>{{wh_info[0][1]}}</h4>
+    % if wh_info[0][6] == "B&M":
+    % include('admin/wh/side_nav_menu', whid = wh_info[0][0])
+    % end
   </div>
 
   <div class="medium-10 columns">
 
-    <h4>All Warehouses</h4>
+    <h4>Picking Locations</h4>
 
     <table id="table_id" class="display">
       <thead>
 	<tr>
-	  % for h in ["Warehouse ID", "Warehouse Name",
-	  % "Warehouse Type", ""]:
+	  % for h in ["Picking Location", "sku", "upc", "", ""]:
 	  <th>{{h}}</th>
 	  % end
 	</tr>
       </thead>
       <tbody>
-	% for i in wh_list:
+	% for i in pickingloc_list:
 	<tr>
-	  <td>{{i[0]}}</td>
 	  <td>{{i[1]}}</td>
 	  <td>{{i[2]}}</td>
-	  <td><a href="/admin/manage-warehouses/{{i[0]}}">Manage</a></td>
+	  <td>{{i[3]}}</td>
+	  <td><a href="/admin/manage-warehouses/{{wh_info[0][0]}}/picking-locations/edit-{{i[0]}}">
+	      edit</a></td>
+	  % if not i[2]:
+	  <td><a href="/admin/manage-warehouses/{{wh_info[0][0]}}/delete-pickingloc-{{i[0]}}">
+	      delete</a></td>
+	  % else:
+	  <td></td>
 	  % end
 	</tr>
 	% end
+
       </tbody>
     </table>
 

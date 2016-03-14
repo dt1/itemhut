@@ -4,17 +4,18 @@
 
 <div class="expanded row">
   <div class="medium-2 columns">
-    <h4 color = >{{wh_info[0][1]}}</h4>
-    % include('warehouse/side_nav_menu.tpl', wh_id = wh_info[0][0])
   </div>
 
   <div class="medium-10 columns">
+    
+    <h4>Edit Pallet Location ({{pl_name[0][0]}})</h4>
 
-    % if location_name:
-    <p>Added {{location_name}}</p>
+    % if err:
+    {{err}}
     % end
-    <h4>Add Pallet Location</h4>
-    <form action="/warehouses/{{wh_info[0][0]}}/add-pallet-location" method="POST">
+    
+    <form action="/admin/manage-warehouses/{{wh}}/pallet-locations/edit-{{plid}}"
+	  method="POST">
       <div class="row">
 	<div class="medium-3 columns">
 	  <label>Location Name
@@ -25,12 +26,10 @@
       </div>
       <div class="row">
 	<div class="medium-3 columns">
-	  <input type="submit" class="button" value="Add Pallet Location" name="add-pallet-location">
+	  <input type="submit" class="button" value="Update Pallet Location" name="update-pallet-location">
 	</div>
       </div>
-
     </form>
-
 
   </div>
 </div>

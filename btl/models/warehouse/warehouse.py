@@ -37,28 +37,11 @@ def add_full_pallet_to_pickingloc(wh, pid):
             commit;
             """, [pid, wh, pid])
 
-
-def insert_new_pallet_palletloc(pl_id):
-    dbconn.cur.execute(
-        """
-        with new_pallet (pallet_id) as 
-	    (insert into warehouse.pallets(pallet_id)
-	     values (default)
-	     returning pallet_id)
-        insert into warehouse.pallet_palletloc
-	    (pallet_location_id, pallet_id)
-        select %s, pallet_id
-        from new_pallet
-        returning pallet_id;
-        """, [pl_id])
-    a = dbconn.cur.fetchall()
-    return a
-
 def running_inventory(wh):
     dbconn.cur.execute(
         """
         select sku, upc,
-        sum(coalesce(box_qty * piece_qty * case_qty, 0) 
+        sum(coalesce(box_qty * piece_qty * case_qty, 0)
             + coalesce(qty, 0))
         from warehouse.warehouses
         join warehouse.warehouse_pallet_loc
@@ -109,9 +92,9 @@ def valid_warehouses():
 def select_pallet_locations(wh):
     dbconn.cur.execute(
         """
-        select pallet_location_id, pallet_location_name, pallet_id, 
-        string_agg(sku || '/' || upc || ' cases(' || case_qty || ')', ';;'), 
-	string_agg(sku || '(' || (case_qty * piece_qty * box_qty)::varchar || ')', ';;')        
+        select pallet_location_id, pallet_location_name, pallet_id,
+        string_agg(sku || '/' || upc || ' cases(' || case_qty || ')', ';;'),
+	string_agg(sku || '(' || (case_qty * piece_qty * box_qty)::varchar || ')', ';;')
         from warehouse.warehouses
         join warehouse.warehouse_pallet_loc
         using (warehouse_id)
@@ -138,7 +121,7 @@ def warehouse_information(wh):
     dbconn.cur.execute(
         """
         select warehouse_id, warehouse_name, warehouse_street_address,
-               warehouse_state, warehouse_zip, 
+               warehouse_state, warehouse_zip,
                warehouse_country, warehouse_type
         from warehouse.warehouses
         where warehouse_id = %s;
@@ -149,7 +132,7 @@ def warehouse_information(wh):
 def get_case_boxes():
     dbconn.cur.execute(
         """
-        select case_id, box_id, box_qty, piece_qty, upc, 
+        select case_id, box_id, box_qty, piece_qty, upc,
                sku, product_name, piece_qty * box_qty
         from warehouse.case_box
         join warehouse.cases
@@ -169,32 +152,15 @@ def valid_warehouse_list():
     warehouse_lower = [i[1] for i in wh_query]
     return warehouse_name, warehouse_lower
 
-def insert_pallet_location(warehouse_id, location_name):
-    dbconn.cur.execute(
-        """
-        begin;
-        with new_loc (pallet_location_id) as
-	    (insert into warehouse.pallet_locations
-             (pallet_location_name)
-	     values (%s)
-	     returning pallet_location_id
-	     )
-        insert into warehouse.warehouse_pallet_loc 
-                    (warehouse_id, pallet_location_id)
-        select %s, pallet_location_id
-        from new_loc;
-        commit;
-        """, [location_name, warehouse_id])
-
 def select_picking_locations(wh):
     dbconn.cur.execute(
         """
-        select picking_location_id, picking_location_name, sku, upc, 
+        select picking_location_id, picking_location_name, sku, upc,
                qty
         from warehouse.warehouses
-        join warehouse.warehouse_picking_loc 
+        join warehouse.warehouse_picking_loc
         using(warehouse_id)
-        join warehouse.picking_locations 
+        join warehouse.picking_locations
         using(picking_location_id)
         join product.sku_upc
         using (upc)
@@ -208,9 +174,9 @@ def insert_picking_location(wh, picking_location, sku, qty):
         """
         select warehouse_id, warehouse_name, picking_location_name
         from warehouse.warehouses
-        join warehouse.warehouse_picking_loc 
+        join warehouse.warehouse_picking_loc
         using(warehouse_id)
-        join warehouse.picking_locations 
+        join warehouse.picking_locations
         using(picking_location_id)
         where warehouse_id = %s
         and picking_location_name = %s;
@@ -349,7 +315,7 @@ def select_case_boxes(pid):
     a = dbconn.cur.fetchall()
     return a
 
-def generate_pallet_id():
+def generate_pallet_id(wh):
     dbconn.cur.execute(
         """
         begin;
@@ -367,14 +333,14 @@ def generate_pallet_id():
               new_wh_palletloc as
                 (insert into warehouse.warehouse_pallet_loc
 		     (warehouse_id, pallet_location_id)
-	         select 'wh-one', pallet_location_id
+	         select %s, pallet_location_id
 	         from new_pl)
         insert into warehouse.pallet_palletloc
              (pallet_location_id, pallet_id)
         select pallet_location_id, pallet_id
         from new_pl, new_pallet
         returning pallet_id;
-        """)
+        """, [wh])
     a = dbconn.cur.fetchall()
     dbconn.cur.execute(
         """
@@ -385,7 +351,7 @@ def generate_pallet_id():
 def select_pallet_info(pid):
     dbconn.cur.execute(
         """
-        select case_id, sku, upc, box_qty, piece_qty, case_qty, 
+        select case_id, sku, upc, box_qty, piece_qty, case_qty,
         coalesce(pallet_location_name, 'Empty'), pallet_location_id
         from warehouse.pallet_palletloc
         join warehouse.pallet_locations
@@ -424,33 +390,12 @@ def delete_pallet_case(pid, cid):
         and case_id = %s::int;
         commit;
         """, [pid, cid])
-    
-def update_pallet_location(pl_id, pl_name):
-    dbconn.cur.execute(
-        """
-        begin;
-        update warehouse.pallet_locations
-        set pallet_location_name = %s
-        where pallet_location_id = %s::int;
-        commit;
-        """, [pl_name, pl_id])
 
-
-def delete_pallet_loc_cascades(pid):
-    dbconn.cur.execute(
-        """
-        begin;
-        delete
-        from warehouse.pallet_locations
-        where pallet_location_id = %s::int;
-        commit;
-        """, [pid])
-    
 def select_all_running_inventory():
     dbconn.cur.execute(
         """
         select sku, upc, coalesce(total1, 0) + coalesce(total2, 0)
-from 
+from
         (select sku, upc, qty total1
         from warehouse.warehouse_picking_loc
         join warehouse.picking_locations
