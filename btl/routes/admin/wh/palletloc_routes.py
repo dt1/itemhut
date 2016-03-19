@@ -5,7 +5,7 @@ import routes.admin.wh.wh_utils as whu
 
 @route(whu.gen_route("/<wh>/add-pallet-locations"))
 @post(whu.gen_route("/<wh>/add-pallet-locations"))
-@view("views/admin/add_pallet_location")
+@view(whu.gen_view("add_pallet_location"))
 def add_pallet_location(wh):
     check_admin()
     wh_info = adm.select_warehouse_info(wh)
@@ -33,7 +33,7 @@ def add_pallet_location(wh):
 
 @route(whu.gen_route("/<wh>/pallet-locations/edit-<plid>"))
 @post(whu.gen_route("/<wh>/pallet-locations/edit-<plid>"))
-@view("views/admin/edit_palletloc_name")
+@view(whu.gen_view("edit_palletloc_name"))
 def edit_pallet_location(wh, plid):
     check_admin()
     pl_name = adm.select_palletloc_name(plid)
@@ -57,7 +57,7 @@ def delete_pallet_location(wh, plid):
     redirect(url)
 
 @route(whu.gen_route("/<wh>/pallet-locations"))
-@view("views/admin/manage_palletlocs")
+@view(whu.gen_view("manage_palletlocs"))
 def manage_pallet_locs(wh):
     wh_info = adm.select_warehouse_info(wh)
     whu.check_bm(wh_info[0][6])

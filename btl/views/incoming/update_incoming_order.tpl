@@ -52,13 +52,24 @@
 		method="POST" id="input-form">
 	    
 	    <p>Add Product</p>
-	    <label>UPC
-	      <input name="upc" list="upc" required="required"></label>
-	    <datalist id="upc">
-	      % for i in upc_list:
-	      <option value="{{i[0]}}">{{i[0]}}</option>
-	      % end
-	    </datalist>
+	    <table>
+	      <thead>
+		<tr>
+		  % for h in ["", "sku", "upc"]:
+		  <th>{{h}}</th>
+		  % end
+		</tr>
+	      <tbody>
+		% for i in upc_list:
+		<tr>
+		  <td><input type="radio" name="upc"
+			      value="{{i[1]}}"></td>
+		  <td>{{i[0]}}</td>
+		  <td>{{i[1]}}</td>
+		</tr>
+		% end
+	      </tbody>
+	    </table>
 	    
 	    <label>Qty
 	      <input type="number" min="1" required="required" name="qty">

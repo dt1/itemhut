@@ -5,7 +5,7 @@ import os as os
 from route_utils import *
 
 def gen_view(v):
-    return "views/admin/{0}".format(v)
+    return "views/admin/wh/{0}".format(v)
 
 def gen_route(r):
     return "/admin/manage-warehouses{0}".format(r)

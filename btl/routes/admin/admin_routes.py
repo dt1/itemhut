@@ -7,6 +7,7 @@ from routes.admin.wh.warehouse_routes import *
 from routes.admin.wh.palletloc_routes import *
 from routes.admin.wh.pickingloc_routes import *
 from routes.admin.users import *
+from routes.admin.filetypes.filetypes import *
 
 # admin
 @route("/admin")

@@ -34,7 +34,7 @@ def add_picking_location(wh):
 
 @route(whu.gen_route("/<wh>/picking-locations/edit-<plid>"))
 @post(whu.gen_route("/<wh>/picking-locations/edit-<plid>"))
-@view("views/admin/edit_pickingloc")
+@view(whu.gen_view("edit_pickingloc"))
 def edit_picking_location(wh, plid):
     check_admin()
     pl_info = adm.select_pickingloc_info(plid)

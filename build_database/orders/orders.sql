@@ -107,6 +107,8 @@ create table orders.shipto_files (
        foreign key (shipto_id)
                references orders.shipto(shipto_id)
 	       on delete cascade
+        foreign key (file_type)
+	        references orders.valid_file_type (file_type)
 );
 
 

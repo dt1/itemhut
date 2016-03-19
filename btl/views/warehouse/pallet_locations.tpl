@@ -9,10 +9,7 @@
   </div>
   <div class="medium-10 columns">
     <h4>Pallet Locations</h4>
-
-    <a href="/warehouses/{{wh_info[0][0]}}/add-pallet-location">
-      Add Pallet Location</a>
-
+{{pallet_location_list}}
     <table id="table_id" class="display">
       <thead>
 	<tr>
@@ -24,10 +21,13 @@
       </thead>
       <tbody>
 	% for item in pallet_location_list:
-	% if item[2]:
 	<tr>
 	  <td>{{item[1]}}</td>
+	  % if item[2]:
 	  <td>{{item[2]}}</td>
+	  % else:
+	  <td>Empty</td>
+	  % end
 	  % if item[3]:
 	  <td>
 	    % for ii in item[3].split(";;"):
@@ -47,36 +47,12 @@
 	  % end
 	  <td><a href="/warehouses/{{wh_info[0][0]}}/update-pallet-{{item[2]}}">Update Pallet</a></td>
 	  <td><a href="/warehouses/{{wh_info[0][0]}}/delete-pallet-location-{{item[0]}}">delete</a></td>
+	  % if item[2]:
 	  <td><a href="/warehouses/{{wh_info[0][0]}}/move-to-picking-{{item[2]}}">move to picking</a></td>
-	</tr>
-
-	% else:
-	<tr>
-	  <td>{{item[1]}}</td>
-	  <td>Empty</td>
-	  % if item[3]:
-	  <td>
-	    % for ii in item[3].split(";;"):
-	    {{ii}}<br>
-	    % end
-	  </td>
 	  % else:
-	  <td>Empty</td>
+	  <td></td>
 	  % end
-	  % if item[4]:
-	  <td>
-	    % for ii in item[4].split(";;"):
-	    {{ii}}<br>
-	    % end
-	    % else:
-	  <td>Empty</td>
-	  % end
-	  <td><a href="/warehouses/{{wh_info[0][0]}}/add-pallet-to-ploc-{{item[0]}}">Add Pallet</a></td>
-	  <td><a href="/warehouses/{{wh_info[0][0]}}/delete-pallet-location-{{item[0]}}">delete</a></td>
-	  <td><a href="/warehouses/{{wh_info[0][0]}}/move-to-picking-{{item[2]}}">move to picking</a></td>
 	</tr>
-	% end
-
 	% end
       </tbody>
     </table>

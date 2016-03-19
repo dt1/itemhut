@@ -87,7 +87,7 @@ def insert_incoming_order_product(oid, upc, qty):
 def get_order_upc_candidates(oid):
     dbconn.cur.execute(
         """
-        select upc
+        select sku, upc
         from product.sku_upc psu
         where not exists
         (select upc

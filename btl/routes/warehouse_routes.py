@@ -2,10 +2,20 @@
 
 from route_utils import *
 
+def gen_view(v):
+    return "views/warehouse/{0}".format(v)
+
 # warehouse pages:
+@route("/warehouses/<wh>/qc")
+@post("/warehouses/<wh>/qc")
+@view(gen_view("qc"), err = None)
+def quality_control(wh):
+    orders = select_outbound_orders(wh)
+    return dict(orders = orders)
+
 @route("/warehouses/cases/new-config")
 @post("/warehouses/cases/new-config")
-@view("views/warehouse/add_case_box", err = None)
+@view(gen_view("add_case_box"), err = None)
 def new_warehouse_case_config():
     check_user()
     upc_list = prd.get_upcs()
@@ -23,7 +33,7 @@ def new_warehouse_case_config():
         return dict(upc_list = upc_list)
 
 @route("/warehouses/cases")
-@view("views/warehouse/case_boxes")
+@view(gen_view("case_boxes"))
 def warehouse_cases():
     check_user()
     case_boxes = get_case_boxes()
@@ -34,17 +44,17 @@ def warehouse_gen_information(wh):
     check_user()
     wh_info = warehouse_information(wh)
     if wh_info[0][6] == 'B&M':
-        return template("views/warehouse/information",
+        return template(gen_view("information"),
                         wh_info = wh_info)
     elif wh_info[0][6] == '3PL':
-        return template("views/warehouse/information_3pl",
+        return template(gen_view("information_3pl"),
                         wh_info = wh_info)
     else:
         return error404("err")
 
 @route("/warehouses/<wh>/add-product")
 @post("/warehouses/<wh>/add-product")
-@view("views/warehouse/add_3pl_product", upc = None)
+@view(gen_view("add_3pl_product"), upc = None)
 def warehouse_add_product(wh):
     check_user()
     wh_info = warehouse_information(wh)
@@ -61,7 +71,7 @@ def warehouse_add_product(wh):
 
 @route("/warehouses/<wh>/update-running-inventory-<sku>")
 @post("/warehouses/<wh>/update-running-inventory-<sku>")
-@view("views/warehouse/update_running_3pl_inventory")
+@view(gen_view("update_running_3pl_inventory"))
 def update_warehouse_running_inventory(wh, sku):
     check_user()
     wh_info = warehouse_information(wh)
@@ -83,12 +93,12 @@ def warehouse_running_inventory(wh):
     wh_info = warehouse_information(wh)
     if wh_info[0][6] == 'B&M':
         sku_count = running_inventory(wh)
-        return template("views/warehouse/running_inventory",
+        return template(gen_view("running_inventory"),
                         sku_count = sku_count,
                         wh_info = wh_info)
     elif wh_info[0][6] == '3PL':
         sku_count = select_3pl_running_inventory(wh)
-        return template("views/warehouse/running_3pl_inventory",
+        return template(gen_view("running_3pl_inventory"),
                         sku_count = sku_count,
                         wh_info = wh_info)
     else:
@@ -97,7 +107,7 @@ def warehouse_running_inventory(wh):
 
 @route("/warehouses/<wh>/update-picking-location-<pid>")
 @post("/warehouses/<wh>/update-picking-location-<pid>")
-@view("views/warehouse/update_picking_location")
+@view(gen_view("update_picking_location"))
 def update_picking_location(wh, pid):
     check_user()
     wh_info = warehouse_information(wh)
@@ -119,7 +129,7 @@ def update_picking_location(wh, pid):
 
 @route("/warehouses/<wh>/add-picking-location")
 @post("/warehouses/<wh>/add-picking-location")
-@view("views/warehouse/add_picking_location")
+@view(gen_view("add_picking_location"))
 def add_warehouse_picking_location(wh):
     check_user()
     wh_info = warehouse_information(wh)
@@ -138,7 +148,7 @@ def add_warehouse_picking_location(wh):
         return error404("err")
 
 @route("/warehouses/<wh>/picking-locations")
-@view("views/warehouse/picking_locations")
+@view(gen_view("picking_locations"))
 def warehouse_picking_locations(wh):
     check_user()
     wh_info = warehouse_information(wh)
@@ -160,7 +170,7 @@ def move_to_pickingloc(wh, pid):
 ## pallet locations
 @route("/warehouses/<wh>/add-pallet-location")
 @post("/warehouses/<wh>/add-pallet-location")
-@view("views/warehouse/add_pallet_location")
+@view(gen_view("add_pallet_location"))
 def add_pallet_location(wh):
     check_user()
     wh_info = warehouse_information(wh)
@@ -183,7 +193,7 @@ def delete_case_from_pallet(wh, pid, cid):
 # pallets
 @route("/warehouses/<wh>/update-pallet-<pid>")
 @post("/warehouses/<wh>/update-pallet-<pid>")
-@view("views/warehouse/update_pallet", err = None)
+@view(gen_view("update_pallet"), err = None)
 def warehouse_pallets(wh, pid):
     check_user()
     wh_info = warehouse_information(wh)
@@ -228,7 +238,7 @@ def warehouse_pallets(wh):
     redirect(url)
 
 @route("/warehouses/<wh>/pallets")
-@view("views/warehouse/pallets")
+@view(gen_view("pallets"))
 def warehouse_pallets(wh):
     check_user()
     wh_info = warehouse_information(wh)
@@ -240,7 +250,7 @@ def warehouse_pallets(wh):
         return error404("err")
 
 @route("/warehouses/<wh>/pallet-locations/update-loc-<pid>")
-@view("views/warehouse/pallet_locations")
+@view(gen_view("pallet_locations"))
 def warehouse_pallet_locations(wh, pid):
     check_user()
     wh_info = warehouse_information(wh)
@@ -252,7 +262,7 @@ def warehouse_pallet_locations(wh, pid):
         return error404("err")
         
 @route("/warehouses/<wh>/pallet-locations")
-@view("views/warehouse/pallet_locations")
+@view(gen_view("pallet_locations"))
 def warehouse_pallet_locations(wh):
     check_user()
     wh_info = warehouse_information(wh)
@@ -267,17 +277,17 @@ def warehouse_n(wh):
     wh_info = warehouse_information(wh)
     if wh_info[0][6] == 'B&M':
         sku_count = running_inventory(wh)
-        return template("views/warehouse/running_inventory",
+        return template(gen_view("running_inventory"),
                         sku_count = sku_count, wh_info = wh_info)
     elif wh_info[0][6] == '3PL':
         sku_count = select_3pl_running_inventory(wh)
-        return template("views/warehouse/running_3pl_inventory",
+        return template(gen_view("running_3pl_inventory"),
                         sku_count = sku_count, wh_info = wh_info)
     else:
         return error404("err")
         
 @route("/warehouses")
-@view("views/warehouse/warehouse_main")
+@view(gen_view("warehouse_main"))
 def warehouse():
     check_user()
     wh = valid_warehouses()

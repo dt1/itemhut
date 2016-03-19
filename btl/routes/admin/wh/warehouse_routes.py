@@ -1,16 +1,11 @@
 # This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 from route_utils import *
+import routes.admin.wh.wh_utils as whu
 
-def gen_view(v):
-    return "views/admin/{0}".format(v)
-
-def gen_route(r):
-    return "/admin/manage-warehouses{0}".format(r)
-
-@route(gen_route("/add-warehouse"))
-@post(gen_route("/add-warehouse"))
-@view(gen_view("/add_warehouse"), wh_err = None)
+@route(whu.gen_route("/add-warehouse"))
+@post(whu.gen_route("/add-warehouse"))
+@view(whu.gen_view("/add_warehouse"), wh_err = None)
 def add_warehouse():
     check_admin()
     wh_types = adm.select_warehouse_types()
@@ -42,9 +37,9 @@ def add_warehouse():
     return dict(new_warehouse = None,
                 wh_types = wh_types)
 
-@route(gen_route("/<wh>"))
-@post(gen_route("/<wh>"))
-@view(gen_view("manage_warehouses_whinfo"))
+@route(whu.gen_route("/<wh>"))
+@post(whu.gen_route("/<wh>"))
+@view(whu.gen_view("manage_warehouses_whinfo"))
 def manage_warehouses(wh):
     check_admin()
     wh_info = adm.select_warehouse_info(wh)
@@ -71,8 +66,8 @@ def manage_warehouses(wh):
 
     return dict(wh_info = wh_info, err = None)
 
-@route(gen_route(""))
-@view(gen_view("manage_warehouses"))
+@route(whu.gen_route(""))
+@view(whu.gen_view("manage_warehouses"))
 def manage_warehouses():
     check_admin()
     wh_list = adm.select_warehouse_list()

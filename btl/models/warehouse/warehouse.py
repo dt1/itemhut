@@ -426,3 +426,20 @@ from
         """)
     a = dbconn.cur.fetchall()
     return a
+
+def select_outbound_orders(wh):
+        dbconn.cur.execute(
+                """
+                select internal_order_id, market_order_id, sku, 
+                sku_qty, ship_by_date
+                from orders.market_orders
+                join orders.shipto
+                using (internal_order_id)
+                join orders.shipto_marketplace_skus
+                using (shipto_id)
+                join marketplace.msku_sku
+                using (marketplace_sku);
+                """)
+        a = dbconn.cur.fetchall()
+        return a
+

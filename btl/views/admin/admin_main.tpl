@@ -6,22 +6,23 @@
   <div class="medium-2 columns">
   </div>
 
-  <div class="medium-10 columns">
-    <div class = "row">
-      <div class = "medium-4 columns">
-	<h5 color = >Warehouses</h5>
-	<p><a href = "/admin/add-warehouse">Add Warehouse</a></p>
-	<p><a href = "/admin/manage-warehouses">Manage Warehouses</a></p>
+  <div class="medium-10 columns"> <div class="row">
+      <div class="medium-4 columns">
+	<h5 color=>Warehouses</h5>
+	<p><a href="/admin/add-warehouse">Add Warehouse</a></p>
+	<p><a href="/admin/manage-warehouses">Manage Warehouses</a></p>
       </div>
 
 
-      <div class = "medium-4 columns">
-	<h5 color = >Users and Roles</h5>
-	<p><a href = "/admin/add-user">Add User</a></p>
-	<p><a href = "/admin/manage-users">Manage Users</a></p>
+      <div class="medium-4 columns">
+	<h5 color=>Users and Roles</h5>
+	<p><a href="/admin/add-user">Add User</a></p>
+	<p><a href="/admin/manage-users">Manage Users</a></p>
       </div>
 
-      <div class = "medium-4 columns">
+      <div class="medium-4 columns">
+	<h5>System</h5>
+	<p><a href="/admin/manage-filetypes">Manage File Types</a></p>
       </div>
     </div>
   </div>
