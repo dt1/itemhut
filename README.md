@@ -15,10 +15,17 @@ Under active development. To keep things progressing along smoothly, Item Hut is
 In general, the layout of the system is:
 
 btl/ -- The running web-based system
-build_database/ -- for building out the database, which includes files I'm working on along with the files needed to build the system.
+
+build_database/ -- for building out the database, which includes files I'm wor
+
+king on along with the files needed to build the system.
+
 er-diagrams/ -- ER Diagrams for the database.
+
 py/ -- serves no current purpose.
+
 pydb/ -- for connecting to the database.
+
 pyebay/ -- working files for ebay API interaction. Work in progress.
 
 ####Viewing ER Diagrams
