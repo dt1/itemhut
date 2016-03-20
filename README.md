@@ -11,6 +11,16 @@ https://itemhut.com/
 ###Current Status
 Under active development. To keep things progressing along smoothly, Item Hut is going to begin as an inventory system. However, there are tables for ebay orders, Amazon products, etc. Please refer to the er-diagrams.
 
+###Code Layout
+In general, the layout of the system is:
+
+btl/ -- The running web-based system
+build_database/ -- for building out the database, which includes files I'm working on along with the files needed to build the system.
+er-diagrams/ -- ER Diagrams for the database.
+py/ -- serves no current purpose.
+pydb/ -- for connecting to the database.
+pyebay/ -- working files for ebay API interaction. Work in progress.
+
 ####Viewing ER Diagrams
 
 The ER Diagrams were created using Dia:
