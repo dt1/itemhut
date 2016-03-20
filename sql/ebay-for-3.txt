@@ -1,6 +1,0 @@
-emacs /usr/lib/python3.4/site-packages/ebaysdk-2.1.2-py3.4.egg/ebaysdk/response.py
-line 65:
-change:
-if i is None or isinstance(i, str) or isinstance(i, unicode):
-to:
-if i is None or isinstance(i, str): #or isinstance(i, unicode):
