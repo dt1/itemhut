@@ -40,8 +40,12 @@
 
 	  <div class="medium-3 columns">
 	    <label>Salesperson ID:
-	      <input type="text" name="salesperson-id"
-		     required="required" value="{{userid}}">
+	      <select name="salesperson-id" required="required">
+		% for s in salesteam_list:
+		<option name="salesperson-id" value="{{s[0]}}">
+		  {{s[0]}} ; {{s[1]}}</option>
+		% end
+	      </select>
 	    </label>
 	  </div>
 

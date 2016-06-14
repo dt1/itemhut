@@ -330,5 +330,12 @@ def edit_shipto_company(sid, shipto_company, shipto_attn,
               shipto_state, shipto_zip, shipto_country, sid,
               ship_by_date, deliver_by_date, sid])
               
-        
-    
+def select_salesteam_list():
+    dbconn.cur.execute(
+        """
+        select user_name, person_name
+        from users.users
+        where user_type = 'sales';
+        """)
+    a = dbconn.cur.fetchall()
+    return a

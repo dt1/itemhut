@@ -14,7 +14,7 @@ from models.amazon import *
 import models.products.product as prd
 from models.warehouse.warehouse import *
 import models.vendors as ven
-import  models.admin as adm
+import models.admin as adm
 from models.incoming import *
 import models.orders as ords
 import models.companies as com

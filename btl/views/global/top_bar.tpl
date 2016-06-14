@@ -4,8 +4,8 @@
   <div class="title-bar-left">
     <span class="title-bar-title"><a href="https://itemhut.com/">Item Hut</a></span>
   </div>
-  <span style="margin-left: 100px">Like more information? Contact David: <a href="mailto:david.t@itemhut.com">david.t@itemhut.com</a></span>
-  <span style="margin-left: 10px">(512) 769-7253</span>
+  <!-- <span style="margin-left: 100px">Like more information? Contact David: <a href="mailto:david.t@itemhut.com">david.t@itemhut.com</a></span> -->
+  <!-- <span style="margin-left: 10px">(512) 769-7253</span> -->
 
   <div class="title-bar-right">
     <span class="title-bar-title"><a href="/logout">Log Out</a></span>

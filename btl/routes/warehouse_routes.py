@@ -112,7 +112,7 @@ def update_picking_location(wh, pid):
     check_user()
     wh_info = warehouse_information(wh)
     pl_info = select_picking_location_info(pid)
-    sku_upc = sku_upcs()
+    sku_upc = prd.sku_upcs()
     if wh_info:
         if request.POST.get("update-picking-location"):
             picking_location = request.POST.get("picking-location")
@@ -133,7 +133,7 @@ def update_picking_location(wh, pid):
 def add_warehouse_picking_location(wh):
     check_user()
     wh_info = warehouse_information(wh)
-    sku_upc = sku_upcs()
+    sku_upc = prd.sku_upcs()
     if request.POST.get("add-picking-location"):
         picking_location = request.POST.get("picking-location")
         sku = request.POST.get("sku")

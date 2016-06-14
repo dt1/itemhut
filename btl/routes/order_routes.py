@@ -156,6 +156,7 @@ def reroute_add_order(oid):
 def add_order():
     check_user()
     userid = request.session["username"]
+    salesteam_list = ords.select_salesteam_list()
     msku_list = ords.select_valid_mskus()
     market_list = ords.select_valid_marketplaces()
     companies = com.select_companies_with_contacts()
@@ -173,7 +174,8 @@ def add_order():
         redirect(url)
     return dict(msku_list = msku_list, err = None, new_order = None,
                 market_list = market_list, userid = userid,
-                companies = companies)
+                companies = companies,
+                salesteam_list = salesteam_list)
 
 @route("/orders/view-order-<oid:int>")
 @view("views/orders/view_order")
