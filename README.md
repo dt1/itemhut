@@ -11,6 +11,9 @@ https://itemhut.com/
 ###Current Status
 Under active development. To keep things progressing along smoothly, Item Hut is going to begin as an inventory system. However, there are tables for ebay orders, Amazon products, etc. Please refer to the er-diagrams.
 
+###Currently Working On
+Order Scan out and Quality Control.
+
 ###Code Layout
 In general, the layout of the system is:
 

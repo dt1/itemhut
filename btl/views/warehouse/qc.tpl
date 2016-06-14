@@ -12,7 +12,48 @@
     <p>{{err}}</p>
     % end
     <form action="/warehouses/cases/new-config", method="POST">
-      {{orders}}
+      <table id="table_id" class="display">
+	<thead>
+	  <tr>
+	    % for h in ["Internal Order ID", "Order ID", "SKU", "QTY", "Ship By Date"]:
+	    <th>{{h}}</th>
+	    % end
+	  </tr>
+	</thead>
+	<tbody>
+	  % for i in orders:
+	  <tr>
+	    <td>{{i[0]}}</td>
+	    <td>{{i[1]}}</td>
+	    <td>{{i[2]}}</td>
+	    <td>{{i[3]}}</td>
+	    <td>{{i[4]}}</td>
+	  </tr>
+	  % end
+	<tbody>
+      </table>
     </form>
   </div>
 </div>
+
+<script>
+  $(document).ready( function () {
+  $('#table_id').DataTable();
+  } );
+</script>
+
+<style>
+
+  .dataTables_length{
+  width: 5em;
+  }
+
+  .dataTables_filter{
+  width:15em;
+  margin-left:-25em;
+  }
+
+  .dataTables_paginate{
+  margin-left:-20em;
+  }
+</style>
