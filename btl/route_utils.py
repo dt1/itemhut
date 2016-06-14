@@ -12,7 +12,7 @@ import hmac
 
 from models.amazon import *
 import models.products.product as prd
-from models.warehouse.warehouse import *
+import models.warehouse.warehouse as whs
 import models.vendors as ven
 import models.admin as adm
 from models.incoming import *

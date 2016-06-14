@@ -10,7 +10,8 @@ def gen_view(v):
 @post("/warehouses/<wh>/qc")
 @view(gen_view("qc"), err = None)
 def quality_control(wh):
-    orders = select_outbound_orders(wh)
+    check_user()
+    orders = whs.select_outbound_orders(wh)
     return dict(orders = orders)
 
 @route("/warehouses/cases/new-config")
@@ -24,7 +25,7 @@ def new_warehouse_case_config():
         box_qty = request.POST.get("box-qty")
         case_qty = request.POST.get("case-qty")
         if int(upc) in upc_list:
-            insert_new_case_box(upc, box_qty, case_qty)
+            prd.insert_new_case_box(upc, box_qty, case_qty)
             return dict(upc_list = upc_list)
         else:
             err = "UPC invalid: {0}".format(upc)
@@ -36,13 +37,13 @@ def new_warehouse_case_config():
 @view(gen_view("case_boxes"))
 def warehouse_cases():
     check_user()
-    case_boxes = get_case_boxes()
+    case_boxes = whs.get_case_boxes()
     return dict(case_boxes = case_boxes)
 
 @route("/warehouses/<wh>/information")
 def warehouse_gen_information(wh):
     check_user()
-    wh_info = warehouse_information(wh)
+    wh_info = whs.warehouse_information(wh)
     if wh_info[0][6] == 'B&M':
         return template(gen_view("information"),
                         wh_info = wh_info)
@@ -57,13 +58,13 @@ def warehouse_gen_information(wh):
 @view(gen_view("add_3pl_product"), upc = None)
 def warehouse_add_product(wh):
     check_user()
-    wh_info = warehouse_information(wh)
-    sku_upc = select_sku_upc_not_in_3pl(wh)
+    wh_info = whs.warehouse_information(wh)
+    sku_upc = whs.select_sku_upc_not_in_3pl(wh)
     if wh_info[0][6] == '3PL':
         if request.POST.get("add-product"):
             upc = request.POST.get("upc")
             qty = request.POST.get("qty")
-            insert_3pl_product(wh, upc, qty)
+            whs.insert_3pl_product(wh, upc, qty)
             return dict(wh_info = wh_info, sku_upc = sku_upc, upc=upc)
         return dict(wh_info = wh_info, sku_upc = sku_upc)
     else:
@@ -74,13 +75,13 @@ def warehouse_add_product(wh):
 @view(gen_view("update_running_3pl_inventory"))
 def update_warehouse_running_inventory(wh, sku):
     check_user()
-    wh_info = warehouse_information(wh)
-    sku_count = select_3pl_running_inventory_sku(wh, sku)
+    wh_info = whs.warehouse_information(wh)
+    sku_count = whs.select_3pl_running_inventory_sku(wh, sku)
     if wh_info[0][6] == '3PL' and sku_count:
         if request.POST.get("update-qty"):
             qty = request.POST.get("qty")
             picking_loc = sku_count[0][3]
-            update_3pl_running_inventory(picking_loc, qty)
+            whs.update_3pl_running_inventory(picking_loc, qty)
             url = "/warehouses/{0}/update-running-inventory-{1}".format(wh, sku)
             redirect(url)
         return dict(sku_count = sku_count, wh_info = wh_info)
@@ -90,14 +91,14 @@ def update_warehouse_running_inventory(wh, sku):
 @route("/warehouses/<wh>/running-inventory")
 def warehouse_running_inventory(wh):
     check_user()
-    wh_info = warehouse_information(wh)
+    wh_info = whs.warehouse_information(wh)
     if wh_info[0][6] == 'B&M':
-        sku_count = running_inventory(wh)
+        sku_count = whs.running_inventory(wh)
         return template(gen_view("running_inventory"),
                         sku_count = sku_count,
                         wh_info = wh_info)
     elif wh_info[0][6] == '3PL':
-        sku_count = select_3pl_running_inventory(wh)
+        sku_count = whs.select_3pl_running_inventory(wh)
         return template(gen_view("running_3pl_inventory"),
                         sku_count = sku_count,
                         wh_info = wh_info)
@@ -110,15 +111,15 @@ def warehouse_running_inventory(wh):
 @view(gen_view("update_picking_location"))
 def update_picking_location(wh, pid):
     check_user()
-    wh_info = warehouse_information(wh)
-    pl_info = select_picking_location_info(pid)
+    wh_info = whs.warehouse_information(wh)
+    pl_info = whs.select_picking_location_info(pid)
     sku_upc = prd.sku_upcs()
     if wh_info:
         if request.POST.get("update-picking-location"):
             picking_location = request.POST.get("picking-location")
             upc = request.POST.get("upc")
             qty = request.POST.get("qty")
-            update_picking_location_info(pid, picking_location, upc, qty)
+            whs.update_picking_location_info(pid, picking_location, upc, qty)
             url = "/warehouses/{0}/update-picking-location-{1}".format(wh, pid)
             redirect(url)
         return dict(pid = pid, wh_info = wh_info, sku_upc = sku_upc,
@@ -132,7 +133,7 @@ def update_picking_location(wh, pid):
 @view(gen_view("add_picking_location"))
 def add_warehouse_picking_location(wh):
     check_user()
-    wh_info = warehouse_information(wh)
+    wh_info = whs.warehouse_information(wh)
     sku_upc = prd.sku_upcs()
     if request.POST.get("add-picking-location"):
         picking_location = request.POST.get("picking-location")
@@ -151,8 +152,8 @@ def add_warehouse_picking_location(wh):
 @view(gen_view("picking_locations"))
 def warehouse_picking_locations(wh):
     check_user()
-    wh_info = warehouse_information(wh)
-    picking_location_list = select_picking_locations(wh)
+    wh_info = whs.warehouse_information(wh)
+    picking_location_list = whs.select_picking_locations(wh)
     if wh_info:
         return dict(wh_info = wh_info,
                     picking_location_list = picking_location_list)
@@ -163,7 +164,7 @@ def warehouse_picking_locations(wh):
 def move_to_pickingloc(wh, pid):
     check_user()
     if pid != "None":
-        add_full_pallet_to_pickingloc(wh, pid)
+        whs.add_full_pallet_to_pickingloc(wh, pid)
     url = "/warehouses/{0}/pallet-locations".format(wh)
     redirect(url)
         
@@ -173,11 +174,11 @@ def move_to_pickingloc(wh, pid):
 @view(gen_view("add_pallet_location"))
 def add_pallet_location(wh):
     check_user()
-    wh_info = warehouse_information(wh)
+    wh_info = whs.warehouse_information(wh)
     if wh_info:
         if request.POST.get("add-pallet-location"):
             location_name = request.POST.get("location-name")
-            insert_pallet_location(wh, location_name)
+            whs.insert_pallet_location(wh, location_name)
             return dict(wh_info = wh_info, location_name = location_name)
         return dict(wh_info = wh_info, location_name = None)
     else:
@@ -186,7 +187,7 @@ def add_pallet_location(wh):
 @route("/warehouses/<wh>/update-pallet-<pid>/delete-case-<cid>")
 def delete_case_from_pallet(wh, pid, cid):
     check_user()
-    delete_pallet_case(pid, cid)
+    whs.delete_pallet_case(pid, cid)
     url = "/warehouses/{0}/update-pallet-{1}".format(wh, pid)
     redirect(url)
         
@@ -196,20 +197,20 @@ def delete_case_from_pallet(wh, pid, cid):
 @view(gen_view("update_pallet"), err = None)
 def warehouse_pallets(wh, pid):
     check_user()
-    wh_info = warehouse_information(wh)
-    case_boxes = select_case_boxes(pid)
-    pallet_info = select_pallet_info(pid)
+    wh_info = whs.warehouse_information(wh)
+    case_boxes = whs.select_case_boxes(pid)
+    pallet_info = whs.select_pallet_info(pid)
     if request.POST.get("update-loc"):
         ploc = request.POST.get("pallet-location")
         pl_id = pallet_info[0][7]
-        update_pallet_location(pl_id, ploc)
+        whs.update_pallet_location(pl_id, ploc)
         url = "/warehouses/{0}/update-pallet-{1}".format(wh, pid)
         redirect(url)
     if request.POST.get("add-case"):
         cid = request.POST.get("case-id")
         qty = request.POST.get("qty")
         if cid:
-            insert_pallet_case(pid, cid, qty)
+            whs.insert_pallet_case(pid, cid, qty)
             url = "/warehouses/{0}/update-pallet-{1}".format(wh, pid)
             redirect(url)
         else:
@@ -226,14 +227,14 @@ def warehouse_pallets(wh, pid):
 @route("/warehouses/<wh>/add-pallet-to-ploc-<pl_id>")
 def add_pallet_to_loc(wh, pl_id):
     check_user()
-    new_pallet = insert_new_pallet_palletloc(pl_id)
+    new_pallet = whs.insert_new_pallet_palletloc(pl_id)
     url = "/warehouses/{0}/update-pallet-{1}".format(wh, new_pallet[0][0])
     redirect(url)
     
 @route("/warehouses/<wh>/create-pallet")
 def warehouse_pallets(wh):
     check_user()
-    pid = generate_pallet_id(wh)
+    pid = whs.generate_pallet_id(wh)
     url = "/warehouses/{0}/update-pallet-{1}".format(wh, pid[0][0])
     redirect(url)
 
@@ -241,7 +242,7 @@ def warehouse_pallets(wh):
 @view(gen_view("pallets"))
 def warehouse_pallets(wh):
     check_user()
-    wh_info = warehouse_information(wh)
+    wh_info = whs.warehouse_information(wh)
     pallet_location_list = select_pallet_locations(wh)
     if wh_info:
         return dict(wh_info = wh_info,
@@ -253,8 +254,8 @@ def warehouse_pallets(wh):
 @view(gen_view("pallet_locations"))
 def warehouse_pallet_locations(wh, pid):
     check_user()
-    wh_info = warehouse_information(wh)
-    pallet_location_list = select_pallet_locations(wh)
+    wh_info = whs.warehouse_information(wh)
+    pallet_location_list = whs.select_pallet_locations(wh)
     if wh_info:
         return template(wh_info = wh_info,
                         pallet_location_list = pallet_location_list)
@@ -265,7 +266,7 @@ def warehouse_pallet_locations(wh, pid):
 @view(gen_view("pallet_locations"))
 def warehouse_pallet_locations(wh):
     check_user()
-    wh_info = warehouse_information(wh)
+    wh_info = whs.warehouse_information(wh)
     pallet_location_list = select_pallet_locations(wh)
     if wh_info:
         return dict(wh_info = wh_info,
@@ -274,13 +275,13 @@ def warehouse_pallet_locations(wh):
 @route("/warehouses/<wh>")
 def warehouse_n(wh):
     check_user()
-    wh_info = warehouse_information(wh)
+    wh_info = whs.warehouse_information(wh)
     if wh_info[0][6] == 'B&M':
-        sku_count = running_inventory(wh)
+        sku_count = whs.running_inventory(wh)
         return template(gen_view("running_inventory"),
                         sku_count = sku_count, wh_info = wh_info)
     elif wh_info[0][6] == '3PL':
-        sku_count = select_3pl_running_inventory(wh)
+        sku_count = whs.select_3pl_running_inventory(wh)
         return template(gen_view("running_3pl_inventory"),
                         sku_count = sku_count, wh_info = wh_info)
     else:
@@ -290,6 +291,6 @@ def warehouse_n(wh):
 @view(gen_view("warehouse_main"))
 def warehouse():
     check_user()
-    wh = valid_warehouses()
-    running_inventory = select_all_running_inventory()
+    wh = whs.valid_warehouses()
+    running_inventory = whs.select_all_running_inventory()
     return dict(wh = wh, running_inventory = running_inventory)
