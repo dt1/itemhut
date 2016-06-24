@@ -8,8 +8,8 @@ __pycache__
 itemhut
 *~
 .~lock.*
-btl/uploaded_files/images/*
-btl/uploaded_files/invoices/*
-btl/uploaded_files/orders/*
-btl/data
-
+uploaded_files/images/*
+uploaded_files/invoices/*
+uploaded_files/orders/*
+data
+session
