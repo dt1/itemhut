@@ -13,11 +13,11 @@ import hmac
 from models.amazon import *
 import models.products.product as prd
 import models.warehouse.warehouse as whs
-import models.vendors as ven
-import models.admin as adm
-from models.incoming import *
-import models.orders as ords
-import models.companies as com
+import models.vendors.vendors as ven
+import models.admin.admin as adm
+import models.incoming.incoming as icm
+import models.orders.orders as ords
+import models.companies.companies as com
 
 import sys
 sys.path.append("/itemhut/pydb")

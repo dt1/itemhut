@@ -50,7 +50,7 @@ def add_user(uid):
 
 @route("/admin/manage-users")
 @post("/admin/manage-users")
-@view("views/admin/manage_users")
+@view("views/admin/user/manage_users")
 def manage_users():
     check_admin()
     usrs = adm.select_users()
@@ -61,7 +61,7 @@ def manage_users():
 
 @route("/admin/add-user")
 @post("/admin/add-user")
-@view("views/admin/add_user")
+@view("views/admin/user/add_user")
 def add_user():
     check_admin()
     role_types = adm.select_valid_roles()

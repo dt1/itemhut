@@ -3,9 +3,9 @@
 from route_utils import *
 import routes.admin.wh.wh_utils as whu
 
-@route(whu.gen_route("/add-warehouse"))
-@post(whu.gen_route("/add-warehouse"))
-@view(whu.gen_view("/add_warehouse"), wh_err = None)
+@route("/admin/add-warehouse")
+@post("/admin/add-warehouse")
+@view(whu.gen_view("add_warehouse"), wh_err = None)
 def add_warehouse():
     check_admin()
     wh_types = adm.select_warehouse_types()
