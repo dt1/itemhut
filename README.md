@@ -15,14 +15,17 @@ Under active development. To keep things progressing along smoothly, Item Hut is
 Order Scan out and Quality Control.
 
 ###Code Layout
-In general, the layout of the system is:
-
-* btl/ -- The running web-based system
+* / -- The running web-based system
 * build_database/ -- for building out the database, which includes files I'm working on along with the files needed to build the system.
-* er-diagrams/ -- ER Diagrams for the database.
-* py/ -- serves no current purpose.
+* full/ -- all routes for the full system. All are work in progress, but many have multiple pages.
+* models/ -- connecting to the database.
 * pydb/ -- for connecting to the database.
 * pyebay/ -- working files for ebay API interaction. Work in progress.
+* routes/ -- routes that are fully functional. All are found on the demo found at itemhut.com
+* static/ -- css / js / img.
+* views/ -- html generating templates. Many of these views are for the full system and are not shown on the demo.
+* er-diagrams/ -- ER Diagrams for the database.
+* pydb/ -- for connecting to the database.
 
 ####Viewing ER Diagrams
 
