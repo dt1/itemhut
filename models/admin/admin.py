@@ -4,17 +4,6 @@ import sys
 sys.path.append("/itemhut/pydb")
 import dbconn
 
-def select_user_count():
-    dbconn.cur.execute(
-        """
-        select count(*)
-        from users.users;
-        """)
-    a = dbconn.cur.fetchall()
-    if a[0][0] > 0:
-        return True
-    else:
-        return False
 
 def select_warehouse_types():
     dbconn.cur.execute(
@@ -67,16 +56,6 @@ def insert_new_user(username, password, real_name,  utype, urole):
         values (trim(%s), %s, trim(%s), trim(%s), trim(%s));
         commit
         """, [username, password, real_name, utype, urole])
-
-def select_user_password_role(username):
-    dbconn.cur.execute(
-        """
-        select password, user_role
-        from users.users
-        where user_name = %s;
-        """, [username])
-    a = dbconn.cur.fetchall()
-    return a
 
 def select_valid_roles():
     dbconn.cur.execute(

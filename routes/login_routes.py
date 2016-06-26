@@ -11,7 +11,7 @@ sys.path.append("/itemhut/pydb")
 import dbconn
 
 def login_user(username, password):
-    user_info = adm.select_user_password_role(username)
+    user_info = lgn.select_user_password_role(username)
     if user_info:
         hashed = user_info[0][0]
         urole = user_info[0][1]
@@ -32,7 +32,7 @@ def logout():
 @post("/initialize")
 @view("views/login/first_user")
 def initialize():
-    user_cnt = adm.select_user_count()
+    user_cnt = lgn.select_user_count()
     if user_cnt:
         redirect("/")
     if request.POST.get("create-user"):
@@ -54,7 +54,7 @@ def initialize():
 @view("views/login/login_page")
 def login():
     """Authenticate users"""
-    user_cnt = adm.select_user_count()
+    user_cnt = lgn.select_user_count()
     if not user_cnt:
         redirect("/initialize")
     if request.POST.get("login"):
