@@ -15,7 +15,11 @@ import models.products.product as prd
 import models.warehouse.warehouse as whs
 import models.vendors.vendors as ven
 # admin
-import models.admin.admin as adm
+#import models.admin.admin as adm
+import models.admin.users.users as admus
+import models.admin.wh.wh_info as admwh
+import models.admin.wh.pallet_locs as admpal
+import models.admin.wh.pallet_locs as admpic
 
 import models.incoming.incoming as icm
 import models.orders.orders as ords

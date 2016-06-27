@@ -8,14 +8,14 @@ import routes.admin.wh.wh_utils as whu
 @view(whu.gen_view("add_pallet_location"))
 def add_pallet_location(wh):
     check_admin()
-    wh_info = adm.select_warehouse_info(wh)
+    wh_info = admwh.select_warehouse_info(wh)
     if not wh_info:
         return error404("err")
 
     whu.check_bm(wh_info[0][6])
     if request.POST.get("add-pallet-location"):
         location_name = request.POST.get("location-name")
-        err = adm.insert_pallet_location(wh, location_name)
+        err = admpal.insert_pallet_location(wh, location_name)
         if err:
             err = "{0} already exists".format(location_name)
             return dict(wh_info = wh_info, message = err)
@@ -25,7 +25,7 @@ def add_pallet_location(wh):
 
     elif request.POST.get("upload"):
         locfile = request.POST.get("loc-file")
-        message = whu.upload_csv(adm.bulk_load_palletlocs, locfile, wh)
+        message = whu.upload_csv(admpal.bulk_load_palletlocs, locfile, wh)
         return dict(wh_info = wh_info, message = message)
 
     else:
@@ -36,10 +36,10 @@ def add_pallet_location(wh):
 @view(whu.gen_view("edit_palletloc_name"))
 def edit_pallet_location(wh, plid):
     check_admin()
-    pl_name = adm.select_palletloc_name(plid)
+    pl_name = admpal.select_palletloc_name(plid)
     if request.POST.get("update-pallet-location"):
         locname = request.POST.get("location-name")
-        err = adm.update_palletloc_name(plid, locname, wh)
+        err = admpal.update_palletloc_name(plid, locname, wh)
         if err:
             err = "pallet location name {0} already in use.".format(locname)
             return dict(pl_name = pl_name, wh = wh, plid = plid,
@@ -52,15 +52,15 @@ def edit_pallet_location(wh, plid):
 @route(whu.gen_route("/<wh>/delete-palletloc-<plid>"))
 def delete_pallet_location(wh, plid):
     check_admin()
-    adm.delete_palletloc(plid)
+    admpal.delete_palletloc(plid)
     url = whu.gen_route("/{0}/pallet-locations".format(wh))
     redirect(url)
 
 @route(whu.gen_route("/<wh>/pallet-locations"))
 @view(whu.gen_view("manage_palletlocs"))
 def manage_pallet_locs(wh):
-    wh_info = adm.select_warehouse_info(wh)
+    wh_info = admwh.select_warehouse_info(wh)
     whu.check_bm(wh_info[0][6])
-    palletloc_list = adm.select_palletlocs_list(wh)
+    palletloc_list = admpal.select_palletlocs_list(wh)
     return dict(palletloc_list = palletloc_list,
                 wh_info = wh_info)

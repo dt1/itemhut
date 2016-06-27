@@ -14,7 +14,7 @@ def update_user_password(uid):
         if password == password2:
             hashed = bcrypt.hashpw(password, bcrypt.gensalt())
 
-            adm.update_user_password(uid, hashed)
+            admus.update_user_password(uid, hashed)
         else:
             err = "Passwords do not match"
             return dict(err = err, uid = uid)
@@ -29,16 +29,16 @@ def update_user_password(uid):
 @view("views/admin/update_user")
 def add_user(uid):
     check_admin()
-    role_types = adm.select_valid_roles()
-    user_types = adm.select_valid_usertypes()
-    user_info = adm.select_user_info(uid)
+    role_types = admus.select_valid_roles()
+    user_types = admus.select_valid_usertypes()
+    user_info = admus.select_user_info(uid)
     if request.POST.get("update-user"):
         uname = request.POST.get("user-name")
         real_name = request.POST.get("real-name")
         urole = request.POST.get("urole")
         utype = request.POST.get("utype")
 
-        user_error = adm.update_user(uid, uname, real_name, utype,
+        user_error = admus.update_user(uid, uname, real_name, utype,
                                      urole)
 
         url = "/admin/update-user-{0}".format(uname)
@@ -53,9 +53,9 @@ def add_user(uid):
 @view("views/admin/user/manage_users")
 def manage_users():
     check_admin()
-    usrs = adm.select_users()
-    role_types = adm.select_valid_roles()
-    user_types = adm.select_valid_usertypes()
+    usrs = admus.select_users()
+    role_types = admus.select_valid_roles()
+    user_types = admus.select_valid_usertypes()
     return dict(usrs = usrs, role_types = role_types,
                 user_types = user_types)
 
@@ -64,8 +64,8 @@ def manage_users():
 @view("views/admin/user/add_user")
 def add_user():
     check_admin()
-    role_types = adm.select_valid_roles()
-    user_types = adm.select_valid_usertypes()
+    role_types = admus.select_valid_roles()
+    user_types = admus.select_valid_usertypes()
     if request.POST.get("add-user"):
         uname = request.POST.get("user-name")
         password = request.POST.get("password")
@@ -73,7 +73,7 @@ def add_user():
         urole = request.POST.get("urole")
         utype = request.POST.get("utype")
         hashed = bcrypt.hashpw(password, bcrypt.gensalt())
-        user_error = adm.insert_new_user(uname, hashed, real_name,
+        user_error = admus.insert_new_user(uname, hashed, real_name,
                                          utype, urole)
         return dict(new_user = uname,
                     role_types = role_types,

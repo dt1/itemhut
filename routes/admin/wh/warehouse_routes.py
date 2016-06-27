@@ -8,7 +8,7 @@ import routes.admin.wh.wh_utils as whu
 @view(whu.gen_view("add_warehouse"), wh_err = None)
 def add_warehouse():
     check_admin()
-    wh_types = adm.select_warehouse_types()
+    wh_types = admwh.select_warehouse_types()
     if request.POST.get("add-warehouse"):
         warehouse_id = request.POST.get("warehouse-id")
         warehouse_name = request.POST.get("warehouse-name")
@@ -17,7 +17,7 @@ def add_warehouse():
         zip = request.POST.get("zip_code")
         country = request.POST.get("country")
         warehouse_type = request.POST.get("wh-type")
-        wh_id = adm.select_warehouse_id(warehouse_id)
+        wh_id = admwh.select_warehouse_id(warehouse_id)
 
         if " " in warehouse_id:
             err = "Warehouse ID has spaces in it."
@@ -29,7 +29,7 @@ def add_warehouse():
             wh_err = "{0} already exists. Try another ID".format(warehouse_id)
             return dict(new_warehouse = warehouse_name,
                         wh_types = wh_types, wh_err = wh_err)
-        adm.insert_warehouse(warehouse_id, warehouse_name, street,
+        admwh.insert_warehouse(warehouse_id, warehouse_name, street,
                              state,
                          zip, country, warehouse_type)
         return dict(new_warehouse = warehouse_name,
@@ -42,7 +42,7 @@ def add_warehouse():
 @view(whu.gen_view("manage_warehouses_whinfo"))
 def manage_warehouses(wh):
     check_admin()
-    wh_info = adm.select_warehouse_info(wh)
+    wh_info = admwh.select_warehouse_info(wh)
     if request.POST.get("update-warehouse"):
         wh_id = request.POST.get("wh-id")
         wh_name = request.POST.get("wh-name")
@@ -55,7 +55,7 @@ def manage_warehouses(wh):
             err = "Warehouse ID has spaces in it."
             return dict (wh_info = wh_info, err = err)
 
-        err = adm.update_warehouse_info(wh, wh_id, wh_name, wh_street,
+        err = admwh.update_warehouse_info(wh, wh_id, wh_name, wh_street,
                                         wh_state, wh_zip, wh_country)
         if err:
             err = "Warehouse id {0} already in use.".format(wh_id)
@@ -70,5 +70,5 @@ def manage_warehouses(wh):
 @view(whu.gen_view("manage_warehouses"))
 def manage_warehouses():
     check_admin()
-    wh_list = adm.select_warehouse_list()
+    wh_list = admwh.select_warehouse_list()
     return dict(wh_list = wh_list)
