@@ -52,7 +52,7 @@ Python packages:
 Please be sure you have the latest version of each package.
 For example, Bottle version 0.12.9 is needed to do file uploads.
 
-clone to /itemhut:
+clone to ~/itemhut:
 ```bash
 $ git clone https://github.com/dt1/itemhut.git
 ```
@@ -61,21 +61,20 @@ setup the database
 ```bash
 $ su - postgres
 $ createdb itemhut
-$ psql -d itemhut -U postgres -f /itemhut/build_database/products/products.sql 
-$ psql -d itemhut -U postgres -f /itemhut/build_database/warehouse/warhouse.sql 
-$ psql -d itemhut -U postgres -f /itemhut/build_database/vendors/vendors.sql
-$ psql -d itemhut -U postgres -f /itemhut/build_database/incoming/incoming.sql
-$ psql -d itemhut -U postgres -f /itemhut/build_database/users/users.sql
-$ psql -d itemhut -U postgres -f /itemhut/build_database/orders/orders.sql
-$ psql -d itemhut -U postgres -f /itemhut/build_database/customers/company.sql
-$ psql -d itemhut -U postgres -f /itemhut/build_database/marketplaces/marketplace.sql
-$ psql -d itemhut -U postgres -f /itemhut/build_database/orders/orders.sql
+$ psql -d itemhut -U postgres -f ~/itemhut/build_database/products/products.sql 
+$ psql -d itemhut -U postgres -f ~/itemhut/build_database/warehouse/warhouse.sql 
+$ psql -d itemhut -U postgres -f ~/itemhut/build_database/vendors/vendors.sql
+$ psql -d itemhut -U postgres -f ~/itemhut/build_database/incoming/incoming.sql
+$ psql -d itemhut -U postgres -f ~/itemhut/build_database/users/users.sql
+$ psql -d itemhut -U postgres -f ~/itemhut/build_database/orders/orders.sql
+$ psql -d itemhut -U postgres -f ~/itemhut/build_database/customers/company.sql
+$ psql -d itemhut -U postgres -f ~/itemhut/build_database/marketplaces/marketplace.sql
+$ psql -d itemhut -U postgres -f ~/itemhut/build_database/orders/orders.sql
 ```
 
 run bottle:
 ```
-$ cd /itemhut/btl
-$ python3 inventory.py
+$ python3 ~/itemhut/inventory.py
 ```
 
 open localhost:8082
