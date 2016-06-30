@@ -7,12 +7,11 @@ def gen_view(v):
 
 # warehouse pages:
 @route("/warehouses/<wh>/qc/scan-<oid>")
-@post("/warehouses/<wh>/qc/scan-<oid>")
 @view(gen_view("scan_order"), err = None)
 def quality_control(wh, oid):
     check_user()
-    orders = whs.select_outbound_orders(wh)
-    return dict(orders = orders, wh = wh)
+    order = whs.select_order_to_scan(oid)
+    return dict(order = order, wh = wh, oid = oid)
 
 @route("/warehouses/<wh>/qc")
 @view(gen_view("qc"), err = None)

@@ -427,22 +427,6 @@ from
     a = dbconn.cur.fetchall()
     return a
 
-# def select_outbound_orders(wh):
-#         dbconn.cur.execute(
-#                 """
-#                 select internal_order_id, market_order_id, sku, 
-#                 sku_qty, ship_by_date
-#                 from orders.market_orders
-#                 join orders.shipto
-#                 using (internal_order_id)
-#                 join orders.shipto_marketplace_skus
-#                 using (shipto_id)
-#                 join marketplace.msku_sku
-#                 using (marketplace_sku);
-#                 """)
-#         a = dbconn.cur.fetchall()
-#         return a
-
 def select_outbound_orders(wh):
         dbconn.cur.execute(
                 """
@@ -463,3 +447,22 @@ def select_outbound_orders(wh):
         a = dbconn.cur.fetchall()
         return a
         
+def select_order_to_scan(oid):
+        dbconn.cur.execute(
+                """
+                select internal_order_id, market_order_id, 
+                array_agg(sku  || ' (' || sku_qty || ')'),
+                ship_by_date
+                from orders.market_orders
+                join orders.shipto
+                using (internal_order_id)
+                join orders.shipto_marketplace_skus
+                using (shipto_id)
+                join marketplace.msku_sku
+                using (marketplace_sku)
+                where internal_order_id = %s::int
+                group by internal_order_id, market_order_id, 
+                         ship_by_date
+                """, [oid])
+        a = dbconn.cur.fetchall()
+        return a

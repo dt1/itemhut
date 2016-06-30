@@ -11,27 +11,17 @@
     % if err:
     <p>{{err}}</p>
     % end
-    <form action="/warehouses/cases/new-config", method="POST">
-      <table id="table_id" class="display">
-	<thead>
-	  <tr>
-	    % for h in ["Internal Order ID", "Order ID", "SKU", "QTY", "Ship By Date", ""]:
-	    <th>{{h}}</th>
-	    % end
-	  </tr>
-	</thead>
-	<tbody>
-	  % for i in orders:
-	  <tr>
-	    <td>{{i[0]}}</td>
-	    <td>{{i[1]}}</td>
-	    <td>{{i[2]}}</td>
-	    <td>{{i[3]}}</td>
-	    <td><a href="/warehouses/{{wh}}/qc/scan-{{i[0]}}">scan order</a></td>
-	  </tr>
-	  % end
-	<tbody>
-      </table>
+    <h5>Internal Order Id: {{oid}}</h5>
+    <h5>Order Id: {{order[0][1]}}</h5>
+    <h5>Ship By: {{order[0][3]}}</h5>
+
+    <h5>Items</h5>
+    <form method="POST"action="">
+    % for i in order[0][2]:
+    <p>{{i}}</p>
+    % end
+    <input class="button" type="submit" value="OK" />
+      
     </form>
   </div>
 </div>
