@@ -6,13 +6,20 @@ def gen_view(v):
     return "views/warehouse/{0}".format(v)
 
 # warehouse pages:
+@route("/warehouses/<wh>/qc/scan-<oid>")
+@post("/warehouses/<wh>/qc/scan-<oid>")
+@view(gen_view("scan_order"), err = None)
+def quality_control(wh, oid):
+    check_user()
+    orders = whs.select_outbound_orders(wh)
+    return dict(orders = orders, wh = wh)
+
 @route("/warehouses/<wh>/qc")
-@post("/warehouses/<wh>/qc")
 @view(gen_view("qc"), err = None)
 def quality_control(wh):
     check_user()
     orders = whs.select_outbound_orders(wh)
-    return dict(orders = orders)
+    return dict(orders = orders, wh = wh)
 
 @route("/warehouses/cases/new-config")
 @post("/warehouses/cases/new-config")

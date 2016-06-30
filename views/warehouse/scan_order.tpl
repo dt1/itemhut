@@ -4,7 +4,7 @@
 
 <div class="expanded row">
   <div class="medium-2 columns">
-    <h4>Order Scan Out</h4>
+    <h4>Scan Order</h4>
   </div>
   
   <div class="medium-10 columns">
@@ -15,7 +15,7 @@
       <table id="table_id" class="display">
 	<thead>
 	  <tr>
-	    % for h in ["Internal Order ID", "Order ID", "SKU (QTY)", "Ship By Date", ""]:
+	    % for h in ["Internal Order ID", "Order ID", "SKU", "QTY", "Ship By Date", ""]:
 	    <th>{{h}}</th>
 	    % end
 	  </tr>
@@ -25,12 +25,7 @@
 	  <tr>
 	    <td>{{i[0]}}</td>
 	    <td>{{i[1]}}</td>
-	    <td>
-	    % for a in i[2]:
-	    {{a}}
-	    <br>
-	    % end
-	    </td>
+	    <td>{{i[2]}}</td>
 	    <td>{{i[3]}}</td>
 	    <td><a href="/warehouses/{{wh}}/qc/scan-{{i[0]}}">scan order</a></td>
 	  </tr>
