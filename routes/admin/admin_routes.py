@@ -12,5 +12,7 @@ from routes.admin.filetypes.filetypes import *
 # admin
 @route("/admin")
 @view("views/admin/admin_main")
+@check_user
+@check_admin
 def admin():
-    check_admin()
+    return dict()

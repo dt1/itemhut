@@ -5,5 +5,7 @@ import routes.admin.filetypes.filetype_utils as aff
 
 @route(aff.gen_route())
 @view(aff.gen_view("filetypes_main"))
+@check_user
+@check_admin
 def filetypes():
     return dict()

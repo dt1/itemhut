@@ -13,8 +13,9 @@ def gen_route(r):
 @route(gen_route("<wh>/add-picking-locations"))
 @post(gen_route("<wh>/add-picking-locations"))
 @view(gen_view("add_picking_location"))
+@check_user
+@check_admin
 def add_picking_location(wh):
-    check_admin()
     wh_info = adm.select_warehouse_info(wh)
     if wh_info:
         check_bm(wh_info[0][6])
@@ -42,8 +43,9 @@ def add_picking_location(wh):
 @route("/admin/manage-pickinglocs-<wh>/edit-<plid>")
 @post("/admin/manage-pickinglocs-<wh>/edit-<plid>")
 @view("views/admin/edit_pickingloc_name")
+@check_user
+@check_admin
 def edit_picking_location(wh, plid):
-    check_admin()
     pl_name = adm.select_pickingloc_name(plid)
     if request.POST.get("update-picking-location"):
         locname = request.POST.get("location-name")
@@ -59,16 +61,18 @@ def edit_picking_location(wh, plid):
 
 
 @route("/admin/manage-warehouses/<wh>/delete-pickingloc-<plid>")
+@check_user
+@check_admin
 def delete_picking_location(wh, plid):
-    check_admin()
     adm.delete_pickingloc(plid)
     url = "/admin/manage-warehouses/{0}/picking-locations".format(wh)
     redirect(url)
 
 @route(gen_route("/<wh>/picking-locations"))
 @view(gen_view("manage_pickinglocs"))
+@check_user
+@check_admin
 def manage_picking_locs(wh):
-    check_admin()    
     wh_info = adm.select_warehouse_info(wh)
     check_bm(wh_info)
     pickingloc_list = adm.select_pickinglocs_list(wh)

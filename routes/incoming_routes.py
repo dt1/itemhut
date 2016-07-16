@@ -5,8 +5,8 @@ from route_utils import *
 @route("/incoming/update-order-<oid>")
 @post("/incoming/update-order-<oid>")
 @view("views/incoming/update_incoming_order")
+@check_user
 def update_incoming_order(oid):
-    check_user()
     if request.POST.get("arrived"):
         icm.set_order_complete(oid)
     if request.POST.get("add-product"):
@@ -21,16 +21,16 @@ def update_incoming_order(oid):
 
 @route("/incoming/all-records")
 @view("views/incoming/incoming_main")
+@check_user
 def all_records():
-    check_user()
     orders = icm.select_all_incoming_orders()
     return dict(orders = orders)
 
 @route("/incoming/add-record")
 @post("/incoming/add-record")
 @view("views/incoming/add_record")
+@check_user
 def add_record():
-    check_user()
     if request.POST.get("add-record"):
         invoice = request.POST.get("invoice")
         vendor_id = request.POST.get("vendor-id")
@@ -55,7 +55,7 @@ def add_record():
 
 @route("/incoming")
 @view("views/incoming/incoming_main")
+@check_user
 def incoming():
-    check_user()
     orders = icm.select_incoming_orders()
     return dict(orders = orders)

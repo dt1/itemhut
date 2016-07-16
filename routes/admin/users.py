@@ -5,9 +5,10 @@ import bcrypt
 
 @route("/admin/update-user-password-<uid>")
 @post("/admin/update-user-password-<uid>")
-@view("views/admin/update_user_password")
+@view("views/admin/user/update_user_password")
+@check_user
+@check_admin
 def update_user_password(uid):
-    check_admin()
     if request.POST.get("update-password"):
         password = request.POST.get("password")
         password2 = request.POST.get("password2")
@@ -26,9 +27,10 @@ def update_user_password(uid):
 
 @route("/admin/update-user-<uid>")
 @post("/admin/update-user-<uid>")
-@view("views/admin/update_user")
+@view("views/admin/user/update_user")
+@check_user
+@check_admin
 def add_user(uid):
-    check_admin()
     role_types = admus.select_valid_roles()
     user_types = admus.select_valid_usertypes()
     user_info = admus.select_user_info(uid)
@@ -47,12 +49,12 @@ def add_user(uid):
                 user_types = user_types,
                 user_error = None, user_info = user_info)
 
-
 @route("/admin/manage-users")
 @post("/admin/manage-users")
 @view("views/admin/user/manage_users")
+@check_user
+@check_admin
 def manage_users():
-    check_admin()
     usrs = admus.select_users()
     role_types = admus.select_valid_roles()
     user_types = admus.select_valid_usertypes()
@@ -62,8 +64,9 @@ def manage_users():
 @route("/admin/add-user")
 @post("/admin/add-user")
 @view("views/admin/user/add_user")
+@check_user
+@check_admin
 def add_user():
-    check_admin()
     role_types = admus.select_valid_roles()
     user_types = admus.select_valid_usertypes()
     if request.POST.get("add-user"):

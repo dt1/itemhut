@@ -49,6 +49,7 @@ def edit_pallet_location(wh, plid):
             redirect(url)
     return dict(pl_name = pl_name, wh = wh, plid = plid, err = None)
 
+
 @route(whu.gen_route("/<wh>/delete-palletloc-<plid>"))
 def delete_pallet_location(wh, plid):
     check_admin()

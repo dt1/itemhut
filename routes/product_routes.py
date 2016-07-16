@@ -5,8 +5,8 @@ from route_utils import *
 @route("/products/update-product-<pid>")
 @post("/products/update-product-<pid>")
 @view("views/products/update_product_inv")
+@check_user
 def update_product(pid):
-    check_user()
     sku_data = prd.get_sku_data(pid)
     stypes = prd.sku_types()
     if request.POST.get("update-product"):
@@ -43,8 +43,8 @@ def update_product(pid):
 
 
 @route("/products/delete-kit-child-<master>/<child>")
+@check_user
 def delete_kit_child(master, child):
-    check_user()
     prd.delete_kit_child(master, child)
     url = "/products/add-kit-children-{0}".format(master)
     redirect(url)
@@ -52,8 +52,8 @@ def delete_kit_child(master, child):
 @route("/products/add-kit-children-<sku>")
 @post("/products/add-kit-children-<sku>")
 @view("views/products/add_kit_children")
+@check_user
 def update_kit(sku):
-    check_user()
     sku_upc = prd.sku_kit_candidates(sku)
     kit_list = prd.select_sku_kits(sku)
     if request.POST.get("add-product"):
@@ -67,15 +67,15 @@ def update_kit(sku):
 @route("/products/update-kit-<sku>")
 @post("/products/update-kit-<sku>")
 @view("views/products/add_kit", err = None, new_sku = None)
+@check_user
 def update_kit(sku):
-    check_user()
     pass
 
 @route("/products/add-kit")
 @post("/products/add-kit")
 @view("views/products/add_kit", err = None, new_sku = None)
+@check_user
 def add_kit():
-    check_user()
     if request.POST.get("add-product"):
         sku = request.POST.get("sku")
         upc = None
@@ -140,16 +140,16 @@ def add_kit():
 
 @route("/products/kits")
 @view("views/products/kits")
+@check_user
 def all_kits():
-    check_user()
     k = prd.select_kits()
     return dict(kits = k)
 
 @route("/products/add-product")
 @post("/products/add-product")
 @view("views/products/add_product_inv")
+@check_user
 def add_products():
-    check_user()
     sku_upc = prd.sku_upcs()
     stypes = prd.sku_types()
     if request.POST.get("add-product"):
@@ -212,7 +212,7 @@ def add_products():
 
 @route("/products")
 @view("views/products/product_main")
+@check_user
 def products():
-    check_user()
     sku_upc = prd.select_reg_products()
     return dict(sku_upc = sku_upc)

@@ -35,8 +35,8 @@ def palletloc_files(filename):
 
 # home page    
 @route("/")
+@check_user
 def index():
-    check_user()
     return template("views/home/home", inv = True)
 
 debug(True)

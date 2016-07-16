@@ -5,8 +5,8 @@ from route_utils import *
 @route("/companies/<cid:int>/contacts/edit-contact-<cnid:int>")
 @post("/companies/<cid:int>/contacts/edit-contact-<cnid:int>")
 @view("views/companies/edit_contact")
+@check_user
 def edit_company_contact(cid, cnid):
-    check_user()
     cinfo = com.select_company_info(cid)
     contact_info = com.select_contact(cnid)
     if request.POST.get("edit-contact"):
@@ -27,8 +27,8 @@ def edit_company_contact(cid, cnid):
 @route("/companies/<cid:int>/add-contact")
 @post("/companies/<cid:int>/add-contact")
 @view("views/companies/add_contact")
+@check_user
 def add_company_contact(cid):
-    check_user()
     cinfo = com.select_company_info(cid)
     if request.POST.get("add-contact"):
         contact_name = request.POST.get("contact-name")
@@ -42,25 +42,25 @@ def add_company_contact(cid):
         redirect(url)
     return dict(cinfo = cinfo[0])
 
+@check_user
 @route("/companies/<cid:int>/contacts")
 @view("views/companies/contacts")
 def company_contacts(cid):
-    check_user()
     cinfo = com.select_company_info(cid)
     contact_list = com.select_company_contacts(cid)
     return dict(cinfo = cinfo[0], contact_list = contact_list)
 
 @route("/companies/<cid:int>")
+@check_user
 def reroute_company(cid):
-    check_user()
     url = "/companies/edit-company-{0}".format(cid)
     redirect(url)
 
 @route("/companies/edit-company-<cid:int>")
 @post("/companies/edit-company-<cid:int>")
 @view("views/companies/edit_company")
+@check_user
 def edit_company(cid):
-    check_user()
     cinfo = com.select_company_info(cid)
     if request.POST.get("edit-company"):
         uid = request.POST.get("company-uid")
@@ -84,8 +84,8 @@ def edit_company(cid):
 @route("/companies/add-company")
 @post("/companies/add-company")
 @view("views/companies/add_company")
+@check_user
 def add_company():
-    check_user()
     if request.POST.get("add-company"):
         uid = request.POST.get("company-uid")
         cname = request.POST.get("company-name")
@@ -107,7 +107,7 @@ def add_company():
 
 @route("/companies")
 @view("views/companies/company_main")
+@check_user
 def companies():
-    check_user()
     cinfo = com.select_all_companies()
     return dict(cinfo = cinfo)

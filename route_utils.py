@@ -54,19 +54,21 @@ def error404(error):
 def error403(error):
     return "page restricted. Please press the back button"
 
-def check_user():
-    if 'username' in request.session:
-        un = request.session["username"]
-        return True
-    redirect("/login")
-
-def check_admin():
-    if 'username' in request.session:
+def check_user(f):
+    def wrapper(*args, **kwargs):
+        if 'username' not in request.session:
+            redirect("/login")
+        return f(*args, **kwargs)
+    return wrapper
+    
+def check_admin(f):
+    def wrapper(*args, **kwargs):
         un = request.session["username"]
         role = request.session["usertype"]
-        if role == "admin" or role == "original admin":
-            return True
-        redirect("/")
+        if role not in ["admin", "original admin"]:
+            redirect("/")
+        return f(*args, **kwargs)
+    return wrapper
 
 myapp = SessionMiddleware(bottle.app(), session_opts)
 
