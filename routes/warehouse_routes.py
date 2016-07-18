@@ -249,7 +249,7 @@ def warehouse_pallets(wh):
 @check_user
 def warehouse_pallets(wh):
     wh_info = whs.warehouse_information(wh)
-    pallet_location_list = select_pallet_locations(wh)
+    pallet_location_list = whs.select_pallet_locations(wh)
     if wh_info:
         return dict(wh_info = wh_info,
                     pallet_location_list = pallet_location_list)
@@ -273,7 +273,7 @@ def warehouse_pallet_locations(wh, pid):
 @check_user
 def warehouse_pallet_locations(wh):
     wh_info = whs.warehouse_information(wh)
-    pallet_location_list = select_pallet_locations(wh)
+    pallet_location_list = whs.select_pallet_locations(wh)
     if wh_info:
         return dict(wh_info = wh_info,
                     pallet_location_list = pallet_location_list)
