@@ -7,7 +7,6 @@
   </div>
 
   <div class="medium-10 columns">
-{{user_info}}
     <h4>Update {{user_info[0][0]}}</h4>
     % if user_error and new_user:
     <p>{{new_user}} already exists</p>

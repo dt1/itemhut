@@ -5,9 +5,11 @@ import routes.admin.wh.wh_utils as whu
 
 @route("/admin/add-warehouse")
 @post("/admin/add-warehouse")
-@view(whu.gen_view("add_warehouse"), wh_err = None)
+@view(whu.gen_view("add_warehouse"), wh_err = None,
+      new_warehouse = None)
+@check_user
+@check_admin
 def add_warehouse():
-    check_admin()
     wh_types = admwh.select_warehouse_types()
     if request.POST.get("add-warehouse"):
         warehouse_id = request.POST.get("warehouse-id")
@@ -34,14 +36,14 @@ def add_warehouse():
                          zip, country, warehouse_type)
         return dict(new_warehouse = warehouse_name,
                     wh_types = wh_types)
-    return dict(new_warehouse = None,
-                wh_types = wh_types)
+    return dict(wh_types = wh_types)
 
 @route(whu.gen_route("/<wh>"))
 @post(whu.gen_route("/<wh>"))
-@view(whu.gen_view("manage_warehouses_whinfo"))
+@view(whu.gen_view("manage_warehouses_whinfo"), err = None)
+@check_user
+@check_admin
 def manage_warehouses(wh):
-    check_admin()
     wh_info = admwh.select_warehouse_info(wh)
     if request.POST.get("update-warehouse"):
         wh_id = request.POST.get("wh-id")
@@ -64,11 +66,12 @@ def manage_warehouses(wh):
             url = "/admin/manage-warehouses/{0}".format(wh_id)
             redirect (url)
 
-    return dict(wh_info = wh_info, err = None)
+    return dict(wh_info = wh_info)
 
 @route(whu.gen_route(""))
 @view(whu.gen_view("manage_warehouses"))
+@check_user
+@check_admin
 def manage_warehouses():
-    check_admin()
     wh_list = admwh.select_warehouse_list()
     return dict(wh_list = wh_list)

@@ -5,16 +5,16 @@ import bcrypt
 
 @route("/admin/update-user-password-<uid>")
 @post("/admin/update-user-password-<uid>")
-@view("views/admin/user/update_user_password")
+@view("views/admin/user/update_user_password", err = None)
 @check_user
 @check_admin
 def update_user_password(uid):
     if request.POST.get("update-password"):
         password = request.POST.get("password")
         password2 = request.POST.get("password2")
+
         if password == password2:
             hashed = bcrypt.hashpw(password, bcrypt.gensalt())
-
             admus.update_user_password(uid, hashed)
         else:
             err = "Passwords do not match"
@@ -22,12 +22,13 @@ def update_user_password(uid):
 
         url = "/admin/manage-users"
         redirect(url)
-    return dict(err = None, uid = uid)
+    return dict(uid = uid)
 
 
 @route("/admin/update-user-<uid>")
 @post("/admin/update-user-<uid>")
-@view("views/admin/user/update_user")
+@view("views/admin/user/update_user", new_user = None,
+      user_error = None)
 @check_user
 @check_admin
 def add_user(uid):
@@ -45,9 +46,8 @@ def add_user(uid):
 
         url = "/admin/update-user-{0}".format(uname)
         redirect(url)
-    return dict(new_user = None, role_types = role_types,
-                user_types = user_types,
-                user_error = None, user_info = user_info)
+    return dict(role_types = role_types,
+                user_types = user_types, user_info = user_info)
 
 @route("/admin/manage-users")
 @post("/admin/manage-users")
@@ -63,7 +63,7 @@ def manage_users():
 
 @route("/admin/add-user")
 @post("/admin/add-user")
-@view("views/admin/user/add_user")
+@view("views/admin/user/add_user", new_user = None, user_error = None)
 @check_user
 @check_admin
 def add_user():
@@ -82,6 +82,5 @@ def add_user():
                     role_types = role_types,
                     user_error = user_error,
                     user_types = user_types)
-    return dict(new_user = None, role_types = role_types,
-                user_types = user_types,
-                user_error = None)
+    return dict(role_types = role_types,
+                user_types = user_types)

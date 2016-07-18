@@ -1,5 +1,10 @@
 <!-- This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 
+% from bottle import *
+% from beaker.middleware import SessionMiddleware
+% request.session = request.environ['beaker.session']
+% role = request.session["usertype"]
+
 <div id="widemenu" class="top-bar">
   <div class="top-bar-left">
     <ul class="menu">
@@ -25,11 +30,13 @@
       <li>
         <a href="/companies">Customers</a>
       </li>
+      % if role in ["admin", "original admin"]:
       <li>
         <a href="/admin">Admin</a>
       </li>
+      % end
     </ul>
-  </div>
+    </div>
   <div class="top-bar-right">
     <ul class="menu">
       <!--          <li><input type="search" placeholder="Search"></li>
