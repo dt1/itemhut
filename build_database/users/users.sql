@@ -9,7 +9,15 @@ create table users.valid_user_roles (
 );
 
 insert into users.valid_user_roles (user_role)
-values ('user'), ('admin');
+values ('user'),
+('admin'),
+('original admin'),
+('products'),
+('incoming'),
+('warehouses'),
+('vendors'),
+('orders'),
+('customers');
 
 create table users.valid_user_types (
        user_type varchar primary key
