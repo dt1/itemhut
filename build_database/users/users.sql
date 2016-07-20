@@ -11,7 +11,6 @@ create table users.valid_user_roles (
 insert into users.valid_user_roles (user_role)
 values ('user'),
 ('admin'),
-('original admin'),
 ('products'),
 ('incoming'),
 ('warehouses'),
