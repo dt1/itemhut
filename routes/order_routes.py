@@ -5,6 +5,7 @@ from datetime import datetime
 
 @route("/orders/order<oid:int>/delete-shipto-record-<sid:int>")
 @check_user
+@check_orders_user
 def delete_shipto_record(oid, sid):
     ords.delete_shipto_record(sid)
     url = "/orders/view-order-{0}".format(oid)
@@ -12,6 +13,7 @@ def delete_shipto_record(oid, sid):
     
 @route("/orders/add-order/order<oid:int>/delete-file<sid:int>/<p>/<f>")
 @check_user
+@check_orders_user
 def delete_order_file(oid, sid, p, f):
     fpath = "{0}/{1}".format(p, f)
     ords.delete_uploaded_file(sid, fpath)
@@ -27,6 +29,7 @@ def delete_order_file(oid, sid, p, f):
 @post("/orders/add-order/order<oid:int>/company<sid:int>-add-files")
 @view("views/orders/add_files")
 @check_user
+@check_orders_user
 def add_order_file(oid, sid):
     mlist = ords.select_valid_market_order(oid)
     valid_ftypes = ords.select_valid_filetypes()
@@ -54,6 +57,7 @@ def add_order_file(oid, sid):
 
 @route("/orders/add-order/order<oid:int>/company<sid:int>-delete-product-<msku>")
 @check_user
+@check_orders_user
 def delete_company_product(oid, sid, msku):
     ords.delete_company_product(sid, msku)
     url = "/orders/add-order/order{0}/company{1}-add-products".format(oid, sid)
@@ -63,6 +67,7 @@ def delete_company_product(oid, sid, msku):
 @post("/orders/add-order/order<oid:int>/company<sid:int>-add-products")
 @view("views/orders/add_company_products")
 @check_user
+@check_orders_user
 def add_company_products(oid, sid):
     mlist = ords.select_valid_market_order(oid)
     pclist = ords.select_company_product_candidates(oid)
@@ -86,6 +91,7 @@ def redirect_to_company_page(oid, cid):
 @route("/orders/add-order/order<oid:int>/list-companies")
 @view("views/orders/list_companies")
 @check_user
+@check_orders_user
 def add_order_list_companies(oid):
     clist = ords.select_order_companies(oid)
     return dict(clist = clist)
@@ -95,6 +101,7 @@ def add_order_list_companies(oid):
 @post("/orders/order<oid:int>/edit-deliver-to-<sid:int>")
 @view("views/orders/edit_deliver_to")
 @check_user
+@check_orders_user
 def edit_deliver_to(oid, sid):
     mlist = ords.select_valid_market_order(oid)
     shipto_info = ords.select_order_shipto(oid)
@@ -120,6 +127,7 @@ def edit_deliver_to(oid, sid):
 @post("/orders/add-order/order<oid:int>/deliver-to")
 @view("views/orders/deliver_to")
 @check_user
+@check_orders_user
 def add_deliver_to(oid):
     mlist = ords.select_valid_market_order(oid)
     if mlist:
@@ -146,6 +154,7 @@ def add_deliver_to(oid):
 
 @route("/orders/add-order/order<oid:int>")
 @check_user
+@check_orders_user
 def reroute_add_order(oid):
     url = "/orders/add-order".format(oid)
     redirect(url)
@@ -154,6 +163,7 @@ def reroute_add_order(oid):
 @post("/orders/add-order")
 @view("views/orders/add_order")
 @check_user
+@check_orders_user
 def add_order():
     userid = request.session["username"]
     salesteam_list = ords.select_salesteam_list()
@@ -180,6 +190,7 @@ def add_order():
 @route("/orders/view-order-<oid:int>")
 @view("views/orders/view_order")
 @check_user
+@check_orders_user
 def view_order(oid):
     order_info = ords.select_order_company_info(oid)
     shipto_info = ords.select_order_shipto(oid)
@@ -189,6 +200,7 @@ def view_order(oid):
 @route("/orders")
 @view("views/orders/orders_main")
 @check_user
+@check_orders_user
 def orders():
     all_orders = ords.select_all_orders()
     return dict(all_orders = all_orders)

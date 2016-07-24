@@ -3,7 +3,7 @@
 % from bottle import *
 % from beaker.middleware import SessionMiddleware
 % request.session = request.environ['beaker.session']
-% role = request.session["usertype"]
+% role = request.session["user_role"]
 
 <div id="widemenu" class="top-bar">
   <div class="top-bar-left">
@@ -12,31 +12,43 @@
       <li>
         <a href="/">Home</a>
       </li>
+      % if role in ["admin", "original admin", "products"]:
       <li>
         <a href="/products">Products</a>
       </li>
+      % end
+      % if role in ["admin", "original admin", "incoming"]:
       <li>
         <a href="/incoming">Incoming</a>
       </li>
+      % end
+      % if role in ["admin", "original admin", "warehouses"]:
       <li>
         <a href="/warehouses">Warehouses</a>
       </li>
+      % end
+      % if role in ["admin", "original admin", "vendors"]:
       <li>
         <a href="/vendors">Vendors</a>
       </li>
+      % end
+      % if role in ["admin", "original admin", "orders"]:
       <li>
         <a href="/orders">Orders</a>
       </li>
+      % end
+      % if role in ["admin", "original admin", "customers"]:
       <li>
         <a href="/companies">Customers</a>
       </li>
+      % end
       % if role in ["admin", "original admin"]:
       <li>
         <a href="/admin">Admin</a>
       </li>
       % end
     </ul>
-    </div>
+  </div>
   <div class="top-bar-right">
     <ul class="menu">
       <!--          <li><input type="search" placeholder="Search"></li>
@@ -45,6 +57,7 @@
     </ul>
   </div>
 </div>
+
 <script>
   //Bread crumb script - Kevin Lynn Brown
   //Duplicate directory names bug fix by JavaScriptKit.com

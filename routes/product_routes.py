@@ -209,7 +209,7 @@ def add_products():
     else:
         return dict(sku_upc = sku_upc, sku_types = stypes,
                     new_sku = None)
-
+   
 @route("/products")
 @view("views/products/product_main")
 @check_user

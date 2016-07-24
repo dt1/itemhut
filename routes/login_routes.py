@@ -17,7 +17,7 @@ def login_user(username, password):
         urole = user_info[0][1]
         if (hmac.compare_digest(bcrypt.hashpw(password, hashed), hashed)):
             request.session["username"] = username
-            request.session["usertype"] = urole
+            request.session["user_role"] = urole
 
             redirect("/")
     return "fail"

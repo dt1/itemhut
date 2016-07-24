@@ -60,12 +60,27 @@ def check_user(f):
             redirect("/login")
         return f(*args, **kwargs)
     return wrapper
-    
+
 def check_admin(f):
     def wrapper(*args, **kwargs):
-        un = request.session["username"]
-        role = request.session["usertype"]
+        role = request.session["user_role"]
         if role not in ["admin", "original admin"]:
+            redirect("/")
+        return f(*args, **kwargs)
+    return wrapper
+
+def check_warehouse_user(f):
+    def wrapper(*args, **kwargs):
+        role = request.session["user_role"]
+        if role not in ["admin", "original admin", "warehouses"]:
+            redirect("/")
+        return f(*args, **kwargs)
+    return wrapper
+
+def check_orders_user(f):
+    def wrapper(*args, **kwargs):
+        role = request.session["user_role"]
+        if role not in ["admin", "original admin", "orders"]:
             redirect("/")
         return f(*args, **kwargs)
     return wrapper
