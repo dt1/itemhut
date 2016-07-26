@@ -1,4 +1,4 @@
-to enable gmail, follow the steps found here:
+to enable gmail, go here:
 
 https://developers.google.com/gmail/api/quickstart/python
 
