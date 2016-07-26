@@ -13,3 +13,4 @@ uploaded_files/invoices/*
 uploaded_files/orders/*
 data
 session
+email/gmail/client_secret.json

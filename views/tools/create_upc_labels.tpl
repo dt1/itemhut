@@ -1,7 +1,10 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
+
 <!doctype html>
-
 <head>
-
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Expires" content="-1">
+  
   <link rel="stylesheet" type="text/css"  href="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.css">
 </head>
 
@@ -35,10 +38,8 @@
 
   <script>
 
-
-    mf = document.getElementById("mf")
-    
-    mf.addEventListener("submit", function(e) {
+mf.addEventListener("submit", function(e) {
+    e.preventDefault();
 
     var ttl = document.getElementById("ttl").value;
     var code = document.getElementById("code").value;
@@ -47,46 +48,44 @@
     var newImgClass = "barcode" + code;
     
     for (var i = 0; i < cnt; i++) {
-			var newTitlePar = document.createElement("p");
-			newTitlePar.setAttribute("style", "margin-bottom:0");
-			var newImg = document.createElement("img");
-			var br = document.createElement("br");
-			
-			newImg.className = newImgClass;
-			
-			newTitlePar.textContent = ttl;
-			
-			imgDiv.appendChild(newTitlePar);
-			imgDiv.appendChild(newImg);
-			imgDiv.appendChild(br);
-			newTitlePar.style.textAlign = "center";
-			}
-			
-			JsBarcode("." + newImgClass, code,{
-			fontOptions: "bold",
-			});
+	var newTitlePar = document.createElement("p");
+	newTitlePar.setAttribute("style", "margin-bottom:0");
+	var newImg = document.createElement("img");
+	var br = document.createElement("br");
+	
+	newImg.className = newImgClass;
+	
+	newTitlePar.textContent = ttl;
+	
+	imgDiv.appendChild(newTitlePar);
+	imgDiv.appendChild(newImg);
+	imgDiv.appendChild(br);
+	newTitlePar.style.textAlign = "center";
+    }
+    
+    JsBarcode("." + newImgClass, code,{
+	fontOptions: "bold",
+    });
 
-			var w = newImg.clientWidth;
-			imgDiv.setAttribute("style","width:" + w + "px");
+    var w = newImg.clientWidth;
+    imgDiv.setAttribute("style","width:" + w + "px");
 
-			//mf.outerHTML = "";
-			//delete mf
-			e.preventDefault();
-			});
+});
 
-			prn.addEventListener("submit", function(e) {
-			mf.outerHTML = "";
-			delete mf;
+prn.addEventListener("submit", function(e) {
+    e.preventDefault();
+    mf.outerHTML = "";
+    delete mf;
 
-			prn.outerHTML = "";
-			delete prn;
+    prn.outerHTML = "";
+    delete prn;
 
-			window.print();
+    window.print();
+    location.reload(true);
 
-			.reload(true)
-			e.preventDefault();
-			});
-			</script>
+});
+
+</script>
 
 </body>
 

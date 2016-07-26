@@ -52,6 +52,7 @@ Python packages:
 * bcrypt
 * hmac
 * beaker
+* google-api-python-client
 
 Please be sure you have the latest version of each package.
 For example, Bottle version 0.12.9 is needed to do file uploads.
