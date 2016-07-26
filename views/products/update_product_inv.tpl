@@ -5,6 +5,9 @@
 <div class="expanded row">
   <div class="medium-2 columns">
     <p>Update <b>{{sku_data[0][0]}}</b></p>
+
+<svg id="barcode"></svg>
+
   </div>
 
   <div class="medium-10 columns">
@@ -97,4 +100,14 @@
     </form>
   </div>
 </div>
+  <!-- JsBarcode -->
+  <!-- http://lindell.me/JsBarcode/ -->
+  <script src="https://cdn.jsdelivr.net/jsbarcode/3.3.7/JsBarcode.all.min.js"></script>  
 
+  <script>
+
+    JsBarcode("#barcode", String({{sku_data[0][1]}}),{
+    fontOptions: "bold",
+    });
+  
+</script>

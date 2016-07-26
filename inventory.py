@@ -10,6 +10,7 @@ from routes.incoming_routes import *
 from routes.login_routes import *
 from routes.order_routes import *
 from routes.company_routes import *
+from routes.tools_routes import *
 
 # for css, js, img, etc
 @route("/static/<filename:path>")

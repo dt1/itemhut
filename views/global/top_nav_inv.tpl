@@ -42,6 +42,9 @@
         <a href="/companies">Customers</a>
       </li>
       % end
+      <li>
+        <a href="/tools">Tools</a>
+      </li>
       % if role in ["admin", "original admin"]:
       <li>
         <a href="/admin">Admin</a>

@@ -17,6 +17,8 @@
 <!-- http://www.datatables.net/ --> 
 <script type="text/javascript" src="https://cdn.datatables.net/s/zf-5.5.2/dt-1.10.10,cr-1.3.0/datatables.min.js"></script>
 
+<link rel="stylesheet" type="text/css"  href="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.css">
+
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
