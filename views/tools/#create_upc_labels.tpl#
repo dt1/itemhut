@@ -69,8 +69,6 @@
 			var w = newImg.clientWidth;
 			imgDiv.setAttribute("style","width:" + w + "px");
 
-			//mf.outerHTML = "";
-			//delete mf
 			e.preventDefault();
 			});
 
