@@ -6,13 +6,17 @@ Item Hut is a free and open-source marketing, ERP, CRM, and channel-management t
 
 https://itemhut.com/
 
-(the version found here is sligtly different. For example, you are able to create users and login)
+The version found here is sligtly different. For example, you are able to create users and login. The version on the website tends to lag behind what is found here. Bugs found on the site tend to be fixed here.
 
 ###Current Status
 Under active development. To keep things progressing along smoothly, Item Hut is going to begin as an inventory system. However, there are tables for ebay orders, Amazon products, etc. Please refer to the er-diagrams.
 
 ###Currently Working On
-Order Scan out and Quality Control.
+* Order Scan out and Quality Control.
+* User roles and groups.
+* Label Printing.
+* Email fetching.
+* Documentation.
 
 ###Code Layout
 * / -- The running web-based system
