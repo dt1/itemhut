@@ -7,9 +7,11 @@ import dbconn
 def insert_new_user(username, password, real_name,  utype, urole):
     dbconn.cur.execute(
         """
+        begin;
         select user_name
         from users.users
         where user_name = %s;
+        commit;
         """, [username])
     a = dbconn.cur.fetchall()
     if a:
