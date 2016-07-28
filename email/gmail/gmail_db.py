@@ -21,3 +21,11 @@ def insert_gmail_valid_labels (label):
         on conflict (label) do nothing;
         commit;
         """, [label])
+
+def insert_gchats(chat):
+    dbconn.cur.execute(
+        """
+        begin;
+        select email.insert_gchats(%s);
+        commit
+        """, [json.dumps(chat)])
