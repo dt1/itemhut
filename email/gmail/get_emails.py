@@ -2,7 +2,7 @@ import sys
 sys.path.append("/itemhut/pydb")
 import dbconn
 
-import db
+import gmail_db
 import auth
 import base64
 
@@ -15,11 +15,17 @@ def get_labels():
     labels = results.get('labels', [])
 
     if not labels:
-        print('No labels found.')
+        pass
     else:
-        print('Labels:')
         for label in labels:
-            print(label['name'])
+            gmail_db.insert_gmail_valid_labels(label["name"])
+
+
+def get_email_threads():
+    emails = SERVICE.users().messages().list(userId="me").execute()
+    gmail_db.insert_email_threads(emails)
+    print('done')
+
 
 def get_email(email_id, format_key):
     email = SERVICE.users().messages().get(userId = "me",
@@ -27,13 +33,24 @@ def get_email(email_id, format_key):
                                            format = format_key).execute()
     return email
             
-def get_email_data():
-    emails = SERVICE.users().messages().list(userId="me").execute()
-    db.insert_email_threads(emails)
-    print('done')
+def get_gmail_by_label(label):
+    messages = SERVICE.users().messages().list(userId = "me",
+                                               q = label).execute()
+    return messages
+
+def get_gmail_chats():
+    messages = get_gmail_by_label("CHAT")
+    for message in messages["messages"]:
+        chats = get_email(message["id"], "full")
+        yield chats
+
+
 
 #get_labels()
 #get_email_data()
-a = get_email("15629397450fa7f9", "full")
+#a = get_email("1562a223525510e6", "metadata")
 #aa = base64.urlsafe_b64decode(a)
+#print(a)
+
+a = get_gmail_chats()
 print(a)

@@ -1,4 +1,4 @@
-create schema if not exists email;
+create schema email;
 
 create table email.gmail_threads (
        thread_id varchar,
@@ -30,3 +30,22 @@ end loop;
 
 end;
 $$ language plpgsql;
+
+create table email.gmail_valid_labels (
+       label varchar primary key
+);
+
+create table email.gmail_chats (
+       chat_id varchar primary key,
+       history_id bigint unique,
+       internal_date bigint,
+       mime_type varchar,
+       from_email varchar,
+       to_email varchar,
+       recieve_date varchar,
+       snippet varchar,
+       message varchar,
+       filename varchar,
+       foreign key (chat_id)
+               references email.gmail_threads (email_id)
+);
