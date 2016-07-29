@@ -38,7 +38,7 @@ create table email.gmail_valid_labels (
 create table email.gchats (
        chat_id varchar primary key,
        history_id bigint unique,
-       internal_date varchar,
+       internal_date bigint,
        mime_type varchar,
        from_email varchar,
        to_email varchar,
@@ -51,6 +51,7 @@ create table email.gchats (
 );
 
 drop function email.insert_gchats(json);
+
 create or replace function email.insert_gchats(chat json)
 returns void
 as
@@ -59,13 +60,14 @@ declare
 t_chat_id varchar;
 t_thread_id varchar;
 t_history_id bigint;
-t_internal_date varchar;
+t_internal_date bigint;
 t_mime_type varchar;
 t_from_email varchar;
 t_to_email varchar;
 t_recieve_date date;
 t_snippet varchar;
 t_message varchar;
+t_message2 varchar;
 t_filename varchar;
 
 begin
@@ -73,10 +75,12 @@ t_chat_id = chat ->> 'id';
 t_thread_id = chat ->> 'threadId';
 t_history_id = chat ->> 'historyId';
 t_internal_date = chat ->> 'internalDate';
-t_from_email = chat -> 'headers' -> 0 ->> 'value';
--- t_recieve_date = chat ->> to_timestamp('internalDate');
-t_snippet = chat -> 'snippet';
+t_mime_type = chat -> 'payload' ->> 'mimeType';
+t_from_email = chat -> 'payload'->'headers'-> 0 ->>'value';
+t_recieve_date = to_timestamp(t_internal_date / 1000);
+t_snippet = chat ->> 'snippet';
 t_message = chat -> 'payload' -> 'body' ->> 'data';
+t_message2 = right(left(t_message, -1), -2);
 
 insert into email.gmail_threads (thread_id, email_id)
 values (t_thread_id, t_chat_id)
@@ -84,10 +88,10 @@ on conflict(email_id) do nothing;
 
 insert into email.gchats
        (chat_id, history_id, internal_date, mime_type,
-       from_email, snippet, message)
+       from_email, recieve_date, snippet, message)
 values
 	(t_chat_id, t_history_id, t_internal_date, t_mime_type,
-	t_from_email, t_snippet, t_message)
+	t_from_email, t_recieve_date, t_snippet, t_message2)
 on conflict (chat_id) do nothing;
 end;
 $$ language plpgsql;
