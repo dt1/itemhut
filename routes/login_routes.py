@@ -41,7 +41,7 @@ def initialize():
         password2 = request.POST.get("password2")
         if password == password2:
             hashed = bcrypt.hashpw(password, bcrypt.gensalt())
-            insert_new_user(uname, hashed, "original admin")
+            lgn.insert_original_admin(uname, hashed)
             t = login_user(uname, password)
         else:
             err = "Passwords don't match"

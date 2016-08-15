@@ -16,7 +16,8 @@ values ('user'),
 ('warehouses'),
 ('vendors'),
 ('orders'),
-('customers');
+('customers'),
+('original admin');
 
 create table users.valid_user_types (
        user_type varchar primary key

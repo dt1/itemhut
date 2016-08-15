@@ -25,3 +25,10 @@ def select_user_password_role(username):
         """, [username])
     a = dbconn.cur.fetchall()
     return a
+
+def insert_original_admin(uname, password):
+    dbconn.cur.execute(
+        """
+        insert into users.users (user_name, password, user_role)
+        values (%s, %s, 'original admin');
+        """, [uname, password])
