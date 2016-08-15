@@ -53,7 +53,6 @@ def initialize():
 @post("/login")
 @view("views/login/login_page")
 def login():
-    """Authenticate users"""
     user_cnt = lgn.select_user_count()
     if not user_cnt:
         redirect("/initialize")

@@ -11,8 +11,8 @@ def select_palletlocs_list(wh):
         from warehouse.warehouse_pallet_loc
         join warehouse.pallet_locations
         using (pallet_location_id)
-        where warehouse_id = %s;
-        """, [wh])
+        where warehouse_id = %(wh)s;
+        """, {"wh": wh})
     a = dbconn.cur.fetchall()
     return a
 
@@ -22,9 +22,9 @@ def delete_palletloc(pid):
         begin;
         delete
         from warehouse.pallet_locations
-        where pallet_location_id = %s::int;
+        where pallet_location_id = %(plid)s::int;
         commit;
-        """, [pid])
+        """, {"plid": pid})
 
 def bulk_load_palletlocs(f, wh):
     dbconn.cur.execute(
@@ -33,7 +33,7 @@ def bulk_load_palletlocs(f, wh):
         create temp table pls (pallet_location_name varchar);
 
         copy pls
-        from %s csv header;
+        from %(file)s csv header;
 
         with tpls (pallet_location_id) as
             (insert into warehouse.pallet_locations
@@ -45,17 +45,18 @@ def bulk_load_palletlocs(f, wh):
                   from warehouse.pallet_locations
 	          join warehouse.warehouse_pallet_loc
 	          using (pallet_location_id)
-	          where warehouse_id = %s
+	          where warehouse_id = %(wh)s
 	          and pallet_location_name <> pls.pallet_location_name)
               returning pallet_location_id)
         insert into warehouse.warehouse_pallet_loc
             (warehouse_id, pallet_location_id)
-        select %s, pallet_location_id
+        select %(wh)s, pallet_location_id
         from tpls;
 
         drop table pls;
         commit;
-        """, [f, wh, wh])
+        """, {"file": f,
+              "wh": wh})
 
 def select_palletloc_name(plid):
     dbconn.cur.execute(
@@ -63,7 +64,7 @@ def select_palletloc_name(plid):
         select pallet_location_name
         from warehouse.pallet_locations
         where pallet_location_id = %s::int;
-        """, [plid])
+        """, {"plid": plid})
     a = dbconn.cur.fetchall()
     return a
 
@@ -74,9 +75,10 @@ def update_palletloc_name(plid, pl_name, wh):
         from warehouse.pallet_locations
         join warehouse.warehouse_pallet_loc
         using (pallet_location_id)
-        where pallet_location_name = trim(%s)
-        and warehouse_id = %s;
-        """, [pl_name, wh])
+        where pallet_location_name = trim(%(plname)s)
+        and warehouse_id = %(wh)s;
+        """, {"plname": pl_name,
+              "wh": wh})
     a = dbconn.cur.fetchall()
     if a:
         return True
@@ -85,10 +87,11 @@ def update_palletloc_name(plid, pl_name, wh):
         """
         begin;
         update warehouse.pallet_locations
-        set pallet_location_name = %s
-        where pallet_location_id = %s::int;
+        set pallet_location_name = %(plname)s
+        where pallet_location_id = %(plid)s::int;
         commit;
-        """, [pl_name, plid])
+        """, {"plname": pl_name,
+              "plid": plid})
 
 def insert_pallet_location(wh, pl_name):
     dbconn.cur.execute(
@@ -97,9 +100,10 @@ def insert_pallet_location(wh, pl_name):
         from warehouse.pallet_locations
         join warehouse.warehouse_pallet_loc
         using (pallet_location_id)
-        where pallet_location_name = trim(%s)
-        and warehouse_id = %s;
-        """, [pl_name, wh])
+        where pallet_location_name = trim(%(plname)s)
+        and warehouse_id = %(wh)s;
+        """, {"plname": pl_name,
+              "wh": wh})
     a = dbconn.cur.fetchall()
     if a:
         return True
@@ -110,12 +114,13 @@ def insert_pallet_location(wh, pl_name):
         with new_loc (pallet_location_id) as
 	    (insert into warehouse.pallet_locations
              (pallet_location_name)
-	     values (%s)
+	     values (%(plname)s)
 	     returning pallet_location_id
 	     )
         insert into warehouse.warehouse_pallet_loc
                     (warehouse_id, pallet_location_id)
-        select %s, pallet_location_id
+        select %(wh)s, pallet_location_id
         from new_loc;
         commit;
-        """, [pl_name, wh])
+        """, {"plname": pl_name,
+              "wh": wh})

@@ -7,12 +7,10 @@ import dbconn
 def insert_new_user(username, password, real_name,  utype, urole):
     dbconn.cur.execute(
         """
-        begin;
         select user_name
         from users.users
-        where user_name = %s;
-        commit;
-        """, [username])
+        where user_name = %(username)s;
+        """, {"username": username})
     a = dbconn.cur.fetchall()
     if a:
         return True
@@ -22,9 +20,15 @@ def insert_new_user(username, password, real_name,  utype, urole):
         begin;
         insert into users.users (user_name, password, person_name,
                 user_type, user_role)
-        values (trim(%s), %s, trim(%s), trim(%s), trim(%s));
+        values (trim(%(user_name)s), %(password)s, 
+        trim(%(person_name)s), trim(%(user_type)s), 
+        trim(%(user_role)s));
         commit
-        """, [username, password, real_name, utype, urole])
+        """, {"user_name": username,
+              "password" :password,
+              "person_name": real_name,
+              "user_type": utype,
+              "user_role": urole})
 
 def select_valid_roles():
     dbconn.cur.execute(
@@ -59,8 +63,8 @@ def select_user_info(uid):
         """
         select user_name, person_name, user_type, user_role
         from users.users
-        where user_name = %s;
-        """, [uid])
+        where user_name = %(user_id)s;
+        """, {"user_id" : uid})
     a = dbconn.cur.fetchall()
     return a
 
@@ -71,8 +75,8 @@ def update_user(original_username, username, real_name, utype,
             """
             select user_name
             from users.users
-            where user_name = %s;
-            """, [username])
+            where user_name = %(username)s;
+            """, {"username": username})
         a = dbconn.cur.fetchall()
         if a:
             return True
@@ -83,17 +87,22 @@ def update_user(original_username, username, real_name, utype,
     dbconn.cur.execute(
         """
         begin;
-        select users.update_user(%s, %s, %s, %s, %s);
+        select users.update_user(%(original_username)s, 
+        %(username)s, %(real_name)s, %(user_type)s, %(user_role)s);
         commit;
-        """, [original_username, username, real_name,
-              utype, urole])
+        """, {"original_username": original_username,
+              "username": username,
+              "real_name": real_name,
+              "user_type": utype,
+              "user_role": urole})
 
 def update_user_password(uid, pwd):
     dbconn.cur.execute(
         """
         begin;
         update users.users
-        set password = %s
-        where user_name = %s;
+        set password = %(pwd)s
+        where user_name = %(uid)s;
         commit;
-        """, [pwd, uid])
+        """, {"pwd": pwd,
+              "uid": uid})

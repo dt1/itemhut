@@ -21,14 +21,16 @@ def select_user_password_role(username):
         """
         select password, user_role
         from users.users
-        where user_name = %s;
-        """, [username])
+        where user_name = %(username)s;
+        """, {"username": username})
     a = dbconn.cur.fetchall()
     return a
 
 def insert_original_admin(uname, password):
     dbconn.cur.execute(
         """
+        begin;
         insert into users.users (user_name, password, user_role)
         values (%s, %s, 'original admin');
+        commit;
         """, [uname, password])
