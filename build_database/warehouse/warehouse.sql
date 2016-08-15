@@ -2,11 +2,11 @@ drop schema if exists warehouse cascade;
 
 create schema if not exists warehouse;
 
-create table warehouse.valid_warehouse_type (
+create table warehouse.valid_warehouse_types (
        warehouse_type varchar primary key
 );       
 
-insert into warehouse_type.valid_warehouse_type (warehouse_type)
+insert into warehouse.valid_warehouse_types (warehouse_type)
 values ('B&M'), ('3PL');
 
 create table warehouse.warehouses (
@@ -18,7 +18,8 @@ create table warehouse.warehouses (
        warehouse_country varchar,
        warehouse_type varchar,
        foreign key (warehouse_type)
-               references warehouse.valid_warehouse_type (warehouse_type)
+               references warehouse.valid_warehouse_types
+	       (warehouse_type)
 );
 
 create table warehouse.pallets (
@@ -58,8 +59,8 @@ create table warehouse.picking_locations (
        picking_location_name varchar,
        upc bigint,
        qty int check (qty >= 0),
-       foreign key (sku)
-               references product.sku_upc (sku)
+       foreign key (upc)
+               references product.sku_upc (upc)
 );
 
 create table warehouse.warehouse_picking_loc (

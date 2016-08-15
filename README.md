@@ -44,14 +44,19 @@ There are no update scripts with each version. Some updates will require manual 
 
 ####Inventory System Setup
 PostgreSQL 9.5
+PostgreSQL 9.5 Server
+PostgreSQL 9.5 Devel
 
 Python packages:
+(from package manager)
 * Python3
-* Python Bottle
+* Python3 Devel
+(from pip3)
+* Python3 Bottle
 * Psycopg2
+* Beaker
 * bcrypt
 * hmac
-* beaker
 * google-api-python-client
 
 Please be sure you have the latest version of each package.
@@ -66,16 +71,15 @@ setup the database
 ```bash
 $ su - postgres
 $ createdb itemhut
-$ psql -d itemhut -U postgres -f ~/itemhut/build_database/products/products.sql 
-$ psql -d itemhut -U postgres -f ~/itemhut/build_database/warehouse/warhouse.sql 
-$ psql -d itemhut -U postgres -f ~/itemhut/build_database/vendors/vendors.sql
-$ psql -d itemhut -U postgres -f ~/itemhut/build_database/incoming/incoming.sql
-$ psql -d itemhut -U postgres -f ~/itemhut/build_database/users/users.sql
-$ psql -d itemhut -U postgres -f ~/itemhut/build_database/orders/orders.sql
-$ psql -d itemhut -U postgres -f ~/itemhut/build_database/customers/company.sql
-$ psql -d itemhut -U postgres -f ~/itemhut/build_database/marketplaces/marketplace.sql
-$ psql -d itemhut -U postgres -f ~/itemhut/build_database/orders/orders.sql
-$ psql -d itemhut -U postgres -f ~/itemhut/build_database/email/gmail.sql
+$ psql -d itemhut -f ~/itemhut/build_database/users/users.sql
+$ psql -d itemhut -f ~/itemhut/build_database/products/products.sql
+$ psql -d itemhut -f ~/itemhut/build_database/warehouse/warehouse.sql
+$ psql -d itemhut -f ~/itemhut/build_database/vendors/vendors.sql
+$ psql -d itemhut -f ~/itemhut/build_database/incoming/incoming.sql
+$ psql -d itemhut -f ~/itemhut/build_database/marketplaces/marketplace.sql
+$ psql -d itemhut -f ~/itemhut/build_database/customers/company.sql
+$ psql -d itemhut -f ~/itemhut/build_database/orders/orders.sql
+$ psql -d itemhut -f ~/itemhut/build_database/email/gmail.sql
 ```
 
 run bottle:

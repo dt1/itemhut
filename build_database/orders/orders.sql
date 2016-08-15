@@ -24,7 +24,7 @@ create table orders.moi_company (
        company_contact_id int,
        foreign key (company_id, company_contact_id)
                references company.company_contact
-	       (company_id, contact_id)
+	       (company_id, company_contact_id)
 );
 
 create table orders.market_order_skus (
@@ -69,9 +69,9 @@ create table orders.shipto (
        shipto_company_id int,
        ship_by_date date,
        deliver_by_date date,
-       foreign key (internal_order_id, marketplace_sku)
-               references orders.market_order_skus
-	       (internal_order_id, marketplace_sku),
+       foreign key (internal_order_id)
+               references orders.market_orders
+	       (internal_order_id),
        foreign key (shipto_company_id)
                references orders.shipto_companies (shipto_company_id)
 );
@@ -106,7 +106,7 @@ create table orders.shipto_files (
        file_type varchar,
        foreign key (shipto_id)
                references orders.shipto(shipto_id)
-	       on delete cascade
+	       on delete cascade,
         foreign key (file_type)
 	        references orders.valid_file_type (file_type)
 );

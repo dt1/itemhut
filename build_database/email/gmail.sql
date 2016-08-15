@@ -50,8 +50,6 @@ create table email.gchats (
                references email.gmail_threads (email_id)
 );
 
-drop function email.insert_gchats(json);
-
 create or replace function email.insert_gchats(chat json)
 returns void
 as
