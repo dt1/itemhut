@@ -42,29 +42,38 @@ Item Hut is a nightly rolling release. Each push to this repo should be stable.
 
 There are no update scripts with each version. Some updates will require manual intervention. Be sure to backup your database, diff the schemas, and be prepared to do ETL.
 
-####Inventory System Setup
+#### System Requiremnts
 PostgreSQL 9.5
 PostgreSQL 9.5 Server
 PostgreSQL 9.5 Devel
 
-Python packages:
-(from package manager)
+gcc
+python3-devel
+redhat-rpm-config (if on redhad / fedora / CentOS)
+
+Python packages (from package manager):
 * Python3
 * Python3 Devel
-(from pip3)
-* Python3 Bottle
-* Psycopg2
-* Beaker
-* bcrypt
-* hmac
+
+
+running pip3 install will download the following packages (see setup.py):
+* Python3 Bottle 0.12.9
+* Psycopg2 2.6.2
+* Beaker 1.8.0
+* bcrypt 3.1.0
+* py-bcrypt 0.4
 * google-api-python-client
 
-Please be sure you have the latest version of each package.
-For example, Bottle version 0.12.9 is needed to do file uploads.
+####Installation
 
 clone to ~/itemhut:
 ```bash
 $ git clone https://github.com/dt1/itemhut.git
+```
+
+run setup:
+```bash
+$ pip3 install . --upgrade
 ```
 
 setup the database
