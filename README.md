@@ -89,7 +89,7 @@ $ python3 build_db.py
 
 run bottle:
 ```
-$ python3 ~/itemhut/inventory.py
+$ python3 inventory.py
 ```
 
 open localhost:8082
