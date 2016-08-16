@@ -43,13 +43,13 @@ Item Hut is a nightly rolling release. Each push to this repo should be stable.
 There are no update scripts with each version. Some updates will require manual intervention. Be sure to backup your database, diff the schemas, and be prepared to do ETL.
 
 #### System Requiremnts
-PostgreSQL 9.5
-PostgreSQL 9.5 Server
-PostgreSQL 9.5 Devel
+* PostgreSQL 9.5
+* PostgreSQL 9.5 Server
+* PostgreSQL 9.5 Devel
 
 gcc
-python3-devel
-redhat-rpm-config (if on redhad / fedora / CentOS)
+* python3-devel
+* redhat-rpm-config (if on redhad / fedora / CentOS)
 
 Python packages (from package manager):
 * Python3
