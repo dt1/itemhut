@@ -15,7 +15,6 @@ setup(
         "py_bcrypt>=0.4",
         "google_api_python_client"
     ],
-
     classifiers = [
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",

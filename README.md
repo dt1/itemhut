@@ -65,10 +65,16 @@ running pip3 install will download the following packages (see setup.py):
 * google-api-python-client
 
 ####Installation
+These instructions assume you have .pgpass enabled.
 
 clone to ~/itemhut:
 ```bash
 $ git clone https://github.com/dt1/itemhut.git
+```
+
+cd to directory:
+```bash
+$ cd /itemhut
 ```
 
 run setup:
@@ -78,17 +84,7 @@ $ pip3 install . --upgrade
 
 setup the database
 ```bash
-$ su - postgres
-$ createdb itemhut
-$ psql -d itemhut -f ~/itemhut/build_database/users/users.sql
-$ psql -d itemhut -f ~/itemhut/build_database/products/products.sql
-$ psql -d itemhut -f ~/itemhut/build_database/warehouse/warehouse.sql
-$ psql -d itemhut -f ~/itemhut/build_database/vendors/vendors.sql
-$ psql -d itemhut -f ~/itemhut/build_database/incoming/incoming.sql
-$ psql -d itemhut -f ~/itemhut/build_database/marketplaces/marketplace.sql
-$ psql -d itemhut -f ~/itemhut/build_database/customers/company.sql
-$ psql -d itemhut -f ~/itemhut/build_database/orders/orders.sql
-$ psql -d itemhut -f ~/itemhut/build_database/email/gmail.sql
+$ python3 build_db.py
 ```
 
 run bottle:
@@ -99,31 +95,6 @@ $ python3 ~/itemhut/inventory.py
 open localhost:8082
 
 You will see a "Create First User" page.
-
-####Full System Setup
-(same as Inventory System Setup)
-
-Python packages:
-* BeutifulSoup2
-* pandas
-
-Python eBay SDK:
-https://github.com/timotheus/ebaysdk-python
-
-setup the yaml files
-
-By default, the eBay SDK does not function with Python3. On Fedora:
-
-```bash
-[your-editor] /usr/lib/python3.4/site-packages/ebaysdk-2.1.2-py3.4.egg/ebaysdk/response.py
-line 65:
-change:
-if i is None or isinstance(i, str) or isinstance(i, unicode):
-to:
-if i is None or isinstance(i, str): #or isinstance(i, unicode):
-```
-
-(to be continued...)
 
 ###Expected Features
 * B2B Customer Management

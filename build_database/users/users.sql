@@ -2,8 +2,6 @@
 
 create schema users;
 
-create schema users;
-
 create table users.valid_user_roles (
        user_role varchar primary key
 );
