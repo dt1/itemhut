@@ -113,7 +113,7 @@ in general, the .pgpass file will look like this, where password is whatever you
 localhost:5432:itemhut:postgres:<password>
 ```
 
-clone to ~/itemhut:
+clone the repo:
 ```bash
 $ git clone https://github.com/dt1/itemhut.git
 ```

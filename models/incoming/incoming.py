@@ -6,17 +6,16 @@ import dbconn
 import psycopg2
 
 
-def insert_invoice_data(invoice, vendor_id, order_date, eta,
-                        invoice_file):
+def insert_invoice_data(d):
     dbconn.cur.execute(
         """
         begin;
         insert into incoming.orders (invoice, vendor_id, order_date,
               eta, completed, invoice_file)
-        values (%s, %s, %s::date, %s::date, false, %s);
+        values (%(invoice)s, %(vendor_id)s, %(order_date)s::date, 
+        %(eta)s::date, false, %(f-path)s);
         commit;
-        """, [invoice, vendor_id, order_date, eta,
-              invoice_file])
+        """, d)
 
 def select_incoming_order_data(oid):
     dbconn.cur.execute(
@@ -74,15 +73,15 @@ def select_incoming_product(oid):
     a = dbconn.cur.fetchall()
     return a
         
-def insert_incoming_order_product(oid, upc, qty):
+def insert_incoming_order_product(d):
     dbconn.cur.execute(
         """
         begin;
         insert into incoming.order_products 
              (incoming_order_id, upc, qty)
-        values(%s::int, %s::bigint, %s::int);
+        values(%(oid)s::int, %(upc)s::bigint, %(qty)s::int);
         commit;
-        """, [oid, upc, qty])
+        """, d)
         
 def get_order_upc_candidates(oid):
     dbconn.cur.execute(

@@ -7,12 +7,15 @@ from route_utils import *
 @view("views/incoming/update_incoming_order")
 @check_user
 def update_incoming_order(oid):
+    d = {}
+    d["oid"] = oid
+    L = ["upc", "qty"]
     if request.POST.get("arrived"):
         icm.set_order_complete(oid)
     if request.POST.get("add-product"):
-        upc = request.POST.get("upc")
-        qty = request.POST.get("qty")
-        icm.insert_incoming_order_product(oid, upc, qty)
+        for i in L:
+            d[i] = request.POST.get(i)
+        icm.insert_incoming_order_product(d)
     products = icm.select_incoming_product(oid)
     upc_list = icm.get_order_upc_candidates(oid)
     order_info = icm.select_incoming_order_data(oid)
@@ -31,14 +34,13 @@ def all_records():
 @view("views/incoming/add_record")
 @check_user
 def add_record():
+    d = {}
+    L = ["invoice", "vendor-id", "order-date", "eta", "invoice-file"]
     if request.POST.get("add-record"):
-        invoice = request.POST.get("invoice")
-        vendor_id = request.POST.get("vendor-id")
-        order_date = request.POST.get("order-date")
-        eta = request.POST.get("eta")
-        invoice_file = request.POST.get("invoice-file")
+        for i in L:
+            d[i] = request.POST.get(i)
 
-        save_path = "uploaded_files/invoices/{0}".format(invoice_file)
+        save_path = "uploaded_files/invoices/{0}".format(d["invoice-file"])
         
         if not os.path.exists(save_path):
             os.makedirs(save_path)
@@ -46,8 +48,8 @@ def add_record():
         invoice_file.save(save_path, overwrite=True)
 
         f_path = "{0}/{1}".format(invoice_file, invoice_file.filename)
-        icm.insert_invoice_data(invoice, vendor_id, order_date, eta,
-                                f_path)
+        d["f-path"] = f_path
+        icm.insert_invoice_data(d)
     
         return dict(invoice_added = invoice)
         

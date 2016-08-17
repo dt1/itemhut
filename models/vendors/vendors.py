@@ -16,15 +16,16 @@ def select_vendors():
     a = dbconn.cur.fetchall()
     return a
 
-def insert_new_vendor(vendor_id, vendor_name, phone, fax, website,
-                      email, street, city, state, zip, country):
+def insert_new_vendor(d):
     dbconn.cur.execute(
         """
         begin;
         insert into vendor.vendors (vendor_id, vendor_name, phone,
               fax, website, email, street, city, state, zip,
               country)
-        values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        values (%(vendor-id)s, %(vendor-name)s, %(phone)s, %(fax)s, 
+        %(website)s, %(email)s, %(street)s, %(city)s, %(state)s, 
+        %(zip)s, %(country)s)
         on conflict (vendor_id)
         do update
         set vendor_name = excluded.vendor_name,
@@ -35,10 +36,10 @@ def insert_new_vendor(vendor_id, vendor_name, phone, fax, website,
         street = excluded.street,
         city = excluded.city,
         state = excluded.state,
-        zip = excluded.zip;
+        zip = excluded.zip,
+        country = excluded.country;
         commit;
-        """, [vendor_id, vendor_name, phone, fax, website, email,
-              street, city, state, zip, country])
+        """, d)
 
 def get_vendor_info(vendor_id):
     dbconn.cur.execute(
@@ -52,37 +53,35 @@ def get_vendor_info(vendor_id):
     a = dbconn.cur.fetchall()
     return a
 
-def insert_vendor_contact(vendor_id, contact_name, contact_title, phone, alt_phone, email):
+def insert_vendor_contact(d):
     dbconn.cur.execute(
         """
         begin;
         with new_contact_id (contact_id) as
 	     (insert into vendor.contacts (name, title, phone,
                       alt_phone, email)
-              values (%s, %s, %s, %s, %s)
+              values (%(name)s, %(title)s, %(phone)s, 
+                      %(alt-phone)s, %(email)s)
 	      returning contact_id)
         insert into vendor.vendor_contact(vendor_id, contact_id)
-        select %s, contact_id
+        select %(vid)s, contact_id
         from new_contact_id;
         commit;
-        """, [contact_name, contact_title, phone, alt_phone, email,
-              vendor_id])
+        """, d)
 
-def update_vendor_contact(cid, contact_name, contact_title, phone,
-                          alt_phone, email):
+def update_vendor_contact(d):
     dbconn.cur.execute(
         """
         begin;
         update vendor.contacts
-        set name = %s,
-        title = %s,
-        phone = %s,
-        alt_phone = %s,
-        email = %s
-        where contact_id = %s;
+        set name = %(name)s,
+        title = %(title)s,
+        phone = %(phone)s,
+        alt_phone = %(alt-phone)s,
+        email = %(email)s
+        where contact_id = %(cid)s;
         commit;
-        """, [contact_name, contact_title, phone,alt_phone,
-              email, cid])
+        """, d)
 
 def select_vendor_contact_info(contact_id):
     dbconn.cur.execute(
@@ -107,20 +106,17 @@ def select_vendor_contacts(vendor_id):
     a = dbconn.cur.fetchall()
     return a    
 
-def update_vendor_info(old_vendor_id, new_vendor_id, vendor_name,
-                       phone, fax, website, email, street, city, state,
-                       zip, country):
-    if old_vendor_id.strip() != new_vendor_id.strip():
+def update_vendor_info(d):
+    if d["old-vid"].strip() != d["vendor-id"].strip():
         dbconn.cur.execute(
             """
             begin;
             update vendor.vendors
-            set vendor_id = trim(%s)
-            where vendor_id = trim(%s);
+            set vendor_id = trim(%(vendor-id)s)
+            where vendor_id = trim(%(old-vid)s);
             commit;
-            """, [new_vendor_id, old_vendor_id])
-    insert_new_vendor(new_vendor_id, vendor_name, phone, fax, website,
-                      email, street, city, state, zip, country)
+            """, d)
+    insert_new_vendor(d)
 
 def insert_product_vendor(vendor_id, upc):
     dbconn.cur.execute(

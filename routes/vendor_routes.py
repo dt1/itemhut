@@ -9,15 +9,14 @@ from route_utils import *
 def edit_vendor_contact(vid, cid):
     vendor_info = ven.get_vendor_info(vid)
     contact_info = ven.select_vendor_contact_info(cid)
+    d = {}
+    d["cid"] = cid
+    L = ["name", "title", "phone", "alt-phone" "email"]
     if request.POST.get("edit-contact"):
-        contact_name = request.POST.get("name")
-        contact_title = request.POST.get("title")
-        phone = request.POST.get("phone")
-        alt_phone = request.POST.get("alt-phone")
-        email = request.POST.get("email")
-        ven.update_vendor_contact(cid, contact_name, contact_title,
-                                  phone, alt_phone, email)
-        redirect("/vendors/{0}/contacts/edit-contact-{1}".format(vid, cid))
+        for i in L:
+            d[i] = request.POST.get(i)
+        ven.update_vendor_contact(d)
+        redirect("/vendors/{0}/contacts/edit-contact-{1}".format(vid, d["cid"]))
     else:
         return dict(contact_info = contact_info, vid = vid,
                     vendor_info = vendor_info)
@@ -73,22 +72,21 @@ def vendor_info(vid):
 
 @route("/vendors/<vid>/contacts/add-contact")
 @post("/vendors/<vid>/contacts/add-contact")
-@view("views/vendors/add_contact")
+@view("views/vendors/add_contact", contact_name = None)
 @check_user
 def add_vendor_contact(vid):
     vendor_info = ven.get_vendor_info(vid)
+    d = {}
+    d["vid"] = vid
+    L = ["name", "title", "phone", "alt-phone", "email"]
     if request.POST.get("add-contact"):
-        contact_name = request.POST.get("name")
-        contact_title = request.POST.get("title")
-        phone = request.POST.get("phone")
-        alt_phone = request.POST.get("alt-phone")
-        email = request.POST.get("email")
-        ven.insert_vendor_contact(vid, contact_name, contact_title,
-                                  phone, alt_phone, email)
-        return dict(contact_name = contact_name, vid = vid,
+        for i in L:
+            d[i] = request.POST.get(i)
+        ven.insert_vendor_contact(d)
+        return dict(contact_name = d["name"], vid = vid,
                     vendor_info = vendor_info)
     else:
-        return dict(contact_name = None, vid = vid,
+        return dict(vid = vid,
                     vendor_info = vendor_info)
     
 @route("/vendors/<vid>/contacts")
@@ -106,50 +104,34 @@ def vendor_contacts(vid):
 @check_user
 def edit_vendor(vid):
     vendor_info = ven.get_vendor_info(vid)
+    d = {}
+    d["old-vid"] = vid
+    L = ["vendor-id", "vendor-name", "phone", "fax", "website",
+         "email", "street", "city", "state", "zip", "country"]
     if request.POST.get("update-vendor"):
-        old_vendor_id = vid
-        new_vendor_id = request.POST.get("vendor-id")
-        vendor_name = request.POST.get("vendor-name")
-        phone = request.POST.get("phone")
-        fax = request.POST.get("fax")
-        website = request.POST.get("website")
-        email = request.POST.get("email")
-        street = request.POST.get("street")
-        city = request.POST.get("city")
-        state = request.POST.get("state")
-        zip = request.POST.get("zip")
-        country = request.POST.get("country")
-        update_vendor_info(old_vendor_id, new_vendor_id, vendor_name,
-                       phone, fax, website, email, street, city, state,
-                       zip, country)
-        redirect("/vendors/{0}/edit-vendor".format(new_vendor_id))
+        for i in L:
+            d[i] = request.POST.get(i)
+        ven.update_vendor_info(d)
+        redirect("/vendors/{0}/edit-vendor".format(d["vendor-id"]))
     else:
         return dict(vendor_info = vendor_info)
 
 @route("/vendors/add-vendor")
 @post("/vendors/add-vendor")
-@view("views/vendors/add_vendor")
+@view("views/vendors/add_vendor", new_vendor = None)
 @check_user
 def add_vendor():
     vendors = ven.select_vendors()
+    d = {}
+    L = ["vendor-id", "vendor-name", "phone", "fax", "website",
+         "email", "street", "city", "state", "zip", "country"]
     if request.POST.get("add-vendor"):
-        vendor_id = request.POST.get("vendor-id")
-        vendor_name = request.POST.get("vendor-name")
-        phone = request.POST.get("phone")
-        fax = request.POST.get("fax")
-        website = request.POST.get("website")
-        email = request.POST.get("email")
-        street = request.POST.get("street")
-        city = request.POST.get("city")
-        state = request.POST.get("state")
-        zip = request.POST.get("zip")
-        country = request.POST.get("country")
-        ven.insert_new_vendor(vendor_id, vendor_name, phone, fax,
-                              website, email, street, city, state,
-                              zip, country)
-        return dict(new_vendor = vendor_name)
+        for i in L:
+            d[i] = request.POST.get(i)
+        ven.insert_new_vendor(d)
+        return dict(new_vendor = d["vendor-name"])
     else:
-        return dict(new_vendor = None)
+        return dict()
 
 @route("/vendors")
 @view("views/vendors/main")
