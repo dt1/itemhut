@@ -64,6 +64,28 @@ running pip3 install will download the following packages (see setup.py):
 ####Installation
 These instructions assume you have .pgpass enabled.
 
+To create a .pgpass file:
+
+cd to the home directory of the user who is running the system:
+```bash
+$ cd
+```
+
+create .pgpass:
+```bash
+$ touch .pgpass
+```
+
+edit .pgpass with your prefered editor:
+```bash
+$ [editor] .pgpass
+```
+
+add the following, filling in the bracketed:
+```
+<host>:<port>:itemhut:postgres:<password>
+```
+
 clone to ~/itemhut:
 ```bash
 $ git clone https://github.com/dt1/itemhut.git
