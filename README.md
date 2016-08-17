@@ -108,6 +108,11 @@ add the following, filling in the bracketed:
 <host>:<port>:itemhut:postgres:<password>
 ```
 
+in general, the .pgpass file will look like this, where password is whatever you made the password when you updated the postgres user password:
+```
+localhost:5432:itemhut:postgres:<password>
+```
+
 clone to ~/itemhut:
 ```bash
 $ git clone https://github.com/dt1/itemhut.git
