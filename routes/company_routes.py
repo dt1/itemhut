@@ -9,14 +9,14 @@ from route_utils import *
 def edit_company_contact(cid, cnid):
     cinfo = com.select_company_info(cid)
     contact_info = com.select_contact(cnid)
+    d = {}
+    d["cnid"] = cnid
+    L = ["contact-name", "position", "phone-one", "phone-two",
+         "email"]
     if request.POST.get("edit-contact"):
-        contact_name = request.POST.get("contact-name")
-        position = request.POST.get("position")
-        phone1 = request.POST.get("phone-one")
-        phone2 = request.POST.get("phone-two")
-        email = request.POST.get("email")
-        com.update_contact(cnid, contact_name, position, phone1,
-                           phone2, email)
+        for i in L:
+            d[i] = request.POST.get(i)
+        com.update_contact(d)
         url = "/companies/{0}/contacts/edit-contact-{1}".format(cid, cnid)
         redirect(url)
     if contact_info:
@@ -30,14 +30,14 @@ def edit_company_contact(cid, cnid):
 @check_user
 def add_company_contact(cid):
     cinfo = com.select_company_info(cid)
+    d = {}
+    d["cid"] = cid
+    L = ["contact-name", "position", "phone-one", "phone-two",
+         "email"]
     if request.POST.get("add-contact"):
-        contact_name = request.POST.get("contact-name")
-        position = request.POST.get("position")
-        phone1 = request.POST.get("phone-one")
-        phone2 = request.POST.get("phone-two")
-        email = request.POST.get("email")
-        cnid = com.add_contact(cid, contact_name, position, phone1,
-                               phone2, email)
+        for i in L:
+            d[i] = request.POST.get(i)
+        cnid = com.add_contact(d)
         url = "/companies/{0}/contacts/edit-contact-{1}".format(cid, cnid[0][0])
         redirect(url)
     return dict(cinfo = cinfo[0])
@@ -62,20 +62,14 @@ def reroute_company(cid):
 @check_user
 def edit_company(cid):
     cinfo = com.select_company_info(cid)
+    d = {}
+    d["cid"] = cid
+    L = ["company-uid", "company-name", "phone-one", "phone-two",
+         "fax", "email", "street", "city", "state", "zip", "country"]
     if request.POST.get("edit-company"):
-        uid = request.POST.get("company-uid")
-        cname = request.POST.get("company-name")
-        phone1 = request.POST.get("phone-one")
-        phone2 = request.POST.get("phone-two")
-        fax = request.POST.get("fax")
-        email = request.POST.get("email")
-        street = request.POST.get("street")
-        state = request.POST.get("state")
-        zipcode = request.POST.get("zip")
-        country = request.POST.get("country")
-        com.update_company(cid, uid, cname, phone1, phone2, fax,
-                                 email, street, state, zipcode,
-                                 country)
+        for i in L:
+            d[i] = request.POST.get(i)
+        com.update_company(d)
         url = "/companies/edit-company-{0}".format(cid)
         redirect(url)
     return dict(cinfo = cinfo[0])
@@ -86,21 +80,13 @@ def edit_company(cid):
 @view("views/companies/add_company")
 @check_user
 def add_company():
+    d = {}
+    L = ["company-uid", "company-name", "phone-one", "phone-two",
+         "fax", "email", "street", "city", "state", "zip", "country"]
     if request.POST.get("add-company"):
-        uid = request.POST.get("company-uid")
-        cname = request.POST.get("company-name")
-        phone1 = request.POST.get("phone-one")
-        phone2 = request.POST.get("phone-two")
-        fax = request.POST.get("fax")
-        email = request.POST.get("email")
-        city = request.POST.get("city")
-        street = request.POST.get("street")
-        state = request.POST.get("state")
-        zipcode = request.POST.get("zip")
-        country = request.POST.get("country")
-        cid = com.insert_company(uid, cname, phone1, phone2, fax,
-                                 email, street, city, state, zipcode,
-                                 country)
+        for i in L:
+            d[i] = request.POST.get(i)
+        cid = com.insert_company(d)
         url = "/companies/edit-company-{0}".format(cid[0][0])
         redirect(url)
     return dict()
