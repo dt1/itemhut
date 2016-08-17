@@ -64,7 +64,29 @@ running pip3 install will download the following packages (see setup.py):
 ####Installation
 These instructions assume you have .pgpass enabled.
 
-To create a .pgpass file:
+create the itemhut database:
+```bash
+$ su - postgres
+$ createdb itemhut
+```
+
+If this is your first time using PostgreSQL, you have to create a password for the postgres user:
+
+```bash
+$ psql
+postgres=# alter user postgres with encrypted password "<password>"
+postgres=# \q
+```
+
+edit the pg_hba.conf (still as postgres):
+```bash
+$ cd data
+$ [editor] pg_hba.conf
+```
+
+change peer to md5 then restart the PostgreSQL server.
+
+Create a .pgpass file:
 
 cd to the home directory of the user who is running the system:
 ```bash
@@ -93,7 +115,7 @@ $ git clone https://github.com/dt1/itemhut.git
 
 cd to directory:
 ```bash
-$ cd /itemhut
+$ cd itemhut
 ```
 
 run setup:
@@ -106,7 +128,7 @@ setup the database
 $ python3 build_db.py
 ```
 
-run bottle:
+run itemhut:
 ```
 $ python3 inventory.py
 ```
@@ -114,6 +136,9 @@ $ python3 inventory.py
 open localhost:8082
 
 You will see a "Create First User" page.
+
+If there are any issues with the setup, feel free to contact me at:
+dbtoomey@gmail.com
 
 ###Expected Features
 * B2B Customer Management
