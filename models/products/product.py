@@ -52,7 +52,6 @@ def sku_types():
     a = dbconn.cur.fetchall()
     return a
 
-
 def insert_product_descriptions(d):
     dbconn.cur.execute(
         """
@@ -152,15 +151,16 @@ def update_product_data(d):
 
     insert_sku_upc(d)
     insert_product_descriptions(d)
-    if image:
-        insert_images(new_sku, image, None, None, None, None, None,
-                      None, None, None, None, None, None, None, None)
 
 def get_sku_data(sku):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select sku, upc, sku_type, product_name, product_description, 
-               main_image
+               bullet_one, bullet_two, bullet_three, bullet_four,
+               bullet_five, main_image, image_one, image_two,
+               image_three, image_four, image_five, image_six,
+               image_six, image_seven, image_eight, image_nine,
+               image_ten, image_eleven, image_twelve, swatch_image
         from product.sku_upc
         left join product.descriptions
         using (sku)
@@ -168,5 +168,5 @@ def get_sku_data(sku):
         using (sku)
         where trim(sku) = trim(%s);
         """, [sku])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a

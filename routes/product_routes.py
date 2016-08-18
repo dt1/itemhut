@@ -24,33 +24,27 @@ def add_product_images(d):
 
 @route("/products/update-product-<pid>")
 @post("/products/update-product-<pid>")
-@view("views/products/update_product_inv")
+@view("views/products/update_product")
 @check_user
 def update_product(pid):
     sku_data = prd.get_sku_data(pid)
     stypes = prd.sku_types()
     d = {}
     d["pid"] = pid
-    L = ["sku", "upc", "sku-type", "product-name",
-         "product-description", "main-image"]
+    L = ["sku", "upc", "sku-type",
+         "product-name", "product-description", "bullet-one",
+         "bullet-two", "bullet-three", "bullet-four", "bullet-five",
+         "main-image", "image-one", "image-two", "image-three",
+         "image-four", "image-five", "image-six", "image-seven",
+         "image-eight", "image-nine", "image-ten", "image-eleven",
+         "image-twelve", "swatch-image"]
     if request.POST.get("update-product"):
         for i in L:
             d[i] = request.POST.get(i)
-
-        if d["main-image"]:
-            main_image = d["main-image"]
-            save_path = "uploaded_files/images/{0}".format(main_image)
-
-            if not os.path.exists(save_path):
-                os.makedirs(save_path)
-
-                main_image.save(save_path, overwrite=True)
-
-                d["image_path"] = "{0}/{1}".format(main_image,
-                                              main_image.filename)
         
         prd.update_product_data(d)
-
+        add_product_images(d)
+        
         redirect("/products/update-product-{0}".format(sku))
     return dict(sku_data = sku_data, sku_types = stypes,
                 sku = pid)
