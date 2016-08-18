@@ -37,11 +37,9 @@ def select_valid_marketplaces():
     a = dbconn.cur.fetchall()
     return a
 
-def insert_market_step1_no_sameship(order_id, marketplace,
-                                    salesperson_id, company_id,
-                                    contact_id):
-    if contact_id == "None":
-        contact_id = None
+def insert_market_step1_no_sameship(d):
+    if d["contact-id"] == "None":
+        d["contact-id"] = None
 
     dbconn.cur.execute(
         """
@@ -49,15 +47,15 @@ def insert_market_step1_no_sameship(order_id, marketplace,
         with new_order (internal_order_id) as
             (insert into orders.market_orders (market_order_id,
                   marketplace, salesperson_id)
-             values (%s, %s, %s)
+             values (%(order-id)s, %(marketplace)s, %(salesperson-id)s)
              returning internal_order_id)
         insert into orders.moi_company (internal_order_id, company_id,
              company_contact_id)
-        select internal_order_id, %s::int, %s::int
+        select internal_order_id, %(company-id)s::int, 
+               %(contact-id)s::int
         from new_order
         returning internal_order_id;
-        """, [order_id, marketplace, salesperson_id, company_id,
-              contact_id])
+        """, d)
     a = dbconn.cur.fetchall()
     dbconn.cur.execute(
         """
@@ -65,20 +63,18 @@ def insert_market_step1_no_sameship(order_id, marketplace,
         """)
     return a
 
-def insert_market_step1_sameship(order_id, marketplace,
-                                 salesperson_id, company_id,
-                                 contact_id):
-    if contact_id == "None":
-        contact_id = None
+def insert_market_step1_sameship(d):
+    if d["contact-id"] == "None":
+        d["contact-id"] = None
 
     dbconn.cur.execute(
         """
         begin;
         select r_internal_order_id 
-        from orders.insert_company_sameship(%s, %s, %s, %s::int, 
-        %s::int);
-        """, [order_id, salesperson_id, marketplace, company_id,
-              contact_id])
+        from orders.insert_company_sameship(%(order-id)s, 
+        %(salesperson-id)s, %(marketplace)s, %(company-id)s::int, 
+        %(contact-id)s::int);
+        """, d)
     a = dbconn.cur.fetchall()
     dbconn.cur.execute(
         """
@@ -86,16 +82,11 @@ def insert_market_step1_sameship(order_id, marketplace,
         """)
     return a
 
-def insert_market_step1(order_id, marketplace, salesperson_id,
-                        sameship, company_id, contact_id):
-    if sameship:
-        a = insert_market_step1_sameship(order_id, marketplace,
-                                            salesperson_id, company_id,
-                                            contact_id)
+def insert_market_step1(d):
+    if d["sameship"]:
+        a = insert_market_step1_sameship(d)
     else:
-        a = insert_market_step1_no_sameship(order_id, marketplace,
-                                            salesperson_id, company_id,
-                                            contact_id)
+        a = insert_market_step1_no_sameship(d)
     return a
 
 def select_valid_market_order(order_id):
@@ -115,9 +106,7 @@ def select_valid_market_order(order_id):
     a = dbconn.cur.fetchall()
     return a
 
-def insert_shipto(oid, shipto_company, shipto_attn, shipto_street,
-                  shipto_city, shipto_state, shipto_zip,
-                  shipto_country, ship_by_date, deliver_by_date):
+def insert_shipto(d):
     if ship_by_date == "":
         ship_by_date = None
     if deliver_by_date == "":
@@ -125,13 +114,11 @@ def insert_shipto(oid, shipto_company, shipto_attn, shipto_street,
     dbconn.cur.execute(
         """
         begin;
-        select orders.insert_shipto_customer(%s::int, %s,
-        %s, %s, %s, %s,
-        %s, %s, %s, %s);
+        select orders.insert_shipto_customer(%(oid)s::int, %(company)s,
+        %(attn)s, %(street)s, %(city)s, %(state)s, %(zip)s, 
+        %(country)s, %(ship-by)s, %(deliver-by)s);
         commit;
-        """, [oid, shipto_company,
-        shipto_attn, shipto_street, shipto_city, shipto_state,
-        shipto_zip, shipto_country, ship_by_date, deliver_by_date])
+        """, d)
 
 def select_order_companies(order_id):
     dbconn.cur.execute(
@@ -304,31 +291,21 @@ def delete_shipto_record(sid):
         commit;
         """, [sid])
 
-def edit_shipto_company(sid, shipto_company, shipto_attn,
-                        shipto_street, shipto_city, shipto_state,
-                        shipto_zip, shipto_country, ship_by_date,
-                        deliver_by_date):
+def edit_shipto_company(d):
     dbconn.cur.execute(
         """
         begin;
         update orders.shipto_companies
-        set shipto_company = %s, 
-        shipto_attn = %s,
-        shipto_street = %s, 
-        shipto_city = %s,
-        shipto_state = %s,
-        shipto_zip = %s, 
-        shipto_country = %s
-        where shipto_id = %s::int;
-
-        # update orders.shipto
-        # set ship_by_date = %s::date,
-        # deliver_by_date = %s::date
-        # where shipto_id = %s::int;
+        set shipto_company = %(company)s, 
+        shipto_attn = %(attn)s,
+        shipto_street = %(street)s, 
+        shipto_city = %(city)s,
+        shipto_state = %(state)s,
+        shipto_zip = %(zip)s, 
+        shipto_country = %(country)s
+        where shipto_id = %(sid)s::int;
         commit;
-        """, [shipto_company, shipto_attn, shipto_street, shipto_city,
-              shipto_state, shipto_zip, shipto_country, sid,
-              ship_by_date, deliver_by_date, sid])
+        """, d)
               
 def select_salesteam_list():
     dbconn.cur.execute(
