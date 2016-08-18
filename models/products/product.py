@@ -17,6 +17,18 @@ def sku_upcs():
     a = dbconn.cur.fetchall()
     return a
 
+def insert_sku_upc(d):
+    dbconn.cur.execute(
+        """
+        begin;
+        insert into product.sku_upc (sku, upc, sku_type)
+        values (trim(%(sku)s), %(upc)s::bigint, %(sku-type)s)
+        on conflict (sku)
+        do update
+        set upc = excluded.upc,
+        sku_type = excluded.sku_type;
+        commit;
+        """, d)
 
 def select_reg_products():
     dbconn.cur.execute(
@@ -41,18 +53,17 @@ def sku_types():
     return a
 
 
-def insert_product_descriptions(sku, product_name,
-                                product_description, bullet_one,
-                                bullet_two, bullet_three, bullet_four,
-                                bullet_five):
+def insert_product_descriptions(d):
     dbconn.cur.execute(
         """
         begin;
         insert into product.descriptions 
         (sku, product_name, product_description, bullet_one, 
         bullet_two, bullet_three, bullet_four, bullet_five)
-        values (trim(%s), trim(%s), trim(%s), trim(%s), trim(%s), 
-        trim(%s), trim(%s), trim(%s))
+        values (trim(%(sku)s), trim(%(product-name)s), 
+        trim(%(product-description)s), trim(%(bullet-one)s), 
+        trim(%(bullet-two)s), trim(%(bullet-three)s), 
+        trim(%(bullet-four)s), trim(%(bullet-five)s))
         on conflict (sku)
         do update
         set product_name = trim(excluded.product_name),
@@ -63,8 +74,7 @@ def insert_product_descriptions(sku, product_name,
         bullet_four = trim(excluded.bullet_four),
         bullet_five = trim(excluded.bullet_five);
         commit;
-        """, [sku, product_name, product_description, bullet_one,
-             bullet_two, bullet_three, bullet_four, bullet_five])
+        """, d)
     
 def get_upcs():
     dbconn.cur.execute(
@@ -97,10 +107,7 @@ def insert_new_case_box(upc, box_qty, case_qty):
         commit;
         """, [upc, box_qty, case_qty])
 
-def insert_images(sku, main_image, image_one,
-        image_two, image_three, image_four, image_five, image_six,
-        image_seven, image_eight, image_nine, image_ten, image_eleven,
-        image_twelve, swatch_image):
+def insert_images(d):
     dbconn.cur.execute(
         """ 
         begin; 
@@ -108,8 +115,11 @@ def insert_images(sku, main_image, image_one,
         image_two, image_three, image_four, image_five, image_six,
         image_seven, image_eight, image_nine, image_ten, image_eleven,
         image_twelve, swatch_image)
-        values (%s, %s, %s, %s, %s, %s, %s, %s,
-        %s, %s, %s, %s, %s, %s, %s)
+        values (%(sku)s, %(main-image-path)s, 
+        %(image-one-path)s, %(image-two-path)s, %(image-three-path)s, 
+        %(image-four-path)s, %(image-five-path)s, %(image-six-path)s,
+        %(image-seven-path)s, %(image-eight-path)s, 
+        %(image-nine-path)s, %(image-ten-path)s, %(image-eleven-path)s,        %(image-twelve-path)s, %(swatch-image-path)s)
         on conflict (sku)
         do update
         set main_image = trim(excluded.main_image),
@@ -127,28 +137,21 @@ def insert_images(sku, main_image, image_one,
         image_twelve = trim(excluded.image_twelve),
         swatch_image = trim(excluded.swatch_image);
         commit;
-        """, [sku, main_image, image_one,
-              image_two, image_three, image_four, image_five,
-              image_six, image_seven, image_eight, image_nine,
-              image_ten, image_eleven,
-              image_twelve, swatch_image])
+        """, d)
 
-def update_product_data(old_sku, new_sku, upc, sku_type,
-                        product_name, product_description, image):
-    if old_sku.strip() != new_sku.strip():
+def update_product_data(d):
+    if d["pid"].strip() != d["sku"].strip():
         dbconn.cur.execute(
             """
             begin;
             update product.sku_upc
-            set sku = trim(%s)
-            where sku = %s;
+            set sku = trim(%(sku)s)
+            where sku = trim(%(pid)s);
             commit;
-            """, [new_sku, old_sku])
-        
-    insert_sku_upc(new_sku, upc, sku_type)
-    insert_product_descriptions(new_sku, product_name,
-                                product_description, None,
-                                None, None, None, None)
+            """, d)
+
+    insert_sku_upc(d)
+    insert_product_descriptions(d)
     if image:
         insert_images(new_sku, image, None, None, None, None, None,
                       None, None, None, None, None, None, None, None)

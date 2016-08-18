@@ -2,6 +2,26 @@
 
 from route_utils import *
 
+def add_product_images(d):
+    image_list = ["main-image", "image-one", "image-two",
+                  "image-three", "image-four","image-five",
+                  "image-six", "image-seven", "image-eight",
+                  "image-nine", "image-ten", "image-eleven",
+                  "image-twelve", "swatch-image"]
+    for i in image_list:
+        if d[i]:
+            save_path = "uploaded_files/images/{0}".format(d[i])
+
+            if not os.path.exists(save_path):
+                os.makedirs(save_path)
+
+            d[i].save(save_path, overwrite=True)
+            d[i + "-path"] = "{0}/{1}".format(d[i], d[i].filename)
+        
+        else:
+            d[i + "-path"] = None
+    prd.insert_images(d)
+
 @route("/products/update-product-<pid>")
 @post("/products/update-product-<pid>")
 @view("views/products/update_product_inv")
@@ -9,15 +29,16 @@ from route_utils import *
 def update_product(pid):
     sku_data = prd.get_sku_data(pid)
     stypes = prd.sku_types()
+    d = {}
+    d["pid"] = pid
+    L = ["sku", "upc", "sku-type", "product-name",
+         "product-description", "main-image"]
     if request.POST.get("update-product"):
-        sku = request.POST.get("sku")
-        upc = request.POST.get("upc")
-        sku_type = request.POST.get("sku-type")
-        product_name = request.POST.get("product-name")
-        product_description = request.POST.get("product-description")
-        main_image = request.POST.get("main-image")
+        for i in L:
+            d[i] = request.POST.get(i)
 
-        if main_image:
+        if d["main-image"]:
+            main_image = d["main-image"]
             save_path = "uploaded_files/images/{0}".format(main_image)
 
             if not os.path.exists(save_path):
@@ -25,21 +46,14 @@ def update_product(pid):
 
                 main_image.save(save_path, overwrite=True)
 
-                image_path = "{0}/{1}".format(main_image,
+                d["image_path"] = "{0}/{1}".format(main_image,
                                               main_image.filename)
         
-                prd.update_product_data(pid, sku, upc, sku_type,
-                                        product_name,
-                                        product_description,
-                                        image_path)
-        else:
-            prd.update_product_data(pid, sku, upc, sku_type,
-                                    product_name, product_description,
-                                    None)
+        prd.update_product_data(d)
 
         redirect("/products/update-product-{0}".format(sku))
     return dict(sku_data = sku_data, sku_types = stypes,
-                    sku = pid)
+                sku = pid)
 
 
 @route("/products/delete-kit-child-<master>/<child>")
@@ -76,64 +90,38 @@ def update_kit(sku):
 @view("views/products/add_kit", err = None, new_sku = None)
 @check_user
 def add_kit():
+    d = {}
+    d["upc"] = None
+    d["sku-type"] = "master"
+    L = ["product-name", "product-description", "bullet-one",
+         "bullet-two", "bullet-three", "bullet-four", "bullet-five",
+         "main-image", "image-one", "image-two", "image-three",
+         "image-five", "image-six", "image-seven", "image-eight",
+         "image-nine", "image-ten", "image-eleven", "image-twelve",
+         "swatch-image"]
     if request.POST.get("add-product"):
-        sku = request.POST.get("sku")
-        upc = None
-        sku_type = "master"
+        for i in L:
+            d[i] = request.POST.get(i)
 
         prd.insert_sku_upc(sku, upc, sku_type)
         
-        product_name = request.POST.get("product-name")
-        product_description = request.POST.get("product-description")
-        bullet_one = request.POST.get("bullet-one")
-        bullet_two = request.POST.get("bullet-two")
-        bullet_three = request.POST.get("bullet-three")
-        bullet_four = request.POST.get("bullet-four")
-        bullet_five = request.POST.get("bullet-five")
-
         prd.insert_product_descriptions(sku, product_name, product_description, bullet_one, bullet_two, bullet_three, bullet_four, bullet_five)
         
-        main_image = request.POST.get("main-image")
-
-        image_one = request.POST.get("image-one")
-        image_two = request.POST.get("image-two")
-        image_three = request.POST.get("image-three")
-        image_four = request.POST.get("image-four")
-        image_five = request.POST.get("image-five")
-        image_six = request.POST.get("image-six")
-        image_seven = request.POST.get("image-seven")
-        image_eight = request.POST.get("image-eight")
-        image_nine = request.POST.get("image-nine")
-        image_ten = request.POST.get("image-ten")
-        image_eleven = request.POST.get("image-eleven")
-        image_twelve = request.POST.get("image-twelve")
-        swatch_image = request.POST.get("swatch-image")
-
-        if main_image:
+        if d["main-image"]:
+            main_image = d["main_image"]
             save_path = "uploaded_files/images/{0}".format(main_image)
 
             if not os.path.exists(save_path):
                 os.makedirs(save_path)
 
-                main_image.save(save_path, overwrite=True)
+            main_image.save(save_path, overwrite=True)
 
-                image_path = "{0}/{1}".format(main_image, main_image.filename)
+            image_path = "{0}/{1}".format(main_image, main_image.filename)
 
 
-                prd.insert_images(sku, image_path, image_one,
-                                  image_two,
-                                  image_three, image_four, image_five,
-                                  image_six, image_seven, image_eight,
-                                  image_nine, image_ten, image_eleven,
-                                  image_twelve, swatch_image)
-        else:
-            prd.insert_images(sku, None, image_one, image_two,
-                          image_three, image_four, image_five,
-                          image_six, image_seven, image_eight,
-                          image_nine, image_ten, image_eleven,
-                          image_twelve, swatch_image)
+        prd.insert_images(d)
 
-        url = "/products/update-kit-{0}".format(sku)
+        url = "/products/update-kit-{0}".format(d["sku"])
         redirect(url)
     else:
         return dict()
@@ -147,68 +135,34 @@ def all_kits():
 
 @route("/products/add-product")
 @post("/products/add-product")
-@view("views/products/add_product_inv")
+@view("views/products/add_product", new_sku = None)
 @check_user
-def add_products():
+def add_product():
     sku_upc = prd.sku_upcs()
     stypes = prd.sku_types()
+    d = {}
+    d["upc"] = None
+    L = ["sku", "upc", "sku-type",
+         "product-name", "product-description", "bullet-one",
+         "bullet-two", "bullet-three", "bullet-four", "bullet-five",
+         "main-image", "image-one", "image-two", "image-three",
+         "image-four", "image-five", "image-six", "image-seven",
+         "image-eight", "image-nine", "image-ten", "image-eleven",
+         "image-twelve", "swatch-image"]
     if request.POST.get("add-product"):
-        sku = request.POST.get("sku")
-        upc = request.POST.get("upc")
-        sku_type = request.POST.get("sku-type")
+        for i in L:
+            d[i] = request.POST.get(i)
 
-        prd.insert_sku_upc(sku, upc, sku_type)
+        prd.insert_sku_upc(d)
         
-        product_name = request.POST.get("product-name")
-        product_description = request.POST.get("product-description")
-        bullet_one = request.POST.get("bullet-one")
-        bullet_two = request.POST.get("bullet-two")
-        bullet_three = request.POST.get("bullet-three")
-        bullet_four = request.POST.get("bullet-four")
-        bullet_five = request.POST.get("bullet-five")
+        prd.insert_product_descriptions(d)
 
-        prd.insert_product_descriptions(sku, product_name,
-                                        product_description,
-                                        bullet_one, bullet_two,
-                                        bullet_three, bullet_four,
-                                        bullet_five)
-        
-        main_image = request.POST.get("main-image")
-        
-        save_path = "uploaded_files/images/{0}".format(main_image)
-
-        if not os.path.exists(save_path):
-            os.makedirs(save_path)
-
-        main_image.save(save_path, overwrite=True)
-
-        image_path = "{0}/{1}".format(main_image, main_image.filename)
-        
-        image_one = request.POST.get("image-one")
-        image_two = request.POST.get("image-two")
-        image_three = request.POST.get("image-three")
-        image_four = request.POST.get("image-four")
-        image_five = request.POST.get("image-five")
-        image_six = request.POST.get("image-six")
-        image_seven = request.POST.get("image-seven")
-        image_eight = request.POST.get("image-eight")
-        image_nine = request.POST.get("image-nine")
-        image_ten = request.POST.get("image-ten")
-        image_eleven = request.POST.get("image-eleven")
-        image_twelve = request.POST.get("image-twelve")
-        swatch_image = request.POST.get("swatch-image")
-
-        prd.insert_images(sku, image_path, image_one, image_two,
-                          image_three, image_four, image_five,
-                          image_six, image_seven, image_eight,
-                          image_nine, image_ten, image_eleven,
-                          image_twelve, swatch_image)
+        add_product_images(d)
 
         return dict(sku_upc = sku_upc, sku_types = stypes,
-                    new_sku = sku)
+                    new_sku = d["sku"])
     else:
-        return dict(sku_upc = sku_upc, sku_types = stypes,
-                    new_sku = None)
+        return dict(sku_upc = sku_upc, sku_types = stypes)
    
 @route("/products")
 @view("views/products/product_main")

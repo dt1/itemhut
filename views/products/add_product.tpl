@@ -80,12 +80,12 @@
 	</div>
       </div>
 
-      % for item in ["One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve"]:
+      % for item in ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"]:
       <div class="row">
 	<div class="medium-6 columns">
 	  
-	  <label>Image {{item}}
-	    <input type="text" name="image-{{item}}">
+	  <label>Image {{item.title()}}
+	    <input type="file" name="image-{{item}}">
 	  </label>
 	  <div class="medium-6 columns">
 	  </div>
@@ -97,7 +97,7 @@
 	<div class="medium-6 columns">
 
 	  <label>Swatch Image
-	    <input type="text" name="swatch-image">
+	    <input type="file" name="swatch-image">
 	  </label>
 	  <div class="medium-6 columns">
 	  </div>

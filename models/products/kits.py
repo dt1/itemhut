@@ -79,21 +79,6 @@ def select_kits():
     a = dbconn.cur.fetchall()
     return a
 
-def insert_sku_upc(sku, upc, sku_type):
-    if upc == '':
-        upc = None
-    dbconn.cur.execute(
-        """
-        begin;
-        insert into product.sku_upc (sku, upc, sku_type)
-        values (trim(%s), %s::bigint, %s)
-        on conflict (sku)
-        do update
-        set upc = excluded.upc,
-        sku_type = excluded.sku_type;
-        commit;
-        """, [sku, upc, sku_type])
-
 def insert_kit(master_sku, kit_sku, kit_amt):
     dbconn.cur.execute(
         """
