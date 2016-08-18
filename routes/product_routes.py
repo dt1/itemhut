@@ -45,7 +45,7 @@ def update_product(pid):
         prd.update_product_data(d)
         add_product_images(d)
         
-        redirect("/products/update-product-{0}".format(sku))
+        redirect("/products/update-product-{0}".format(d["sku"]))
     return dict(sku_data = sku_data, sku_types = stypes,
                 sku = pid)
 
