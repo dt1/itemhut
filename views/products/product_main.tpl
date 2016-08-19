@@ -22,10 +22,10 @@
       <tbody>
 	% for i in sku_upc:
 	<tr>
-	  <td>{{i[0]}}</td>
-	  <td>{{i[1]}}</td>
-	  <td>{{i[2]}}</td>
-	  <td>{{i[3]}}</td>
+	  <td>{{i["sku"]}}</td>
+	  <td>{{i["upc"]}}</td>
+	  <td>{{i["sku_type"]}}</td>
+	  <td>{{i["product_name"]}}</td>
 	  <td><a href="/products/update-product-{{i[0]}}">View / Edit</a></td>
 	</tr>
 	% end

@@ -78,6 +78,10 @@ create table product.descriptions (
 	       on update cascade
 );
 
+create table product.image_gallery (
+       image varchar primary key
+);
+
 create table product.images (
        sku varchar primary key,
        main_image varchar,
@@ -96,5 +100,47 @@ create table product.images (
        swatch_image varchar,
        foreign key (sku)
        	       references product.sku_upc (sku)
-	       on update cascade
+	       on update cascade,
+       foreign key (main_image)
+              references product.image_gallery (image)
+	      on delete cascade,
+       foreign key (image_one)
+              references product.image_gallery (image)
+	      on delete cascade,
+       foreign key (image_two)
+              references product.image_gallery (image)
+	      on delete cascade,
+       foreign key (image_three)
+              references product.image_gallery (image)
+	      on delete cascade,
+       foreign key (image_four)
+              references product.image_gallery (image)
+	      on delete cascade,
+       foreign key (image_five)
+              references product.image_gallery (image)
+	      on delete cascade,
+       foreign key (image_six)
+              references product.image_gallery (image)
+	      on delete cascade,
+       foreign key (image_seven)
+              references product.image_gallery (image)
+	      on delete cascade,
+       foreign key (image_eight)
+              references product.image_gallery (image)
+	      on delete cascade,
+       foreign key (image_nine)
+              references product.image_gallery (image)
+	      on delete cascade,
+       foreign key (image_ten)
+              references product.image_gallery (image)
+	      on delete cascade,
+       foreign key (image_eleven)
+              references product.image_gallery (image)
+	      on delete cascade,
+       foreign key (image_twelve)
+              references product.image_gallery (image)
+	      on delete cascade,
+       foreign key (swatch_image)
+              references product.image_gallery (image)
+	      on delete cascade
 );

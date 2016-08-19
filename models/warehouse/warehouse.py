@@ -5,7 +5,7 @@ sys.path.append("/itemhut/pydb")
 import dbconn
 
 def add_full_pallet_to_pickingloc(wh, pid):
-        dbconn.cur.execute(
+        dbconn.dcur.execute(
             """
             begin;
             with upc_count(upc, total) as
@@ -38,7 +38,7 @@ def add_full_pallet_to_pickingloc(wh, pid):
             """, [pid, wh, pid])
 
 def running_inventory(wh):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select sku, upc,
         sum(coalesce(box_qty * piece_qty * case_qty, 0)
@@ -63,34 +63,34 @@ def running_inventory(wh):
         where warehouse_id = %s
         group by sku, upc;
         """, [wh])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def validate_warehouse(wh):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select warehouse_id, warehouse_name
         from warehouse.warehouses
         where warehouse_id = %s;
         """, [wh])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     try:
         return a
     except:
         return None
 
 def valid_warehouses():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select warehouse_id, warehouse_name, warehouse_type
         from warehouse.warehouses
         order by warehouse_name;
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_pallet_locations(wh):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select pallet_location_id, pallet_location_name, pallet_id,
         string_agg(sku || '/' || upc || ' cases(' || case_qty || ')', ';;'),
@@ -114,11 +114,11 @@ def select_pallet_locations(wh):
         group by pallet_location_id, pallet_location_name, pallet_id
         order by pallet_location_id;
         """, [wh])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def warehouse_information(wh):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select warehouse_id, warehouse_name, warehouse_street_address,
                warehouse_state, warehouse_zip,
@@ -126,11 +126,11 @@ def warehouse_information(wh):
         from warehouse.warehouses
         where warehouse_id = %s;
         """, [wh])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def get_case_boxes():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select case_id, box_id, box_qty, piece_qty, upc,
                sku, product_name, piece_qty * box_qty
@@ -143,7 +143,7 @@ def get_case_boxes():
         using (upc)
         left join product.descriptions
         using (sku);        """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def valid_warehouse_list():
@@ -153,7 +153,7 @@ def valid_warehouse_list():
     return warehouse_name, warehouse_lower
 
 def select_picking_locations(wh):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select picking_location_id, picking_location_name, sku, upc,
                qty
@@ -166,11 +166,11 @@ def select_picking_locations(wh):
         using (upc)
         where warehouse_id = %s;
         """, [wh])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def insert_picking_location(wh, picking_location, sku, qty):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select warehouse_id, warehouse_name, picking_location_name
         from warehouse.warehouses
@@ -181,12 +181,12 @@ def insert_picking_location(wh, picking_location, sku, qty):
         where warehouse_id = %s
         and picking_location_name = %s;
         """, [wh, picking_location])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     if a:
         return "{0} already exists in {1} warehouse".format(picking_location, a[0][1])
 
     else:
-        dbconn.cur.execute(
+        dbconn.dcur.execute(
             """
             with new_picking_location (new_location_id) as
 	    (insert into warehouse.picking_locations
@@ -202,17 +202,17 @@ def insert_picking_location(wh, picking_location, sku, qty):
     return None
 
 def select_picking_location_info(pid):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select picking_location_name, upc, qty
         from warehouse.picking_locations
         where picking_location_id = %s::int;
         """, [pid])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def update_picking_location_info(pid, picking_location, sku, qty):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         update warehouse.picking_locations
@@ -224,7 +224,7 @@ def update_picking_location_info(pid, picking_location, sku, qty):
         """, [picking_location, sku, qty, pid])
 
 def select_sku_upc_not_in_3pl(wh):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select sku, upc
         from product.sku_upc psu
@@ -236,11 +236,11 @@ def select_sku_upc_not_in_3pl(wh):
 	where warehouse_id = %s
 	and psu.upc = upc);
         """, [wh])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def insert_3pl_product(wh, upc, qty):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         with new_loc (picking_location_id) as
@@ -257,7 +257,7 @@ def insert_3pl_product(wh, upc, qty):
         """, [upc, qty, wh])
 
 def select_3pl_running_inventory(wh):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select sku, upc, qty
         from warehouse.warehouse_picking_loc
@@ -267,11 +267,11 @@ def select_3pl_running_inventory(wh):
         using (upc)
         where warehouse_id = %s;
         """, [wh])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_3pl_running_inventory_sku(wh, sku):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select sku, upc, qty, picking_location_id
         from warehouse.warehouse_picking_loc
@@ -282,11 +282,11 @@ def select_3pl_running_inventory_sku(wh, sku):
         where warehouse_id = %s
         and sku = %s;
         """, [wh, sku])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def update_3pl_running_inventory(picking_location_id, qty):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         update warehouse.picking_locations
@@ -297,7 +297,7 @@ def update_3pl_running_inventory(picking_location_id, qty):
 
 
 def select_case_boxes(pid):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select case_id, sku, upc, box_qty, piece_qty
         from warehouse.cases
@@ -312,11 +312,11 @@ def select_case_boxes(pid):
         from warehouse.pallet_case
         where pallet_id = %s);
         """, [pid])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def generate_pallet_id(wh):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         with new_pl (pallet_location_id) as
@@ -341,15 +341,15 @@ def generate_pallet_id(wh):
         from new_pl, new_pallet
         returning pallet_id;
         """, [wh])
-    a = dbconn.cur.fetchall()
-    dbconn.cur.execute(
+    a = dbconn.dcur.fetchall()
+    dbconn.dcur.execute(
         """
         commit;
         """)
     return a
 
 def select_pallet_info(pid):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select case_id, sku, upc, box_qty, piece_qty, case_qty,
         coalesce(pallet_location_name, 'Empty'), pallet_location_id
@@ -368,11 +368,11 @@ def select_pallet_info(pid):
         using (upc)
         where pallet_id = %s::int;
         """, [pid])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def insert_pallet_case(pid, cid, qty):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         insert into warehouse.pallet_case
@@ -382,7 +382,7 @@ def insert_pallet_case(pid, cid, qty):
         """, [pid, cid, qty])
 
 def delete_pallet_case(pid, cid):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         delete from warehouse.pallet_case
@@ -392,7 +392,7 @@ def delete_pallet_case(pid, cid):
         """, [pid, cid])
 
 def select_all_running_inventory():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select sku, upc, coalesce(total1, 0) + coalesce(total2, 0)
 from
@@ -424,11 +424,11 @@ from
         group by sku, upc) t2
         using (sku, upc);
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_outbound_orders(wh):
-        dbconn.cur.execute(
+        dbconn.dcur.execute(
                 """
                 select internal_order_id, market_order_id, 
                 array_agg(sku  || ' (' || sku_qty || ')'),
@@ -444,11 +444,11 @@ def select_outbound_orders(wh):
                          ship_by_date
                 order by internal_order_id;
                 """)
-        a = dbconn.cur.fetchall()
+        a = dbconn.dcur.fetchall()
         return a
         
 def select_order_to_scan(oid):
-        dbconn.cur.execute(
+        dbconn.dcur.execute(
                 """
                 select internal_order_id, market_order_id, 
                 array_agg(sku  || ' (' || sku_qty || ')'),
@@ -464,5 +464,5 @@ def select_order_to_scan(oid):
                 group by internal_order_id, market_order_id, 
                          ship_by_date
                 """, [oid])
-        a = dbconn.cur.fetchall()
+        a = dbconn.dcur.fetchall()
         return a

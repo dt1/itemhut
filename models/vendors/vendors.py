@@ -5,7 +5,7 @@ sys.path.append("/itemhut/pydb")
 import dbconn
 
 def select_vendors():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select vendor_id, vendor_name, phone,
                fax, website, email,
@@ -13,11 +13,11 @@ def select_vendors():
                zip, country
         from vendor.vendors;
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def insert_new_vendor(d):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         insert into vendor.vendors (vendor_id, vendor_name, phone,
@@ -42,7 +42,7 @@ def insert_new_vendor(d):
         """, d)
 
 def get_vendor_info(vendor_id):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select vendor_id, vendor_name, phone,
               fax, website, email, street, city, state, zip,
@@ -50,11 +50,11 @@ def get_vendor_info(vendor_id):
         from vendor.vendors
         where vendor_id = %s;
         """, [vendor_id])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def insert_vendor_contact(d):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         with new_contact_id (contact_id) as
@@ -70,7 +70,7 @@ def insert_vendor_contact(d):
         """, d)
 
 def update_vendor_contact(d):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         update vendor.contacts
@@ -84,18 +84,18 @@ def update_vendor_contact(d):
         """, d)
 
 def select_vendor_contact_info(contact_id):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select contact_id, name, title, phone, alt_phone, email
         from vendor.contacts
         where contact_id = %s;
         """, [contact_id])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
     
 
 def select_vendor_contacts(vendor_id):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select contact_id, name, title, phone, alt_phone, email
         from vendor.contacts
@@ -103,12 +103,12 @@ def select_vendor_contacts(vendor_id):
         using (contact_id)
         where vendor_id = %s;
         """, [vendor_id])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a    
 
 def update_vendor_info(d):
     if d["old-vid"].strip() != d["vendor-id"].strip():
-        dbconn.cur.execute(
+        dbconn.dcur.execute(
             """
             begin;
             update vendor.vendors
@@ -119,7 +119,7 @@ def update_vendor_info(d):
     insert_new_vendor(d)
 
 def insert_product_vendor(vendor_id, upc):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         insert into vendor.vendor_products (vendor_id, upc)
@@ -130,7 +130,7 @@ def insert_product_vendor(vendor_id, upc):
         """, [vendor_id, upc])
 
 def select_upc_list():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select sku, upc
         from product.sku_upc psu
@@ -140,11 +140,11 @@ def select_upc_list():
         from vendor.vendor_products
         where upc = psu.upc);
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_vendor_products(vid):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         select upc, sku
@@ -153,11 +153,11 @@ def select_vendor_products(vid):
         using (upc)
         where vendor_id = trim(%s);
         """, [vid])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def delete_vendor_product(vid, upc):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         delete from vendor.vendor_products

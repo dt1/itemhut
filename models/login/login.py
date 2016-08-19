@@ -5,29 +5,29 @@ sys.path.append("/itemhut/pydb")
 import dbconn
 
 def select_user_count():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select count(*)
         from users.users;
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     if a[0][0] > 0:
         return True
     else:
         return False
 
 def select_user_password_role(username):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select password, user_role
         from users.users
         where user_name = %(username)s;
         """, {"username": username})
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def insert_original_admin(uname, password):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         insert into users.users (user_name, password, user_role)

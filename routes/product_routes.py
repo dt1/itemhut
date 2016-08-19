@@ -132,10 +132,8 @@ def all_kits():
 @view("views/products/add_product", new_sku = None)
 @check_user
 def add_product():
-    sku_upc = prd.sku_upcs()
     stypes = prd.sku_types()
     d = {}
-    d["upc"] = None
     L = ["sku", "upc", "sku-type",
          "product-name", "product-description", "bullet-one",
          "bullet-two", "bullet-three", "bullet-four", "bullet-five",
@@ -153,10 +151,9 @@ def add_product():
 
         add_product_images(d)
 
-        return dict(sku_upc = sku_upc, sku_types = stypes,
-                    new_sku = d["sku"])
+        return dict(sku_types = stypes, new_sku = d["sku"])
     else:
-        return dict(sku_upc = sku_upc, sku_types = stypes)
+        return dict(sku_types = stypes)
    
 @route("/products")
 @view("views/products/product_main")

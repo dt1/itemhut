@@ -5,7 +5,7 @@ sys.path.append("/itemhut/pydb")
 import dbconn
 
 def select_all_companies():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select company_id, company_uid, company_name, company_phone,
                company_phone2, company_fax, company_email,
@@ -13,11 +13,11 @@ def select_all_companies():
                company_country
         from company.companies;
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_company_info(cid):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select company_id, company_uid, company_name, company_phone,
                company_phone2, company_fax, company_email,
@@ -26,11 +26,11 @@ def select_company_info(cid):
         from company.companies
         where company_id = %s::int;
         """, [cid])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def insert_company(d):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         insert into company.companies (company_uid, company_name,
@@ -42,15 +42,15 @@ def insert_company(d):
         %(state)s, %(zip)s, %(country)s)
         returning company_id;
         """, d)
-    a = dbconn.cur.fetchall()
-    dbconn.cur.execute(
+    a = dbconn.dcur.fetchall()
+    dbconn.dcur.execute(
         """
         commit;
         """)
     return a
 
 def update_company(d):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         update company.companies
@@ -69,7 +69,7 @@ def update_company(d):
         """, d)
 
 def add_contact(d):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         with new_contact (contact_id) as
@@ -85,9 +85,9 @@ def add_contact(d):
         from new_contact
         returning company_contact_id;
         """, d)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
 
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         commit;
         """)
@@ -95,7 +95,7 @@ def add_contact(d):
     return a
 
 def select_company_contacts(cid):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select company_contact_id, contact_name, contact_position, 
                contact_phone, contact_phone2, contact_email
@@ -106,22 +106,22 @@ def select_company_contacts(cid):
          where company_contact_id = ccs.company_contact_id
          and company_id = %(cid)s::int);
         """, {"cid": cid})
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_contact(cnid):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select company_contact_id, contact_name, contact_position, 
         contact_phone, contact_phone2, contact_email
         from company.contacts
         where company_contact_id = %(cnid)s::int;
         """, {"cnid": cnid})
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def update_contact(d):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         update company.contacts
@@ -135,7 +135,7 @@ def update_contact(d):
         """, d)
 
 def select_companies_with_contacts():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select company_id, company_contact_id, company_uid, company_name, 
                contact_name
@@ -145,5 +145,5 @@ def select_companies_with_contacts():
         left join company.contacts
         using (company_contact_id);
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a

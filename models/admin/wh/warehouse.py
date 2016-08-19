@@ -5,27 +5,27 @@ sys.path.append("/itemhut/pydb")
 import dbconn
 
 def select_warehouse_types():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select warehouse_type
-        from warehouse.valid_warehouse_type;
+        from warehouse.valid_warehouse_types;
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_warehouse_id(warehouse_id):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select warehouse_id
         from warehouse.warehouses
         where warehouse_id = %s;
         """, [warehouse_id])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def insert_warehouse(warehouse_id, warehouse_name, street, state, zip,
                      country, warehouse_type):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         insert into warehouse.warehouses (warehouse_id, warehouse_name,
@@ -38,16 +38,16 @@ def insert_warehouse(warehouse_id, warehouse_name, street, state, zip,
 
 
 def select_warehouse_list():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select warehouse_id, warehouse_name, warehouse_type
         from warehouse.warehouses;
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_warehouse_info(wh):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select warehouse_id, warehouse_name, warehouse_street_address,
         warehouse_state, warehouse_zip, warehouse_country,
@@ -55,23 +55,23 @@ def select_warehouse_info(wh):
         from warehouse.warehouses
         where warehouse_id = %s;
         """, [wh])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def update_warehouse_info(original_wh_id, wh_id, wh_name, wh_street,
                           wh_state, wh_zip, wh_country):
     if original_wh_id != wh_id:
-        dbconn.cur.execute(
+        dbconn.dcur.execute(
             """
             select warehouse_id
             from warehouse.warehouses
             where warehouse_id = %s;
             """, [wh_id])
-        a = dbconn.cur.fetchall()
+        a = dbconn.dcur.fetchall()
         if a:
             return True
 
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         update warehouse.warehouses

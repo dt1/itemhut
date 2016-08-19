@@ -5,17 +5,17 @@ sys.path.append("/itemhut/pydb")
 import dbconn
 
 def insert_new_user(username, password, real_name,  utype, urole):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select user_name
         from users.users
         where user_name = %(username)s;
         """, {"username": username})
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     if a:
         return True
 
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         insert into users.users (user_name, password, person_name,
@@ -31,60 +31,60 @@ def insert_new_user(username, password, real_name,  utype, urole):
               "user_role": urole})
 
 def select_valid_roles():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select user_role
         from users.valid_user_roles
         where user_role <> 'original admin';
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_valid_usertypes():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select user_type
         from users.valid_user_types;
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_users():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select user_name, person_name, user_type, user_role
         from users.users;
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_user_info(uid):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select user_name, person_name, user_type, user_role
         from users.users
         where user_name = %(user_id)s;
         """, {"user_id" : uid})
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def update_user(original_username, username, real_name, utype,
                 urole):
     if original_username != username:
-        dbconn.cur.execute(
+        dbconn.dcur.execute(
             """
             select user_name
             from users.users
             where user_name = %(username)s;
             """, {"username": username})
-        a = dbconn.cur.fetchall()
+        a = dbconn.dcur.fetchall()
         if a:
             return True
 
     if utype == "":
         utype = None
 
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         select users.update_user(%(original_username)s, 
@@ -97,7 +97,7 @@ def update_user(original_username, username, real_name, utype,
               "user_role": urole})
 
 def update_user_password(uid, pwd):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         update users.users

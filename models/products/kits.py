@@ -5,7 +5,7 @@ sys.path.append("/itemhut/pydb")
 import dbconn
 
 def sku_kit_candidates(sku):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select sku, upc, product_name
         from product.sku_upc psu
@@ -18,21 +18,21 @@ def sku_kit_candidates(sku):
          where child_sku = psu.sku
          and master_sku = %s);
         """, [sku])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_sku_kits(sku):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select child_sku, child_sku_qty
         from product.kits
         where master_sku = %s;
         """, [sku])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def sku_kit_candidates(sku):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select sku, upc, product_name
         from product.sku_upc psu
@@ -45,21 +45,21 @@ def sku_kit_candidates(sku):
          where child_sku = psu.sku
          and master_sku = %s);
         """, [sku])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_sku_kits(sku):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select child_sku, child_sku_qty
         from product.kits
         where master_sku = %s;
         """, [sku])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_kits():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select master_sku, 
         string_agg(child_sku || ' (' || child_sku_qty || ')', ' ')
@@ -76,11 +76,11 @@ def select_kits():
 	    from product.kits
 	    where master_sku = psu.sku);
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def insert_kit(master_sku, kit_sku, kit_amt):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         insert into product.kits (master_sku, child_sku, child_sku_qty)
@@ -89,7 +89,7 @@ def insert_kit(master_sku, kit_sku, kit_amt):
         """, [master_sku, kit_sku, kit_amt])
 
 def delete_kit_child(master, child):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         delete from product.kits

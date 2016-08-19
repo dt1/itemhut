@@ -74,8 +74,12 @@
       <div class="row">
 	<div class="medium-6 columns">
 	  <label>Bullet {{item.title()}}
+	    % if sku_data[0][bnum]:
 	    <input type="text" name="bullet-{{item}}"
 		   value = "{{sku_data[0][bnum]}}">
+	    % else:
+	    <input type="text" name="bullet-{{item}}">
+	    % end
 	  </label>
 	  <div class="medium-6 columns">
 	  </div>
@@ -89,6 +93,9 @@
 	  <img
 	    src="/uploaded_files/images/{{sku_data[0]['main_image']}}"
 	    width="100px;"/>
+	  <label>remove image
+	    <input type="checkbox" name="remove-main-image"/>
+	  </label>
 	  % else:
 	  <p>no image</p>
 	  % end
@@ -110,6 +117,9 @@
 	  <img
 	    src="/uploaded_files/images/{{sku_data[0][inum]}}"
 	    width="100px;"/>
+	  <label>remove image
+	    <input type="checkbox" name="remove-main-{{item}}"/>
+	  </label>
 	  % else:
 	  <p>no image</p>
 	  % end

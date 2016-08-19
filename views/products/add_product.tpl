@@ -32,7 +32,8 @@
 	  <label>SKU Type
 	    <select name="sku-type">
 	      % for item in sku_types:
-	      <option value="{{item[0]}}">{{item[0]}}</option>
+	      <option value="{{item['sku_type']}}">
+		{{item["sku_type"]}}</option>
 	      % end
 	    </select>
 	  </label>

@@ -5,7 +5,7 @@ sys.path.append("/itemhut/pydb")
 import dbconn
 
 def select_amazon_regular():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
 	"""
 	select schema_name,
         replace(replace(schema_name, 'amazon_', ''), '_', '-') slink,
@@ -15,11 +15,11 @@ def select_amazon_regular():
 	and schema_name !~~* '%lite'
         order by slink;
 	""")
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def get_amazon_reg_fields(schema_name):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select column_name, 
         initcap(replace(column_name, '_', ' ')) cname,
@@ -39,16 +39,16 @@ def get_amazon_reg_fields(schema_name):
         using (column_name)
         order by ordinal_position;
         """.format(schema_name))
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def get_amazon_valid_arrays(schema_name, table_name):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select *
         from {0}.{1};
         """.format(schema_name, table_name))
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def get_arf(schema_name):
@@ -63,33 +63,33 @@ def get_arf(schema_name):
 
 def get_base_amazon_data(schema_name):
     if schema_name == "amazon_coins":
-        dbconn.cur.execute(
+        dbconn.dcur.execute(
             """
             select item_sku, 'coin', quantity
             from {0}.template;
             """.format(schema_name))
 
     elif schema_name == "amazon_entertainment_collectibles":
-        dbconn.cur.execute(
+        dbconn.dcur.execute(
             """
             select item_sku, 'coin', limited_edition_quantity
             from {0}.template;
             """.format(schema_name))
     elif schema_name == "amazon_food_service_and_jan_san":
 
-        dbconn.cur.execute(
+        dbconn.dcur.execute(
             """
             select sku, "product-name", "number-of-items"
             from {0}.template;
             """.format(schema_name))
 
     else:
-        dbconn.cur.execute(
+        dbconn.dcur.execute(
             """
             select item_sku, item_name, quantity
             from {0}.template;
             """.format(schema_name))
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def valid_amazon_list():

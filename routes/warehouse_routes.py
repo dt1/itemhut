@@ -29,7 +29,11 @@ def quality_control(wh):
 @check_warehouse_user
 def new_warehouse_case_config():
     upc_list = prd.get_upcs()
+    d = {}
+    L = ["upc", "box-qty", "case-qty"]
     if request.POST.get("add-config"):
+        for i in L:
+            d[i] = request.POST.get(i)
         upc = request.POST.get("upc")
         box_qty = request.POST.get("box-qty")
         case_qty = request.POST.get("case-qty")

@@ -6,7 +6,7 @@ import dbconn
 import psycopg2
 
 def select_all_orders():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select internal_order_id, market_order_id, marketplace,
                company_name, order_date, salesperson_id
@@ -16,32 +16,32 @@ def select_all_orders():
         join company.companies
         using (company_id);
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_valid_mskus():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select marketplace_sku
         from marketplace.msku_sku;
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_valid_marketplaces():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select marketplace
         from marketplace.valid_markeplace;
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def insert_market_step1_no_sameship(d):
     if d["contact-id"] == "None":
         d["contact-id"] = None
 
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         with new_order (internal_order_id) as
@@ -56,8 +56,8 @@ def insert_market_step1_no_sameship(d):
         from new_order
         returning internal_order_id;
         """, d)
-    a = dbconn.cur.fetchall()
-    dbconn.cur.execute(
+    a = dbconn.dcur.fetchall()
+    dbconn.dcur.execute(
         """
         commit;
         """)
@@ -67,7 +67,7 @@ def insert_market_step1_sameship(d):
     if d["contact-id"] == "None":
         d["contact-id"] = None
 
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         select r_internal_order_id 
@@ -75,8 +75,8 @@ def insert_market_step1_sameship(d):
         %(salesperson-id)s, %(marketplace)s, %(company-id)s::int, 
         %(contact-id)s::int);
         """, d)
-    a = dbconn.cur.fetchall()
-    dbconn.cur.execute(
+    a = dbconn.dcur.fetchall()
+    dbconn.dcur.execute(
         """
         commit;
         """)
@@ -90,7 +90,7 @@ def insert_market_step1(d):
     return a
 
 def select_valid_market_order(order_id):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select internal_order_id, market_order_id, shipto_company_id,
         shipto_company,
@@ -103,7 +103,7 @@ def select_valid_market_order(order_id):
         using (shipto_company_id)
         where internal_order_id = %s::int;
         """, [order_id])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def insert_shipto(d):
@@ -111,7 +111,7 @@ def insert_shipto(d):
         ship_by_date = None
     if deliver_by_date == "":
         deliver_by_date = None
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         select orders.insert_shipto_customer(%(oid)s::int, %(company)s,
@@ -121,7 +121,7 @@ def insert_shipto(d):
         """, d)
 
 def select_order_companies(order_id):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select shipto_id, internal_order_id, market_order_id,
         shipto_company_id,  shipto_company, ship_by_date,
@@ -134,11 +134,11 @@ def select_order_companies(order_id):
         where internal_order_id = %s::int
         order by shipto_id;
         """, [order_id])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_company_product_candidates(order_id):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select sku, marketplace_sku, product_name
         from marketplace.msku_marketplace mmm
@@ -161,21 +161,21 @@ def select_company_product_candidates(order_id):
         from orders.shipto_marketplace_skus
         where marketplace_sku = mmm.marketplace_sku);
         """, [order_id, order_id])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_company_shipto_products(sid):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select marketplace_sku, sku_qty
         from orders.shipto_marketplace_skus
         where shipto_id = %s;
         """, [sid])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def insert_shipto_product(sid, msku, qty):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         insert into orders.shipto_marketplace_skus
@@ -188,7 +188,7 @@ def insert_shipto_product(sid, msku, qty):
         """, [sid, msku, qty, qty])
 
 def delete_company_product(sid, msku):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         delete from orders.shipto_marketplace_skus
@@ -198,26 +198,26 @@ def delete_company_product(sid, msku):
         """, [sid, msku])
 
 def select_valid_filetypes():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select file_type
         from orders.valid_file_type;
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_uploaded_files(sid):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select file_path, file_type
         from orders.shipto_files
         where shipto_id = %s::int;
         """, [sid])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def save_uploaded_files(sid, fpath, ftype):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         insert into orders.shipto_files (shipto_id, file_path,
@@ -227,7 +227,7 @@ def save_uploaded_files(sid, fpath, ftype):
         """, [sid, fpath, ftype])
 
 def delete_uploaded_file(sid, fpath):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         delete from orders.shipto_files
@@ -237,7 +237,7 @@ def delete_uploaded_file(sid, fpath):
         """, [sid, fpath])
 
 def select_order_company_info(order_id):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select internal_order_id, market_order_id, marketplace,
         salesperson_id, order_date, company_id, company_uid,
@@ -254,11 +254,11 @@ def select_order_company_info(order_id):
         using (company_contact_id)
         where internal_order_id = %s::int;
         """, [order_id])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def select_order_shipto(order_id):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select internal_order_id, shipto_id, shipto_company_id,
         shipto_company, shipto_attn, shipto_street, shipto_city,
@@ -279,11 +279,11 @@ def select_order_shipto(order_id):
         shipto_state, shipto_zip, shipto_country, ship_by_date,
         deliver_by_date;
         """, [order_id])
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def delete_shipto_record(sid):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         delete from orders.shipto
@@ -292,7 +292,7 @@ def delete_shipto_record(sid):
         """, [sid])
 
 def edit_shipto_company(d):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         update orders.shipto_companies
@@ -308,11 +308,11 @@ def edit_shipto_company(d):
         """, d)
               
 def select_salesteam_list():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select user_name, person_name
         from users.users
         where user_type = 'sales';
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a

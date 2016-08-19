@@ -7,18 +7,18 @@ import dbconn
 from models.products.kits import *
 
 def sku_upcs():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select sku, upc, sku_type, product_name
         from product.sku_upc
         left join product.descriptions
         using (sku);
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def insert_sku_upc(d):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         insert into product.sku_upc (sku, upc, sku_type)
@@ -31,7 +31,7 @@ def insert_sku_upc(d):
         """, d)
 
 def select_reg_products():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select sku, upc, sku_type, product_name
         from product.sku_upc
@@ -40,20 +40,20 @@ def select_reg_products():
         using (sku)
         where sku_type <> 'master';
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def sku_types():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
-        select *
+        select sku_type
         from product.sku_types;
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     return a
 
 def insert_product_descriptions(d):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         insert into product.descriptions
@@ -76,18 +76,18 @@ def insert_product_descriptions(d):
         """, d)
 
 def get_upcs():
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         select upc
         from product.sku_upc
         where upc is not null;
         """)
-    a = dbconn.cur.fetchall()
+    a = dbconn.dcur.fetchall()
     res = [i[0] for i in a]
     return res
 
 def insert_new_case_box(upc, box_qty, case_qty):
-    dbconn.cur.execute(
+    dbconn.dcur.execute(
         """
         begin;
         with new_case_id (case_id) as
@@ -110,6 +110,30 @@ def insert_images(d):
     dbconn.cur.execute(
         """
         begin;
+        create temp table ig (image varchar);
+        
+        insert into ig (image)
+        values(%(main-image-path)s),
+        (%(image-one-path)s),
+        (%(image-two-path)s),
+        (%(image-three-path)s),
+        (%(image-four-path)s),
+        (%(image-five-path)s),
+        (%(image-six-path)s),
+        (%(image-seven-path)s),
+        (%(image-eight-path)s),
+        (%(image-nine-path)s),
+        (%(image-ten-path)s),
+        (%(image-eleven-path)s),
+        (%(image-twelve-path)s),
+        (%(swatch-image-path)s);
+
+        insert into product.image_gallery(image)
+        select image from ig
+        where ig.image is not null;
+
+        drop table ig;
+
         insert into product.images (sku, main_image, image_one,
         image_two, image_three, image_four, image_five, image_six,
         image_seven, image_eight, image_nine, image_ten, image_eleven,
@@ -155,7 +179,7 @@ def insert_images(d):
 
 def update_product_data(d):
     if d["pid"].strip() != d["sku"].strip():
-        dbconn.cur.execute(
+        dbconn.dcur.execute(
             """
             begin;
             update product.sku_upc

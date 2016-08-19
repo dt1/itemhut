@@ -14,6 +14,27 @@ def gen_view(v):
 def create_upc_labels():
     return dict()
 
+@route(gen_route("bulk-load-images"))
+@post(gen_route("bulk-load-images"))
+@view(gen_view("bulk_load_images"))
+@check_user
+def bulk_load_images():
+    L = []
+    if request.POST.get("upload-images"):
+        imgs = request.files.getlist("imgs")
+        for i in imgs:
+            save_path = "uploaded_files/images/{0}".format(i)
+
+            if not os.path.exists(save_path):
+                os.makedirs(save_path)
+
+            i.save(save_path, overwrite=True)
+
+            L.append(i.filename)
+        return str(L)
+    return dict()
+
+
 @route("/tools")
 @view(gen_view("tools_main"))
 @check_user
