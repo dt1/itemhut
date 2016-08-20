@@ -42,4 +42,3 @@ def index():
 
 debug(True)
 run(reloader=True, host="localhost", port=8082, app=myapp)
-#run(host="104.236.161.137", port=8082, app=myapp)

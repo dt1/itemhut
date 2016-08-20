@@ -12,32 +12,32 @@
       <li>
         <a href="/">Home</a>
       </li>
-      % if role in ["admin", "original admin", "products"]:
+      % if role in ["admin", "original admin", "products", "user"]:
       <li>
         <a href="/products">Products</a>
       </li>
       % end
-      % if role in ["admin", "original admin", "incoming"]:
+      % if role in ["admin", "original admin", "incoming", "user"]:
       <li>
         <a href="/incoming">Incoming</a>
       </li>
       % end
-      % if role in ["admin", "original admin", "warehouses"]:
+      % if role in ["admin", "original admin", "warehouses", "user"]:
       <li>
         <a href="/warehouses">Warehouses</a>
       </li>
       % end
-      % if role in ["admin", "original admin", "vendors"]:
+      % if role in ["admin", "original admin", "vendors", "user"]:
       <li>
         <a href="/vendors">Vendors</a>
       </li>
       % end
-      % if role in ["admin", "original admin", "orders"]:
+      % if role in ["admin", "original admin", "orders", "user"]:
       <li>
         <a href="/orders">Orders</a>
       </li>
       % end
-      % if role in ["admin", "original admin", "customers"]:
+      % if role in ["admin", "original admin", "customers", "user"]:
       <li>
         <a href="/companies">Customers</a>
       </li>
@@ -45,7 +45,7 @@
       <li>
         <a href="/tools">Tools</a>
       </li>
-      % if role in ["admin", "original admin"]:
+      % if role in ["admin", "original admin", "user"]:
       <li>
         <a href="/admin">Admin</a>
       </li>
