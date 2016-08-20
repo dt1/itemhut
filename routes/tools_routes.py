@@ -14,6 +14,23 @@ def gen_view(v):
 def create_upc_labels():
     return dict()
 
+@route(gen_route("image-library"))
+@post(gen_route("image-library"))
+@view(gen_view("image_library"))
+@check_user
+def image_library():
+    d = {}
+    imgs = tls.select_all_images()
+    if request.POST.get("delete-image"):
+        d["img-del"] = request.POST.get("img-del")
+        tls.delete_image(d)
+    if request.POST.get("replace-image"):
+        d["img-del"] = request.POST.get("img-del")
+        d["new-img"] = request.files.get("new-img")
+        return str(d)
+        tls.replace_image(d)
+    return dict(imgs = imgs)
+    
 @route(gen_route("bulk-load-images"))
 @post(gen_route("bulk-load-images"))
 @view(gen_view("bulk_load_images"))
