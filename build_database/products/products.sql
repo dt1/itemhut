@@ -1,8 +1,5 @@
 -- This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
--- the base company skus.
--- ideally, we'd want UPC to be gtin-12, but some custom UPCs may be created
--- for pieces or replacements, and "master" SKUs for product variations.
+.
 drop schema if exists product cascade; -- for my testing
 
 create schema if not exists product;
@@ -21,6 +18,11 @@ insert into product.sku_types (sku_type) values
 ('piece'),
 ('master'),
 ('replacement-part');
+
+-- the base company skus.
+-- ideally, we'd want UPC to be gtin-12, but some custom UPCs may be
+-- created for pieces or replacements, and "master" SKUs for product
+-- variations
 
 -- in general, a kit or replacement part should not have a upc, but for listing purposes.
 
@@ -103,44 +105,58 @@ create table product.images (
 	       on update cascade,
        foreign key (main_image)
               references product.image_gallery (image)
-	      on delete cascade,
+	      on delete cascade
+	      on update cascade,
        foreign key (image_one)
               references product.image_gallery (image)
-	      on delete cascade,
+	      on delete cascade
+	      on update cascade,
        foreign key (image_two)
               references product.image_gallery (image)
-	      on delete cascade,
+	      on delete cascade
+	      on update cascade,
        foreign key (image_three)
               references product.image_gallery (image)
-	      on delete cascade,
+	      on delete cascade
+	      on update cascade,
        foreign key (image_four)
               references product.image_gallery (image)
-	      on delete cascade,
+	      on delete cascade
+	      on update cascade,
        foreign key (image_five)
               references product.image_gallery (image)
-	      on delete cascade,
+	      on delete cascade
+	      on update cascade,
        foreign key (image_six)
               references product.image_gallery (image)
-	      on delete cascade,
+	      on delete cascade
+	      on update cascade,
        foreign key (image_seven)
               references product.image_gallery (image)
-	      on delete cascade,
+	      on delete cascade
+	      on update cascade,
        foreign key (image_eight)
               references product.image_gallery (image)
-	      on delete cascade,
+	      on delete cascade
+	      on update cascade,
        foreign key (image_nine)
               references product.image_gallery (image)
-	      on delete cascade,
+	      on delete cascade
+	      on update cascade,
        foreign key (image_ten)
               references product.image_gallery (image)
-	      on delete cascade,
+	      on delete cascade
+	      on update cascade,
        foreign key (image_eleven)
               references product.image_gallery (image)
-	      on delete cascade,
+	      on delete cascade
+	      on update cascade,
        foreign key (image_twelve)
               references product.image_gallery (image)
-	      on delete cascade,
+	      on delete cascade
+	      on update cascade,
        foreign key (swatch_image)
               references product.image_gallery (image)
 	      on delete cascade
+	      on update cascade
 );

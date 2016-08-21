@@ -1,11 +1,9 @@
 # This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import sys
-sys.path.append("/itemhut/pydb")
-import dbconn
+from pydb.dbconn import cur, dcur
 
 def select_pickinglocs_list(wh):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select picking_location_id, picking_location_name, sku, upc
         from warehouse.picking_locations wpl
@@ -19,12 +17,12 @@ def select_pickinglocs_list(wh):
         where picking_location_id = wpl.picking_location_id
         and warehouse_id = %(wh)s);
         """, {"wh": wh})
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     return a
 
 
 def select_pickingloc_info(plid):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select picking_location_id, picking_location_name, sku, upc
         from warehouse.picking_locations wpl
@@ -34,12 +32,12 @@ def select_pickingloc_info(plid):
                or sku_type is null)
         and picking_location_id = %s::int;
         """, {"plid": plid})
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     return a
 
 def update_pickingloc_info(wh, plid, old_plname, new_plname, upc):
     if old_plname != new_plname:
-        dbconn.dcur.execute(
+        a = dcur.execute(
             """
             select *
             from warehouse.picking_locations wpp
@@ -50,11 +48,11 @@ def update_pickingloc_info(wh, plid, old_plname, new_plname, upc):
             and warehouse_id = %s)
             and picking_location_name = %s;
             """, [wh, new_plname])
-        a = dbconn.dcur.fetchall()
+        a = dcur.fetchall()
         if a:
             return True
 
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         begin;
         update warehouse.picking_locations
@@ -66,7 +64,7 @@ def update_pickingloc_info(wh, plid, old_plname, new_plname, upc):
               "plid": plid})
 
 def insert_picking_location(wh, locname, upc):
-        dbconn.dcur.execute(
+        a = dcur.execute(
             """
             select *
             from warehouse.picking_locations wpp
@@ -78,11 +76,11 @@ def insert_picking_location(wh, locname, upc):
             and picking_location_name = %(plname)s;
             """, {"wh": wh,
                   "plname": locname})
-        a = dbconn.dcur.fetchall()
+        a = dcur.fetchall()
         if a:
             return True
 
-        dbconn.dcur.execute(
+        a = dcur.execute(
             """
             with new_plid (picking_location_id) as
                 (insert into warehouse.picking_locations
@@ -99,7 +97,7 @@ def insert_picking_location(wh, locname, upc):
 
 
 def bulk_load_pickinglocs(locfile, wh):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         create temp table pls (
         picking_location_name varchar,

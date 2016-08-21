@@ -1,24 +1,22 @@
 # This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import sys
-sys.path.append("/itemhut/pydb")
-import dbconn
+from pydb.dbconn import cur, dcur
 
 from models.products.kits import *
 
 def sku_upcs():
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select sku, upc, sku_type, product_name
         from product.sku_upc
         left join product.descriptions
         using (sku);
         """)
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     return a
 
 def insert_sku_upc(d):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         begin;
         insert into product.sku_upc (sku, upc, sku_type)
@@ -31,7 +29,7 @@ def insert_sku_upc(d):
         """, d)
 
 def select_reg_products():
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select sku, upc, sku_type, product_name
         from product.sku_upc
@@ -40,20 +38,20 @@ def select_reg_products():
         using (sku)
         where sku_type <> 'master';
         """)
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     return a
 
 def sku_types():
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select sku_type
         from product.sku_types;
         """)
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     return a
 
 def insert_product_descriptions(d):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         begin;
         insert into product.descriptions
@@ -76,18 +74,18 @@ def insert_product_descriptions(d):
         """, d)
 
 def get_upcs():
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select upc
         from product.sku_upc
         where upc is not null;
         """)
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     res = [i[0] for i in a]
     return res
 
 def insert_new_case_box(upc, box_qty, case_qty):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         begin;
         with new_case_id (case_id) as
@@ -107,7 +105,7 @@ def insert_new_case_box(upc, box_qty, case_qty):
         """, [upc, box_qty, case_qty])
 
 def insert_images(d):
-    dbconn.cur.execute(
+    dbconn.cura = dcur.execute(
         """
         begin;
         create temp table ig (image varchar);
@@ -179,7 +177,7 @@ def insert_images(d):
 
 def update_product_data(d):
     if d["pid"].strip() != d["sku"].strip():
-        dbconn.dcur.execute(
+        a = dcur.execute(
             """
             begin;
             update product.sku_upc
@@ -192,7 +190,7 @@ def update_product_data(d):
     insert_product_descriptions(d)
 
 def get_sku_data(sku):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select sku, upc, sku_type, product_name, product_description,
                bullet_one, bullet_two, bullet_three, bullet_four,
@@ -207,5 +205,5 @@ def get_sku_data(sku):
         using (sku)
         where trim(sku) = trim(%s);
         """, [sku])
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     return a

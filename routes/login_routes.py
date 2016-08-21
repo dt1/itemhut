@@ -6,10 +6,6 @@ import beaker
 import bcrypt
 import hmac
 
-import sys
-sys.path.append("/itemhut/pydb")
-import dbconn
-
 def login_user(username, password):
     user_info = lgn.select_user_password_role(username)
     if user_info:
@@ -59,6 +55,7 @@ def login():
     if request.POST.get("login"):
         username = request.POST.get("username")
         password = request.POST.get("password")
+        password = password.encode('utf-8')
         t = login_user(username, password)
         return dict(t = "Login Failed")
     return dict(t = None)

@@ -1,13 +1,9 @@
 # This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import sys
-sys.path.append("/itemhut/pydb")
-import dbconn
-import psycopg2
-
+from pydb.dbconn import cur, dcur
 
 def insert_invoice_data(d):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         begin;
         insert into incoming.orders (invoice, vendor_id, order_date,
@@ -18,39 +14,39 @@ def insert_invoice_data(d):
         """, d)
 
 def select_incoming_order_data(oid):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select incoming_order_id, invoice, vendor_id, order_date,
         eta, completed, invoice_file
         from incoming.orders
         where incoming_order_id = %s;
         """, [oid])
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     return a
 
 def select_incoming_orders():
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select incoming_order_id, invoice, vendor_id, order_date,
         eta, completed
         from incoming.orders
         where completed is false
         """)
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     return a
 
 def select_all_incoming_orders():
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select incoming_order_id, invoice, vendor_id, order_date,
         eta, completed
         from incoming.orders
         """)
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     return a
 
 def set_order_complete(oid):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         begin;
         update incoming.orders
@@ -60,7 +56,7 @@ def set_order_complete(oid):
         """, [oid])
 
 def select_incoming_product(oid):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select sku, upc, qty
         from incoming.orders
@@ -70,11 +66,11 @@ def select_incoming_product(oid):
         using (upc)
         where incoming_order_id = %s::int;
         """, [oid])
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     return a
         
 def insert_incoming_order_product(d):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         begin;
         insert into incoming.order_products 
@@ -84,7 +80,7 @@ def insert_incoming_order_product(d):
         """, d)
         
 def get_order_upc_candidates(oid):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select sku, upc
         from product.sku_upc psu
@@ -95,5 +91,5 @@ def get_order_upc_candidates(oid):
         and incoming_order_id = %s::int)
         and upc is not null;
         """, [oid])
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     return a

@@ -1,21 +1,19 @@
 # This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import sys
-sys.path.append("/itemhut/pydb")
-import dbconn
+from pydb.dbconn import cur, dcur
 
 def insert_new_user(username, password, real_name,  utype, urole):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select user_name
         from users.users
         where user_name = %(username)s;
         """, {"username": username})
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     if a:
         return True
 
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         begin;
         insert into users.users (user_name, password, person_name,
@@ -31,60 +29,60 @@ def insert_new_user(username, password, real_name,  utype, urole):
               "user_role": urole})
 
 def select_valid_roles():
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select user_role
         from users.valid_user_roles
         where user_role <> 'original admin';
         """)
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     return a
 
 def select_valid_usertypes():
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select user_type
         from users.valid_user_types;
         """)
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     return a
 
 def select_users():
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select user_name, person_name, user_type, user_role
         from users.users;
         """)
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     return a
 
 def select_user_info(uid):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select user_name, person_name, user_type, user_role
         from users.users
         where user_name = %(user_id)s;
         """, {"user_id" : uid})
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     return a
 
 def update_user(original_username, username, real_name, utype,
                 urole):
     if original_username != username:
-        dbconn.dcur.execute(
+        a = dcur.execute(
             """
             select user_name
             from users.users
             where user_name = %(username)s;
             """, {"username": username})
-        a = dbconn.dcur.fetchall()
+        a = dcur.fetchall()
         if a:
             return True
 
     if utype == "":
         utype = None
 
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         begin;
         select users.update_user(%(original_username)s, 
@@ -97,7 +95,7 @@ def update_user(original_username, username, real_name, utype,
               "user_role": urole})
 
 def update_user_password(uid, pwd):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         begin;
         update users.users

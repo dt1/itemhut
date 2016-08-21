@@ -1,11 +1,9 @@
 # This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import sys
-sys.path.append("/itemhut/pydb")
-import dbconn
+from pydb.dbconn import cur, dcur
 
 def select_palletlocs_list(wh):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select pallet_location_id, pallet_location_name
         from warehouse.warehouse_pallet_loc
@@ -13,11 +11,11 @@ def select_palletlocs_list(wh):
         using (pallet_location_id)
         where warehouse_id = %(wh)s;
         """, {"wh": wh})
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     return a
 
 def delete_palletloc(pid):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         begin;
         delete
@@ -27,7 +25,7 @@ def delete_palletloc(pid):
         """, {"plid": pid})
 
 def bulk_load_palletlocs(f, wh):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         begin;
         create temp table pls (pallet_location_name varchar);
@@ -59,17 +57,17 @@ def bulk_load_palletlocs(f, wh):
               "wh": wh})
 
 def select_palletloc_name(plid):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select pallet_location_name
         from warehouse.pallet_locations
         where pallet_location_id = %s::int;
         """, {"plid": plid})
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     return a
 
 def update_palletloc_name(plid, pl_name, wh):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select *
         from warehouse.pallet_locations
@@ -79,11 +77,11 @@ def update_palletloc_name(plid, pl_name, wh):
         and warehouse_id = %(wh)s;
         """, {"plname": pl_name,
               "wh": wh})
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     if a:
         return True
 
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         begin;
         update warehouse.pallet_locations
@@ -94,7 +92,7 @@ def update_palletloc_name(plid, pl_name, wh):
               "plid": plid})
 
 def insert_pallet_location(wh, pl_name):
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         select *
         from warehouse.pallet_locations
@@ -104,11 +102,11 @@ def insert_pallet_location(wh, pl_name):
         and warehouse_id = %(wh)s;
         """, {"plname": pl_name,
               "wh": wh})
-    a = dbconn.dcur.fetchall()
+    a = dcur.fetchall()
     if a:
         return True
 
-    dbconn.dcur.execute(
+    a = dcur.execute(
         """
         begin;
         with new_loc (pallet_location_id) as

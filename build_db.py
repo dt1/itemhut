@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-import sys
-sys.path.append("/itemhut/pydb")
-import dbconn
+from pydb.dbconn import cur, dcur
 
 dbconn.cur.execute(open("build_database/users/users.sql", "r").read())
 dbconn.cur.execute(open("build_database/products/products.sql", "r").read())

@@ -17,9 +17,7 @@ from number_dict import number_dict
 from sql_helpers import create_helper_functions
 from sql_helpers import drop_build_schema
 
-
-sys.path.append("/itemhut/pydb")
-import dbconn
+from pydb.dbconn import cur, dcur
 
 def camel_to_underscore(name):
     name = re.sub('-', '_', name)

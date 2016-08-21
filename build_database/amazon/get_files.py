@@ -8,8 +8,7 @@ import os.path
 import sys
 import glob
 
-sys.path.append("/itemhut/pydb/")
-import dbconn
+from pydb.dbconn import cur, dcur
 
 def find_links(sfile):
     for link in sfile.find_all("a"):

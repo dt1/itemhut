@@ -27,9 +27,7 @@ import models.companies.companies as com
 import models.login.login as lgn
 import models.tools.tools as tls
 
-import sys
-sys.path.append("/itemhut/pydb")
-import dbconn
+from pydb.dbconn import cur, dcur
 
 session_opts = {
     'session.type': 'file',
