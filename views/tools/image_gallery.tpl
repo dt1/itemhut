@@ -8,12 +8,23 @@
 </head>
 
 <body>
-    % for i in imgs:
+  % for i in imgs:
   <form action="/tools/image-library"
 	method="POST" enctype="multipart/form-data">
-    <img src="/uploaded_files/images/{{i['image']}}">
+    <div class="row">
+      <div class="medium-4 columns">
+	<p><b>{{i["image"].rsplit("/")[-1]}}</b></p>
+	<img src="/uploaded_files/images/{{i['image']}}">
+      </div>
+      <div class="medium-4 columns">
+	% for sku in i["sku_list"]:
+	% if sku:
+	<p>{{sku}}</p>
+	% end
+	% end
+      </div>
+    </div>
     <input type="hidden" name="img-del" value="{{i['image']}}">
-    <p>{{i["image"].rsplit("/")[-1]}}</p>
     <input type="submit" class="button" name="delete-image"
 	   value="Delete Image"/>
     <br>

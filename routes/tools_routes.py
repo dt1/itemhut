@@ -14,11 +14,11 @@ def gen_view(v):
 def create_upc_labels():
     return dict()
 
-@route(gen_route("image-library"))
-@post(gen_route("image-library"))
-@view(gen_view("image_library"))
+@route(gen_route("image-gallery"))
+@post(gen_route("image-gallery"))
+@view(gen_view("image_gallery"))
 @check_user
-def image_library():
+def image_gallery():
     d = {}
     imgs = tls.select_all_images()
     if request.POST.get("delete-image"):
@@ -57,4 +57,3 @@ def bulk_load_images():
 @check_user
 def tools():
     return dict()
-

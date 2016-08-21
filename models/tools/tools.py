@@ -5,10 +5,27 @@ from pydb.dbconn import cur, dcur
 def select_all_images():
     a = dcur.execute(
         """
-        select image 
-        from product.image_gallery;
+        select array_agg(sku) sku_list, image
+        from product.image_gallery ig
+        left join product.images im
+        on (ig.image = im.main_image
+        or ig.image = im.image_one
+        or ig.image = im.image_two
+        or ig.image = im.image_three
+        or ig.image = im.image_four
+        or ig.image = im.image_five
+        or ig.image = im.image_six
+        or ig.image = im.image_seven
+        or ig.image = im.image_eight
+        or ig.image = im.image_nine
+        or ig.image = im.image_ten
+        or ig.image = im.image_eleven
+        or ig.image = im.image_twelve
+        or ig.image = im.swatch_image)
+        group by image
+        order by image;       
         """
-        )
+    )
     a = dcur.fetchall()
     return a
 
