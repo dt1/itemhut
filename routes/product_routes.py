@@ -22,6 +22,21 @@ def add_product_images(d):
             d[i + "-path"] = None
     prd.insert_images(d)
 
+@route("/products/update-product-<pid>/gallery-<img>")
+@post("/products/update-product-<pid>/gallery-<img>")
+@view("views/products/update_product_image_gallery")
+def update_product_image_gallery(pid, img):
+    imgs = prd.select_image_gallery()
+    d = {}
+    d["image-column"] = img.replace("-", "_")
+    d["sku"] = pid
+    if request.POST.get("update-image"):
+        d["new-image"] = request.POST.get("new-image")
+        prd.update_product_image(d)
+        redirect("/products/update-product-{0}".format(d["sku"]))
+    return dict(sku = pid, img = img, imgs = imgs)
+
+    
 @route("/products/update-product-<pid>")
 @post("/products/update-product-<pid>")
 @view("views/products/update_product")
@@ -41,14 +56,15 @@ def update_product(pid):
     if request.POST.get("update-product"):
         for i in L:
             d[i] = request.POST.get(i)
-        
+        d["remove-image"] = request.POST.getall("remove-image")
+        if d["remove-image"]:
+            prd.update_product_set_img_null(d)
         prd.update_product_data(d)
         add_product_images(d)
         
         redirect("/products/update-product-{0}".format(d["sku"]))
     return dict(sku_data = sku_data, sku_types = stypes,
                 sku = pid)
-
 
 @route("/products/delete-kit-child-<master>/<child>")
 @check_user

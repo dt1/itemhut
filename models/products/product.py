@@ -4,13 +4,35 @@ from pydb.dbconn import cur, dcur
 
 from models.products.kits import *
 
+def select_image_gallery():
+    a = dcur.execute(
+        """
+        select image
+        from product.image_gallery
+        order by image;
+        """)
+    a = dcur.fetchall()
+    return a
+
+def update_product_set_img_null(d):
+    a = dcur.execute(
+        """
+        select product.set_product_image_null
+            (%(sku)s, %(remove-image)s);
+        """, d)
+
+def update_product_image(d):
+    a = dcur.execute(
+        """
+        select product.update_image_by_col
+        (%(image-column)s, %(new-image)s, %(sku)s);
+        """, d)
+
 def sku_upcs():
     a = dcur.execute(
         """
-        select sku, upc, sku_type, product_name
-        from product.sku_upc
-        left join product.descriptions
-        using (sku);
+        select image
+        from product.image_gallery
         """)
     a = dcur.fetchall()
     return a
@@ -105,7 +127,7 @@ def insert_new_case_box(upc, box_qty, case_qty):
         """, [upc, box_qty, case_qty])
 
 def insert_images(d):
-    dbconn.cura = dcur.execute(
+    a = dcur.execute(
         """
         begin;
         create temp table ig (image varchar);

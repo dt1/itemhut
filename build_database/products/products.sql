@@ -160,3 +160,38 @@ create table product.images (
 	      on delete cascade
 	      on update cascade
 );
+
+create or replace function product.update_image_by_col
+	(col varchar, img varchar, sku varchar)
+returns void
+as
+$$
+begin
+
+execute format('
+	update product.images
+	set %I = %L
+	where sku = %L'
+	, col, img, sku);
+end;
+$$ language plpgsql;
+
+create or replace function product.set_product_image_null
+	(sku varchar, cols varchar[])
+returns void
+as
+$$
+declare c varchar;
+
+begin
+
+foreach c in array cols
+loop
+	execute format('
+		update product.images
+		set %I = null
+		where sku = %L'
+		, c, sku);
+end loop;
+end;
+$$ language plpgsql;

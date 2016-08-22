@@ -39,6 +39,8 @@ session_opts = {
 @hook('before_request')
 def setup_request():
     request.session = request.environ['beaker.session']
+    #request.session["username"] = "sally"
+    #request.session["user_role"] = "user"
 
 @hook('before_request')
 def strip_path():

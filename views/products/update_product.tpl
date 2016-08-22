@@ -94,7 +94,8 @@
 	    src="/uploaded_files/images/{{sku_data[0]['main_image']}}"
 	    width="100px;"/>
 	  <label>remove image
-	    <input type="checkbox" name="remove-main-image"/>
+	    <input type="checkbox" name="remove-image"
+		   value="main_image"/>
 	  </label>
 	  % else:
 	  <p>no image</p>
@@ -102,6 +103,7 @@
 	  <label>Replace Image
 	    <input type="file" name="main-image">
 	  </label>
+	  <a href="/products/update-product-{{sku_data[0][0]}}/gallery-main-image" class="button">Use Image Gallery</a>
 
 	  <div class="medium-6 columns">
 	  </div>
@@ -118,7 +120,8 @@
 	    src="/uploaded_files/images/{{sku_data[0][inum]}}"
 	    width="100px;"/>
 	  <label>remove image
-	    <input type="checkbox" name="remove-main-{{item}}"/>
+	    <input type="checkbox" name="remove-image"
+		   value="{{inum}}"/>
 	  </label>
 	  % else:
 	  <p>no image</p>
@@ -127,6 +130,7 @@
 	  <label>Image {{item.title()}}
 	    <input type="file" name="image-{{item}}">
 	  </label>
+	  <a href="/products/update-product-{{sku_data[0][0]}}/gallery-image-{{item}}" class="button">Use Image Gallery</a>
 	  <div class="medium-6 columns">
 	  </div>
 	</div>
