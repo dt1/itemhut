@@ -21,15 +21,16 @@ Under active development. To keep things progressing along smoothly, Item Hut is
 ###Code Layout
 * / -- The running web-based system
 * build_database/ -- for building out the database, which includes files I'm working on along with the files needed to build the system.
-* full/ -- all routes for the full system. All are work in progress, but many have multiple pages.
-* models/ -- connecting to the database.
-* pydb/ -- for connecting to the database.
-* pyebay/ -- working files for ebay API interaction. Work in progress.
-* routes/ -- routes that are fully functional. All are found on the demo found at itemhut.com
-* static/ -- css / js / img.
-* views/ -- html generating templates. Many of these views are for the full system and are not shown on the demo.
+* email/ -- for email, gmail, gchat integration
 * er-diagrams/ -- ER Diagrams for the database.
-* pydb/ -- for connecting to the database.
+* full/ -- all routes for the full system. All are work in progress, but many have multiple pages, though none are connected to the database.
+* models/ -- database query files.
+* pydb/ -- for connecting to the database + cur and dcur utilities.
+* pyebay/ -- working files for ebay API interaction.
+* routes/ -- routes that are fully functional. All are found on the demo found at itemhut.com
+* sql/ -- work in progress sql files for amazon, ebay, etc.
+* static/ -- css / js / img.
+* views/ -- html generating templates. Many of these views are for the full system and are not shown on the demo. The extra views connect to the full routes.
 
 ####Viewing ER Diagrams
 
