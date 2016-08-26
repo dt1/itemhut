@@ -77,13 +77,16 @@ def delete_kit_child(master, child):
 @post("/products/add-kit-children-<sku>")
 @view("views/products/add_kit_children")
 @check_user
-def update_kit(sku):
+def add_kit_children(sku):
+    d = {}
+    d["sku"] = sku
+    L = ["kit-sku", "qty"]
     sku_upc = prd.sku_kit_candidates(sku)
     kit_list = prd.select_sku_kits(sku)
     if request.POST.get("add-product"):
-        kit_sku = request.POST.get("kit-sku")
-        qty = request.POST.get("qty")
-        prd.insert_kit(sku, kit_sku, qty)
+        for i in L:
+            d[i] = request.POST.get(i)
+        prd.insert_kit_child(d)
         url = "/products/add-kit-children-{0}".format(sku)
         redirect(url)
     return dict(sku_upc = sku_upc, sku = sku, kit_list = kit_list)
@@ -103,34 +106,23 @@ def add_kit():
     d = {}
     d["upc"] = None
     d["sku-type"] = "master"
-    L = ["product-name", "product-description", "bullet-one",
+    L = ["sku", "product-name", "product-description", "bullet-one",
          "bullet-two", "bullet-three", "bullet-four", "bullet-five",
          "main-image", "image-one", "image-two", "image-three",
+         "image-four"
          "image-five", "image-six", "image-seven", "image-eight",
          "image-nine", "image-ten", "image-eleven", "image-twelve",
          "swatch-image"]
-    if request.POST.get("add-product"):
+    if request.POST.get("add-kit"):
         for i in L:
             d[i] = request.POST.get(i)
 
-        prd.insert_sku_upc(sku, upc, sku_type)
+        prd.insert_sku_upc(d)
         
-        prd.insert_product_descriptions(sku, product_name, product_description, bullet_one, bullet_two, bullet_three, bullet_four, bullet_five)
+        prd.insert_product_descriptions(d)
         
-        if d["main-image"]:
-            main_image = d["main_image"]
-            save_path = "uploaded_files/images/{0}".format(main_image)
-
-            if not os.path.exists(save_path):
-                os.makedirs(save_path)
-
-            main_image.save(save_path, overwrite=True)
-
-            image_path = "{0}/{1}".format(main_image, main_image.filename)
-
-
-        prd.insert_images(d)
-
+        add_product_images(d)
+        
         url = "/products/update-kit-{0}".format(d["sku"])
         redirect(url)
     else:

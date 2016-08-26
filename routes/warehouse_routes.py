@@ -218,6 +218,7 @@ def add_pallet_location(wh):
     else:
         return error404("err")
 
+    
 @route("/warehouses/<wh>/update-pallet-<pid>/delete-case-<cid>")
 @check_user
 @check_warehouse_user

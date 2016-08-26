@@ -77,20 +77,20 @@ def select_kits():
     a = dcur.fetchall()
     return a
 
-def insert_kit(master_sku, kit_sku, kit_amt):
+def insert_kit_child(d):
     a = dcur.execute(
         """
         begin;
         insert into product.kits (master_sku, child_sku, child_sku_qty)
-        values(%s, %s, %s);
+        values(%(sku)s, %(kit-sku)s, %(qty)s::int);
         commit;
-        """, [master_sku, kit_sku, kit_amt])
+        """, d)
 
 def delete_kit_child(master, child):
     a = dcur.execute(
         """
         begin;
         delete from product.kits
-        where master_sku = %s
-        and child_sku = %s;
+        where master_sku = %(master)s
+        and child_sku = %(child)s;
         """, [master, child])
