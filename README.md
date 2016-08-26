@@ -8,6 +8,10 @@ https://itemhut.com/
 
 The version found here is sligtly different. For example, you are able to create users and login. The version on the website tends to lag behind what is found here. Bugs found on the site tend to be fixed here.
 
+###Documentation
+
+itemhut.readthedocs.io
+
 ###Current Status
 Under active development. To keep things progressing along smoothly, Item Hut is going to begin as an inventory system. However, there are tables for ebay orders, Amazon products, etc. Please refer to the er-diagrams.
 
