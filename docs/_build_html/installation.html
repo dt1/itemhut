@@ -24,6 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Item Hut 0.1.0.dev1 documentation" href="index.html" />
+    <link rel="prev" title="Item Hut Documentation" href="intro.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -41,7 +42,99 @@
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>this is installation...</p>
+<div class="section" id="system-requirements">
+<h2>System Requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline">¶</a></h2>
+<p><strong>note</strong>: Item Hut has not been built or tested on Mac OS or Windows.</p>
+<p>(install with your package manager)</p>
+<ul class="simple">
+<li>PostgreSQL 9.5</li>
+<li>PostgreSQL 9.5 Server</li>
+<li>PostgreSQL 9.5 Devel</li>
+<li>gcc</li>
+<li>python3-devel</li>
+<li>redhat-rpm-config (if on redhad / fedora / CentOS)</li>
+<li>Python3</li>
+<li>Python3 Devel</li>
+</ul>
+<p>running pip3 install will download the following packages (see setup.py):</p>
+<ul class="simple">
+<li>Python3 Bottle 0.12.9</li>
+<li>Psycopg2 2.6.2</li>
+<li>Beaker 1.8.0</li>
+<li>bcrypt 3.1.0</li>
+<li>py-bcrypt 0.4</li>
+<li>google-api-python-client</li>
+</ul>
+</div>
+<div class="section" id="the-database">
+<h2>The Database<a class="headerlink" href="#the-database" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="initial-setup">
+<h3>Initial Setup<a class="headerlink" href="#initial-setup" title="Permalink to this headline">¶</a></h3>
+<p>create the itemhut database:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ su - postgres
+$ createdb itemhut
+</pre></div>
+</div>
+<p>If this is your first time using PostgreSQL, you have to create a password for the postgres user:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ psql
+postgres=# alter user postgres with encrypted password &quot;&lt;password&gt;&quot;
+postgres=# \q
+</pre></div>
+</div>
+<p>edit the pg_hba.conf (still as postgres):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd data
+$ [editor] pg_hba.conf
+</pre></div>
+</div>
+<p>change peer to md5 then restart the PostgreSQL server.
+Create a .pgpass File:</p>
+<p>cd to the home directory of the user who is running the system:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd
+</pre></div>
+</div>
+<p>create .pgpass:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ touch .pgpass
+</pre></div>
+</div>
+<p>edit .pgpass with your prefered editor:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ [editor] .pgpass
+</pre></div>
+</div>
+<p>add the following, filling in the bracketed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">host</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">port</span><span class="o">&gt;</span><span class="p">:</span><span class="n">itemhut</span><span class="p">:</span><span class="n">postgres</span><span class="p">:</span><span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>in general, the .pgpass file will look like this, where password is whatever you made the password when you updated the postgres user password:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">localhost</span><span class="p">:</span><span class="mi">5432</span><span class="p">:</span><span class="n">itemhut</span><span class="p">:</span><span class="n">postgres</span><span class="p">:</span><span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="install-item-hut">
+<h2>Install Item Hut<a class="headerlink" href="#install-item-hut" title="Permalink to this headline">¶</a></h2>
+<p>clone the repo:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git clone https://github.com/dt1/itemhut.git
+</pre></div>
+</div>
+<p>cd to directory:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd itemhut
+</pre></div>
+</div>
+<p>run setup:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip3 install . --upgrade
+</pre></div>
+</div>
+<p>setup the database:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python3 build_db.py
+</pre></div>
+</div>
+<p>Run Itemhut:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python3 inventory.py
+</pre></div>
+</div>
+<p>open localhost:8082 in your browser.</p>
+<p>You will see a &#8220;Create First User&#8221; page.</p>
+</div>
 </div>
 
 
@@ -49,10 +142,24 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#system-requirements">System Requirements</a></li>
+<li><a class="reference internal" href="#the-database">The Database</a><ul>
+<li><a class="reference internal" href="#initial-setup">Initial Setup</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#install-item-hut">Install Item Hut</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="intro.html" title="previous chapter">Item Hut Documentation</a></li>
   </ul></li>
 </ul>
 </div>
