@@ -10,7 +10,7 @@ The version found here is sligtly different. For example, you are able to create
 
 ###Documentation
 
-itemhut.readthedocs.io
+https://itemhut.readthedocs.io/en/latest/
 
 ###Current Status
 Under active development. To keep things progressing along smoothly, Item Hut is going to begin as an inventory system. However, there are tables for ebay orders, Amazon products, etc. Please refer to the er-diagrams.
@@ -25,6 +25,7 @@ Under active development. To keep things progressing along smoothly, Item Hut is
 ###Code Layout
 * / -- The running web-based system
 * build_database/ -- for building out the database, which includes files I'm working on along with the files needed to build the system.
+* /docs/ -- documentation for Read the Docs
 * email/ -- for email, gmail, gchat integration
 * er-diagrams/ -- ER Diagrams for the database.
 * full/ -- all routes for the full system. All are work in progress, but many have multiple pages, though none are connected to the database.
@@ -47,108 +48,8 @@ Item Hut is a nightly rolling release. Each push to this repo should be stable.
 
 There are no update scripts with each version. Some updates will require manual intervention. Be sure to backup your database, diff the schemas, and be prepared to do ETL.
 
-System Requirements (install with your package manager)
-* PostgreSQL 9.5
-* PostgreSQL 9.5 Server
-* PostgreSQL 9.5 Devel
-* gcc
-* python3-devel
-* redhat-rpm-config (if on redhad / fedora / CentOS)
-* Python3
-* Python3 Devel
-
-
-running pip3 install will download the following packages (see setup.py):
-* Python3 Bottle 0.12.9
-* Psycopg2 2.6.2
-* Beaker 1.8.0
-* bcrypt 3.1.0
-* py-bcrypt 0.4
-* google-api-python-client
-
 ####Installation
-These instructions assume you have .pgpass enabled.
-
-create the itemhut database:
-```bash
-$ su - postgres
-$ createdb itemhut
-```
-
-If this is your first time using PostgreSQL, you have to create a password for the postgres user:
-
-```bash
-$ psql
-postgres=# alter user postgres with encrypted password "<password>"
-postgres=# \q
-```
-
-edit the pg_hba.conf (still as postgres):
-```bash
-$ cd data
-$ [editor] pg_hba.conf
-```
-
-change peer to md5 then restart the PostgreSQL server.
-
-Create a .pgpass file:
-
-cd to the home directory of the user who is running the system:
-```bash
-$ cd
-```
-
-create .pgpass:
-```bash
-$ touch .pgpass
-```
-
-edit .pgpass with your prefered editor:
-```bash
-$ [editor] .pgpass
-```
-
-add the following, filling in the bracketed:
-```
-<host>:<port>:itemhut:postgres:<password>
-```
-
-in general, the .pgpass file will look like this, where password is whatever you made the password when you updated the postgres user password:
-```
-localhost:5432:itemhut:postgres:<password>
-```
-
-clone the repo:
-```bash
-$ git clone https://github.com/dt1/itemhut.git
-```
-
-cd to directory:
-```bash
-$ cd itemhut
-```
-
-run setup:
-```bash
-$ pip3 install . --upgrade
-```
-
-setup the database
-```bash
-$ python3 build_db.py
-```
-
-run itemhut:
-```
-$ python3 inventory.py
-```
-
-open localhost:8082
-
-You will see a "Create First User" page.
-
-If there are any issues with the setup, feel free to contact me at:
-dbtoomey@gmail.com
+see the documentation: https://itemhut.readthedocs.io/en/latest/
 
 ###Expected Features
 * B2B Customer Management
