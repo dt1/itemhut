@@ -1,5 +1,5 @@
-Item Hut Documentation
-======================
+Item Hut Intro
+==============
 
 What is Item Hut?
 -----------------
@@ -31,3 +31,12 @@ System Design Goals
 -------------------
 
 Item Hut is, first and foremost, an engine, which should be able to be used on any backend system or even a headless command line, on a local machine or a server. For this reason, we ignore some web-building best practices.
+
+Permissions and Licensing
+-------------------------
+
+While I am unable to enforce this, I am a strong believer that a customer's data is their data. I ask that, if you use this program, you allow your customers to own all the data they have supplied to you either through their own input or through the APIs.
+
+While I do not require this, I am interested in spreading the word about this program. If you wish to use this program, please offer attribution.
+
+Released under the `Mozilla Public License Version 2.0 <https://www.mozilla.org/en-US/MPL/2.0/>`_.
