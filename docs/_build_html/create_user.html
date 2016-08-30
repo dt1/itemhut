@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Create Users &#8212; Item Hut 0.1.0.dev1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0.dev1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Item Hut 0.1.0.dev1 documentation" href="index.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="create-users">
+<h1>Create Users<a class="headerlink" href="#create-users" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="creating-the-super-admin">
+<h2>Creating the Super Admin<a class="headerlink" href="#creating-the-super-admin" title="Permalink to this headline">¶</a></h2>
+<p>The Super Admin is automatically created when you start Item Hut and create the initial user. You will be redirected to the main system, logged in.</p>
+</div>
+<div class="section" id="creating-other-users">
+<h2>Creating Other Users<a class="headerlink" href="#creating-other-users" title="Permalink to this headline">¶</a></h2>
+<p>Go to <em>admin&gt;Add User</em>.</p>
+<p>You will be allowed to add a username, password, real name, role, and type.</p>
+<div class="section" id="roles">
+<h3>Roles<a class="headerlink" href="#roles" title="Permalink to this headline">¶</a></h3>
+<p>Roles focus the user on a particular area and match the headings in the top menu. For example, a user assigned the &#8220;customers&#8221; role will only be allowed to see the customers sub section.</p>
+<p><strong>note</strong>: User roles are still under development. In the future, we plan to add groups, warehouse views, and more refined read-only permissions.</p>
+<p>At this point, the Admin role has all of the same permissions as the Original Admin. We suggest you create a regular admin for working with Item Hut here on out.</p>
+</div>
+<div class="section" id="types">
+<h3>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h3>
+<p>User Types allow Item Hut to focus on keeping data integrity. For right now, we only have the &#8220;sales&#8221; role. In order for a user to do a sale, he or she must be a member of the &#8220;sales&#8221; role. This would prevent say, a picker, from creating a sale, and so forth.</p>
+<p><strong>note</strong>: User Types are still under development. Just as user roles, we plan to add groups, which will allow a user to, for example, pick orders and create sales. For now, all new users have the sales type.</p>
+</div>
+</div>
+<div class="section" id="internals">
+<h2>Internals<a class="headerlink" href="#internals" title="Permalink to this headline">¶</a></h2>
+<p>When Item Hut starts up, the system checks for a &#8220;super admin&#8221; role in the database. If this role does not exist, the system will redirect to /initialize and have you create a new super admin.</p>
+<p>If you forget the password for the super admin, you can delete the super admin from the databse, while keeping all of your data intact. This is why we suggest not using the super admin for anything in Item Hut. Password retrieval is not available in Item Hut at this time.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Create Users</a><ul>
+<li><a class="reference internal" href="#creating-the-super-admin">Creating the Super Admin</a></li>
+<li><a class="reference internal" href="#creating-other-users">Creating Other Users</a><ul>
+<li><a class="reference internal" href="#roles">Roles</a></li>
+<li><a class="reference internal" href="#types">Types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#internals">Internals</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="installation.html" title="previous chapter">Installation</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/create_user.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, David Toomey.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/create_user.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -13,6 +13,8 @@ Contents:
 
    intro
    installation
+   create_user
+   warehouse_admin
    
 Indices and tables
 ==================
