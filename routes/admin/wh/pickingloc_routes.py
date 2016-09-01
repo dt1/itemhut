@@ -13,20 +13,23 @@ def add_picking_location(wh):
         return erro404("err")
 
     whu.check_bm(wh_info[0][6])
+
+    d = {"wh" : wh}
+    
     if request.POST.get("add-picking-location"):
-        location_name = request.POST.get("location-name")
-        upc = request.POST.get("upc")
-        err = adm.insert_picking_location(wh, location_name, upc)
+        d["plname"] = request.POST.get("location-name")
+        d["upc"] = request.POST.get("upc")
+        err = admpic.insert_picking_location(d)
         if err:
             err = "{0} already exists".format(location_name)
             return dict(wh_info = wh_info, message = err)
         else:
-            message = "Added {0}".format(location_name)
+            message = "Added {0}".format(d["plname"])
             return dict(wh_info = wh_info, message = message)
 
     elif request.POST.get("upload"):
-        locfile = request.POST.get("loc-file")
-        message = upload_csv(adm.bulk_load_pickinglocs, locfile, wh)
+        d["locfile"] = request.POST.get("loc-file")
+        message = whu.upload_csv(admpic.bulk_load_pickinglocs, d["locfile"], d["wh"])
         return dict(wh_info = wh_info, message = message)
 
     else:

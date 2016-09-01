@@ -63,7 +63,7 @@ def update_pickingloc_info(wh, plid, old_plname, new_plname, upc):
               "upc": upc,
               "plid": plid})
 
-def insert_picking_location(wh, locname, upc):
+def insert_picking_location(d):
         a = dcur.execute(
             """
             select *
@@ -74,12 +74,15 @@ def insert_picking_location(wh, locname, upc):
             where picking_location_id = wpp.picking_location_id
             and warehouse_id = %(wh)s)
             and picking_location_name = %(plname)s;
-            """, {"wh": wh,
-                  "plname": locname})
+            """, d)
         a = dcur.fetchall()
         if a:
             return True
 
+
+        if d["upc"] == "":
+            d["upc"] = None
+            
         a = dcur.execute(
             """
             with new_plid (picking_location_id) as
@@ -91,25 +94,31 @@ def insert_picking_location(wh, locname, upc):
                 (warehouse_id, picking_location_id)
             select %(wh)s, picking_location_id
             from new_plid;
-            """, {"plname": locname,
-                  "upc": upc,
-                  "wh": wh})
+            """, d)
 
 
-def bulk_load_pickinglocs(locfile, wh):
+def bulk_load_pickinglocs(f, wh):
     a = dcur.execute(
         """
+        begin;
         create temp table pls (
         picking_location_name varchar,
-        upc bigint);
+        upc varchar);
+        """)
 
-        copy pls (picking_location_name, upc)
-        from %(file)s csv header;
+    ff = open(f)
+    cur.copy_from(ff, "pls", sep=",")
+
+    a = dcur.execute(
+        """
+        update pls
+        set upc = null
+        where upc = '';
 
         with tpls (picking_location_id) as
              (insert into warehouse.picking_locations
                    (picking_location_name, upc)
-              select picking_location_name, upc
+              select picking_location_name, upc::bigint
               from pls pls
               where not exists
                     (select *
@@ -126,5 +135,5 @@ def bulk_load_pickinglocs(locfile, wh):
         from tpls;
 
         drop table pls;
-        """, {"file": locfile,
-              "wh": wh})
+        commit;
+        """, {"wh": wh})

@@ -44,7 +44,8 @@
     </form>
 
     <h4>or bulk load</h4>
-    <form action="/admin/manage-warehouses/{{wh_info[0][0]}}/add-pallet-locations"
+
+    <form action="/admin/manage-warehouses/{{wh_info[0][0]}}/add-picking-locations"
 	  method="POST"
 	  enctype="multipart/form-data">
       <div class="row">

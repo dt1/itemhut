@@ -24,9 +24,6 @@ def delete_palletloc(pid):
         commit;
         """, {"pid": pid})
 
-import io
-
-    
 def bulk_load_palletlocs(f, wh):
     dcur.execute(
         """
