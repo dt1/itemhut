@@ -8,10 +8,7 @@ __pycache__
 itemhut
 *~
 .~lock.*
-uploaded_files/images/*
-uploaded_files/invoices/*
-uploaded_files/orders/*
-itemhut/uploaded_files/palletloc_files/*
+uploaded_files/*
 data
 session
 email/gmail/client_secret.json
