@@ -6,9 +6,9 @@ import routes.admin.wh.wh_utils as whu
 @route(whu.gen_route("/<wh>/add-picking-locations"))
 @post(whu.gen_route("/<wh>/add-picking-locations"))
 @view(whu.gen_view("add_picking_location"))
+@check_admin
 def add_picking_location(wh):
-    check_admin()
-    wh_info = adm.select_warehouse_info(wh)
+    wh_info = admwh.select_warehouse_info(wh)
     if not wh_info:
         return erro404("err")
 
@@ -35,8 +35,8 @@ def add_picking_location(wh):
 @route(whu.gen_route("/<wh>/picking-locations/edit-<plid>"))
 @post(whu.gen_route("/<wh>/picking-locations/edit-<plid>"))
 @view(whu.gen_view("edit_pickingloc"))
+@check_admin
 def edit_picking_location(wh, plid):
-    check_admin()
     pl_info = adm.select_pickingloc_info(plid)
     if request.POST.get("update-picking-location"):
         locname = request.POST.get("location-name")
@@ -54,18 +54,18 @@ def edit_picking_location(wh, plid):
     return dict(pl_info = pl_info, wh = wh, plid = plid, err = None)
 
 @route(whu.gen_route("/<wh>/delete-pickingloc-<plid>"))
+@check_admin
 def delete_picking_location(wh, plid):
-    check_admin()
     adm.delete_pickingloc(plid)
     url = "/admin/manage-warehouses/{0}/picking-locations".format(wh)
     redirect(url)
 
 @route(whu.gen_route("/<wh>/picking-locations"))
 @view(whu.gen_view("manage_pickinglocs"))
+@check_admin
 def manage_picking_locs(wh):
-    check_admin()    
-    wh_info = adm.select_warehouse_info(wh)
+    wh_info = admwh.select_warehouse_info(wh)
     whu.check_bm(wh_info)
-    pickingloc_list = adm.select_pickinglocs_list(wh)
+    pickingloc_list = admpic.select_pickinglocs_list(wh)
     return dict(pickingloc_list = pickingloc_list,
                 wh_info = wh_info)

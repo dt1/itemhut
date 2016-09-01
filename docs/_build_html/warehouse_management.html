@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Warehouses &#8212; Item Hut 0.1.0.dev1 documentation</title>
+    <title>Warehouse Management &#8212; Item Hut 0.1.0.dev1 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -23,7 +23,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Item Hut 0.1.0.dev1 documentation" href="index.html" /> 
+    <link rel="top" title="Item Hut 0.1.0.dev1 documentation" href="index.html" />
+    <link rel="prev" title="Warehouse Administration" href="warehouse_admin.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -32,6 +33,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="warehouse_admin.html" title="Warehouse Administration"
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Item Hut 0.1.0.dev1 documentation</a> &#187;</li> 
       </ul>
     </div>  
@@ -41,10 +45,18 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="warehouses">
-<h1>Warehouses<a class="headerlink" href="#warehouses" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="lol">
-<h2>lol<a class="headerlink" href="#lol" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="warehouse-management">
+<h1>Warehouse Management<a class="headerlink" href="#warehouse-management" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="adding-pallet-and-picking-locations">
+<h2>Adding Pallet and Picking Locations<a class="headerlink" href="#adding-pallet-and-picking-locations" title="Permalink to this headline">¶</a></h2>
+<p>To manage warehouse picking and pallet locations, go to <em>Admin&gt;Manage Warehouses</em> then select the warehouse you would like to add locations to. The warehouse must me a B&amp;M to add picking and pallet locations.</p>
+<p>There are two ways to add picking and pallet locations:</p>
+<p>1- You can add each location manually.</p>
+<p>2- You can bulk load locations</p>
+<p>The bulk load requires a .csv file. Each location in Column A will recieve it&#8217;s own cell. Do not add headers to the file.</p>
+<p>If there are duplicates in the file, or duplicates of locations in the database, the duplicates will be ignored while the new locations will be added.</p>
+<p>Example of a valid .csv file:</p>
+<img alt="_images/palletloc_csv.png" src="_images/palletloc_csv.png" />
 </div>
 </div>
 
@@ -56,16 +68,19 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Warehouses</a><ul>
-<li><a class="reference internal" href="#lol">lol</a></li>
+<li><a class="reference internal" href="#">Warehouse Management</a><ul>
+<li><a class="reference internal" href="#adding-pallet-and-picking-locations">Adding Pallet and Picking Locations</a></li>
 </ul>
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="warehouse_admin.html"
+                        title="previous chapter">Warehouse Administration</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/warhouses.txt"
+      <li><a href="_sources/warehouse_management.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -89,6 +104,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="warehouse_admin.html" title="Warehouse Administration"
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Item Hut 0.1.0.dev1 documentation</a> &#187;</li> 
       </ul>
     </div>

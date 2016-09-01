@@ -15,6 +15,7 @@ Contents:
    installation
    create_user
    warehouse_admin
+   warehouse_management
    
 Indices and tables
 ==================
