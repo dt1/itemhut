@@ -24,15 +24,21 @@ def delete_palletloc(pid):
         commit;
         """, {"pid": pid})
 
+import io
+
+    
 def bulk_load_palletlocs(f, wh):
-    a = dcur.execute(
+    dcur.execute(
         """
         begin;
         create temp table pls (pallet_location_name varchar);
+        """)
 
-        copy pls
-        from %(file)s csv header;
+    ff = open(f)
+    cur.copy_from(ff, "pls")
 
+    a = dcur.execute(
+        """
         with tpls (pallet_location_id) as
             (insert into warehouse.pallet_locations
                  (pallet_location_name)
