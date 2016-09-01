@@ -11,6 +11,7 @@ itemhut
 uploaded_files/images/*
 uploaded_files/invoices/*
 uploaded_files/orders/*
+itemhut/uploaded_files/palletloc_files/*
 data
 session
 email/gmail/client_secret.json
