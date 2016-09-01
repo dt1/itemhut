@@ -22,4 +22,4 @@ Internals
 
 Internally, B&M and 3PL warehouses behave the same. Instead of adding user-defined pallet locations, the pallet locations are added by system-generated hashes. If you switch a 3PL werehouse to a B&M warehouse, all the same features of a B&M warehouse will be available, though it will take some manual work to get all the data to reflect the reality of the B&M warehouse.
 
-The opposite is also true: you are able to convert a B&M to 3PL and the system will behave as a 3PL.
+The opposite is also true: you are able to convert a B&M to 3PL and the system will behave as a 3PL. Although here is not GUI option to do this at the moment, you are able to change this setting at the database level.
