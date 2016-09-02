@@ -15,17 +15,23 @@ https://itemhut.readthedocs.io/en/latest/
 ###Current Status
 Under active development. To keep things progressing along smoothly, Item Hut is going to begin as an inventory system. However, there are tables for ebay orders, Amazon products, etc. Please refer to the er-diagrams.
 
+The code is going through a large refactoring and documentation stage. At this time, there is a general feature freeze in lieu of bug-fixes as I find them.
+
 ###Currently Working On
+* Order Picking.
 * Order Scan out and Quality Control.
 * User roles and groups.
-* Label Printing.
 * Email fetching.
 * Documentation.
+
+###Contributions Needed For:
+* UX / UI -- I'm not a designer by any stretch of the imagination and any ideas for fixing the look and UX is definitely appreciated.
+* User roles and groups --  the current iteration is flaky at best, and I'm not happy with the current layout. This is a very difficult problem and placed on the back burner for now. Any ideas will be considered.
 
 ###Code Layout
 * / -- The running web-based system
 * build_database/ -- for building out the database, which includes files I'm working on along with the files needed to build the system.
-* /docs/ -- documentation for Read the Docs
+* docs/ -- documentation for Read the Docs
 * email/ -- for email, gmail, gchat integration
 * er-diagrams/ -- ER Diagrams for the database.
 * full/ -- all routes for the full system. All are work in progress, but many have multiple pages, though none are connected to the database.
