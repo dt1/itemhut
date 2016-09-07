@@ -5,6 +5,7 @@
 <head>
   <meta http-equiv="Cache-control" content="no-cache">
   <meta http-equiv="Expires" content="-1">
+  <link rel="stylesheet" type="text/css"  href="https://cdn.jsdelivr.net/foundation/6.2.1/foundation.min.css">
 </head>
 
 <body>
@@ -15,8 +16,19 @@
       <div class="medium-4 columns">
 	<p><b>{{i["image"].rsplit("/")[-1]}}</b></p>
 	<img src="/uploaded_files/images/{{i['image']}}">
+	<input type="hidden" name="img-del" value="{{i['image']}}">
+	<br>
       </div>
       <div class="medium-4 columns">
+	<input type="submit" class="button" name="delete-image"
+	       value="Delete Image"/>
+	<p>replace image:</p>
+	<input type="file" name="new-img">
+	<input type="submit" class="button" value="Replace Image"
+	       name="replace-image">
+      </div>
+      <div class="medium-4 columns">
+	<p><b>Skus</b>:</p>
 	% for sku in i["sku_list"]:
 	% if sku:
 	<p>{{sku}}</p>
@@ -24,17 +36,6 @@
 	% end
       </div>
     </div>
-    <input type="hidden" name="img-del" value="{{i['image']}}">
-    <input type="submit" class="button" name="delete-image"
-	   value="Delete Image"/>
-    <br>
-    <p>replace image:</p>
-    <input type="file" class="button" name="new-img">
-    <br>
-    <input type="submit" class="button" value="Replace Image"
-	   name="replace-image">
-    <br>
-    <br>
   </form>
   % end
   

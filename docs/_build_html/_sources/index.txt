@@ -16,6 +16,7 @@ Contents:
    create_user
    warehouse_admin
    warehouse_management
+   images
    
 Indices and tables
 ==================
