@@ -2,7 +2,7 @@
 
 from route_utils import *
 import models.products.product as prd
-import product_utils as pus
+import routes.product.product_utils as pus
 
 @route("/products")
 @view(pus.gen_view("product_main"))

@@ -3,11 +3,11 @@
 from route_utils import *
 import models.products.product as prd
 
-def gen_route(s):
-    return format("/products/{0}", s)
+def gen_route(r):
+    return "/products/{0}".format(r)
 
-def gen_view(s):
-    return format("views/products/{0}", s)
+def gen_view(v):
+    return "views/products/{0}".format(v)
 
 IMAGE_LIST = ["main-image", "image-one", "image-two",
               "image-three", "image-four","image-five",

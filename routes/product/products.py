@@ -2,11 +2,11 @@
 
 from route_utils import *
 import models.products.product as prd
-import product_utils as pus
+import routes.product.product_utils as pus
     
 @route(pus.gen_route("update-product-<pid>"))
 @post(pus.gen_route("update-product-<pid>"))
-@view(gen_view("update_product"))
+@view(pus.gen_view("update_product"))
 @check_user
 def update_product(pid):
     sku_data = prd.get_sku_data(pid)
@@ -27,8 +27,8 @@ def update_product(pid):
     return dict(sku_data = sku_data, sku_types = stypes,
                 sku = pid)
 
-@route(pus.gen_route("add-product")
-@post(pus.gen_route("add-product")
+@route(pus.gen_route("add-product"))
+@post(pus.gen_route("add-product"))
 @view(pus.gen_view("add_product"), new_sku = None)
 @check_user
 def add_product():

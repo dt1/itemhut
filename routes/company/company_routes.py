@@ -1,6 +1,14 @@
 # This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 from route_utils import *
+import models.companies.companies as com
+
+COMPANY_INFO_LIST = ["company-uid", "company-name", "phone-one",
+                     "phone-two", "fax", "email", "street", "city",
+                     "state", "zip", "country"]
+
+COMPANY_CONTACT_INFO_LIST = ["contact-name", "position", "phone-one",
+                             "phone-two", "email"]
 
 @route("/companies/<cid:int>/contacts/edit-contact-<cnid:int>")
 @post("/companies/<cid:int>/contacts/edit-contact-<cnid:int>")
@@ -9,13 +17,10 @@ from route_utils import *
 def edit_company_contact(cid, cnid):
     cinfo = com.select_company_info(cid)
     contact_info = com.select_contact(cnid)
-    d = {}
-    d["cnid"] = cnid
-    L = ["contact-name", "position", "phone-one", "phone-two",
-         "email"]
+    d = {"cnid": cnid}
+    L = COMPANY_CONTACT_INFO_LIST
     if request.POST.get("edit-contact"):
-        for i in L:
-            d[i] = request.POST.get(i)
+        d = {**{i : request.POST.get(i) for i in L}, **d}
         com.update_contact(d)
         url = "/companies/{0}/contacts/edit-contact-{1}".format(cid, cnid)
         redirect(url)
@@ -30,13 +35,10 @@ def edit_company_contact(cid, cnid):
 @check_user
 def add_company_contact(cid):
     cinfo = com.select_company_info(cid)
-    d = {}
-    d["cid"] = cid
-    L = ["contact-name", "position", "phone-one", "phone-two",
-         "email"]
+    d{"cid": cid}
+    L = COMPANY_CONTACT_INFO_LIST
     if request.POST.get("add-contact"):
-        for i in L:
-            d[i] = request.POST.get(i)
+        d = {**{i : request.POST.get(i) for i in L}, **d}
         cnid = com.add_contact(d)
         url = "/companies/{0}/contacts/edit-contact-{1}".format(cid, cnid[0][0])
         redirect(url)
@@ -62,13 +64,10 @@ def reroute_company(cid):
 @check_user
 def edit_company(cid):
     cinfo = com.select_company_info(cid)
-    d = {}
-    d["cid"] = cid
-    L = ["company-uid", "company-name", "phone-one", "phone-two",
-         "fax", "email", "street", "city", "state", "zip", "country"]
+    d{"cid": cid}
+    L = COMPANY_INFO_LIST
     if request.POST.get("edit-company"):
-        for i in L:
-            d[i] = request.POST.get(i)
+        d = {**{i : request.POST.get(i) for i in L}, **d}
         com.update_company(d)
         url = "/companies/edit-company-{0}".format(cid)
         redirect(url)
@@ -80,12 +79,9 @@ def edit_company(cid):
 @view("views/companies/add_company")
 @check_user
 def add_company():
-    d = {}
-    L = ["company-uid", "company-name", "phone-one", "phone-two",
-         "fax", "email", "street", "city", "state", "zip", "country"]
+    L = COMPANY_INFO_LIST
     if request.POST.get("add-company"):
-        for i in L:
-            d[i] = request.POST.get(i)
+        d = {i : request.POST.get(i) for i in L}
         cid = com.insert_company(d)
         url = "/companies/edit-company-{0}".format(cid[0][0])
         redirect(url)

@@ -2,9 +2,9 @@
 
 from route_utils import *
 import models.products.product as prd
-import product_utils as pus
+import routes.product.product_utils as pus
 
-@route(pus.gen_route("delete-kit-child-<master>/<child>")
+@route(pus.gen_route("delete-kit-child-<master>/<child>"))
 @check_user
 def delete_kit_child(master, child):
     prd.delete_kit_child(master, child)

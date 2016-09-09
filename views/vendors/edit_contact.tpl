@@ -2,6 +2,8 @@
 
 % rebase('global/base.tpl')
 
+% contact_info = contact_info[0]
+
 <div class="expanded row">
   <div class="medium-2 columns">
     % include('vendors/vendor_side_nav.tpl', vendor_info = vendor_info)
@@ -11,30 +13,30 @@
     <div class="row">
       <div class="medium-4 columns">
 	<h4>Edit Contact</h4>
-	<form action="/vendors/{{vid}}/contacts/edit-contact-{{contact_info[0][0]}}" method="POST">
+	<form action="/vendors/{{vid}}/contacts/edit-contact-{{contact_info['contact_id']}}" method="POST">
 	  <label>Name
 	    <input type="text" name="name" required="required"
-		   value="{{contact_info[0][1]}}">
+		   value="{{contact_info['name']}}">
 	  </label>
 
 	  <label>Title
 	    <input type="text" name="title"
-		   value="{{contact_info[0][2]}}">
+		   value="{{contact_info['title']}}">
 	  </label>
 
 	  <label>Phone
 	    <input type="text" name="phone"
-		   value="{{contact_info[0][3]}}">
+		   value="{{contact_info['phone']}}">
 	  </label>
 
 	  <label>Phone 2
 	    <input type="text" name="alt-phone"
-		   value="{{contact_info[0][4]}}">
+		   value="{{contact_info['alt_phone']}}">
 	  </label>
 
 	  <label>email
 	    <input type="text" name="email"
-		   value="{{contact_info[0][5]}}">
+		   value="{{contact_info['email']}}">
 	  </label>
 	  <input type="submit" class="button" name="edit-contact"
 		 value="Update Contact">

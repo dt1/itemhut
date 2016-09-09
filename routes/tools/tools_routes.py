@@ -1,6 +1,7 @@
 # This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 from route_utils import *
+import models.tools.tools as tls
 
 def gen_route(r):
     return "/tools/{0}".format(r)
@@ -50,7 +51,6 @@ def bulk_load_images():
             L.append(i.filename)
         return str(L)
     return dict()
-
 
 @route("/tools")
 @view(gen_view("tools_main"))

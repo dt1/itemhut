@@ -3,7 +3,6 @@
 from route_utils import *
 
 # product routes
-from routes.product.product_routes import *
 from routes.product.main_product_page import *
 from routes.product.products import *
 from routes.product.kits import *

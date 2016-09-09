@@ -1,6 +1,13 @@
 # This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 from route_utils import *
+import models.vendors.vendors as ven
+
+VENDOR_INFO_LIST = ["vendor-id", "vendor-name", "phone", "fax",
+                    "website", "email", "street", "city", "state",
+                    "zip", "country"]
+
+VENDOR_CONTACT_INFO_LIST = ["name", "title", "phone", "alt-phone", "email"]
 
 @route("/vendors/<vid>/contacts/edit-contact-<cid>")
 @post("/vendors/<vid>/contacts/edit-contact-<cid>")
@@ -9,14 +16,16 @@ from route_utils import *
 def edit_vendor_contact(vid, cid):
     vendor_info = ven.get_vendor_info(vid)
     contact_info = ven.select_vendor_contact_info(cid)
-    d = {}
-    d["cid"] = cid
-    L = ["name", "title", "phone", "alt-phone" "email"]
+    d = {"cid": cid}
+    L = VENDOR_CONTACT_INFO_LIST
     if request.POST.get("edit-contact"):
-        for i in L:
-            d[i] = request.POST.get(i)
+        d = {**{i : request.POST.get(i) for i in L}, **d}
+    
         ven.update_vendor_contact(d)
-        redirect("/vendors/{0}/contacts/edit-contact-{1}".format(vid, d["cid"]))
+
+        url = "/vendors/{0}/contacts/edit-contact-{1}".format(vid, cid)
+        redirect(url)
+
     else:
         return dict(contact_info = contact_info, vid = vid,
                     vendor_info = vendor_info)
@@ -78,10 +87,9 @@ def add_vendor_contact(vid):
     vendor_info = ven.get_vendor_info(vid)
     d = {}
     d["vid"] = vid
-    L = ["name", "title", "phone", "alt-phone", "email"]
+    L = VENDOR_CONTACT_INFO_LIST
     if request.POST.get("add-contact"):
-        for i in L:
-            d[i] = request.POST.get(i)
+        d = {**{i : request.POST.get(i) for i in L}, **d}
         ven.insert_vendor_contact(d)
         return dict(contact_name = d["name"], vid = vid,
                     vendor_info = vendor_info)
@@ -104,13 +112,10 @@ def vendor_contacts(vid):
 @check_user
 def edit_vendor(vid):
     vendor_info = ven.get_vendor_info(vid)
-    d = {}
-    d["old-vid"] = vid
-    L = ["vendor-id", "vendor-name", "phone", "fax", "website",
-         "email", "street", "city", "state", "zip", "country"]
+    d = {"old-vid": vid}
+    L = VENDOR_INFO_LIST
     if request.POST.get("update-vendor"):
-        for i in L:
-            d[i] = request.POST.get(i)
+        d = {**{i : request.POST.get(i) for i in L}, **d}
         ven.update_vendor_info(d)
         redirect("/vendors/{0}/edit-vendor".format(d["vendor-id"]))
     else:
@@ -122,14 +127,13 @@ def edit_vendor(vid):
 @check_user
 def add_vendor():
     vendors = ven.select_vendors()
-    d = {}
-    L = ["vendor-id", "vendor-name", "phone", "fax", "website",
-         "email", "street", "city", "state", "zip", "country"]
+    L = VENDOR_INFO_LIST
+
     if request.POST.get("add-vendor"):
-        for i in L:
-            d[i] = request.POST.get(i)
+        d = {i: request.POST.get(i) for i in L}
         ven.insert_new_vendor(d)
         return dict(new_vendor = d["vendor-name"])
+
     else:
         return dict()
 

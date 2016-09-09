@@ -2,6 +2,10 @@
 
 from route_utils import *
 from datetime import datetime
+import models.orders.orders as ords
+
+DELIVERY_INFO_LIST = ["company", "attn", "street", "city", "state",
+                      "zip", "country", "ship-by", "deliver-by"]
 
 @route("/orders/order<oid:int>/delete-shipto-record-<sid:int>")
 @check_user
@@ -81,7 +85,6 @@ def add_company_products(oid, sid):
     return dict(mlist = mlist, oid = oid, sid = sid, pclist = pclist,
                 added_plist = added_plist)
 
-
 @route("/orders/add-order/order<oid:int>/company<cid:int>")
 @check_user
 def redirect_to_company_page(oid, cid):
@@ -96,7 +99,6 @@ def add_order_list_companies(oid):
     clist = ords.select_order_companies(oid)
     return dict(clist = clist)
 
-
 @route("/orders/order<oid:int>/edit-deliver-to-<sid:int>")
 @post("/orders/order<oid:int>/edit-deliver-to-<sid:int>")
 @view("views/orders/edit_deliver_to")
@@ -105,13 +107,10 @@ def add_order_list_companies(oid):
 def edit_deliver_to(oid, sid):
     mlist = ords.select_valid_market_order(oid)
     shipto_info = ords.select_order_shipto(oid)
-    d = {}
-    d["sid"] = sid
-    L = ["company", "attn", "street", "city", "state", "zip",
-         "country", "ship-by", "deliver-by"]
+    d{"sid": sid}
+    L = DELIVERY_INFO_LIST
     if request.POST.get("edit-company"):
-        for i in L:
-            d[i] = request.POST.get(i)
+        d = {**{i : request.POST.get(i) for i in L}, **d}
         ords.edit_shipto_company(d)
         url = "/orders/view-order-{0}".format(oid)
         redirect(url)
@@ -124,24 +123,17 @@ def edit_deliver_to(oid, sid):
 @check_orders_user
 def add_deliver_to(oid):
     mlist = ords.select_valid_market_order(oid)
-    d = {}
-    d["oid"] = oid
-    L = ["company", "attn", "street", "city", "state", "zip",
-         "country", "ship-by", "deliver-by"]
-    if mlist:
-        if request.POST.get("edit-company"):
-            for i in L:
-                d[i] = request.POST.get(i)
-            ords.insert_shipto(oid, shipto_company, shipto_attn,
-                               shipto_street, shipto_city,
-                               shipto_state, shipto_zip,
-                               shipto_country, ship_by_date,
-                               deliver_by_date)
-            url = "/orders/view-order-{0}".format(oid)
-            redirect(url)
-        return dict(mlist = mlist)
-    else:
+    d = {"oid": oid}
+    L = DELIVERY_INFO_LIST
+    if not mlist:
         redirect("/orders/add-order")
+
+    if request.POST.get("edit-company"):
+        d = {**{i : request.POST.get(i) for i in L}, **d}
+        ords.insert_shipto(d)
+        url = "/orders/view-order-{0}".format(oid)
+        redirect(url)
+    return dict(mlist = mlist)
 
 @route("/orders/add-order/order<oid:int>")
 @check_user
@@ -161,12 +153,10 @@ def add_order():
     msku_list = ords.select_valid_mskus()
     market_list = ords.select_valid_marketplaces()
     companies = com.select_companies_with_contacts()
-    d = {}
+
     L = ["order-id", "marketplace", "salesperson-id", "sameship"]
     if request.POST.get("add-order"):
-        for i in L:
-            d[i] = request.POST.get(i)
-
+        d = {i : request.POST.get(i) for i in L}
         com_info = request.POST.get("com-info")
         d["company-id"], d["contact-id"] = com_info.split(',')
         oid = ords.insert_market_step1(d)
