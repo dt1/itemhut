@@ -107,7 +107,7 @@ def add_order_list_companies(oid):
 def edit_deliver_to(oid, sid):
     mlist = ords.select_valid_market_order(oid)
     shipto_info = ords.select_order_shipto(oid)
-    d{"sid": sid}
+    d = {"sid": sid}
     L = DELIVERY_INFO_LIST
     if request.POST.get("edit-company"):
         d = {**{i : request.POST.get(i) for i in L}, **d}

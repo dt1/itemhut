@@ -35,7 +35,7 @@ def edit_company_contact(cid, cnid):
 @check_user
 def add_company_contact(cid):
     cinfo = com.select_company_info(cid)
-    d{"cid": cid}
+    d = {"cid": cid}
     L = COMPANY_CONTACT_INFO_LIST
     if request.POST.get("add-contact"):
         d = {**{i : request.POST.get(i) for i in L}, **d}
@@ -64,7 +64,7 @@ def reroute_company(cid):
 @check_user
 def edit_company(cid):
     cinfo = com.select_company_info(cid)
-    d{"cid": cid}
+    d = {"cid": cid}
     L = COMPANY_INFO_LIST
     if request.POST.get("edit-company"):
         d = {**{i : request.POST.get(i) for i in L}, **d}
