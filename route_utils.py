@@ -11,7 +11,6 @@ import bcrypt
 import hmac
 
 from models.amazon import *
-import models.products.product as prd
 import models.warehouse.warehouse as whs
 import models.vendors.vendors as ven
 # admin

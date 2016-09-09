@@ -2,15 +2,35 @@
 
 from route_utils import *
 
-from routes.product_routes import *
-from routes.warehouse_routes import *
-from routes.vendor_routes import *
+# product routes
+from routes.product.product_routes import *
+from routes.product.main_product_page import *
+from routes.product.products import *
+from routes.product.kits import *
+
+# warehouse routes
+from routes.warehouse.warehouse_routes import *
+
+# vendor routes
+from routes.vendor.vendor_routes import *
+
+# admin routes
 from routes.admin.admin_routes import *
-from routes.incoming_routes import *
-from routes.login_routes import *
-from routes.order_routes import *
-from routes.company_routes import *
-from routes.tools_routes import *
+
+# incoming routes
+from routes.incoming.incoming_routes import *
+
+# login routes
+from routes.login.login_routes import *
+
+# order routes
+from routes.order.order_routes import *
+
+# company routes
+from routes.company.company_routes import *
+
+# tools routes
+from routes.tools.tools_routes import *
 
 # for css, js, img, etc
 @route("/static/<filename:path>")
