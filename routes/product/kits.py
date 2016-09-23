@@ -16,14 +16,12 @@ def delete_kit_child(master, child):
 @view(pus.gen_view("add_kit_children"))
 @check_user
 def add_kit_children(sku):
-    d = {}
-    d["sku"] = sku
+    d = {"sku": sku}
     L = ["kit-sku", "qty"]
     sku_upc = prd.sku_kit_candidates(sku)
     kit_list = prd.select_sku_kits(sku)
     if request.POST.get("add-product"):
-        for i in L:
-            d[i] = request.POST.get(i)
+        d = {**{i : request.POST.get(i) for i in L}, **d}
         prd.insert_kit_child(d)
         url = "/products/add-kit-children-{0}".format(sku)
         redirect(url)
@@ -41,14 +39,11 @@ def update_kit(sku):
 @view(pus.gen_view("add_kit"), err = None, new_sku = None)
 @check_user
 def add_kit():
-    d = {}
-    d["upc"] = None
-    d["sku-type"] = "master"
+    d = {"upc": None,
+         "sku-type": "master"}
     L = pus.KIT_DATA_LIST + pus.IMAGE_LIST
     if request.POST.get("add-kit"):
-        for i in L:
-            d[i] = request.POST.get(i)
-
+        d = {**{i : request.POST.get(i) for i in L}, **d}
         prd.insert_sku_upc(d)
         prd.insert_product_descriptions(d)
         pus.add_product_images(d)

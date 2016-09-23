@@ -167,7 +167,7 @@ def select_picking_locations(wh):
     a = dcur.fetchall()
     return a
 
-def insert_picking_location(wh, picking_location, sku, qty):
+def insert_picking_location(d):
     a = dcur.execute(
         """
         select warehouse_id, warehouse_name, picking_location_name
@@ -176,12 +176,14 @@ def insert_picking_location(wh, picking_location, sku, qty):
         using(warehouse_id)
         join warehouse.picking_locations
         using(picking_location_id)
-        where warehouse_id = %s
-        and picking_location_name = %s;
-        """, [wh, picking_location])
+        where warehouse_id = %(wh)s
+        and picking_location_name = %(picking-location)s;
+        """, d)
     a = dcur.fetchall()
     if a:
-        return "{0} already exists in {1} warehouse".format(picking_location, a[0][1])
+        ploc = d["picking-location"]
+        whname = a[0]["warehouse_name"]
+        return "{0} already exists in {1} warehouse".format(ploc, whname)
 
     else:
         a = dcur.execute(
@@ -189,14 +191,14 @@ def insert_picking_location(wh, picking_location, sku, qty):
             with new_picking_location (new_location_id) as
 	    (insert into warehouse.picking_locations
 	    (picking_location_name, sku, qty)
-	    values (%s, %s, %s::int)
+	    values (%(picking-location)s, %(sku)s, %(upc)s::int)
 	    returning picking_location_id
 	    )
             insert into warehouse.warehouse_picking_loc
 	    (warehouse_id, picking_location_id)
-            select %s, new_location_id
+            select %(wh)s, new_location_id
             from new_picking_location;
-            """, [picking_location, sku, qty, wh])
+            """, d)
     return None
 
 def select_picking_location_info(pid):
@@ -209,17 +211,17 @@ def select_picking_location_info(pid):
     a = dcur.fetchall()
     return a
 
-def update_picking_location_info(pid, picking_location, sku, qty):
+def update_picking_location_info(d):
     a = dcur.execute(
         """
         begin;
         update warehouse.picking_locations
-        set picking_location_name = %s,
-        upc = %s::bigint,
-        qty = %s::int
-        where picking_location_id = %s::int;
+        set picking_location_name = %(picking-location)s,
+        upc = %(upc)s::bigint,
+        qty = %(qty)s::int
+        where picking_location_id = %s(plid)::int;
         commit;
-        """, [picking_location, sku, qty, pid])
+        """, d)
 
 def select_sku_upc_not_in_3pl(wh):
     a = dcur.execute(
@@ -237,7 +239,7 @@ def select_sku_upc_not_in_3pl(wh):
     a = dcur.fetchall()
     return a
 
-def insert_3pl_product(wh, upc, qty):
+def insert_3pl_product(d):
     a = dcur.execute(
         """
         begin;
@@ -245,14 +247,14 @@ def insert_3pl_product(wh, upc, qty):
 	    (insert into warehouse.picking_locations
 		(picking_location_name,
 	         upc, qty)
-	     values (now()::varchar, %s::bigint, %s::int)
+	     values (now()::varchar, %(upc)s::bigint, %(qty)s::int)
 	     returning picking_location_id)
         insert into warehouse.warehouse_picking_loc
 	     (warehouse_id, picking_location_id)
-        select %s, picking_location_id
+        select %(wh)s, picking_location_id
         from new_loc;
         commit;
-        """, [upc, qty, wh])
+        """, d)
 
 def select_3pl_running_inventory(wh):
     a = dcur.execute(
@@ -283,16 +285,15 @@ def select_3pl_running_inventory_sku(wh, sku):
     a = dcur.fetchall()
     return a
 
-def update_3pl_running_inventory(picking_location_id, qty):
+def update_3pl_running_inventory(d):
     a = dcur.execute(
         """
         begin;
         update warehouse.picking_locations
-        set qty = %s::int
-        where picking_location_id = %s;
+        set qty = %(qty)s::int
+        where picking_location_id = %(ploc)s;
         commit;
-        """, [qty, picking_location_id])
-
+        """, d)
 
 def select_case_boxes(pid):
     a = dcur.execute(

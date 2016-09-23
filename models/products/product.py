@@ -106,7 +106,7 @@ def get_upcs():
     res = [i[0] for i in a]
     return res
 
-def insert_new_case_box(upc, box_qty, case_qty):
+def insert_new_case_box(d):
     a = dcur.execute(
         """
         begin;
@@ -117,14 +117,14 @@ def insert_new_case_box(upc, box_qty, case_qty):
 	      ,
         new_box_id (box_id) as
 	      (insert into warehouse.boxes (upc, piece_qty)
-	       values (%s::int, %s::int)
+	       values (%(upc)s::int, %(box-qty)s::int)
 	       returning box_id)
         insert into warehouse.case_box (case_id, box_id, box_qty)
-        select nci.case_id, nbi.box_id, %s::int
+        select nci.case_id, nbi.box_id, %(case-qty)s::int
         from new_case_id nci,
         new_box_id nbi;
         commit;
-        """, [upc, box_qty, case_qty])
+        """, d)
 
 def insert_images(d):
     a = dcur.execute(

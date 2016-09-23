@@ -29,19 +29,15 @@ def quality_control(wh):
 @check_warehouse_user
 def new_warehouse_case_config():
     upc_list = prd.get_upcs()
-    d = {}
     L = ["upc", "box-qty", "case-qty"]
     if request.POST.get("add-config"):
-        for i in L:
-            d[i] = request.POST.get(i)
-        upc = request.POST.get("upc")
-        box_qty = request.POST.get("box-qty")
-        case_qty = request.POST.get("case-qty")
-        if int(upc) in upc_list:
-            prd.insert_new_case_box(upc, box_qty, case_qty)
+        d = {i: request.POST.get(i) for i in L}
+
+        if int(d["upc"]) in upc_list:
+            prd.insert_new_case_box(d)
             return dict(upc_list = upc_list)
         else:
-            err = "UPC invalid: {0}".format(upc)
+            err = "UPC invalid: {0}".format(d["upc"])
             return dict(upc_list = upc_list, err = err)
     else:
         return dict(upc_list = upc_list)
@@ -79,6 +75,8 @@ def warehouse_gen_information(wh):
 def warehouse_add_product(wh):
     wh_info = whs.warehouse_information(wh)
     sku_upc = whs.select_sku_upc_not_in_3pl(wh)
+    L = ["upc", "qty"]
+    
     try:
        wh_info[0][6]
     except:
@@ -86,9 +84,8 @@ def warehouse_add_product(wh):
 
     if wh_info[0][6] == '3PL':
         if request.POST.get("add-product"):
-            upc = request.POST.get("upc")
-            qty = request.POST.get("qty")
-            whs.insert_3pl_product(wh, upc, qty)
+            d = {i: request.POST.get(i) for i in L}
+            whs.insert_3pl_product(d)
             return dict(wh_info = wh_info, sku_upc = sku_upc, upc=upc)
         return dict(wh_info = wh_info, sku_upc = sku_upc)
 
@@ -100,6 +97,7 @@ def warehouse_add_product(wh):
 def update_warehouse_running_inventory(wh, sku):
     wh_info = whs.warehouse_information(wh)
     sku_count = whs.select_3pl_running_inventory_sku(wh, sku)
+    L = ["qty"]
     try:
        wh_info[0][6]
     except:
@@ -107,9 +105,9 @@ def update_warehouse_running_inventory(wh, sku):
 
     if wh_info[0][6] == '3PL' and sku_count:
         if request.POST.get("update-qty"):
-            qty = request.POST.get("qty")
-            picking_loc = sku_count[0][3]
-            whs.update_3pl_running_inventory(picking_loc, qty)
+            d = {i: request.POST.get(i) for i in L}
+            d["ploc"] = sku_count[0]["picking_location_id"]
+            whs.update_3pl_running_inventory(d)
             url = "/warehouses/{0}/update-running-inventory-{1}".format(wh, sku)
             redirect(url)
         return dict(sku_count = sku_count, wh_info = wh_info)
@@ -135,28 +133,27 @@ def warehouse_running_inventory(wh):
                         sku_count = sku_count,
                         wh_info = wh_info)
 
-@route("/warehouses/<wh>/update-picking-location-<pid>")
-@post("/warehouses/<wh>/update-picking-location-<pid>")
+@route("/warehouses/<wh>/update-picking-location-<plid>")
+@post("/warehouses/<wh>/update-picking-location-<plid>")
 @view(gen_view("update_picking_location"))
 @check_user
 @check_warehouse_user
-def update_picking_location(wh, pid):
+def update_picking_location(wh, plid):
     wh_info = whs.warehouse_information(wh)
-    pl_info = whs.select_picking_location_info(pid)
+    pl_info = whs.select_picking_location_info(plid)
     sku_upc = prd.sku_upcs()
+    d = {"plid": plid}
+    L = ["picking-location", "upc", "qty"]
     if wh_info:
         if request.POST.get("update-picking-location"):
-            picking_location = request.POST.get("picking-location")
-            upc = request.POST.get("upc")
-            qty = request.POST.get("qty")
-            whs.update_picking_location_info(pid, picking_location, upc, qty)
-            url = "/warehouses/{0}/update-picking-location-{1}".format(wh, pid)
+            d = {**{i : request.POST.get(i) for i in L}, **d}
+            whs.update_picking_location_info(d)
+            url = "/warehouses/{0}/update-picking-location-{1}".format(wh, plid)
             redirect(url)
-        return dict(pid = pid, wh_info = wh_info, sku_upc = sku_upc,
+        return dict(plid = plid, wh_info = wh_info, sku_upc = sku_upc,
                     pl_info = pl_info)
     else:
         return error404("err")
-
 
 @route("/warehouses/<wh>/add-picking-location")
 @post("/warehouses/<wh>/add-picking-location")
@@ -166,11 +163,11 @@ def update_picking_location(wh, pid):
 def add_warehouse_picking_location(wh):
     wh_info = whs.warehouse_information(wh)
     sku_upc = prd.sku_upcs()
+    d = {"wh": wh}
+    L = ["picking-location", "sku", "upc"]
     if request.POST.get("add-picking-location"):
-        picking_location = request.POST.get("picking-location")
-        sku = request.POST.get("sku")
-        qty = request.POST.get("qty")
-        message = insert_picking_location(wh, picking_location, sku, qty)
+        d = {**{i : request.POST.get(i) for i in L}, **d}
+        message = whs.insert_picking_location(d)
         return dict(wh_info = wh_info, sku_upc = sku_upc,
                     message = message)
     if wh_info:
@@ -209,16 +206,17 @@ def move_to_pickingloc(wh, pid):
 @check_warehouse_user
 def add_pallet_location(wh):
     wh_info = whs.warehouse_information(wh)
+    d = {"wh": wh}
+    L = ["location-name"]
     if wh_info:
         if request.POST.get("add-pallet-location"):
-            location_name = request.POST.get("location-name")
-            whs.insert_pallet_location(wh, location_name)
+            d = {**{i : request.POST.get(i) for i in L}, **d}
+            whs.insert_pallet_location(d)
             return dict(wh_info = wh_info, location_name = location_name)
         return dict(wh_info = wh_info, location_name = None)
     else:
         return error404("err")
 
-    
 @route("/warehouses/<wh>/update-pallet-<pid>/delete-case-<cid>")
 @check_user
 @check_warehouse_user
