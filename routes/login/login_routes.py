@@ -10,6 +10,7 @@ def login_user(username, password):
     user_info = lgn.select_user_password_role(username)
     if user_info:
         hashed = user_info[0][0]
+        hashed = hashed.encode("utf-8")
         urole = user_info[0][1]
         if (hmac.compare_digest(bcrypt.hashpw(password, hashed), hashed)):
             request.session["username"] = username
