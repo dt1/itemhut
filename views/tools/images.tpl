@@ -6,4 +6,8 @@
   <div class="medium-2 columns">
     % include('tools/tools_side_nav')
   </div>
+  <div class="medium-10 columns">
+    <h4>Images</h4>
+    <p><a href = "/tools/images/bulk-load-images">Bulk Load Images</a></p>
+    <p><a href = "/tools/images/image-gallery">Image Gallery</a></p>
 </div>

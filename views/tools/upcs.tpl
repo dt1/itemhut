@@ -6,4 +6,7 @@
   <div class="medium-2 columns">
     % include('tools/tools_side_nav')
   </div>
+  <div class="medium-10 columns">
+    <h4>UPCs</h4>
+    <p><a href = "/tools/upcs/create-upc-labels">Create UPC Labels</a></p>
 </div>

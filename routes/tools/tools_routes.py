@@ -9,14 +9,14 @@ def gen_route(r):
 def gen_view(v):
     return "views/tools/{0}".format(v)
 
-@route(gen_route("create-upc-labels"))
+@route(gen_route("upcs/create-upc-labels"))
 @view(gen_view("create_upc_labels"))
 @check_user
 def create_upc_labels():
     return dict()
 
-@route(gen_route("image-gallery"))
-@post(gen_route("image-gallery"))
+@route(gen_route("images/image-gallery"))
+@post(gen_route("images/image-gallery"))
 @view(gen_view("image_gallery"))
 @check_user
 def image_gallery():
@@ -28,12 +28,11 @@ def image_gallery():
     if request.POST.get("replace-image"):
         d["img-del"] = request.POST.get("img-del")
         d["new-img"] = request.files.get("new-img")
-        return str(d)
         tls.replace_image(d)
     return dict(imgs = imgs)
     
-@route(gen_route("bulk-load-images"))
-@post(gen_route("bulk-load-images"))
+@route(gen_route("images/bulk-load-images"))
+@post(gen_route("images/bulk-load-images"))
 @view(gen_view("bulk_load_images"))
 @check_user
 def bulk_load_images():
@@ -50,6 +49,18 @@ def bulk_load_images():
 
             L.append(i.filename)
         return str(L)
+    return dict()
+
+@route(gen_route("upcs"))
+@view(gen_view("upcs"))
+@check_user
+def upcs():
+    return dict()
+
+@route(gen_route("images"))
+@view(gen_view("images"))
+@check_user
+def images():
     return dict()
 
 @route("/tools")

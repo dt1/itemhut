@@ -6,4 +6,8 @@
   <div class="medium-2 columns">
     % include('tools/tools_side_nav')
   </div>
+  <div class="medium-10 columns">
+    <p><a href = "/tools/create-upc-labels">Create UPC Labels</a></p>
+    <p><a href = "/tools/bulk-load-images">Bulk Load Images</a></p>
+    <p><a href = "/tools/image-gallery">Image Gallery</a></p>
 </div>
