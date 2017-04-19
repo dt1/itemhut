@@ -2,9 +2,9 @@
 
 Item Hut is a free and open-source marketing, ERP, CRM, and channel-management tool mainly focusing on B2B.
 
-###Web Site
+###Demo:
 
-https://itemhut.com/
+http://107.170.232.190:8082/
 
 The version found here is sligtly different. For example, you are able to create users and login. The version on the website tends to lag behind what is found here. Bugs found on the site tend to be fixed here.
 
