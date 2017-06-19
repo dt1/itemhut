@@ -1,4 +1,5 @@
-#Item Hut
+Item Hut
+========
 
 Item Hut is a free and open-source marketing, ERP, CRM, and channel-management tool mainly focusing on B2B.
 
