@@ -13,23 +13,22 @@ Documentation
 
 https://itemhut.readthedocs.io/en/latest/
 
-###Current Status
-Under active development. To keep things progressing along smoothly, Item Hut is going to begin as an inventory system. However, there are tables for ebay orders, Amazon products, etc. Please refer to the er-diagrams.
-
-The code is going through a large refactoring and documentation stage. At this time, there is a general feature freeze in lieu of bug-fixes as I find them.
-
-###Currently Working On
+Was Working On
+--------------
 * Order Picking.
 * Order Scan out and Quality Control.
 * User roles and groups.
 * Email fetching.
 * Documentation.
 
-###Contributions Needed For:
+Contributions Needed
+---------------------
+
 * UX / UI -- I'm not a designer by any stretch of the imagination and any ideas for fixing the look and UX is definitely appreciated.
 * User roles and groups --  the current iteration is flaky at best, and I'm not happy with the current layout. This is a very difficult problem and placed on the back burner for now. Any ideas will be considered.
 
-###Code Layout
+Code Layout
+-----------
 * / -- The running web-based system
 * build_database/ -- for building out the database, which includes files I'm working on along with the files needed to build the system.
 * docs/ -- documentation for Read the Docs
@@ -44,21 +43,19 @@ The code is going through a large refactoring and documentation stage. At this t
 * static/ -- css / js / img.
 * views/ -- html generating templates. Many of these views are for the full system and are not shown on the demo. The extra views connect to the full routes.
 
-####Viewing ER Diagrams
+Viewing ER Diagrams
+-------------------
 
 The ER Diagrams were created using Dia:
 http://dia-installer.de/
 
-####Release Schedule and Upgrading
+Installation
+------------
 
-Item Hut is a nightly rolling release. Each push to this repo should be stable.
-
-There are no update scripts with each version. Some updates will require manual intervention. Be sure to backup your database, diff the schemas, and be prepared to do ETL.
-
-####Installation
 see the documentation: https://itemhut.readthedocs.io/en/latest/
 
-###Expected Features
+Expected Features
+-----------------
 * B2B Customer Management
 * Inventory Management
 * Basic Warehouse Management
@@ -67,7 +64,8 @@ see the documentation: https://itemhut.readthedocs.io/en/latest/
 * Flat File creation
 * Excellent Documentation
 
-####Permissions and Licensing
+Permissions and Licensing
+-------------------------
 
 While I am unable to enforce this, I am a strong believer that a customer's data is their data. I ask that, if you use this program, you allow your customers to own all the data they have supplied to you either through their own input or through the APIs.
 
