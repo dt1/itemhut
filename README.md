@@ -13,6 +13,28 @@ Documentation
 
 https://itemhut.readthedocs.io/en/latest/
 
+Features
+--------
+* Warehousing / inventory - locations, QC in, QC out, movement tracking, pallet creations, etc
+* Local B&M + 3PL warehousing
+* Product management - descriptions, pictures, upc's, model numbers, etc.
+* extra tools, such as upc label creation
+* Company Suppliers CRM
+* Customer CRM - emails, order history, etc info
+* Invoices for incoming Supplies
+* Load images, invoices, other documentation
+* Personnel - Admins, sales, inventory, forklift, managers, etc.
+* Order history from end-user customers.
+
+* Channels Management
+* Ebay - order history, automated listing, feedback, etc (probably doesn't work since eBay constantly updates it's API)
+* Amazon - Flat File generation (the database is partly built by downloading and generating the database from the flat flies).
+* B&M store. This was a work-in-progress, but allowed for some localized storefront inventory and order history. No POS integration though.
+* email integration with g-suite (not sure how well this one was working, but the idea was to have customer orders show up in a side-box and what-have-you)
+
+I haven't used it myself for over a year, so this is all from memory, so possibly missing some information.
+
+
 Was Working On
 --------------
 * Order Picking.
