@@ -8,6 +8,8 @@ Current Status
 
 This project is, for the moment, unmaintained / dead. If you are interested in taking this project over, please feel free to contact me. I will do everything I can to make the transition as smooth as possible.
 
+Even though this project is currently considered dead, if you find a bug, have questions about setup or how to to use the system, please open a bug report. 
+
 Documentation
 -------------
 
